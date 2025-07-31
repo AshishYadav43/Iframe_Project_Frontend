@@ -2,10 +2,9 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <h2>Login</h2>
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" type="email" placeholder="Enter your email">
-      <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email is required</mat-error>
-      <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Enter a valid email</mat-error>
+      <mat-label>UserId</mat-label>
+      <input matInput formControlName="identifier" type="text" placeholder="Enter your userId">
+      <mat-error *ngIf="loginForm.get('identifier')?.hasError('required')">UserId is required</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
@@ -15,6 +14,6 @@
       <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">Minimum 6 characters</mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" class="login-btn" type="submit" [disabled]="!loginForm.valid">Login</button>
+    <button mat-raised-button color="primary" class="login-btn" type="submit" [disabled]="loading">Login</button>
   </form>
 </div>

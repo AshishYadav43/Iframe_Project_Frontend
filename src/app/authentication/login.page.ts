@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+
+import { AuthService } from '../core/services/auth.service';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -14,29 +17,39 @@ import { Router, RouterModule } from '@angular/router';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './login.page.html',
-  styleUrl: './login.page.css'
+  styleUrls: ['./login.page.css']
 })
 export class LoginPage {
-  loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder,
-    private router: Router
-  ) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private api = inject(AuthService);
+
+  loading = false; // Tracks API call status
+
+  loginForm: FormGroup = this.fb.group({
+    identifier: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(6)]]
+  });
+
+  onSubmit(): void {
+    if (this.loginForm.invalid || this.loading) return;
+
+    this.loading = true; // Disable button
+
+    this.api.login(this.loginForm.value).subscribe({
+      next: (res: any) => {
+        this.router.navigateByUrl('/users');
+      },
+      error: (err: any) => {
+        console.error('Login error:', err);
+      },
+      complete: () => {
+        this.loading = false; // Re-enable button
+      }
     });
-  }
-
-  onSubmit() {
-    if (this.loginForm.valid) {
-      // Handle login logic here
-      console.log('Login successful', this.loginForm.value);
-      this.router.navigateByUrl('/users');
-      
-    }
   }
 }
