@@ -9,6 +9,6 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [MatSidenavModule, MatListModule, MatIconModule, RouterModule],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss',
+  styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent {}

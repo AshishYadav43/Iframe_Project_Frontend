@@ -1,28 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  isAuthenticated = false;
+  constructor(private cookieService: CookieService) {}
 
   login(username: string, password: string): boolean {
-    // Sample hardcoded auth check, replace with real API call
     if (username === 'admin@gmail.com' && password === 'admin@123') {
-      this.isAuthenticated = true;
-      localStorage.setItem('token', 'dummy-token');
+      this.cookieService.set('token', 'dummy-token', 1); // expires in 1 day
       return true;
     }
     return false;
   }
 
   logout() {
-    this.isAuthenticated = false;
-    localStorage.removeItem('token');
+    this.cookieService.delete('token');
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return this.cookieService.check('token');
   }
 }
