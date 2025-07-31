@@ -5,6 +5,10 @@
         <mat-icon>dashboard</mat-icon>
         Dashboard
       </a>
+      <a mat-list-item routerLink="/countries">
+        <mat-icon>public</mat-icon>
+        Country
+      </a>
       <a mat-list-item routerLink="/users">
         <mat-icon>group</mat-icon>
         Users
@@ -17,6 +21,6 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <ng-content></ng-content> <!-- ✅ allow child component to project its content -->
+    <ng-content></ng-content> 
   </mat-sidenav-content>
 </mat-sidenav-container>
