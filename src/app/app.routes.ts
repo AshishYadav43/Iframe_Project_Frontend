@@ -3,8 +3,9 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { LayoutComponent } from './layout/layout/layout.component'; // make sure this is created
 import { UserManagementComponent } from './user/user-management/user-management.component';
-import { CountryManagementComponent } from './user/country/country-management/country-management.component';
 import { CurrencyManagementComponent } from './user/currency/currency-management.component';
+import { RoleManagementComponent } from './user/role-management/role-management.component';
+import { CountryManagementComponent } from './user/country/country-management/country-management.component';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,10 @@ export const routes: Routes = [
       {
         path: 'currencies',
         component: CurrencyManagementComponent
+      },
+      {
+        path: 'role',
+        component: RoleManagementComponent
       }
 
     ]

@@ -15,4 +15,7 @@ export class AuthService {
     return this.http.post(`${baseUrl}/auth/login`, data);
   }
   
+  getRole(data: any = {}): Observable<any> {
+    return this.http.post(`${baseUrl}/auth/roles`, data);
+  }
 }

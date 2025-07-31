@@ -6,6 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+import { finalize } from 'rxjs';
+
 import { AuthService } from '../core/services/auth.service';
 
 @Component({
@@ -40,16 +42,13 @@ export class LoginPage {
 
     this.loading = true; // Disable button
 
-    this.api.login(this.loginForm.value).subscribe({
+    this.api.login(this.loginForm.value).pipe(finalize(() => this.loading = false)).subscribe({
       next: (res: any) => {
         this.router.navigateByUrl('/users');
       },
       error: (err: any) => {
         console.error('Login error:', err);
       },
-      complete: () => {
-        this.loading = false; // Re-enable button
-      }
     });
   }
 }
