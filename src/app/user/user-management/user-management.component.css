@@ -1,0 +1,35 @@
+.table-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: #3f51b5;
+  color: white;
+  border-radius: 4px 4px 0 0;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar {
+  margin: 10px 0;
+}
+
+.search-field {
+  width: 300px;
+}
+
+.mat-mdc-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.mat-mdc-row:nth-child(odd) {
+  background-color: #ffffff;
+}
+.mat-mdc-row:hover {
+  background-color: #e6f2ff;
+}

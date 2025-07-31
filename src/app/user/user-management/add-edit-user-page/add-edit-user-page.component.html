@@ -1,0 +1,68 @@
+<mat-card class="user-card">
+    <div class="dialog-header">
+    <h2>{{ userData ? 'Edit User' : 'Add User' }}</h2>
+    <button mat-icon-button color="warn" (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Parent ID</mat-label>
+      <input matInput formControlName="parentId">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Device ID</mat-label>
+      <input matInput formControlName="deviceId">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>IPv4</mat-label>
+      <input matInput formControlName="ipv4">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>IPv6</mat-label>
+      <input matInput formControlName="ipv6">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Mobile Number</mat-label>
+      <input matInput formControlName="mobileNumber">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>User ID</mat-label>
+      <input matInput formControlName="userId">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Wallet Type</mat-label>
+      <mat-select formControlName="wallet_type">
+        <mat-option *ngFor="let type of walletTypes" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Share</mat-label>
+      <input matInput formControlName="share">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+      <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+      {{ loading ? 'Saving...' : (userData ? 'Update User' : 'Add User') }}
+    </button>
+  </form>
+</mat-card>

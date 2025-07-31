@@ -1,0 +1,25 @@
+.user-card {
+  width: 100%;
+  /* margin: 2rem auto; */
+  padding: 1.5rem;
+}
+
+.form-grid {
+  display: grid;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dialog-header h2 {
+  margin: 0;
+}
