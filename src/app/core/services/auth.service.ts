@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { baseUrl } from '../constant/constant';
+import { baseUrl, baseUserUrl } from '../constant/constant';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -17,5 +17,9 @@ export class AuthService {
   
   getRole(data: any = {}): Observable<any> {
     return this.http.post(`${baseUrl}/auth/roles`, data);
+  }
+
+  getUsers(data: any = {}): Observable<any> {
+    return this.http.post(`${baseUserUrl}/users/get`, data);
   }
 }

@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 import { AuthService } from '../../core/services/auth.service';
@@ -26,21 +26,24 @@ import { AuthService } from '../../core/services/auth.service';
   styleUrl: './role-management.component.css'
 })
 export class RoleManagementComponent {
-  displayedColumns: string[] = ['srNo','name', 'status', 'actions'];
+  displayedColumns: string[] = ['srNo', 'name', 'status', 'actions'];
   dataSource = new MatTableDataSource<any>();
   private api = inject(AuthService);
-
-  constructor() {}
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  constructor() { }
 
   ngOnInit() {
-  this.getRoles();
-}
+    this.getRoles();
+  }
 
   getRoles() {
     this.api.getRole().subscribe({
       next: (res: any) => {
         this.dataSource.data = res.data;
-        console.log("RESPONSE",res.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        console.log("RESPONSE", res.data);
       }
     })
   }

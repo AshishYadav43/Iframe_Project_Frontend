@@ -31,10 +31,10 @@ import { AddEditUserPageComponent } from './add-edit-user-page/add-edit-user-pag
 })
 export class UserManagementComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'email', 'wallet_type', 'mobileNumber', 'actions'];
+  displayedColumns: string[] = ['srNo','userId', 'email', 'wallet_type', 'mobileNumber', 'actions'];
   dataSource = new MatTableDataSource<any>();
 
-  private userService = inject(AuthService);
+  private api = inject(AuthService);
   private dialog = inject(MatDialog);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -45,34 +45,11 @@ export class UserManagementComponent implements OnInit {
   }
 
   loadUsers() {
-    this.dataSource.data = [
-      {
-        id: 1,
-        name: 'John Doe',
-        email: 'john@example.com',
-        wallet_type: 'Basic',
-        mobileNumber: '9876543210'
-      },
-      {
-        id: 2,
-        name: 'Jane Smith',
-        email: 'jane@example.com',
-        wallet_type: 'Premium',
-        mobileNumber: '8765432109'
-      },
-      {
-        id: 3,
-        name: 'Mike Johnson',
-        email: 'mike@example.com',
-        wallet_type: 'Enterprise',
-        mobileNumber: '7654321098'
-      }
-    ];
-    // this.userService.getUsers().subscribe(users => {
-    //   this.dataSource.data = users;
-    //   this.dataSource.paginator = this.paginator;
-    //   this.dataSource.sort = this.sort;
-    // });
+    this.api.getUsers().subscribe(users => {
+      this.dataSource.data = users.data;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   applyFilter(event: Event) {
