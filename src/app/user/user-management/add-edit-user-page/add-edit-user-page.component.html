@@ -1,5 +1,5 @@
 <mat-card class="user-card">
-    <div class="dialog-header">
+  <div class="dialog-header">
     <h2>{{ userData ? 'Edit User' : 'Add User' }}</h2>
     <button mat-icon-button color="warn" (click)="onCancel()">
       <mat-icon>close</mat-icon>
@@ -9,43 +9,38 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
 
     <mat-form-field appearance="outline">
+      <mat-label>User ID</mat-label>
+      <input maxlength="20" [appPatternRestrict]="pattern.alphabetsNumbersOnly" matInput formControlName="userId">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
-      <input [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput formControlName="name">
+      <input maxlength="20" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput formControlName="name">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput formControlName="email">
+      <input maxlength="20" [appPatternRestrict]="pattern.email" matInput formControlName="email">
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Parent ID</mat-label>
-      <input matInput formControlName="parentId">
+     <mat-form-field appearance="outline">
+      <mat-label>Mobile Number</mat-label>
+      <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="mobileNumber">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Device ID</mat-label>
-      <input matInput formControlName="deviceId">
+      <input maxlength="20" [appPatternRestrict]="pattern.alphabetsNumbersOnly" matInput formControlName="deviceId">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>IPv4</mat-label>
-      <input matInput formControlName="ipv4">
+      <input maxlength="20" [appPatternRestrict]="pattern.ipv4" matInput formControlName="ipv4">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>IPv6</mat-label>
-      <input matInput formControlName="ipv6">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Mobile Number</mat-label>
-      <input matInput formControlName="mobileNumber">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>User ID</mat-label>
-      <input matInput formControlName="userId">
+      <input maxlength="20" matInput formControlName="ipv6">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -57,7 +52,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Share</mat-label>
-      <input matInput formControlName="share">
+      <input maxlength="2" [appPatternRestrict]="pattern.mobile" matInput formControlName="share">
     </mat-form-field>
 
     <button mat-raised-button color="primary" type="submit" [disabled]="loading">
