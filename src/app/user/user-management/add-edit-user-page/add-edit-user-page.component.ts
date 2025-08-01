@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -12,6 +12,7 @@ import { MatIcon } from '@angular/material/icon';
 
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
+import { passwordMatchValidator } from '../../../core/validation/custom-validation';
 import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
 
 @Component({
@@ -27,7 +28,7 @@ import { PatternRestrictDirective } from '../../../core/directives/directives/pa
     MatCardModule,
     MatProgressSpinnerModule,
     MatIcon,
-    PatternRestrictDirective
+    PatternRestrictDirective,
   ],
   templateUrl: './add-edit-user-page.component.html',
   styleUrls: ['./add-edit-user-page.component.css']
@@ -36,6 +37,8 @@ export class AddEditUserPageComponent implements OnInit {
   pattern = VALIDATION_PATTERNS;
   form!: FormGroup;
   loading = false;
+  hidePassword: boolean = true;
+  hideConfirmPassword: boolean = true;
   walletTypes = ['Basic', 'Premium', 'Enterprise'];
 
   private fb = inject(FormBuilder);
@@ -44,7 +47,7 @@ export class AddEditUserPageComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AddEditUserPageComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // ✅ Initialize form with userData if available
@@ -55,10 +58,17 @@ export class AddEditUserPageComponent implements OnInit {
       ipv4: [this.userData?.ipv4 || ''],
       ipv6: [this.userData?.ipv6 || ''],
       mobileNumber: [this.userData?.mobileNumber || '', Validators.required],
-      userId: [this.userData?.userId || ''],
-      wallet_type: [this.userData?.wallet_type || '', Validators.required],
-      share: [this.userData?.share || '']
+      userId: [this.userData?.userId || '', Validators.required],
+      // wallet_type: [this.userData?.wallet_type || '', Validators.required],
+      // share: [this.userData?.share || '']
     });
+
+    if (!this.userData) {
+      this.form.addControl('password', this.fb.control('', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)]));
+      this.form.addControl('confirmPassword', this.fb.control('', [Validators.required]));
+      this.form.setValidators(passwordMatchValidator("password", "confirmPassword"));
+      this.form.updateValueAndValidity();
+    }
   }
 
   onSubmit(): void {
@@ -70,20 +80,20 @@ export class AddEditUserPageComponent implements OnInit {
     this.loading = true;
     const payload = this.form.value;
 
-    // const request = this.userData
-    //   ? this.userService.updateUser(this.userData.id, payload)
-    //   : this.userService.addUser(payload);
+    const request = this.userData
+      ? this.userService.updateUser(payload)
+      : this.userService.addUser(payload);
 
-    // request.subscribe({
-    //   next: () => {
-    //     this.loading = false;
-    //     this.dialogRef.close(true); // ✅ Close dialog with success
-    //   },
-    //   error: (err) => {
-    //     console.error('Error:', err);
-    //     this.loading = false;
-    //   }
-    // });
+    request.subscribe({
+      next: () => {
+        this.loading = false;
+        this.dialogRef.close(true); // ✅ Close dialog with success
+      },
+      error: (err) => {
+        console.error('Error:', err);
+        this.loading = false;
+      }
+    });
   }
 
   onCancel(): void {

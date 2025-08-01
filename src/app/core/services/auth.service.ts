@@ -30,4 +30,12 @@ export class AuthService {
   getUsers(data: any = {}): Observable<any> {
     return this.http.post(`${baseUserUrl}/users/get`, data);
   }
+
+  updateUser(data: any ) : Observable<any> {
+    return this.http.post(`${baseUserUrl}/users/get`, data);
+  }
+
+  addUser(data: any = {}): Observable<any> {
+    return this.http.post(`${baseUserUrl}/users/add-user`, data);
+  }
 }

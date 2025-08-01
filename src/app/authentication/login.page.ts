@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 import { finalize } from 'rxjs';
 
@@ -19,6 +20,7 @@ import { AuthService } from '../core/services/auth.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatIcon,
     RouterModule,
   ],
   templateUrl: './login.page.html',
@@ -31,10 +33,10 @@ export class LoginPage {
   private api = inject(AuthService);
 
   loading = false; // Tracks API call status
-
+  hidePassword: boolean = true;
   loginForm: FormGroup = this.fb.group({
     identifier: ['', Validators.required],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)]]
   });
 
   onSubmit(): void {
