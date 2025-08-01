@@ -79,6 +79,7 @@ export class CountryManagementComponent implements OnInit {
     this.loading = true;
 
     const payload = {
+      countryName: this.f['name'].value,
       countryId: this.f['id'].value,
       countryCode: this.f['code'].value,
       countryRegion: this.f['region'].value,

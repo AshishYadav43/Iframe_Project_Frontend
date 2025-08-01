@@ -48,9 +48,7 @@ export class ComptititonManagementComponent {
       next: (res: any) => {
         this.dataSource.data = res.data;
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log("DATA",this.dataSource.data);
-        
+        this.dataSource.sort = this.sort;        
       },
       error: (err: any) => {
 
