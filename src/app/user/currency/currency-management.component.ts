@@ -12,6 +12,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AuthService } from '../../core/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
+import { PatternRestrictDirective } from '../../core/directives/directives/pattern-restrict.directive';
+import { VALIDATION_PATTERNS } from '../../core/constant/constant';
+
 @Component({
   selector: 'app-currency-management',
   standalone: true,
@@ -25,12 +28,14 @@ import { finalize } from 'rxjs';
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    PatternRestrictDirective,
   ],
   templateUrl: './currency-management.component.html',
   styleUrl: './currency-management.component.css'
 })
 export class CurrencyManagementComponent {
+  pattern = VALIDATION_PATTERNS;
   searchTerm: string = '';
 
   private api = inject(AuthService);
@@ -52,8 +57,19 @@ export class CurrencyManagementComponent {
   'symbol',
   'country',
   'status',
-  'conversionRate'
+  'conversionRate',
+  'limits'
   ];
+
+  currencyOptions = [
+  { label: "INR - ₹", value: "INR" },
+  { label: "PKR - ₨", value: "PKR" },
+  { label: "BDT - ৳", value: "BDT" },
+  { label: "IDR - Rp", value: "IDR" },
+  { label: "CNY - ¥", value: "CNY" },
+  { label: "VND - ₫", value: "VND" }
+];
+
 
   ngOnInit() {
     this.getAllCountries()
@@ -76,7 +92,7 @@ export class CurrencyManagementComponent {
     this.api.getAllCurrencies().pipe(
       finalize(() => this.loading = false)
     ).subscribe({
-      next: (res: any) => this.currencies = res.data.data ,
+      next: (res: any) => this.currencies = res.data|| res
       // error: () => this.toastr.error('Failed to fetch currencies')
     });
   }

@@ -1,95 +1,96 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 
 import { ToastrService } from 'ngx-toastr';
-
 import { AuthService } from '../../../core/services/auth.service';
 import { finalize } from 'rxjs';
+import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
+import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 
 @Component({
   selector: 'app-country-management',
-  imports: [CommonModule,
-    NgFor,
-    NgIf,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
     MatTableModule,
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    FormsModule],
+    ReactiveFormsModule,
+    PatternRestrictDirective,
+  ],
   templateUrl: './country-management.component.html',
   styleUrls: ['./country-management.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class CountryManagementComponent {
+export class CountryManagementComponent implements OnInit {
+  pattern = VALIDATION_PATTERNS;
+  submitted = false;
   loading = false;
-  displayedColumns: string[] = [
-    'countryName',
-    'countryId',
-    'countryCode',
-    'countryRegion',
-    'countryTimezones',
-    'status'
-  ];
+  showForm = false;
+  countryList: any[] = [];
+  currencies = ['INR', 'NPR', 'USD'];
+  timezones = ['Asia/Kolkata', 'Europe/London', 'UTC', 'America/New_York'];
+  displayedColumns = ['countryName', 'countryId', 'countryCode', 'countryRegion', 'countryTimezones', 'status'];
 
+  countryForm!: FormGroup;
 
   private api = inject(AuthService);
-
-  constructor(private toastr: ToastrService) { }
+  constructor(private toastr: ToastrService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.getAllCountries();
+    this.initForm();
   }
 
-  countryList: any[] = [];
+  initForm() {
+    this.countryForm = this.fb.group({
+      name: ['', [Validators.required, Validators.maxLength(30)]],
+      id: ['', [Validators.required, Validators.maxLength(4)]],
+      code: ['', [Validators.required, Validators.maxLength(2)]],
+      region: ['', [Validators.required, Validators.maxLength(30)]],
+      currency: ['', Validators.required],
+      timezone: [[], Validators.required]
+    });
+  }
 
-  currencies = ['INR', 'NPR', 'USD'];
-  timezones: string[] = ['Asia/Kolkata', 'Europe/London', 'UTC', 'America/New_York'];
-
-
-  newCountry = {
-    name: '',
-    id: '',
-    code: '',
-    region: '',
-    currency: '',
-    timezone: []
-  };
-
-  showForm = false;
+  get f() {
+    return this.countryForm.controls;
+  }
 
   saveCountry() {
-    if (!this.newCountry.name || !this.newCountry.id || !this.newCountry.code || !this.newCountry.region || !this.newCountry.timezone.length) {
-      this.toastr.error('Please fill all fields');
+    this.submitted = true;
+
+    if (this.countryForm.invalid) {
+      this.toastr.error('Please fill all required fields');
       return;
     }
+
     this.loading = true;
+
     const payload = {
-      countryName: this.newCountry.name,
-      countryId: this.newCountry.id,
-      countryCode: this.newCountry.code,
-      countryRegion: this.newCountry.region,
-      countryTimezones: Array.isArray(this.newCountry.timezone)
-        ? this.newCountry.timezone
-        : [this.newCountry.timezone]
+      countryId: this.f['id'].value,
+      countryCode: this.f['code'].value,
+      countryRegion: this.f['region'].value,
+      countryTimezones: this.f['timezone'].value,
     };
+
 
     this.api.addCountry(payload).pipe(finalize(() => this.loading = false)).subscribe({
       next: () => {
         this.toastr.success('Country added successfully');
         this.getAllCountries();
         this.cancel();
-        this.showForm = false;
-      },
-      error: (err) => {
       }
     });
   }
@@ -98,21 +99,13 @@ export class CountryManagementComponent {
     this.api.getAllCountries().subscribe({
       next: (res: any) => {
         this.countryList = res.data || res;
-      },
-      error: (err: any) => {
       }
     });
   }
 
   cancel() {
-    this.newCountry = {
-      name: '',
-      id: '',
-      code: '',
-      region: '',
-      currency: '',
-      timezone: []
-    };
+    this.countryForm.reset();
+    this.submitted = false;
     this.showForm = false;
   }
 }

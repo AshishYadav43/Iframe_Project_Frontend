@@ -30,7 +30,7 @@ import { AuthService } from '../../../../core/services/auth.service';
   styleUrl: './add-edit-sport-page.component.css'
 })
 export class AddEditSportPageComponent {
-   pattern = VALIDATION_PATTERNS;
+  pattern = VALIDATION_PATTERNS;
 
   form!: FormGroup;
   loading = false;
@@ -45,7 +45,7 @@ export class AddEditSportPageComponent {
   constructor(
     private dialogRef: MatDialogRef<AddEditSportPageComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
