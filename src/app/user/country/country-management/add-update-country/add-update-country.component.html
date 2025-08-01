@@ -1,0 +1,71 @@
+<mat-card class="user-card">
+    <div class="dialog-header">
+        <h2>{{ countryData ? 'Edit Country' : 'Add Country' }}</h2>
+        <button mat-icon-button color="warn" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
+
+        <mat-form-field appearance="outline">
+            <mat-label>Country Name</mat-label>
+            <input [appPatternRestrict]="pattern.alphabets" matInput maxlength="50" formControlName="countryName"
+                placeholder="Enter Country Name">
+            <mat-error *ngIf="form.get('countryName')?.hasError('required')">Country Name is required</mat-error>
+            <mat-error *ngIf="form.get('countryName')?.hasError('minlength')">
+                Country Name must be at least 3 characters
+            </mat-error>
+        </mat-form-field>
+
+        <!-- ID -->
+        <mat-form-field appearance="outline">
+            <mat-label>Country Id</mat-label>
+            <input matInput formControlName="countryId" placeholder="Enter Country Id">
+            <mat-error *ngIf="form.get('countryId')?.hasError('required')">Country Id is required</mat-error>
+            <mat-error *ngIf="form.get('countryId')?.hasError('minlength')">
+                Country Id must be at least 3 characters
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Supported Currencies -->
+        <mat-form-field appearance="outline">
+            <mat-label>Country Timezones</mat-label>
+            <mat-select formControlName="countryTimezones" multiple>
+                <mat-option *ngFor="let timeZones of timeZones" [value]="timeZones">
+                    {{ timeZones }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Country Code</mat-label>
+            <input maxlength="2" matInput formControlName="countryCode" placeholder="Enter Country Code">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Short Name</mat-label>
+            <input maxlength="3" matInput formControlName="shortName" placeholder="Enter Short Name">
+            <mat-error *ngIf="form.get('shortName')?.hasError('required')">
+                Short Name is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Number Code</mat-label>
+            <input matInput formControlName="numberCode" placeholder="Enter Number Code">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Country Region</mat-label>
+            <input matInput formControlName="countryRegion" placeholder="Enter Country Region">
+        </mat-form-field>
+
+        <!-- Submit Button -->
+        <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+            <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+            {{ loading ? 'Saving...' : (countryData ? 'Update Country' : 'Add Country') }}
+        </button>
+
+    </form>
+</mat-card>

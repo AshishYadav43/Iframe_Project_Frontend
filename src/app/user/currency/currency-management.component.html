@@ -106,12 +106,12 @@
     </ng-container>
 
     <!-- Limits Column -->
-    <ng-container matColumnDef="limits">
+    <!-- <ng-container matColumnDef="limits">
         <th mat-header-cell *matHeaderCellDef> Limits </th>
         <td mat-cell *matCellDef="let element">
-            <div *ngIf="element?.limits?.length > 0; else noLimits">
-                <div *ngFor="let limit of element.limits.slice(0, 3)">
-                    <strong>{{ limit.code }}</strong>: Min {{ limit.min }}, Max {{ limit.max }}
+            <div *ngIf="element?.pre_fix?.length > 0; else noLimits">
+                <div *ngFor="let limit of element.pre_fix">
+                    <strong>{{ limit.pre_fix }}</strong>: Min {{ limit.min_limit }}, Max {{ limit.max_limit }}
                 </div>
                 <div *ngIf="element.limits.length > 3">
                     ...and {{ element.limits.length - 3 }} 
@@ -119,7 +119,7 @@
             </div>
             <ng-template #noLimits>–</ng-template>
         </td>
-    </ng-container>
+    </ng-container> -->
 
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

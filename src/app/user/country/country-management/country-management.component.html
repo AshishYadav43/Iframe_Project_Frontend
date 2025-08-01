@@ -1,9 +1,9 @@
 <div style="background-color: #3f51b5; color: white; padding: 1rem; border-radius: 4px 4px 0 0; display: flex; justify-content: space-between; align-items: center;">
   <div>Country Management</div>
-  <button mat-raised-button color="accent" (click)="showForm = true"><mat-icon>add</mat-icon>Add Country</button>
+  <button mat-raised-button color="accent" (click)="openDialog()"><mat-icon>add</mat-icon>Add Country</button>
 </div>
 
-<div *ngIf="showForm" class="form-container">
+<!-- <div *ngIf="showForm" class="form-container">
   <form [formGroup]="countryForm" (ngSubmit)="saveCountry()">
     <div class="form-row">
       <mat-form-field appearance="outline">
@@ -56,7 +56,7 @@
       <button mat-button color="warn" type="button" (click)="cancel()">Cancel</button>
     </div>
   </form>
-</div>
+</div> -->
 
 <table mat-table [dataSource]="countryList" class="mat-elevation-z8 full-width-table">
 

@@ -9,10 +9,12 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+
 import { ToastrService } from 'ngx-toastr';
+
 import { VALIDATION_PATTERNS } from '../../../../core/constant/constant';
-import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
 import { AuthService } from '../../../../core/services/auth.service';
+import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
 
 @Component({
   selector: 'app-add-edit-sport-page',
@@ -36,7 +38,14 @@ export class AddEditSportPageComponent {
   loading = false;
 
   companies: { _id: string; name: string }[] = [];
-  sportTypes = ['Cricket', 'Football', 'Tennis', 'Basketball'];
+  sportTypes: { _id: string; name: string }[]  = [
+  { _id: "MANUAL", name: "Manual" },
+  { _id: "LOTTERY", name: "Lottery" },
+  { _id: "LIVE", name: "Live" },
+  { _id: "VIRTUAL", name: "Virtual" },
+  { _id: "TABLE", name: "Table" },
+  { _id: "SLOT", name: "Slot" }
+];
 
   private fb = inject(FormBuilder);
   private api = inject(AuthService);
@@ -54,6 +63,7 @@ export class AddEditSportPageComponent {
       sport_name: [this.userData?.sport_name || '', Validators.required],
       company: [this.userData?.company || '', Validators.required],
       sport_type: [this.userData?.sport_type || '', Validators.required],
+      sport_id: [this.userData?.sport_id || '', Validators.required],
     });
   }
 
@@ -64,7 +74,9 @@ export class AddEditSportPageComponent {
     }
 
     this.loading = true;
+    this.form.value.sport_id = Number(this.form.value.sport_id)
     const payload = this.form.value;
+    
 
     const request = this.userData
       ? this.api.updateSport(payload)

@@ -7,12 +7,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from '../../../core/services/auth.service';
+
 import { finalize } from 'rxjs';
-import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
+
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
+import { AuthService } from '../../../core/services/auth.service';
+import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
+
+import { AddUpdateCountryComponent } from './add-update-country/add-update-country.component';
 
 @Component({
   selector: 'app-country-management',
@@ -44,6 +49,7 @@ export class CountryManagementComponent implements OnInit {
   displayedColumns = ['countryName', 'countryId', 'countryCode', 'countryRegion', 'countryTimezones', 'status'];
 
   countryForm!: FormGroup;
+  private dialog = inject(MatDialog);
 
   private api = inject(AuthService);
   constructor(private toastr: ToastrService, private fb: FormBuilder) { }
@@ -108,5 +114,16 @@ export class CountryManagementComponent implements OnInit {
     this.countryForm.reset();
     this.submitted = false;
     this.showForm = false;
+  }
+
+  openDialog() {    
+    this.dialog.open(AddUpdateCountryComponent, {
+          width: '600px',
+          maxHeight: '90vh',
+          autoFocus: false,
+          data: null
+        }).afterClosed().subscribe((result: any) => {
+          if (result) this.getAllCountries();
+        });
   }
 }

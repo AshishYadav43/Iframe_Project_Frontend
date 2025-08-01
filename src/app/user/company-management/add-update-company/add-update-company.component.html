@@ -1,0 +1,78 @@
+<mat-card class="user-card">
+    <div class="dialog-header">
+        <h2>{{ companyData ? 'Edit Company' : 'Add Company' }}</h2>
+        <button mat-icon-button color="warn" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
+
+        <!-- Company Type -->
+        <mat-form-field appearance="outline">
+            <mat-label>Company Type</mat-label>
+            <mat-select formControlName="companyType">
+                <mat-option *ngFor="let type of companyType" [value]="type.id">
+                    {{ type.name }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('companyType')?.hasError('required')">Company Type is required</mat-error>
+        </mat-form-field>
+
+        <!-- Name -->
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput maxlength="50" formControlName="name" placeholder="Enter Company Name">
+            <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
+        </mat-form-field>
+
+        <!-- ID -->
+        <mat-form-field appearance="outline">
+            <mat-label>ID</mat-label>
+            <input matInput formControlName="id" placeholder="Auto-generated or Enter ID">
+        </mat-form-field>
+
+        <!-- Supported Currencies -->
+        <mat-form-field appearance="outline">
+            <mat-label>Supported Currencies</mat-label>
+            <mat-select formControlName="supportedCurrencies" multiple>
+                <mat-option *ngFor="let currency of currencies" [value]="currency.id">
+                    {{ currency.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Country -->
+        <mat-form-field appearance="outline">
+            <mat-label>Country</mat-label>
+            <mat-select formControlName="country">
+                <mat-option *ngFor="let country of countries" [value]="country.id">
+                    {{ country.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- API Paths -->
+        <div formArrayName="apiPaths" class="api-paths">
+            <div *ngFor="let path of apiPaths.controls; let i = index" class="flex items-center gap-2 mb-2">
+                <mat-form-field appearance="outline" class="flex-1">
+                    <mat-label>Api Paths</mat-label>
+                    <input matInput [formControlName]="i" placeholder="Enter API Path">
+                </mat-form-field>
+                <button mat-icon-button color="warn" (click)="removeApiPath(i)" [disabled]="apiPaths.length === 1">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+            <button mat-stroked-button color="primary" type="button" (click)="addApiPath()">
+                <mat-icon>add</mat-icon> Add Path
+            </button>
+        </div>
+
+        <!-- Submit Button -->
+        <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+            <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+            {{ loading ? 'Saving...' : (companyData ? 'Update Company' : 'Add Company') }}
+        </button>
+
+    </form>
+</mat-card>

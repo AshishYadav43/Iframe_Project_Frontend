@@ -60,7 +60,7 @@ export class CurrencyManagementComponent {
   'country',
   'status',
   'conversionRate',
-  'limits'
+  // 'limits'
   ];
 
   currencyOptions = [
@@ -93,7 +93,11 @@ export class CurrencyManagementComponent {
     this.api.getAllCurrencies().pipe(
       finalize(() => this.loading = false)
     ).subscribe({
-      next: (res: any) => this.currencies = res.data|| res
+      next: (res: any) => {
+        this.currencies = res.data|| res
+        console.log("CURRENCY",this.currencies);
+        
+      }
       // error: () => this.toastr.error('Failed to fetch currencies')
     });
   }

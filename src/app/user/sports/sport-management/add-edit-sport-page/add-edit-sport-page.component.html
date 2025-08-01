@@ -8,12 +8,6 @@
   </div>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
-    <!-- Sport Name -->
-    <mat-form-field appearance="outline">
-      <mat-label>Sport Name</mat-label>
-      <input maxlength="30" [appPatternRestrict]="pattern.alphabetsOnly" matInput formControlName="sport_name" placeholder="Enter Sport Name">
-      <mat-error *ngIf="form.get('sport_name')?.hasError('required')">Sport name is required</mat-error>
-    </mat-form-field>
 
     <!-- Company Dropdown -->
     <mat-form-field appearance="outline">
@@ -28,9 +22,24 @@
     <mat-form-field appearance="outline">
       <mat-label>Sport Type</mat-label>
       <mat-select formControlName="sport_type">
-        <mat-option *ngFor="let type of sportTypes" [value]="type">{{ type }}</mat-option>
+        <mat-option *ngFor="let type of sportTypes" [value]="type.name">{{ type._id }}</mat-option>
       </mat-select>
       <mat-error *ngIf="form.get('sport_type')?.hasError('required')">Sport type is required</mat-error>
+    </mat-form-field>
+
+    <!-- Sport Name -->
+    <mat-form-field appearance="outline">
+      <mat-label>Sport Name</mat-label>
+      <input maxlength="30" [appPatternRestrict]="pattern.alphabetsOnly" matInput formControlName="sport_name"
+        placeholder="Enter Sport Name">
+      <mat-error *ngIf="form.get('sport_name')?.hasError('required')">Sport name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Sport Id</mat-label>
+      <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="sport_id"
+        placeholder="Enter Sport Id">
+      <mat-error *ngIf="form.get('sport_id')?.hasError('required')">Sport Id is required</mat-error>
     </mat-form-field>
 
     <!-- Submit Button -->

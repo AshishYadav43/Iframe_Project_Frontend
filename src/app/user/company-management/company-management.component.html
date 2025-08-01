@@ -1,0 +1,56 @@
+<!-- Table Header -->
+<div class="table-header">
+  <span>Company Management</span>
+  <span class="spacer"></span>
+  <button mat-raised-button color="accent" (click)="openAddCompany()">
+    <mat-icon>add</mat-icon> Add Company
+  </button>
+</div>
+
+<!-- Table -->
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+     <!-- S.No. -->
+    <ng-container matColumnDef="srNo">
+        <th mat-header-cell *matHeaderCellDef>S.No.</th>
+        <td mat-cell *matCellDef="let row; let i = index">
+            {{ i + 1 }}
+        </td>
+    </ng-container>
+  <!-- Name -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+    <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+  </ng-container>
+
+  <!-- Email -->
+  <ng-container matColumnDef="companyType">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Company Type</th>
+    <td mat-cell *matCellDef="let row">{{ row.companyType }}</td>
+  </ng-container>
+
+   <ng-container matColumnDef="country">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Country Name</th>
+    <td mat-cell *matCellDef="let row">{{ row.country?.countryName }}</td>
+  </ng-container>
+
+  <!-- Actions -->
+  <!-- <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-icon-button color="primary" (click)="openEditUser(row)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteUser(row)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container> -->
+
+  <!-- Table Rendering -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+<!-- Paginator -->
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

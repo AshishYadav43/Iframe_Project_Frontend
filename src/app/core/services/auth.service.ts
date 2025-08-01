@@ -74,6 +74,14 @@ export class AuthService {
     return this.http.post(`${baseUserUrl}/company/lists`, data);
   }
 
+  addCompany(data: any = {}): Observable<any> {
+    return this.http.post(`${baseUserUrl}/company/add`, data);
+  }
+
+  timezone(data: any = {}): Observable<any> {
+    return this.http.post(`${baseUserUrl}/country/timezone`, data);
+  }
+
   logout(data: any = {}): Observable<any> {
     return this.http.post(`${baseUrl}/auth/logout`, data);
   }
