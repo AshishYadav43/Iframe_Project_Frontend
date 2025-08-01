@@ -7,5 +7,7 @@ export const VALIDATION_PATTERNS = {
   ipv4: '^[0-9.]*$',
   alphabets: '^[a-zA-Z\\s]+$',
   alphaNumericWithSpace: '^[A-Za-z0-9\\s]*$',
-  alphabetsNumbersOnly: '^[A-Za-z0-9]*$'
+  alphabetsNumbersOnly: '^[A-Za-z0-9]*$',
+  alphabetsOnly: '^[a-zA-Z ]+$',
+  numbersOnly: '^[0-9]+$'
 };

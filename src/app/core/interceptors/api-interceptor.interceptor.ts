@@ -14,7 +14,7 @@ export const apiInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
   });
   return next(clonedReq).pipe(
     catchError((error: HttpErrorResponse) => {
-      toaster.error(error.error.message)
+      // toaster.error(error.error.message)
       return throwError(() => error);
     })
   );

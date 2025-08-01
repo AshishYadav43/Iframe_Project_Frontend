@@ -1,0 +1,42 @@
+<!-- Updated Template: add-edit-sport-page.component.html -->
+<mat-card class="user-card">
+  <div class="dialog-header">
+    <h2>{{ userData ? 'Edit Sport' : 'Add Sport' }}</h2>
+    <button mat-icon-button color="warn" (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
+    <!-- Sport Name -->
+    <mat-form-field appearance="outline">
+      <mat-label>Sport Name</mat-label>
+      <input maxlength="30" [appPatternRestrict]="pattern.alphabetsOnly" matInput formControlName="sport_name" placeholder="Enter Sport Name">
+      <mat-error *ngIf="form.get('sport_name')?.hasError('required')">Sport name is required</mat-error>
+    </mat-form-field>
+
+    <!-- Company Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Company</mat-label>
+      <mat-select formControlName="company">
+        <mat-option *ngFor="let company of companies" [value]="company">{{ company }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('company')?.hasError('required')">Company is required</mat-error>
+    </mat-form-field>
+
+    <!-- Sport Type Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Sport Type</mat-label>
+      <mat-select formControlName="sport_type">
+        <mat-option *ngFor="let type of sportTypes" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('sport_type')?.hasError('required')">Sport type is required</mat-error>
+    </mat-form-field>
+
+    <!-- Submit Button -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+      <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+      {{ loading ? 'Saving...' : (userData ? 'Update Sport' : 'Add Sport') }}
+    </button>
+  </form>
+</mat-card>

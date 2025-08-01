@@ -6,6 +6,7 @@ import { UserManagementComponent } from './user/user-management/user-management.
 import { CurrencyManagementComponent } from './user/currency/currency-management.component';
 import { RoleManagementComponent } from './user/role-management/role-management.component';
 import { CountryManagementComponent } from './user/country/country-management/country-management.component';
+import { SportManagementComponent } from './user/sports/sport-management/sport-management.component';
 
 export const routes: Routes = [
   {
@@ -38,6 +39,10 @@ export const routes: Routes = [
       {
         path: 'currencies',
         component: CurrencyManagementComponent
+      },
+      {
+        path: 'sports',
+        component: SportManagementComponent
       },
       {
         path: 'role',

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 import { AuthService } from '../../../core/services/auth.service';
+import { finalize } from 'rxjs';
+
 @Component({
   selector: 'app-country-management',
   imports: [CommonModule,
@@ -24,11 +26,12 @@ import { AuthService } from '../../../core/services/auth.service';
     MatSelectModule,
     FormsModule],
   templateUrl: './country-management.component.html',
-  styleUrl: './country-management.component.css'
+  styleUrls: ['./country-management.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CountryManagementComponent {
-
-    displayedColumns: string[] = [
+  loading = false;
+  displayedColumns: string[] = [
     'countryName',
     'countryId',
     'countryCode',
@@ -38,7 +41,7 @@ export class CountryManagementComponent {
   ];
 
 
-  private api=inject(AuthService);
+  private api = inject(AuthService);
 
   constructor(private toastr: ToastrService) { }
 
@@ -64,6 +67,11 @@ export class CountryManagementComponent {
   showForm = false;
 
   saveCountry() {
+    if (!this.newCountry.name || !this.newCountry.id || !this.newCountry.code || !this.newCountry.region || !this.newCountry.timezone.length) {
+      this.toastr.error('Please fill all fields');
+      return;
+    }
+    this.loading = true;
     const payload = {
       countryName: this.newCountry.name,
       countryId: this.newCountry.id,
@@ -74,11 +82,12 @@ export class CountryManagementComponent {
         : [this.newCountry.timezone]
     };
 
-    this.api.addCountry(payload).subscribe({
+    this.api.addCountry(payload).pipe(finalize(() => this.loading = false)).subscribe({
       next: () => {
+        this.toastr.success('Country added successfully');
         this.getAllCountries();
         this.cancel();
-          this.showForm = false; 
+        this.showForm = false;
       },
       error: (err) => {
       }
@@ -88,7 +97,7 @@ export class CountryManagementComponent {
   getAllCountries() {
     this.api.getAllCountries().subscribe({
       next: (res: any) => {
-        this.countryList = res.data || res; // Adjust based on API response shape
+        this.countryList = res.data || res;
       },
       error: (err: any) => {
       }
@@ -104,6 +113,6 @@ export class CountryManagementComponent {
       currency: '',
       timezone: []
     };
-      this.showForm = false; 
+    this.showForm = false;
   }
 }

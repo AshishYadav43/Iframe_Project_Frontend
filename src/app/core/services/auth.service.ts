@@ -38,4 +38,23 @@ export class AuthService {
   addUser(data: any = {}): Observable<any> {
     return this.http.post(`${baseUserUrl}/users/add-user`, data);
   }
+  addCurrency(data: any): Observable<any> {
+    return this.http.post(`${baseUserUrl}/currency/add`, data);
+  }
+
+  getAllCurrencies(data: any = {}): Observable<any> {
+    return this.http.post(`${baseUserUrl}/currency/getCurrency`, data);
+  }
+
+  getAllSports(data: any = {}): Observable<any> {
+    return this.http.post(`${baseUserUrl}/sport/getSports`, data);
+  }
+
+  addSport(data: any): Observable<any> {
+    return this.http.post(`${baseUserUrl}/sport/createSport`, data);
+  }
+
+  updateSport(data: any): Observable<any> {
+    return this.http.post(`${baseUserUrl}/sport/updateSport`, data);
+  }
 }
