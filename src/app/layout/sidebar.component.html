@@ -24,12 +24,20 @@
         Users
       </a>
        <a mat-list-item routerLink="/role">
-        <mat-icon>group</mat-icon>
+        <mat-icon>security</mat-icon>
         Roles
       </a>
-      <a mat-list-item routerLink="/settings">
-        <mat-icon>settings</mat-icon>
-        Settings
+      <a mat-list-item routerLink="/module">
+        <mat-icon>view_module</mat-icon>
+        Module
+      </a>
+      <a mat-list-item routerLink="/comptition">
+        <mat-icon>emoji_events</mat-icon>
+        Comptition
+      </a>
+      <a mat-list-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Logout
       </a>
     </mat-nav-list>
   </mat-sidenav>

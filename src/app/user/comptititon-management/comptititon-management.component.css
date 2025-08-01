@@ -1,0 +1,45 @@
+.table-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: #e94e06;
+  color: white;
+  border-radius: 4px 4px 0 0;
+}
+
+.table-header button {
+    color: #e94e06 !important;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar {
+  margin: 10px 0;
+}
+
+.search-field {
+  width: 300px;
+}
+
+::ng-deep .mat-mdc-header-row {
+  background-color: black !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+.mat-mdc-row:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.mat-mdc-row:nth-child(odd) {
+  background-color: white;
+}
+.mat-mdc-row:hover {
+  background-color: #f2f2f2;
+}

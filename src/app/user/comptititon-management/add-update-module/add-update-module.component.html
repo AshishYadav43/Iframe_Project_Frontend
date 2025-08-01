@@ -1,0 +1,100 @@
+<mat-card class="user-card">
+    <div class="dialog-header">
+        <h2>{{ comptitionData ? 'Edit Competition' : 'Add Competition' }}</h2>
+        <button mat-icon-button color="warn" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
+
+        <!-- Company Selection -->
+        <mat-form-field appearance="outline">
+            <mat-label>Company Selection</mat-label>
+            <mat-select formControlName="companySelection">
+                <mat-option *ngFor="let company of companyType" [value]="company.id">{{ company.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('companySelection')?.hasError('required')">
+                Company Selection is required
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Sport Type -->
+        <mat-form-field appearance="outline">
+            <mat-label>Sport Type</mat-label>
+            <mat-select formControlName="sportType">
+                <mat-option *ngFor="let sport of sportTypes" [value]="sport.id">{{ sport.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('sportType')?.hasError('required')">
+                Sport Type is required
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Company -->
+        <mat-form-field appearance="outline">
+            <mat-label>Company</mat-label>
+            <mat-select formControlName="company">
+                <mat-option *ngFor="let comp of companies" [value]="comp.id">{{ comp.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('company')?.hasError('required')">
+                Company is required
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Country -->
+        <mat-form-field appearance="outline">
+            <mat-label>Country</mat-label>
+            <mat-select formControlName="country">
+                <mat-option *ngFor="let c of countries" [value]="c?.id">{{ c?.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('country')?.hasError('required')">
+                Country is required
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Currency -->
+        <mat-form-field appearance="outline">
+            <mat-label>Currency</mat-label>
+            <mat-select formControlName="currency">
+                <mat-option *ngFor="let cur of currencies" [value]="cur.id">{{ cur.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('currency')?.hasError('required')">
+                Currency is required
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Competition Name -->
+        <mat-form-field appearance="outline">
+            <mat-label>Competition Name</mat-label>
+            <input [appPatternRestrict]="pattern.alphabets" matInput formControlName="competitionName" placeholder="Enter Competition Name">
+            <mat-error *ngIf="form.get('competitionName')?.hasError('required')">
+                Competition Name is required
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Event Name -->
+        <mat-form-field appearance="outline">
+            <mat-label>Event Name</mat-label>
+            <input [appPatternRestrict]="pattern.alphabets" matInput formControlName="eventName" placeholder="Enter Event Name">
+            <mat-error *ngIf="form.get('eventName')?.hasError('required')">
+                Event Name is required
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Market Name -->
+        <mat-form-field appearance="outline">
+            <mat-label>Market Name</mat-label>
+            <input [appPatternRestrict]="pattern.alphabets" matInput formControlName="marketName" placeholder="Enter Market Name">
+            <mat-error *ngIf="form.get('marketName')?.hasError('required')">
+                Market Name is required
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Submit -->
+        <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+            <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+            {{ loading ? 'Saving...' : (comptitionData ? 'Update Competition' : 'Add Competition') }}
+        </button>
+
+    </form>
+</mat-card>

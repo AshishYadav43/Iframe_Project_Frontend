@@ -9,5 +9,5 @@ export const VALIDATION_PATTERNS = {
   alphaNumericWithSpace: '^[A-Za-z0-9\\s]*$',
   alphabetsNumbersOnly: '^[A-Za-z0-9]*$',
   alphabetsOnly: '^[a-zA-Z ]*$',
-  numbersOnly: '^[0-9]+$'
+  password: '^[^<>]*$'
 };

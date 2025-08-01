@@ -11,7 +11,11 @@ import { finalize } from 'rxjs';
 
 import { ToastrService } from 'ngx-toastr';
 
+import Fingerprint2 from 'fingerprintjs2';
+
+import { VALIDATION_PATTERNS } from '../core/constant/constant';
 import { AuthService } from '../core/services/auth.service';
+import { PatternRestrictDirective } from '../core/directives/directives/pattern-restrict.directive';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +28,7 @@ import { AuthService } from '../core/services/auth.service';
     MatButtonModule,
     MatIcon,
     RouterModule,
+    PatternRestrictDirective
   ],
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.css']
@@ -34,19 +39,48 @@ export class LoginPage {
   private router = inject(Router);
   private api = inject(AuthService);
   private toaster = inject(ToastrService);
-  
+  captchaUrl = '';
+  captchaLoaded = false;
+  fingerprintHash = '';
+  resultMessage = '';
+  resultClass = '';
+
   loading = false; // Tracks API call status
   hidePassword: boolean = true;
+  pattern = VALIDATION_PATTERNS;
   loginForm: FormGroup = this.fb.group({
     identifier: ['', Validators.required],
-    password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)]]
+    password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)]],
+    validCode: ['', [
+      Validators.required,
+      Validators.pattern(/^[0-9]{1,4}$/)
+    ]]
   });
+
+  ngOnInit(): void {
+    // 👇 Generate fingerprint and load CAPTCHA
+    Fingerprint2.get((components: any) => {
+      this.fingerprintHash = Fingerprint2.x64hash128(
+        components.map((c: any) => c.value).join(''),
+        31
+      );
+      this.loadCaptcha();
+    });
+  }
+
+   loadCaptcha(): void {
+    const timestamp = Date.now();
+    this.captchaLoaded = false;
+    this.captchaUrl = `https://node.fluc.eu/api/v1/users/captcha?fp=${this.fingerprintHash}&_t=${timestamp}`;
+    this.resultMessage = '';
+    this.resultClass = '';
+  }
 
   onSubmit(): void {
     if (this.loginForm.invalid || this.loading) return;
 
     this.loading = true; // Disable button
-
+    delete this.loginForm.value.validCode;
     this.api.login(this.loginForm.value).pipe(finalize(() => this.loading = false)).subscribe({
       next: (res: any) => {
         this.toaster.success("Login successfully");

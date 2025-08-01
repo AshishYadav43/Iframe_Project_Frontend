@@ -9,12 +9,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { AuthService } from '../../core/services/auth.service';
-import { ToastrService } from 'ngx-toastr';
-import { finalize } from 'rxjs';
-import { PatternRestrictDirective } from '../../core/directives/directives/pattern-restrict.directive';
-import { VALIDATION_PATTERNS } from '../../core/constant/constant';
 
+import { ToastrService } from 'ngx-toastr';
+
+import { finalize } from 'rxjs';
+
+import { VALIDATION_PATTERNS } from '../../core/constant/constant';
+import { AuthService } from '../../core/services/auth.service';
+import { PatternRestrictDirective } from '../../core/directives/directives/pattern-restrict.directive';
 @Component({
   selector: 'app-currency-management',
   standalone: true,
@@ -82,7 +84,6 @@ export class CurrencyManagementComponent {
         this.countries = res.data || res;
       },
       error: (err: any) => {
-        console.error('Error loading countries:', err);
       }
     });
   }

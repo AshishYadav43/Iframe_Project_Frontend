@@ -35,7 +35,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <!-- <input type="password" matInput formControlName="password"> -->
-        <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password" placeholder="Enter your Password">
+        <input maxlength="20" [appPatternRestrict]="pattern.password" [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password" placeholder="Enter your Password">
         <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
           <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
@@ -47,7 +47,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Confirm Password</mat-label>
-        <input [type]="hideConfirmPassword ? 'password' : 'text'" matInput formControlName="confirmPassword" placeholder="Enter your Confirm Password">
+        <input maxlength="20" [appPatternRestrict]="pattern.password" [type]="hideConfirmPassword ? 'password' : 'text'" matInput formControlName="confirmPassword" placeholder="Enter your Confirm Password">
         <button mat-icon-button matSuffix type="button" (click)="hideConfirmPassword = !hideConfirmPassword">
           <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
@@ -81,7 +81,7 @@
     <!-- IPv6 -->
     <mat-form-field appearance="outline">
       <mat-label>IPv6</mat-label>
-      <input maxlength="50" matInput formControlName="ipv6" placeholder="Enter your IPV6">
+      <input maxlength="20" matInput formControlName="ipv6" placeholder="Enter your IPV6">
     </mat-form-field>
 
     <!-- Wallet Type -->

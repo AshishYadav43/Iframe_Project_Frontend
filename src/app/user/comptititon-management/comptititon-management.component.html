@@ -1,0 +1,67 @@
+<!-- Table Header -->
+<div class="table-header">
+  <span>Comptition Management</span>
+  <span class="spacer"></span>
+  <button mat-raised-button color="accent" (click)="openAddComptition()">
+    <mat-icon>add</mat-icon> Add Comptition
+  </button>
+</div>
+
+<!-- Table -->
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+     <!-- S.No. -->
+    <ng-container matColumnDef="srNo">
+        <th mat-header-cell *matHeaderCellDef>S.No.</th>
+        <td mat-cell *matCellDef="let row; let i = index">
+            {{ i + 1 }}
+        </td>
+    </ng-container>
+
+  <ng-container matColumnDef="company">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Company</th>
+    <td mat-cell *matCellDef="let row">{{ row.company?.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="companySelection">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Company Selection</th>
+    <td mat-cell *matCellDef="let row">{{ row.companySelection }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="competitionName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Competition Name</th>
+    <td mat-cell *matCellDef="let row">{{ row.competitionName }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="country">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
+    <td mat-cell *matCellDef="let row">{{ row.country?.countryName }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="currency">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Currency</th>
+    <td mat-cell *matCellDef="let row">{{ row.currency?.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="eventName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Event Name</th>
+    <td mat-cell *matCellDef="let row">{{ row.eventName }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="marketName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Market Name</th>
+    <td mat-cell *matCellDef="let row">{{ row.marketName }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="sportType">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sport Type</th>
+    <td mat-cell *matCellDef="let row">{{ row.sportType }}</td>
+  </ng-container>
+
+  <!-- Table Rendering -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+<!-- Paginator -->
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

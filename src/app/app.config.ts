@@ -4,7 +4,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-import { provideToastr } from 'ngx-toastr'; 
+import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
 
@@ -12,10 +12,12 @@ import { apiInterceptorInterceptor } from './core/interceptors/api-interceptor.i
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideHttpClient(withInterceptors([apiInterceptorInterceptor])), provideRouter(routes), provideClientHydration(withEventReplay()),
-      provideAnimations(), 
-  provideToastr({          
-      timeOut: 3000,
-      positionClass: 'toast-top-right',
-      progressBar: true,
-    }),  ]
+  provideAnimations(),
+  provideToastr({
+    timeOut: 3000,
+    positionClass: 'toast-top-right',
+    progressBar: true,
+    closeButton: true,
+    preventDuplicates: true
+  }),]
 };

@@ -16,11 +16,11 @@ export class AuthService {
   }
 
   addCountry(data: any): Observable<any> {
-    return this.http.post(`${baseUserUrl}/countries/addCountry`, data);
+    return this.http.post(`${baseUserUrl}/country/addCountry`, data);
   }
 
   getAllCountries(): Observable<any> {
-    return this.http.post(`${baseUserUrl}/countries/lists`, {});
+    return this.http.post(`${baseUserUrl}/country/lists`, {});
   }
   
   getRole(data: any = {}): Observable<any> {
@@ -56,5 +56,25 @@ export class AuthService {
 
   updateSport(data: any): Observable<any> {
     return this.http.post(`${baseUserUrl}/sport/updateSport`, data);
+  }
+  
+  updateComptition(data: any ) : Observable<any> {
+    return this.http.post(`${baseUserUrl}/users/get`, data);
+  }
+
+  addComptition(data: any = {}): Observable<any> {
+    return this.http.post(`${baseUserUrl}/competition/add`, data);
+  }
+
+  getComptition(data: any = {}): Observable<any> {
+    return this.http.post(`${baseUserUrl}/competition/get`, data);
+  }
+
+  getCompany(data: any = {}): Observable<any> {
+    return this.http.post(`${baseUserUrl}/company/lists`, data);
+  }
+
+  logout(data: any = {}): Observable<any> {
+    return this.http.post(`${baseUrl}/auth/logout`, data);
   }
 }

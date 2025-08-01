@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
 
-import { authGuard } from './core/guards/auth.guard';
 import { LayoutComponent } from './layout/layout/layout.component'; // make sure this is created
 import { UserManagementComponent } from './user/user-management/user-management.component';
+import { ComptititonManagementComponent } from './user/comptititon-management/comptititon-management.component';
 import { CurrencyManagementComponent } from './user/currency/currency-management.component';
+import { ModuleManagementComponent } from './user/module-management/module-management.component';
 import { RoleManagementComponent } from './user/role-management/role-management.component';
 import { CountryManagementComponent } from './user/country/country-management/country-management.component';
 import { SportManagementComponent } from './user/sports/sport-management/sport-management.component';
@@ -47,6 +48,14 @@ export const routes: Routes = [
       {
         path: 'role',
         component: RoleManagementComponent
+      },
+      {
+        path: 'module',
+        component: ModuleManagementComponent
+      },
+      {
+        path: 'comptition',
+        component: ComptititonManagementComponent
       }
 
     ]
