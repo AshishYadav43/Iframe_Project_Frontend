@@ -18,19 +18,19 @@
 <!-- Name -->
 <ng-container matColumnDef="name">
   <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-  <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+  <td mat-cell *matCellDef="let row">{{ row?.sport_name }}</td>
 </ng-container>
 
 <!-- Company -->
 <ng-container matColumnDef="company">
   <th mat-header-cell *matHeaderCellDef mat-sort-header>Company</th>
-  <td mat-cell *matCellDef="let row">{{ row.company }}</td>
+  <td mat-cell *matCellDef="let row">{{ row?.company_name }}</td>
 </ng-container>
 
 <!-- Sport Type -->
 <ng-container matColumnDef="sportType">
   <th mat-header-cell *matHeaderCellDef mat-sort-header>Sport Type</th>
-  <td mat-cell *matCellDef="let row">{{ row.sportType }}</td>
+  <td mat-cell *matCellDef="let row">{{ row?.sport_type }}</td>
 </ng-container>
 
 

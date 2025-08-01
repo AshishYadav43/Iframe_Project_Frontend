@@ -35,7 +35,7 @@ export class AddEditSportPageComponent {
   form!: FormGroup;
   loading = false;
 
-  companies: {id: string,name: string}[] = [];
+  companies: { _id: string; name: string }[] = [];
   sportTypes = ['Cricket', 'Football', 'Tennis', 'Basketball'];
 
   private fb = inject(FormBuilder);
@@ -45,7 +45,7 @@ export class AddEditSportPageComponent {
   constructor(
     private dialogRef: MatDialogRef<AddEditSportPageComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
-  ) { 
+  ) {
     this.getCompany();
   }
 
@@ -91,7 +91,7 @@ export class AddEditSportPageComponent {
       next: (res: any) => {
         this.companies = res.data.map((ele: any) => {
           return {
-            id: ele._id,
+            _id: ele._id,
             name: ele.name
           }
         })

@@ -19,7 +19,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Company</mat-label>
       <mat-select formControlName="company">
-        <mat-option *ngFor="let company of companies" [value]="company">{{ company }}</mat-option>
+        <mat-option *ngFor="let company of companies" [value]="company._id">{{ company?.name }}</mat-option>
       </mat-select>
       <mat-error *ngIf="form.get('company')?.hasError('required')">Company is required</mat-error>
     </mat-form-field>
