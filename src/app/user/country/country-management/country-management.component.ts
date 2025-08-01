@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-country-management',
   imports: [CommonModule,
@@ -37,7 +38,7 @@ export class CountryManagementComponent {
 
   private api=inject(AuthService);
 
-  constructor() { }
+  constructor(private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllCountries();
