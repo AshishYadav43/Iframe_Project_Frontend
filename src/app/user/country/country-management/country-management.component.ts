@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../core/services/auth.service';
 @Component({
   selector: 'app-country-management',
   imports: [CommonModule,
@@ -24,14 +25,29 @@ import { FormsModule } from '@angular/forms';
 })
 export class CountryManagementComponent {
 
-  countries = [
-    { name: 'Lanka', id: '123', code: 'LKA', symbol: '$', status: 'Active' },
-    { name: 'Nepal', id: 'NPL', code: 'NPL', symbol: '$', status: 'Active' },
-    { name: 'India', id: 'IND', code: 'IND', symbol: '$', status: 'Active' }
+    displayedColumns: string[] = [
+    'countryName',
+    'countryId',
+    'countryCode',
+    'countryRegion',
+    'countryTimezones',
+    'status'
   ];
 
-  timezones = ['Asia/Kolkata', 'Asia/Kathmandu', 'Asia/Colombo'];
+
+  private api=inject(AuthService);
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.getAllCountries();
+  }
+
+  countryList: any[] = [];
+
   currencies = ['INR', 'NPR', 'USD'];
+  timezones: string[] = ['Asia/Kolkata', 'Europe/London', 'UTC', 'America/New_York'];
+
 
   newCountry = {
     name: '',
@@ -39,18 +55,54 @@ export class CountryManagementComponent {
     code: '',
     region: '',
     currency: '',
-    timezone: ''
+    timezone: []
   };
 
   showForm = false;
 
   saveCountry() {
-    this.countries.push({ ...this.newCountry, symbol: '$', status: 'Active' });
-    this.newCountry = { name: '', id: '', code: '', region: '', currency: '', timezone: '' };
-    this.showForm = false;
+    const payload = {
+      countryName: this.newCountry.name,
+      countryId: this.newCountry.id,
+      countryCode: this.newCountry.code,
+      countryRegion: this.newCountry.region,
+      countryTimezones: Array.isArray(this.newCountry.timezone)
+        ? this.newCountry.timezone
+        : [this.newCountry.timezone]
+    };
+
+    this.api.addCountry(payload).subscribe({
+      next: () => {
+        this.getAllCountries();
+        this.cancel();
+          this.showForm = false; 
+      },
+      error: (err) => {
+        console.error('Failed to add country:', err);
+      }
+    });
+  }
+
+  getAllCountries() {
+    this.api.getAllCountries().subscribe({
+      next: (res: any) => {
+        this.countryList = res.data || res; // Adjust based on API response shape
+      },
+      error: (err: any) => {
+        console.error('Error loading countries:', err);
+      }
+    });
   }
 
   cancel() {
-    this.showForm = false;
+    this.newCountry = {
+      name: '',
+      id: '',
+      code: '',
+      region: '',
+      currency: '',
+      timezone: []
+    };
+      this.showForm = false; 
   }
 }

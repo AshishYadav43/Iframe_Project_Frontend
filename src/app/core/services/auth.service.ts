@@ -14,6 +14,14 @@ export class AuthService {
   login(data: any): Observable<any> {
     return this.http.post(`${baseUrl}/auth/login`, data);
   }
+
+  addCountry(data: any): Observable<any> {
+    return this.http.post(`${baseUrl}/countries/addCountry`, data);
+  }
+
+  getAllCountries(): Observable<any> {
+    return this.http.post(`${baseUrl}/countries/lists`, {});
+  }
   
   getRole(data: any = {}): Observable<any> {
     return this.http.post(`${baseUrl}/auth/roles`, data);
