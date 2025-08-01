@@ -1,4 +1,4 @@
-export const baseUrl: string = "http://localhost:3000/api/v1";
+export const baseUrl: string = "http://localhost:3001/api/v1";
 
 export const VALIDATION_PATTERNS = {
   email: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
