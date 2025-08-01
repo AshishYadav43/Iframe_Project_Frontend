@@ -7,8 +7,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../core/services/auth.service';
+
 import { ToastrService } from 'ngx-toastr';
+
+import { AuthService } from '../../../core/services/auth.service';
 @Component({
   selector: 'app-country-management',
   imports: [CommonModule,
@@ -79,7 +81,6 @@ export class CountryManagementComponent {
           this.showForm = false; 
       },
       error: (err) => {
-        console.error('Failed to add country:', err);
       }
     });
   }
@@ -90,7 +91,6 @@ export class CountryManagementComponent {
         this.countryList = res.data || res; // Adjust based on API response shape
       },
       error: (err: any) => {
-        console.error('Error loading countries:', err);
       }
     });
   }

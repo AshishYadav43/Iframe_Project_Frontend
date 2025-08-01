@@ -24,7 +24,7 @@ export class AuthService {
   }
   
   getRole(data: any = {}): Observable<any> {
-    return this.http.post(`${baseUrl}/auth/roles`, data);
+    return this.http.post(`${baseUserUrl}/roles/get`, data);
   }
 
   getUsers(data: any = {}): Observable<any> {

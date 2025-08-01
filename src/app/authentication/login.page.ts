@@ -9,6 +9,8 @@ import { MatIcon } from '@angular/material/icon';
 
 import { finalize } from 'rxjs';
 
+import { ToastrService } from 'ngx-toastr';
+
 import { AuthService } from '../core/services/auth.service';
 
 @Component({
@@ -31,7 +33,8 @@ export class LoginPage {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private api = inject(AuthService);
-
+  private toaster = inject(ToastrService);
+  
   loading = false; // Tracks API call status
   hidePassword: boolean = true;
   loginForm: FormGroup = this.fb.group({
@@ -46,10 +49,10 @@ export class LoginPage {
 
     this.api.login(this.loginForm.value).pipe(finalize(() => this.loading = false)).subscribe({
       next: (res: any) => {
+        this.toaster.success("Login successfully");
         this.router.navigateByUrl('/users');
       },
       error: (err: any) => {
-        console.error('Login error:', err);
       },
     });
   }

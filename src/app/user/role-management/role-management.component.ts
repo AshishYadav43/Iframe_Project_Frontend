@@ -43,7 +43,6 @@ export class RoleManagementComponent {
         this.dataSource.data = res.data;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log("RESPONSE", res.data);
       }
     })
   }

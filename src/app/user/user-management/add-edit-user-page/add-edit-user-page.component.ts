@@ -10,6 +10,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 
+import { ToastrService } from 'ngx-toastr';
+
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
 import { passwordMatchValidator } from '../../../core/validation/custom-validation';
@@ -43,6 +45,7 @@ export class AddEditUserPageComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   private userService = inject(AuthService);
+  private toaster = inject(ToastrService);
 
   constructor(
     private dialogRef: MatDialogRef<AddEditUserPageComponent>,
@@ -78,6 +81,7 @@ export class AddEditUserPageComponent implements OnInit {
     }
 
     this.loading = true;
+    delete this.form.value.confirmPassword;
     const payload = this.form.value;
 
     const request = this.userData
@@ -88,9 +92,9 @@ export class AddEditUserPageComponent implements OnInit {
       next: () => {
         this.loading = false;
         this.dialogRef.close(true); // ✅ Close dialog with success
+        this.toaster.success("User Created Successfully");
       },
       error: (err) => {
-        console.error('Error:', err);
         this.loading = false;
       }
     });

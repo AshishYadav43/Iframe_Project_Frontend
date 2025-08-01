@@ -31,7 +31,7 @@ import { AddEditUserPageComponent } from './add-edit-user-page/add-edit-user-pag
 })
 export class UserManagementComponent implements OnInit {
 
-  displayedColumns: string[] = ['srNo','userId', 'email', 'wallet_type', 'mobileNumber', 'actions'];
+  displayedColumns: string[] = ['srNo','name','userId', 'email', 'mobileNumber'];
   dataSource = new MatTableDataSource<any>();
 
   private api = inject(AuthService);
