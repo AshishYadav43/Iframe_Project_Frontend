@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 
 import { AuthService } from '../core/services/auth.service';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,6 +15,9 @@ import { AuthService } from '../core/services/auth.service';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent {
+
+
+
   private router = inject(Router);
   private api = inject(AuthService)
   logout() {

@@ -1,8 +1,95 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+  box-sizing: border-box;
+}
 @import 'ngx-toastr/toastr';
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-mdc-dialog-surface  {
   border-radius: 0 !important;
+} 
+
+/* GLOBAL STYLING FOR Angular Material 19.x (MDC-based) */
+.custominput .mat-mdc-form-field {
+  /* Border */
+  --mdc-outlined-text-field-outline-color: white;
+  --mdc-outlined-text-field-hover-outline-color: white;
+  --mdc-outlined-text-field-focus-outline-color: white;
+
+  /* Label and caret */
+  --mdc-theme-primary: white;
+
+  /* Input text */
+  --mdc-theme-on-surface: white;
+
+  /* Error color */
+  --mdc-theme-error: #ff4d4f;
 }
+
+/* Optional: ensure labels and text inside inputs are white */
+.custominput .mat-mdc-form-field .mdc-floating-label {
+  color: white !important;
+}
+
+.custominput .mat-mdc-form-field .mat-mdc-input-element {
+  color: white !important;
+  caret-color: white !important;
+}
+
+.custominput .mat-mdc-form-field .mat-mdc-form-field-error {
+  color: #ff4d4f !important;
+}
+.sidenav-container {
+  height: 100vh; /* or 100% if parent has height set */
+  width: 100vw;
+}
+
+mat-sidenav {
+  width: 240px !important; 
+  /* set your desired sidebar width */
+background: linear-gradient(to bottom, #2d2018 40%, #000000 100%);
+}
+
+mat-sidenav:after {
+    content: "";
+    position: absolute;
+    display: block;
+    z-index: -1;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: url('./assets/images/bg_pattern-767b8c36.png') 0 bottom repeat-x;
+}
+
+mat-toolbar.header-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.main-content {
+  padding: 16px;
+  height: calc(100vh - 64px); /* adjust if your toolbar height is different */
+  overflow: auto;
+}
+
+
+
+/* Active route style */
+ .active .mdc-list-item__primary-text {
+  background-color:rgba(255, 255, 255, 0.1) !important; /* active background */
+  color: #ffd700 !important; 
+}
+
+.sidebar-nav a.active mat-icon {
+  color: #ffffff !important;
+}
+
+.mdc-list-item__primary-text{
+  color: white !important;
+} 
+
+
+
+
