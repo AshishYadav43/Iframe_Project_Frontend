@@ -73,10 +73,10 @@ export class AddUpdateCountryComponent {
     this.form = this.fb.group({
       countryName: [this.countryData?.countryName || '', [Validators.required, Validators.minLength(3)]],
       countryId: [this.countryData?.countryId || '', [Validators.required, Validators.minLength(3)]],
-      countryCode: [this.countryData?.countryCode || ''],
+      countryCode: [this.countryData?.countryCode || '', [Validators.required]],
       countryTimezones: [this.countryData?.countryTimezones || ''],
       shortName: [this.countryData?.shortName || '',[Validators.required]],
-      numberCode: [this.countryData?.numberCode || ''],
+      numberCode: [this.countryData?.numberCode || '', [Validators.required]],
       countryRegion: [this.countryData?.countryRegion || ''],
     });
   }

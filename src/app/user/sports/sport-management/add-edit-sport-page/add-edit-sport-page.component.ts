@@ -12,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { VALIDATION_PATTERNS } from '../../../../core/constant/constant';
+import { STATIC_SPORTS, VALIDATION_PATTERNS } from '../../../../core/constant/constant';
 import { AuthService } from '../../../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
 
@@ -38,14 +38,18 @@ export class AddEditSportPageComponent {
   loading = false;
 
   companies: { _id: string; name: string }[] = [];
-  sportTypes: { _id: string; name: string }[]  = [
-  { _id: "MANUAL", name: "Manual" },
-  { _id: "LOTTERY", name: "Lottery" },
-  { _id: "LIVE", name: "Live" },
-  { _id: "VIRTUAL", name: "Virtual" },
-  { _id: "TABLE", name: "Table" },
-  { _id: "SLOT", name: "Slot" }
-];
+  sportTypes: { _id: string; name: string }[] = [
+    { _id: "MANUAL", name: "Manual" },
+    { _id: "LOTTERY", name: "Lottery" },
+    { _id: "LIVE", name: "Live" },
+    { _id: "VIRTUAL", name: "Virtual" },
+    { _id: "TABLE", name: "Table" },
+    { _id: "SLOT", name: "Slot" }
+  ];
+
+  sportsString: string = Object.values(STATIC_SPORTS)
+    .map(sport => `${sport.name} (${sport.id})`)
+    .join(', ');
 
   private fb = inject(FormBuilder);
   private api = inject(AuthService);
@@ -55,6 +59,7 @@ export class AddEditSportPageComponent {
     private dialogRef: MatDialogRef<AddEditSportPageComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
   ) {
+
     this.getCompany();
   }
 
@@ -76,7 +81,7 @@ export class AddEditSportPageComponent {
     this.loading = true;
     this.form.value.sport_id = Number(this.form.value.sport_id)
     const payload = this.form.value;
-    
+
 
     const request = this.userData
       ? this.api.updateSport(payload)

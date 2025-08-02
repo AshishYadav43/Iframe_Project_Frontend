@@ -67,7 +67,7 @@ export class AddEditUserPageComponent implements OnInit {
     });
 
     if (!this.userData) {
-      this.form.addControl('password', this.fb.control('', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)]));
+      this.form.addControl('password', this.fb.control('', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^<>])[A-Za-z\d\S]{6,}$/)]));
       this.form.addControl('confirmPassword', this.fb.control('', [Validators.required]));
       this.form.setValidators(passwordMatchValidator("password", "confirmPassword"));
       this.form.updateValueAndValidity();

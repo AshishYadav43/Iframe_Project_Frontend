@@ -1,0 +1,89 @@
+<mat-card class="user-card">
+    <div class="dialog-header">
+        <h2>{{ currencyData ? 'Edit Currency' : 'Add Currency' }}</h2>
+        <button mat-icon-button color="warn" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
+
+        <mat-form-field appearance="outline">
+            <mat-label>Currency Name</mat-label>
+            <input maxlength="20" [appPatternRestrict]="pattern.alphabets" matInput formControlName="name"
+                placeholder="Enter your Currency Name">
+            <mat-error *ngIf="form.get('name')?.hasError('required')">Currency Name is required</mat-error>
+            <mat-error *ngIf="form.get('name')?.hasError('minlength')">
+                Currency Name must be at least 3 characters
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Conversion Rate (to USD)</mat-label>
+            <input maxlength="20" [appPatternRestrict]="pattern.floatNumber" matInput formControlName="conversion_rate"
+                placeholder="Enter your Conversion Rate">
+            <mat-error *ngIf="form.get('conversion_rate')?.hasError('required')">Conversion Rate is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Select Country</mat-label>
+            <mat-select formControlName="country">
+                <mat-option *ngFor="let country of countries" [value]="country._id">{{ country?.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('country')?.hasError('required')">Country is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Currency Symbol</mat-label>
+            <mat-select formControlName="symbol">
+                <mat-option *ngFor="let symbol of currencyOptions" [value]="symbol.value">{{ symbol?.label
+                    }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('symbol')?.hasError('required')">Currency Symbol is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Currency Limits</mat-label>
+
+            <mat-select multiple formControlName="selectedCodes" [compareWith]="compareCodes">
+                <mat-select-trigger>
+                    {{ selectedCodesDisplay }}
+                </mat-select-trigger>
+
+                <mat-option *ngFor="let limit of limitsControls" [value]="limit">
+                    <div class="limit-row" style="display:flex; align-items:center; gap:10px;">
+                        {{ limit.code }}
+
+                        <mat-form-field appearance="outline" class="limit-input">
+                            <mat-label>Min</mat-label>
+                            <input matInput [value]="limit.min"
+                                (input)="onMinMaxChange(limit, 'min', $any($event.target).value)"
+                                (click)="$event.stopPropagation()" />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="limit-input">
+                            <mat-label>Max</mat-label>
+                            <input matInput [value]="limit.max"
+                                (input)="onMinMaxChange(limit, 'max', $any($event.target).value)"
+                                (click)="$event.stopPropagation()" />
+                        </mat-form-field>
+                    </div>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+
+
+
+
+
+
+
+        <!-- Submit Button -->
+        <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+            <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+            {{ loading ? 'Saving...' : (currencyData ? 'Update Currency' : 'Add Currency') }}
+        </button>
+    </form>
+</mat-card>

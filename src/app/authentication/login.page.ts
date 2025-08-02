@@ -44,19 +44,24 @@ export class LoginPage {
   fingerprintHash = '';
   resultMessage = '';
   resultClass = '';
+  isLogin: boolean = false;
 
   loading = false; // Tracks API call status
   hidePassword: boolean = true;
   pattern = VALIDATION_PATTERNS;
   loginForm: FormGroup = this.fb.group({
     identifier: ['', Validators.required],
-    password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)]],
+    password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^<>])[A-Za-z\d\S]{6,}$/)]],
     validCode: ['', [
       Validators.required,
       Validators.pattern(/^[0-9]{1,4}$/)
     ]]
   });
 
+  constructor() {
+    this.checkLogin();
+  }
+  
   ngOnInit(): void {
     // 👇 Generate fingerprint and load CAPTCHA
     Fingerprint2.get((components: any) => {
@@ -68,7 +73,17 @@ export class LoginPage {
     });
   }
 
-   loadCaptcha(): void {
+  checkLogin() {
+    this.api.checkLogin().subscribe({
+      next: (res: any) => {
+        if (res.data.isLoggedIn) {
+          this.router.navigate(['']);
+        }
+      }
+    })
+  }
+
+  loadCaptcha(): void {
     const timestamp = Date.now();
     this.captchaLoaded = false;
     this.captchaUrl = `https://node.fluc.eu/api/v1/users/captcha?fp=${this.fingerprintHash}&_t=${timestamp}`;
