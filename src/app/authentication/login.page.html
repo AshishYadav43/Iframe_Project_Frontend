@@ -3,13 +3,13 @@
     <h2>Login</h2>
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>UserId</mat-label>
-      <input matInput formControlName="identifier" type="text" placeholder="Enter your userId">
+      <input maxlength="20" [appPatternRestrict]="pattern.alphabetsNumbersOnly" matInput formControlName="identifier" type="text" placeholder="Enter your userId">
       <mat-error *ngIf="loginForm.get('identifier')?.hasError('required')">UserId is required</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Password</mat-label>
-      <input [appPatternRestrict]="pattern.password" [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password"
+      <input maxlength="20" [appPatternRestrict]="pattern.password" [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password"
         placeholder="Enter your password">
       <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
         <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>

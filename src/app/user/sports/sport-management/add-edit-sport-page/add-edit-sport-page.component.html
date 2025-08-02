@@ -30,7 +30,7 @@
     <!-- Sport Name -->
     <mat-form-field appearance="outline">
       <mat-label>Sport Name</mat-label>
-      <input maxlength="30" [appPatternRestrict]="pattern.alphabetsOnly" matInput formControlName="sport_name"
+      <input maxlength="30" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput formControlName="sport_name"
         placeholder="Enter Sport Name">
       <mat-error *ngIf="form.get('sport_name')?.hasError('required')">Sport name is required</mat-error>
     </mat-form-field>
@@ -41,6 +41,12 @@
         placeholder="Enter Sport Id">
       <mat-error *ngIf="form.get('sport_id')?.hasError('required')">Sport Id is required</mat-error>
     </mat-form-field>
+
+    <!-- Sports List Display -->
+    <div class="sports-list">
+      <strong>Reserved Sports:</strong>
+      <p>{{ sportsString }}</p>
+    </div>
 
     <!-- Submit Button -->
     <button mat-raised-button color="primary" type="submit" [disabled]="loading">

@@ -10,7 +10,7 @@
 
         <mat-form-field appearance="outline">
             <mat-label>Country Name</mat-label>
-            <input [appPatternRestrict]="pattern.alphabets" matInput maxlength="50" formControlName="countryName"
+            <input [appPatternRestrict]="pattern.alphabets" matInput maxlength="20" formControlName="countryName"
                 placeholder="Enter Country Name">
             <mat-error *ngIf="form.get('countryName')?.hasError('required')">Country Name is required</mat-error>
             <mat-error *ngIf="form.get('countryName')?.hasError('minlength')">
@@ -21,14 +21,38 @@
         <!-- ID -->
         <mat-form-field appearance="outline">
             <mat-label>Country Id</mat-label>
-            <input matInput formControlName="countryId" placeholder="Enter Country Id">
+            <input [appPatternRestrict]="pattern.mobile" matInput formControlName="countryId"
+                placeholder="Enter Country Id">
             <mat-error *ngIf="form.get('countryId')?.hasError('required')">Country Id is required</mat-error>
             <mat-error *ngIf="form.get('countryId')?.hasError('minlength')">
                 Country Id must be at least 3 characters
             </mat-error>
         </mat-form-field>
 
-        <!-- Supported Currencies -->
+        <mat-form-field appearance="outline">
+            <mat-label>Country Code</mat-label>
+            <input [appPatternRestrict]="pattern.alphabetsOnly" maxlength="2" matInput formControlName="countryCode"
+                placeholder="Enter Country Code">
+            <mat-error *ngIf="form.get('countryCode')?.hasError('required')">Country Code is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Short Name</mat-label>
+            <input [appPatternRestrict]="pattern.alphabetsOnly" maxlength="3" matInput formControlName="shortName"
+                placeholder="Enter Short Name">
+            <mat-error *ngIf="form.get('shortName')?.hasError('required')">
+                Short Name is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Number Code</mat-label>
+            <input [appPatternRestrict]="pattern.mobile" maxlength="6" matInput formControlName="numberCode"
+                placeholder="Enter Number Code">
+            <mat-error *ngIf="form.get('numberCode')?.hasError('required')">Number Code is required</mat-error>
+
+        </mat-form-field>
+
         <mat-form-field appearance="outline">
             <mat-label>Country Timezones</mat-label>
             <mat-select formControlName="countryTimezones" multiple>
@@ -39,26 +63,9 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-            <mat-label>Country Code</mat-label>
-            <input maxlength="2" matInput formControlName="countryCode" placeholder="Enter Country Code">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Short Name</mat-label>
-            <input maxlength="3" matInput formControlName="shortName" placeholder="Enter Short Name">
-            <mat-error *ngIf="form.get('shortName')?.hasError('required')">
-                Short Name is required
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Number Code</mat-label>
-            <input matInput formControlName="numberCode" placeholder="Enter Number Code">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
             <mat-label>Country Region</mat-label>
-            <input matInput formControlName="countryRegion" placeholder="Enter Country Region">
+            <input [appPatternRestrict]="pattern.region" maxlength="20" matInput formControlName="countryRegion"
+                placeholder="Enter Country Region">
         </mat-form-field>
 
         <!-- Submit Button -->

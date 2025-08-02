@@ -19,17 +19,6 @@
             </mat-error>
         </mat-form-field>
 
-        <!-- Sport Type -->
-        <mat-form-field appearance="outline">
-            <mat-label>Sport Type</mat-label>
-            <mat-select formControlName="sportType">
-                <mat-option *ngFor="let sport of sportTypes" [value]="sport.id">{{ sport.name }}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.get('sportType')?.hasError('required')">
-                Sport Type is required
-            </mat-error>
-        </mat-form-field>
-
         <!-- Company -->
         <mat-form-field appearance="outline">
             <mat-label>Company</mat-label>
@@ -38,6 +27,17 @@
             </mat-select>
             <mat-error *ngIf="form.get('company')?.hasError('required')">
                 Company is required
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Sport Type -->
+        <mat-form-field appearance="outline">
+            <mat-label>Sport Type</mat-label>
+            <mat-select formControlName="sportType">
+                <mat-option *ngFor="let sport of sportTypes" [value]="sport.id">{{ sport.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('sportType')?.hasError('required')">
+                Sport Type is required
             </mat-error>
         </mat-form-field>
 
@@ -66,7 +66,7 @@
         <!-- Competition Name -->
         <mat-form-field appearance="outline">
             <mat-label>Competition Name</mat-label>
-            <input [appPatternRestrict]="pattern.alphabets" matInput formControlName="competitionName" placeholder="Enter Competition Name">
+            <input [appPatternRestrict]="pattern.alphaNumericWithSpace" maxlength="20" matInput formControlName="competitionName" placeholder="Enter Competition Name">
             <mat-error *ngIf="form.get('competitionName')?.hasError('required')">
                 Competition Name is required
             </mat-error>
@@ -75,7 +75,7 @@
         <!-- Event Name -->
         <mat-form-field appearance="outline">
             <mat-label>Event Name</mat-label>
-            <input [appPatternRestrict]="pattern.alphabets" matInput formControlName="eventName" placeholder="Enter Event Name">
+            <input [appPatternRestrict]="pattern.alphaNumericWithSpace" maxlength="20" matInput formControlName="eventName" placeholder="Enter Event Name">
             <mat-error *ngIf="form.get('eventName')?.hasError('required')">
                 Event Name is required
             </mat-error>
@@ -84,7 +84,7 @@
         <!-- Market Name -->
         <mat-form-field appearance="outline">
             <mat-label>Market Name</mat-label>
-            <input [appPatternRestrict]="pattern.alphabets" matInput formControlName="marketName" placeholder="Enter Market Name">
+            <input [appPatternRestrict]="pattern.alphaNumericWithSpace" maxlength="20" matInput formControlName="marketName" placeholder="Enter Market Name">
             <mat-error *ngIf="form.get('marketName')?.hasError('required')">
                 Market Name is required
             </mat-error>
@@ -95,6 +95,5 @@
             <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
             {{ loading ? 'Saving...' : (comptitionData ? 'Update Competition' : 'Add Competition') }}
         </button>
-
     </form>
 </mat-card>

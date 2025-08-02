@@ -50,7 +50,7 @@ export class LoginPage {
   pattern = VALIDATION_PATTERNS;
   loginForm: FormGroup = this.fb.group({
     identifier: ['', Validators.required],
-    password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)]],
+    password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^<>])[A-Za-z\d\S]{6,}$/)]],
     validCode: ['', [
       Validators.required,
       Validators.pattern(/^[0-9]{1,4}$/)
