@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -25,6 +25,7 @@ import { AddEditUserPageComponent } from './add-edit-user-page/add-edit-user-pag
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
+    NgIf
   ],
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.css']
@@ -33,15 +34,30 @@ export class UserManagementComponent implements OnInit {
 
   displayedColumns: string[] = ['srNo','name','userId', 'email', 'mobileNumber'];
   dataSource = new MatTableDataSource<any>();
-
+  showButton: boolean = false;
   private api = inject(AuthService);
   private dialog = inject(MatDialog);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  constructor() {
+    this.getPermission();
+  }
 
   ngOnInit() {
     this.loadUsers();
+  }
+
+  getPermission() {
+    this.api.getPermission().subscribe({
+      next: (res: any) => {
+        if (res.data.roleId == 1) {
+          this.showButton = true;
+        } else {
+          this.showButton = false;
+        }
+      }
+    })
   }
 
   loadUsers() {

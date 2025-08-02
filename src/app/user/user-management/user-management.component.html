@@ -2,7 +2,7 @@
 <div class="table-header">
   <span>User Management</span>
   <span class="spacer"></span>
-  <button mat-raised-button color="accent" (click)="openAddUser()">
+  <button *ngIf="showButton" mat-raised-button color="accent" (click)="openAddUser()">
     <mat-icon>add</mat-icon> Add User
   </button>
 </div>

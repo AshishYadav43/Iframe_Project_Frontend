@@ -93,6 +93,10 @@ export class AuthService {
     return this.http.post(`${baseUrl}/auth/logout`, data);
   }
 
+  getPermission(data: any = {}): Observable<any> {
+    return this.http.post(`${baseUrl}/permission/role-permission`, data);
+  }
+
   toasterError(err: any) {
     this.toaster.error(err)
   }
