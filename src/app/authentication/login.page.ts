@@ -44,6 +44,7 @@ export class LoginPage {
   fingerprintHash = '';
   resultMessage = '';
   resultClass = '';
+  isLogin: boolean = false;
 
   loading = false; // Tracks API call status
   hidePassword: boolean = true;
@@ -60,6 +61,7 @@ export class LoginPage {
   constructor() {
     this.checkLogin();
   }
+  
   ngOnInit(): void {
     // 👇 Generate fingerprint and load CAPTCHA
     Fingerprint2.get((components: any) => {
@@ -74,12 +76,14 @@ export class LoginPage {
   checkLogin() {
     this.api.checkLogin().subscribe({
       next: (res: any) => {
-        console.log("RESPONSE",res);
+        if (res.data.isLoggedIn) {
+          this.router.navigate(['']);
+        }
       }
     })
   }
 
-   loadCaptcha(): void {
+  loadCaptcha(): void {
     const timestamp = Date.now();
     this.captchaLoaded = false;
     this.captchaUrl = `https://node.fluc.eu/api/v1/users/captcha?fp=${this.fingerprintHash}&_t=${timestamp}`;

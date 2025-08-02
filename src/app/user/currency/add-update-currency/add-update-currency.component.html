@@ -10,15 +10,18 @@
 
         <mat-form-field appearance="outline">
             <mat-label>Currency Name</mat-label>
-            <input maxlength="20" [appPatternRestrict]="pattern.alphabets" matInput
-                formControlName="name" placeholder="Enter your Currency Name">
+            <input maxlength="20" [appPatternRestrict]="pattern.alphabets" matInput formControlName="name"
+                placeholder="Enter your Currency Name">
             <mat-error *ngIf="form.get('name')?.hasError('required')">Currency Name is required</mat-error>
+            <mat-error *ngIf="form.get('name')?.hasError('minlength')">
+                Currency Name must be at least 3 characters
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
             <mat-label>Conversion Rate (to USD)</mat-label>
-            <input maxlength="20" [appPatternRestrict]="pattern.floatNumber" matInput
-                formControlName="conversion_rate" placeholder="Enter your Conversion Rate">
+            <input maxlength="20" [appPatternRestrict]="pattern.floatNumber" matInput formControlName="conversion_rate"
+                placeholder="Enter your Conversion Rate">
             <mat-error *ngIf="form.get('conversion_rate')?.hasError('required')">Conversion Rate is required</mat-error>
         </mat-form-field>
 
@@ -33,7 +36,8 @@
         <mat-form-field appearance="outline">
             <mat-label>Currency Symbol</mat-label>
             <mat-select formControlName="symbol">
-                <mat-option *ngFor="let symbol of currencyOptions" [value]="symbol.value">{{ symbol?.label }}</mat-option>
+                <mat-option *ngFor="let symbol of currencyOptions" [value]="symbol.value">{{ symbol?.label
+                    }}</mat-option>
             </mat-select>
             <mat-error *ngIf="form.get('symbol')?.hasError('required')">Currency Symbol is required</mat-error>
         </mat-form-field>

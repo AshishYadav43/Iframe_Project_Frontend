@@ -75,12 +75,11 @@ export class AddUpdateCurrencyComponent {
   ngOnInit(): void {
     // ✅ Initialize form with userData if available
     this.form = this.fb.group({
-      name: [this.currencyData?.name || '', Validators.required],
+      name: [this.currencyData?.name || '', [Validators.required, Validators.minLength(3)]],
       conversion_rate: [this.currencyData?.conversion_rate || '', [Validators.required]],
       country: [this.currencyData?.country || '', Validators.required],
       symbol: [this.currencyData?.symbol || '', Validators.required],
       selectedCodes: [this.currencyData?.selectedCodes || '', Validators.required],
-
     });
   }
 
