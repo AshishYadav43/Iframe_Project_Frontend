@@ -27,6 +27,7 @@
                     {{ country.name }}
                 </mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('country')?.hasError('required')">Country Type is required</mat-error>
         </mat-form-field>
 
         <!-- Supported Currencies -->
@@ -37,27 +38,37 @@
                     {{ currency.name }}
                 </mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('supportedCurrencies')?.hasError('required')">Supported Currencies is
+                required</mat-error>
         </mat-form-field>
 
         <!-- Name -->
         <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
-            <input [appPatternRestrict]="pattern.alphabets" matInput maxlength="20" formControlName="name" placeholder="Enter Company Name">
+            <input [appPatternRestrict]="pattern.alphabets" matInput maxlength="20" formControlName="name"
+                placeholder="Enter Company Name">
             <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
         </mat-form-field>
 
         <!-- ID -->
         <mat-form-field appearance="outline">
             <mat-label>ID</mat-label>
-            <input [appPatternRestrict]="pattern.mobile" maxlength="20" matInput formControlName="id" placeholder="Enter ID">
+            <input [appPatternRestrict]="pattern.mobile" maxlength="20" matInput formControlName="id"
+                placeholder="Enter ID">
+            <mat-error *ngIf="form.get('id')?.hasError('required')">Id is required</mat-error>
+
         </mat-form-field>
-        
+
         <!-- API Paths -->
         <div formArrayName="apiPaths" class="api-paths">
             <div *ngFor="let path of apiPaths.controls; let i = index" class="flex items-center gap-2 mb-2">
                 <mat-form-field appearance="outline" class="flex-1">
                     <mat-label>Api Paths</mat-label>
-                    <input [appPatternRestrict]="pattern.password" maxlength="20" matInput [formControlName]="i" placeholder="Enter API Path">
+                    <input [appPatternRestrict]="pattern.password" maxlength="20" matInput [formControlName]="i"
+                        placeholder="Enter API Path">
+                    <mat-error *ngIf="path.invalid && path.touched">
+                        API Path is required
+                    </mat-error>
                 </mat-form-field>
                 <button mat-icon-button color="warn" (click)="removeApiPath(i)" [disabled]="apiPaths.length === 1">
                     <mat-icon>delete</mat-icon>
