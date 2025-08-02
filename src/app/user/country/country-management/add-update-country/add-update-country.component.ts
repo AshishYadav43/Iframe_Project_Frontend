@@ -75,9 +75,20 @@ export class AddUpdateCountryComponent {
       countryId: [this.countryData?.countryId || '', [Validators.required, Validators.minLength(3)]],
       countryCode: [this.countryData?.countryCode || '', [Validators.required]],
       countryTimezones: [this.countryData?.countryTimezones || ''],
-      shortName: [this.countryData?.shortName || '',[Validators.required]],
+      shortName: [this.countryData?.shortName || '', [Validators.required]],
       numberCode: [this.countryData?.numberCode || '', [Validators.required]],
       countryRegion: [this.countryData?.countryRegion || ''],
+    });
+
+    this.form.get('shortName')?.valueChanges.subscribe(value => {
+      if (value) {
+        this.form.get('shortName')?.setValue(value.toUpperCase(), { emitEvent: false });
+      }
+    });
+    this.form.get('countryCode')?.valueChanges.subscribe(value => {
+      if (value) {
+        this.form.get('countryCode')?.setValue(value.toUpperCase(), { emitEvent: false });
+      }
     });
   }
 
