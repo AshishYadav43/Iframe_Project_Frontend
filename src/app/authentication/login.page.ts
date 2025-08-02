@@ -57,6 +57,9 @@ export class LoginPage {
     ]]
   });
 
+  constructor() {
+    this.checkLogin();
+  }
   ngOnInit(): void {
     // 👇 Generate fingerprint and load CAPTCHA
     Fingerprint2.get((components: any) => {
@@ -66,6 +69,14 @@ export class LoginPage {
       );
       this.loadCaptcha();
     });
+  }
+
+  checkLogin() {
+    this.api.checkLogin().subscribe({
+      next: (res: any) => {
+        console.log("RESPONSE",res);
+      }
+    })
   }
 
    loadCaptcha(): void {

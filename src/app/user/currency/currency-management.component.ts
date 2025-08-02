@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
 
 import { ToastrService } from 'ngx-toastr';
 
@@ -17,6 +18,8 @@ import { finalize } from 'rxjs';
 import { VALIDATION_PATTERNS } from '../../core/constant/constant';
 import { AuthService } from '../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../core/directives/directives/pattern-restrict.directive';
+
+import { AddUpdateCurrencyComponent } from './add-update-currency/add-update-currency.component';
 @Component({
   selector: 'app-currency-management',
   standalone: true,
@@ -42,6 +45,7 @@ export class CurrencyManagementComponent {
 
   private api = inject(AuthService);
   private toastr = inject(ToastrService);
+   private dialog = inject(MatDialog);
   currencies: any[] = [];
   countries: any[] = [
 
@@ -101,8 +105,14 @@ export class CurrencyManagementComponent {
   }
 
   openForm() {
-    this.resetForm();
-    this.showForm = true;
+     this.dialog.open(AddUpdateCurrencyComponent, {
+          width: '600px',
+          maxHeight: '90vh',
+          autoFocus: false,
+          data: null
+        }).afterClosed().subscribe((result: any) => {
+          if (result) this.fetchCurrencies();
+        });
   }
 
   cancel() {
