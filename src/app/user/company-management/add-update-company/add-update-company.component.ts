@@ -115,7 +115,7 @@ export class AddUpdateCompanyComponent {
       next: () => {
         this.loading = false;
         this.dialogRef.close(true); // ✅ Close dialog with success
-        this.toaster.success("User Created Successfully");
+        this.toaster.success("Company Created Successfully");
       },
       error: (err) => {
         this.loading = false;

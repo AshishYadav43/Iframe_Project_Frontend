@@ -71,7 +71,6 @@ mat-toolbar.header-toolbar {
 }
 
 .main-content {
-  padding: 16px;
   height: calc(100vh - 64px); /* adjust if your toolbar height is different */
   overflow: auto;
 }

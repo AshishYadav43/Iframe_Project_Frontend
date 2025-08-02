@@ -1,48 +1,41 @@
-
-
-.form-container {
-  background: #fff;
-  padding: 20px;
-  /* border-radius: 10px; */
-  border: 2px solid #ddd;
-}
-
-.form-row {
+.table-header {
   display: flex;
-  gap: 20px;
-  margin-bottom: 15px;
-}
-
-
-
-mat-form-field {
-  flex: 1;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.status-chip {
-  background: #8bc34a;
+  align-items: center;
+  padding: 8px 16px;
+  background: #3f51b5;
   color: white;
-  padding: 4px 10px;
-  border-radius: 4px;
-  display: inline-block;
+  border-radius: 4px 4px 0 0;
 }
 
-.full-width-table {
-  width: 100%;
-  margin-top: 20px;
+.spacer {
+  flex: 1 1 auto;
 }
 
-.mat-header-row {
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar {
+  margin: 10px 0;
+}
+
+.search-field {
+  width: 300px;
+}
+
+::ng-deep .mat-mdc-header-row {
   background-color: black !important;
-}
-
-.mat-header-cell {
   color: white !important;
+  font-weight: 600;
 }
 
+.mat-mdc-row:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.mat-mdc-row:nth-child(odd) {
+  background-color: white;
+}
+.mat-mdc-row:hover {
+  background-color: #f2f2f2;
+}
