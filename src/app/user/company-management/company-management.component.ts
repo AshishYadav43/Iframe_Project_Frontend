@@ -42,9 +42,7 @@ export class CompanyManagementComponent {
     this.getCompany();
   }
 
-  openAddCompany() {
-    console.log("OPEN DIALOG");
-    
+  openAddCompany() {    
     this.dialog.open(AddUpdateCompanyComponent, {
       width: '600px',
       maxHeight: '90vh',

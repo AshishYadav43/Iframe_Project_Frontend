@@ -114,7 +114,6 @@ export class AddUpdateCountryComponent {
   getTimeZones() {
     this.api.timezone().subscribe({
       next: (res: any) => {
-        console.log("RESPONSE", res);
         this.timeZones = res.data.alltimezones;
       }
     })

@@ -3,12 +3,15 @@ import { inject, Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
+import { ToastrService } from 'ngx-toastr';
+
 import { baseUrl, baseUserUrl } from '../constant/constant';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private toaster = inject(ToastrService);
   constructor(
-    private http : HttpClient
+    private http: HttpClient
   ) { }
 
   login(data: any): Observable<any> {
@@ -22,7 +25,7 @@ export class AuthService {
   getAllCountries(): Observable<any> {
     return this.http.post(`${baseUserUrl}/country/lists`, {});
   }
-  
+
   getRole(data: any = {}): Observable<any> {
     return this.http.post(`${baseUserUrl}/roles/get`, data);
   }
@@ -31,7 +34,7 @@ export class AuthService {
     return this.http.post(`${baseUserUrl}/users/get`, data);
   }
 
-  updateUser(data: any ) : Observable<any> {
+  updateUser(data: any): Observable<any> {
     return this.http.post(`${baseUserUrl}/users/get`, data);
   }
 
@@ -57,8 +60,8 @@ export class AuthService {
   updateSport(data: any): Observable<any> {
     return this.http.post(`${baseUserUrl}/sport/updateSport`, data);
   }
-  
-  updateComptition(data: any ) : Observable<any> {
+
+  updateComptition(data: any): Observable<any> {
     return this.http.post(`${baseUserUrl}/users/get`, data);
   }
 
@@ -84,5 +87,9 @@ export class AuthService {
 
   logout(data: any = {}): Observable<any> {
     return this.http.post(`${baseUrl}/auth/logout`, data);
+  }
+
+  toasterError(err: any) {
+    this.toaster.error(err)
   }
 }
