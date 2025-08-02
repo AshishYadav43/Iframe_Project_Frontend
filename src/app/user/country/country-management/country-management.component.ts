@@ -46,7 +46,7 @@ export class CountryManagementComponent implements OnInit {
   countryList: any[] = [];
   currencies = ['INR', 'NPR', 'USD'];
   timezones = ['Asia/Kolkata', 'Europe/London', 'UTC', 'America/New_York'];
-  displayedColumns = ['countryName', 'countryId', 'countryCode', 'countryRegion', 'countryTimezones', 'status'];
+  displayedColumns = ['countryName', 'countryId', 'countryCode', 'countryRegion', 'countryTimezones','numberCode', 'shortName','status'];
 
   countryForm!: FormGroup;
   private dialog = inject(MatDialog);
