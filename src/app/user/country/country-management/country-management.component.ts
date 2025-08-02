@@ -1,13 +1,14 @@
-import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 
 import { ToastrService } from 'ngx-toastr';
 
@@ -15,7 +16,6 @@ import { finalize } from 'rxjs';
 
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
-import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
 
 import { AddUpdateCountryComponent } from './add-update-country/add-update-country.component';
 
@@ -32,7 +32,7 @@ import { AddUpdateCountryComponent } from './add-update-country/add-update-count
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
-    PatternRestrictDirective,
+    MatPaginator
   ],
   templateUrl: './country-management.component.html',
   styleUrls: ['./country-management.component.css'],
@@ -43,10 +43,12 @@ export class CountryManagementComponent implements OnInit {
   submitted = false;
   loading = false;
   showForm = false;
-  countryList: any[] = [];
+  countryList = new MatTableDataSource<any>();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   currencies = ['INR', 'NPR', 'USD'];
   timezones = ['Asia/Kolkata', 'Europe/London', 'UTC', 'America/New_York'];
-  displayedColumns = ['countryName', 'countryId', 'countryCode', 'countryRegion', 'countryTimezones','numberCode', 'shortName','status'];
+  displayedColumns = ['countryName', 'countryId', 'countryCode', 'countryRegion', 'countryTimezones', 'numberCode', 'shortName', 'status'];
 
   countryForm!: FormGroup;
   private dialog = inject(MatDialog);
@@ -105,7 +107,8 @@ export class CountryManagementComponent implements OnInit {
   getAllCountries() {
     this.api.getAllCountries().subscribe({
       next: (res: any) => {
-        this.countryList = res.data || res;
+        this.countryList.data = res.data || res;
+        this.countryList.paginator = this.paginator;
       }
     });
   }
@@ -116,14 +119,14 @@ export class CountryManagementComponent implements OnInit {
     this.showForm = false;
   }
 
-  openDialog() {    
+  openDialog() {
     this.dialog.open(AddUpdateCountryComponent, {
-          width: '600px',
-          maxHeight: '90vh',
-          autoFocus: false,
-          data: null
-        }).afterClosed().subscribe((result: any) => {
-          if (result) this.getAllCountries();
-        });
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: null
+    }).afterClosed().subscribe((result: any) => {
+      if (result) this.getAllCountries();
+    });
   }
 }

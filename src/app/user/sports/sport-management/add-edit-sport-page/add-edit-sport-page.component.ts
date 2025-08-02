@@ -65,7 +65,7 @@ export class AddEditSportPageComponent {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      sport_name: [this.userData?.sport_name || '', Validators.required],
+      sport_name: [this.userData?.sport_name || '', [Validators.required, Validators.minLength(3)]],
       company: [this.userData?.company || '', Validators.required],
       sport_type: [this.userData?.sport_type || '', Validators.required],
       sport_id: [this.userData?.sport_id || '', Validators.required],

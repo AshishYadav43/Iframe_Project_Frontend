@@ -33,6 +33,9 @@
       <input maxlength="30" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput formControlName="sport_name"
         placeholder="Enter Sport Name">
       <mat-error *ngIf="form.get('sport_name')?.hasError('required')">Sport name is required</mat-error>
+      <mat-error *ngIf="form.get('sport_name')?.hasError('minlength')">
+        Sport name must be at least 3 characters
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">

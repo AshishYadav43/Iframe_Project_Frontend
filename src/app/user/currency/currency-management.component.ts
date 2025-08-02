@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -46,7 +46,8 @@ export class CurrencyManagementComponent {
   private api = inject(AuthService);
   private toastr = inject(ToastrService);
    private dialog = inject(MatDialog);
-  currencies: any[] = [];
+  currencies = new MatTableDataSource<any>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   countries: any[] = [
 
   ];
@@ -98,7 +99,8 @@ export class CurrencyManagementComponent {
       finalize(() => this.loading = false)
     ).subscribe({
       next: (res: any) => {
-        this.currencies = res.data|| res        
+        this.currencies.data = res.data || res;
+        this.currencies.paginator = this.paginator;      
       }
       // error: () => this.toastr.error('Failed to fetch currencies')
     });

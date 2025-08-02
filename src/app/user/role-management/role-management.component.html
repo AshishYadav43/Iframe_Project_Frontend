@@ -37,7 +37,7 @@
             <!-- <button mat-raised-button color="primary" class="action-btn" (click)="openEditRole(row)">
                 Add User
             </button> -->
-             <button mat-raised-button color="accent" class="action-btn" (click)="openEditRole(row)">
+            <button mat-raised-button color="accent" class="action-btn" (click)="openEditRole(row)">
                 List User
             </button>
         </td>
@@ -47,7 +47,13 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
+    <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" [attr.colspan]="displayedColumns.length" style="text-align: center; padding: 50px;">
+            No records found
+        </td>
+    </tr>
+
 </table>
 
 <!-- Paginator -->
-<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+<mat-paginator [pageSizeOptions]="[50, 100, 150]" showFirstLastButtons></mat-paginator>
