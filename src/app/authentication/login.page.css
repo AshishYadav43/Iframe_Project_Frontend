@@ -51,3 +51,8 @@ h2 {
 .header-bar-logo {
   margin-bottom: 20px;
 }
+
+::ng-deep .mat-mdc-input-element::placeholder {
+  color: white !important;
+  opacity: 0;
+}
