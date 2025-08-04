@@ -56,3 +56,13 @@ h2 {
   color: white !important;
   opacity: 0;
 }
+
+::ng-deep .custominput  input,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 50px rgba(255, 255, 255, 0) inset !important;
+  background-color: transparent !important;
+  background-clip: text;
+  -webkit-text-fill-color: white !important;
+}

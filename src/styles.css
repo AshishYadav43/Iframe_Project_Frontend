@@ -92,5 +92,20 @@ mat-toolbar.header-toolbar {
 }  */
 
 
+input:-internal-autofill-selected{
+  background-color: transparent !important;
+}
 
-
+.mat-mdc-form-field.mat-form-field-animations-enabled .mdc-text-field__input::autofill{
+  background-color: transparent !important;
+}
+ 
+ input,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  /* -webkit-box-shadow: 0 0 50px rgba(255, 255, 255, 0) inset !important; */
+  background-color: transparent !important;
+  background-clip: text;
+  /* -webkit-text-fill-color: black !important; */
+}

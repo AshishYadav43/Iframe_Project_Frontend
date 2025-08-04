@@ -102,6 +102,7 @@ export class LoginPage {
         this.router.navigateByUrl('/users');
       },
       error: (err: any) => {
+        this.loadCaptcha();
       },
     });
   }
