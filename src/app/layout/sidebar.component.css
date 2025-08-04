@@ -33,5 +33,9 @@ mat-toolbar.header-toolbar {
 }
 
 ::ng-deep .sidebar-nav .active .mdc-list-item__primary-text {
-  color: goldenrod !important;
+  color: white !important;
+}
+
+::ng-deep .sidebar-nav .side-bar-link.active {
+  background: goldenrod !important;
 }
