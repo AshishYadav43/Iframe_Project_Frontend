@@ -1,3 +1,35 @@
+<div class="filter-section" style="display: flex; gap: 15px; margin: 15px 0; flex-wrap: wrap;">
+  <!-- Filter by Name -->
+  <mat-form-field appearance="outline">
+    <mat-label>Company Name</mat-label>
+    <input matInput [(ngModel)]="filterValues.name" (keyup.enter)="applyFilter()" placeholder="Search Name">
+  </mat-form-field>
+
+  <!-- Filter by Company Type -->
+  <!-- <mat-form-field appearance="outline">
+    <mat-label>Company Type</mat-label>
+    <mat-select [(ngModel)]="filterValues.companyType" (selectionChange)="applyFilter()">
+      <mat-option value="">All</mat-option>
+      <mat-option *ngFor="let type of companyTypes" [value]="type">{{ type }}</mat-option>
+    </mat-select>
+  </mat-form-field> -->
+
+  <!-- Filter by Country -->
+  <!-- <mat-form-field appearance="outline">
+    <mat-label>Country</mat-label>
+    <mat-select [(ngModel)]="filterValues.country" (selectionChange)="applyFilter()">
+      <mat-option value="">All</mat-option>
+      <mat-option *ngFor="let c of countries" [value]="c.code">{{ c.countryName }}</mat-option>
+    </mat-select>
+  </mat-form-field> -->
+
+  <!-- Clear Filters -->
+  <button mat-stroked-button color="warn" (click)="clearFilters()">
+    <mat-icon>clear</mat-icon> Clear
+  </button>
+</div>
+
+
 <!-- Table Header -->
 <div class="table-header">
   <span>Company Management</span>

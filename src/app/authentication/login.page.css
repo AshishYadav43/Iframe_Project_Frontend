@@ -52,7 +52,7 @@ h2 {
   margin-bottom: 20px;
 }
 
-::ng-deep .mat-mdc-input-element::placeholder {
+::ng-deep .custominput .mat-mdc-input-element::placeholder {
   color: white !important;
   opacity: 0;
 }

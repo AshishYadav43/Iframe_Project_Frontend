@@ -29,7 +29,7 @@ mat-toolbar.header-toolbar {
 
 ::ng-deep .sidebar-nav .mdc-list-item__primary-text {
   color: white !important;
-  background-color: black !important;
+  background-color: transparent !important;
 }
 
 ::ng-deep .sidebar-nav .active .mdc-list-item__primary-text {

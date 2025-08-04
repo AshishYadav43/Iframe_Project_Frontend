@@ -8,6 +8,8 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { MatOption, MatSelect, MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
 
 import { AuthService } from '../../core/services/auth.service';
 
@@ -17,6 +19,7 @@ import { AddUpdateCompanyComponent } from './add-update-company/add-update-compa
   selector: 'app-company-management',
   imports: [
     CommonModule,
+    FormsModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
@@ -24,6 +27,8 @@ import { AddUpdateCompanyComponent } from './add-update-company/add-update-compa
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
+    MatOption,
+    MatSelectModule
   ],
   templateUrl: './company-management.component.html',
   styleUrl: './company-management.component.css'
@@ -34,15 +39,27 @@ export class CompanyManagementComponent {
   @ViewChild(MatSort) sort!: MatSort;
   private api = inject(AuthService);
   private dialog = inject(MatDialog);
+  filterValues = { name: '', companyType: '', country: '' };
 
-  displayedColumns: string[] = ['srNo', 'name', 'companyType','country'];
+
+  displayedColumns: string[] = ['srNo', 'name', 'companyType', 'country'];
   dataSource = new MatTableDataSource<any>();
 
   constructor() {
     this.getCompany();
   }
 
-  openAddCompany() {    
+  applyFilter() {
+    console.log('Filters applied:', this.filterValues);
+    // Call API here
+  }
+
+  clearFilters() {
+    this.filterValues = { name: '', companyType: '', country: '' };
+    this.applyFilter();
+  }
+
+  openAddCompany() {
     this.dialog.open(AddUpdateCompanyComponent, {
       width: '600px',
       maxHeight: '90vh',
