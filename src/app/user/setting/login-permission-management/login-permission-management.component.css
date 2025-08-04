@@ -2,12 +2,17 @@
   display: flex;
   align-items: center;
   padding: 8px 16px;
-  background: #e6990c;
+  background: #292602;
   color: white;
 }
 
-.table-header button {
-    color: #e6990c !important;
+.table-header-button {
+  display: flex;
+  align-items: center;
+  padding: 18px 16px;
+  background: #9b8f0e;
+  color: white;
+  border-radius: 4px 4px 0 0;
 }
 
 .spacer {

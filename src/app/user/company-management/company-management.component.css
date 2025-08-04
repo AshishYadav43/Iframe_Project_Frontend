@@ -4,11 +4,10 @@
   padding: 8px 16px;
   background: #aab609;
   color: white;
-  border-radius: 4px 4px 0 0;
 }
 
 .table-header button {
-    color: #aab609 !important;
+  color: #aab609 !important;
 }
 
 .spacer {
@@ -37,9 +36,46 @@
 .mat-mdc-row:nth-child(even) {
   background-color: #f2f2f2;
 }
+
 .mat-mdc-row:nth-child(odd) {
   background-color: white;
 }
+
 .mat-mdc-row:hover {
   background-color: #f2f2f2;
+}
+
+
+.filter-section {
+  display: flex;
+  flex-wrap: wrap;
+  /* align-items: center; */
+  gap: 20px;
+  padding: 15px;
+  margin: 5px;
+  border: white solid;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.filter-input {
+  min-width: 300px;
+}
+
+.search_btn {
+  background-color: rgb(67, 67, 224);
+  color: white;
+  height: 50px;
+  width: 150px;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+.clear_btn {
+  background-color: rgb(253, 253, 255);
+  color: black;
+  height: 50px;
+  width: 150px;
+  border-radius: 5px;
+  font-size: 15px;
 }

@@ -1,33 +1,33 @@
-<div class="filter-section" style="display: flex; gap: 15px; margin: 15px 0; flex-wrap: wrap;">
-  <!-- Filter by Name -->
-  <mat-form-field appearance="outline">
+<!-- <div class="filter-section">
+  <mat-form-field class="filter-input" appearance="outline">
     <mat-label>Company Name</mat-label>
-    <input matInput [(ngModel)]="filterValues.name" (keyup.enter)="applyFilter()" placeholder="Search Name">
+    <input matInput [(ngModel)]="filterValues.name" placeholder="Search Name">
   </mat-form-field>
 
-  <!-- Filter by Company Type -->
-  <!-- <mat-form-field appearance="outline">
+  <mat-form-field class="filter-input" appearance="outline">
     <mat-label>Company Type</mat-label>
-    <mat-select [(ngModel)]="filterValues.companyType" (selectionChange)="applyFilter()">
+    <mat-select [(ngModel)]="filterValues.companyType">
       <mat-option value="">All</mat-option>
-      <mat-option *ngFor="let type of companyTypes" [value]="type">{{ type }}</mat-option>
+      <mat-option *ngFor="let type of companyType" [value]="type.id">{{ type.name }}</mat-option>
     </mat-select>
-  </mat-form-field> -->
+  </mat-form-field>
 
-  <!-- Filter by Country -->
-  <!-- <mat-form-field appearance="outline">
-    <mat-label>Country</mat-label>
-    <mat-select [(ngModel)]="filterValues.country" (selectionChange)="applyFilter()">
+  <mat-form-field class="filter-input" appearance="outline">
+    <mat-label>Sort</mat-label>
+    <mat-select [(ngModel)]="filterValues.sort">
       <mat-option value="">All</mat-option>
-      <mat-option *ngFor="let c of countries" [value]="c.code">{{ c.countryName }}</mat-option>
+      <mat-option *ngFor="let c of sortType" [value]="c.id">{{ c.name }}</mat-option>
     </mat-select>
-  </mat-form-field> -->
+  </mat-form-field>
 
-  <!-- Clear Filters -->
-  <button mat-stroked-button color="warn" (click)="clearFilters()">
-    <mat-icon>clear</mat-icon> Clear
+  <button class="search_btn" mat-stroked-button (click)="applyFilter()">
+     Search
   </button>
-</div>
+
+  <button class="clear_btn" mat-stroked-button (click)="clearFilters()">
+    Clear
+  </button>
+</div> -->
 
 
 <!-- Table Header -->

@@ -39,23 +39,34 @@ export class CompanyManagementComponent {
   @ViewChild(MatSort) sort!: MatSort;
   private api = inject(AuthService);
   private dialog = inject(MatDialog);
-  filterValues = { name: '', companyType: '', country: '' };
+  filterValues = { name: '', companyType: '', sort: '' };
 
 
   displayedColumns: string[] = ['srNo', 'name', 'companyType', 'country'];
   dataSource = new MatTableDataSource<any>();
-
+  
+  companyType: any[] = [
+    { id: 'SPORTS', name: 'Sports' },
+    { id: 'FANCY', name: 'Fancy' },
+    { id: 'CASINO', name: 'Casino' },
+    { id: 'VIRTUALGAMING', name: 'Virtual Gaming' },
+    { id: 'ESPORTS', name: 'Esports' },
+  ];
+  
+  sortType: any[] = [
+    { id: 'asc', name: 'ASC' },
+    { id: 'desc', name: 'DESC' },
+  ];
   constructor() {
     this.getCompany();
   }
 
   applyFilter() {
-    console.log('Filters applied:', this.filterValues);
     // Call API here
   }
 
   clearFilters() {
-    this.filterValues = { name: '', companyType: '', country: '' };
+    this.filterValues = { name: '', companyType: '', sort: '' };
     this.applyFilter();
   }
 

@@ -132,8 +132,6 @@ export class AddUpdateCurrencyComponent {
     }
 
     this.limitsControls = limits;
-    console.log("LIMITS", this.limitsControls);
-
   }
 
   onSubmit() {
@@ -165,9 +163,7 @@ export class AddUpdateCurrencyComponent {
       error: () => {
         this.loading = false;
       }
-    });
-    console.log("FORM VALUE", payload);
-    
+    });    
   }
 
   onCancel() {

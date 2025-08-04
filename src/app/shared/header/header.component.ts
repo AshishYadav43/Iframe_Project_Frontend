@@ -17,13 +17,20 @@ export class HeaderComponent {
 
   private router = inject(Router);
   private api = inject(AuthService)
+  roleData!: any;
 
   logOut() {
-    console.log("LOGOUT");
-    
     this.api.logout().subscribe({
       next: (res: any) => {
         this.router.navigate(['/login']);
+      }
+    })
+  }
+
+  constructor() {
+    this.api.getPermission().subscribe({
+      next: (res: any) => {
+        this.roleData = res.data;
       }
     })
   }

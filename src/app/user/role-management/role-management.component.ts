@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../../core/services/auth.service';
 
@@ -31,6 +32,7 @@ export class RoleManagementComponent {
   private api = inject(AuthService);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  private router = inject(Router);
   constructor() { }
 
   ngOnInit() {
@@ -73,5 +75,11 @@ export class RoleManagementComponent {
     // if (confirm(`Delete user ${user.name}?`)) {
     //   this.userService.deleteUser(user.id).subscribe(() => this.loadUsers());
     // }
+  }
+
+  openLoginPermisson(data: any) {
+     this.router.navigate(['/loginPermission'], {
+    state: { roleData: data }
+  });
   }
 }

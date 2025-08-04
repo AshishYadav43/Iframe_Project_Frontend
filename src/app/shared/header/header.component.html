@@ -24,9 +24,12 @@
   <div class="right-section">
     <mat-icon class="icon">language</mat-icon>
     <span class="lang">English</span>
-    <span class="username">betx365stg</span>
-    <span class="role">MA</span>
-    <button mat-raised-button class="logout-btn" (click)="logOut()">Log Out</button>
+    <span class="username">{{ roleData?.userId}}</span>
+    <span class="role">{{ roleData?.roleName}}</span>
+    <div (click)="logOut()">
+      <button mat-raised-button class="logout-btn" type="button" >
+        Log Out
+      </button>
+    </div>
   </div>
 </mat-toolbar>
-

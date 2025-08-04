@@ -4,7 +4,6 @@
   padding: 18px 16px;
   background: #d42a9c;
   color: white;
-  border-radius: 4px 4px 0 0;
 }
 
 .table-header button {
@@ -15,10 +14,10 @@
   flex: 1 1 auto;
 }
 
-.action-btn {
+/* .action-btn {
   margin-right: 8px;
   height: 35px !important;
-}
+} */
 
 .toolbar {
   margin: 10px 0;
@@ -42,4 +41,20 @@
 }
 .mat-mdc-row:hover {
   background-color: #f2f2f2;
+}
+
+.login_permisison {
+  height: 40px;
+  color: white;
+  background-color: red;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.user_list {
+  height: 40px;
+  color: white;
+  background-color: rgb(41, 56, 194);
+  border-radius: 5px;
+  margin-right: 15px;
 }
