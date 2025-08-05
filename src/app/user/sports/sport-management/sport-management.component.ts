@@ -6,6 +6,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddEditSportPageComponent } from './add-edit-sport-page/add-edit-sport-page.component';
@@ -19,6 +20,7 @@ import { AuthService } from '../../../core/services/auth.service';
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
+    MatTabsModule,
     MatInputModule,],
   templateUrl: './sport-management.component.html',
   styleUrl: './sport-management.component.css'
