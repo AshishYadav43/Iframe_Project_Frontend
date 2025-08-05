@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
+import FingerprintJS from '@fingerprintjs/fingerprintjs';
+
 import { Observable } from 'rxjs';
 
 import { ToastrService } from 'ngx-toastr';
 
-// import { baseUrl, baseUserUrl } from '../constant/constant';
 import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -13,6 +14,8 @@ export class AuthService {
   private baseUrl = environment.apiUrl;
   private baseUserUrl = environment.userApiUrl;
   private toaster = inject(ToastrService);
+  private fingerprint!: string;
+  private deviceId!: string;
   constructor(
     private http: HttpClient
   ) { }
@@ -102,5 +105,27 @@ export class AuthService {
 
   toasterError(err: any) {
     this.toaster.error(err)
+  }
+
+  async getFingerprint(): Promise<any> {
+    let result: any;
+    if (!this.fingerprint) {
+      const fp = await FingerprintJS.load();
+      result = await fp.get();
+      this.fingerprint = result.visitorId;
+       this.deviceId = this.generateDeviceId(result.visitorId); 
+    }
+    return {
+      fingerprint: this.fingerprint,
+      deviceId: this.deviceId
+    };
+  }
+
+  private generateDeviceId(fingerprintId: string): string {
+    return `DEV-${btoa(fingerprintId).replace(/=/g, '').substring(0, 12)}`;
+  }
+
+  addLoginPermission(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/login-permission/add`, data);
   }
 }

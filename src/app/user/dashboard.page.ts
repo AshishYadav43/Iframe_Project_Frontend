@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { log } from 'console';
+
 import { AuthService } from '../core/services/auth.service';
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +18,8 @@ export class DashboardPage {
   private router = inject(Router);
 
   constructor() {
+    this.api.getFingerprint().then((res:any) => {
+    })
     this.checkLogin();
   }
 

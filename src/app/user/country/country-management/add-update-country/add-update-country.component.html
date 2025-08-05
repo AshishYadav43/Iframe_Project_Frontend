@@ -21,7 +21,7 @@
         <!-- ID -->
         <mat-form-field appearance="outline">
             <mat-label>Country Id</mat-label>
-            <input [appPatternRestrict]="pattern.mobile" matInput formControlName="countryId"
+            <input [appPatternRestrict]="pattern.mobile" maxlength="20" matInput formControlName="countryId"
                 placeholder="Enter Country Id">
             <mat-error *ngIf="form.get('countryId')?.hasError('required')">Country Id is required</mat-error>
             <mat-error *ngIf="form.get('countryId')?.hasError('minlength')">
@@ -31,7 +31,7 @@
 
         <mat-form-field appearance="outline">
             <mat-label>Country Code</mat-label>
-            <input [appPatternRestrict]="pattern.alphabetsOnly" maxlength="2" matInput formControlName="countryCode"
+            <input [appPatternRestrict]="pattern.alphabetsOnly" maxlength="3" matInput formControlName="countryCode"
                 placeholder="Enter Country Code">
             <mat-error *ngIf="form.get('countryCode')?.hasError('required')">Country Code is required</mat-error>
         </mat-form-field>

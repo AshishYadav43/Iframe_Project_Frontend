@@ -57,7 +57,7 @@ export class AddEditUserPageComponent implements OnInit {
     this.form = this.fb.group({
       name: [this.userData?.name || '', Validators.required],
       email: [this.userData?.email || '', [Validators.required, Validators.email]],
-      deviceId: [this.userData?.deviceId || ''],
+      // deviceId: [this.userData?.deviceId || ''],
       ipv4: [this.userData?.ipv4 || ''],
       ipv6: [this.userData?.ipv6 || ''],
       mobileNumber: [this.userData?.mobileNumber || '', Validators.required],

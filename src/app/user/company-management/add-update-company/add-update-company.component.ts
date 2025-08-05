@@ -72,7 +72,7 @@ export class AddUpdateCompanyComponent {
     this.form = this.fb.group({
       companyType: [this.companyData?.companyType || '', Validators.required],
       name: [this.companyData?.name || '', [Validators.required]],
-      id: [this.companyData?.id || '',[Validators.required]],
+      id: [this.companyData?.id || '',[Validators.required, Validators.minLength(3)]],
       supportedCurrencies: [this.companyData?.supportedCurrencies || '',[Validators.required]],
       country: [this.companyData?.ipv6 || '',[Validators.required]],
       apiPaths: this.fb.array(this.companyData?.apiPaths?.length
