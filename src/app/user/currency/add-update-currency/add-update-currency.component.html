@@ -9,6 +9,14 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
 
         <mat-form-field appearance="outline">
+            <mat-label>Select Country</mat-label>
+            <mat-select formControlName="country">
+                <mat-option *ngFor="let country of countries" [value]="country._id">{{ country?.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('country')?.hasError('required')">Country is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
             <mat-label>Currency Name</mat-label>
             <input maxlength="20" [appPatternRestrict]="pattern.alphabets" matInput formControlName="name"
                 placeholder="Enter your Currency Name">
@@ -19,18 +27,13 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-            <mat-label>Conversion Rate (to USD)</mat-label>
-            <input maxlength="20" [appPatternRestrict]="pattern.floatNumber" matInput formControlName="conversion_rate"
-                placeholder="Enter your Conversion Rate">
-            <mat-error *ngIf="form.get('conversion_rate')?.hasError('required')">Conversion Rate is required</mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Select Country</mat-label>
-            <mat-select formControlName="country">
-                <mat-option *ngFor="let country of countries" [value]="country._id">{{ country?.name }}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.get('country')?.hasError('required')">Country is required</mat-error>
+            <mat-label>Currency Id</mat-label>
+            <input maxlength="20" [appPatternRestrict]="pattern.alphabetsNumbersOnly" matInput formControlName="currencyId"
+                placeholder="Enter your Currency Id">
+            <mat-error *ngIf="form.get('currencyId')?.hasError('required')">Currency Id is required</mat-error>
+            <mat-error *ngIf="form.get('currencyId')?.hasError('minlength')">
+                Currency Id must be at least 3 characters
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -40,6 +43,13 @@
                     }}</mat-option>
             </mat-select>
             <mat-error *ngIf="form.get('symbol')?.hasError('required')">Currency Symbol is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Conversion Rate (to USD)</mat-label>
+            <input maxlength="20" [appPatternRestrict]="pattern.floatNumber" matInput formControlName="conversion_rate"
+                placeholder="Enter your Conversion Rate">
+            <mat-error *ngIf="form.get('conversion_rate')?.hasError('required')">Conversion Rate is required</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
@@ -71,14 +81,6 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-
-
-
-
-
-
-
-
 
         <!-- Submit Button -->
         <button mat-raised-button color="primary" type="submit" [disabled]="loading">

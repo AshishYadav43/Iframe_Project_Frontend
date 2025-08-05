@@ -76,6 +76,7 @@ export class AddUpdateCurrencyComponent {
     // ✅ Initialize form with userData if available
     this.form = this.fb.group({
       name: [this.currencyData?.name || '', [Validators.required, Validators.minLength(3)]],
+      currencyId: [this.currencyData?.currencyId || '', [Validators.required, Validators.minLength(3)]],
       conversion_rate: [this.currencyData?.conversion_rate || '', [Validators.required]],
       country: [this.currencyData?.country || '', Validators.required],
       symbol: [this.currencyData?.symbol || '', Validators.required],
@@ -136,10 +137,11 @@ export class AddUpdateCurrencyComponent {
 
   onSubmit() {
     if (this.form.invalid) return;
-    const payload: any = { 
-      name: this.form.value.name, 
-      symbol: this.form.value.symbol, 
-      country: this.form.value.country, 
+    const payload: any = {
+      name: this.form.value.name,
+      symbol: this.form.value.symbol,
+      currencyId: this.form.value.currencyId,
+      country: this.form.value.country,
       conversion_rate: Number(this.form.value.conversion_rate),
       pre_fix: this.form.value.selectedCodes
     }
@@ -151,7 +153,7 @@ export class AddUpdateCurrencyComponent {
       }
     });
 
-        const request = this.currencyData
+    const request = this.currencyData
       ? this.api.updateSport(payload)
       : this.api.addCurrency(payload);
 
@@ -164,7 +166,7 @@ export class AddUpdateCurrencyComponent {
       error: () => {
         this.loading = false;
       }
-    });    
+    });
   }
 
   onCancel() {

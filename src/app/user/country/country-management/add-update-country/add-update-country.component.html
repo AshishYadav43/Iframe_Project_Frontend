@@ -18,6 +18,14 @@
             </mat-error>
         </mat-form-field>
 
+        <mat-form-field appearance="outline">
+            <mat-label>Short Name</mat-label>
+            <input [appPatternRestrict]="pattern.alphabetsOnly" maxlength="3" matInput formControlName="shortName"
+                placeholder="Enter Short Name">
+            <mat-error *ngIf="form.get('shortName')?.hasError('required')">
+                Short Name is required
+            </mat-error>
+        </mat-form-field>
         <!-- ID -->
         <mat-form-field appearance="outline">
             <mat-label>Country Id</mat-label>
@@ -37,20 +45,10 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-            <mat-label>Short Name</mat-label>
-            <input [appPatternRestrict]="pattern.alphabetsOnly" maxlength="3" matInput formControlName="shortName"
-                placeholder="Enter Short Name">
-            <mat-error *ngIf="form.get('shortName')?.hasError('required')">
-                Short Name is required
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
             <mat-label>Number Code</mat-label>
             <input [appPatternRestrict]="pattern.mobile" maxlength="6" matInput formControlName="numberCode"
                 placeholder="Enter Number Code">
             <mat-error *ngIf="form.get('numberCode')?.hasError('required')">Number Code is required</mat-error>
-
         </mat-form-field>
 
         <mat-form-field appearance="outline">
