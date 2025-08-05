@@ -12,7 +12,6 @@
   padding: 18px 16px;
   background: #9b8f0e;
   color: white;
-  border-radius: 4px 4px 0 0;
 }
 
 .spacer {
@@ -46,4 +45,22 @@
 }
 .mat-mdc-row:hover {
   background-color: #f2f2f2;
+}
+
+::ng-deep .select .mat-mdc-form-field-flex {
+  height: 10px; /* Reduce total height */
+  min-height: 10px;
+}
+
+::ng-deep .select .mat-mdc-text-field-wrapper {
+  padding: 0 8px; /* Reduce internal padding */
+}
+
+::ng-deep .select .mat-mdc-select-trigger {
+  min-height: 20px; /* Reduce clickable area height */
+  line-height: 20px;
+}
+
+::ng-deep .select .mat-mdc-form-field-infix {
+  padding: 0 !important; /* Remove extra vertical padding */
 }
