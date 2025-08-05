@@ -18,7 +18,7 @@
     <mat-icon>security</mat-icon>
     Roles
   </a>
-  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/countries']">
+  <!-- <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/countries']">
     <mat-icon>public</mat-icon>
     Country
   </a>
@@ -29,7 +29,7 @@
   <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/company']">
     <mat-icon>business</mat-icon>
     Company
-  </a>
+  </a> -->
   <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/sports']" (click)="toggleAddDefaults()" >
     <mat-icon>sports</mat-icon>
     Add Defaults
@@ -43,6 +43,8 @@
     [routerLinkActive]="['active']"
     [routerLink]="[item.route]"
   >
+      <mat-icon>{{ item.icon }}</mat-icon>
+
     {{ item.name }}
   </a>
 </div>

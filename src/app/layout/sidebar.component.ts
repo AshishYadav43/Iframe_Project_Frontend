@@ -19,9 +19,9 @@ export class SidebarComponent {
   showAddDefaults = false;
 
   addDefaultsChildren = [
-    { name: 'Country', route: '/countries' },
-    { name: 'Currency', route: '/currencies' },
-    { name: 'Company', route: '/company' }
+    { name: 'Country', route: '/countries',icon: 'public' },
+    { name: 'Currency', route: '/currencies',icon: 'currency_exchange' },
+    { name: 'Company', route: '/company',icon: 'business' }
   ];
 
 

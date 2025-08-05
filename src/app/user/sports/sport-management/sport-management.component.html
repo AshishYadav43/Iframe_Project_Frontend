@@ -42,7 +42,7 @@
 
 <mat-paginator [pageSizeOptions]="[50, 100, 150]" showFirstLastButtons></mat-paginator> -->
 
-<mat-tab-group>
+<mat-tab-group [(selectedIndex)]="selectedTabIndex">
   <!-- All Sports Tab -->
   <mat-tab label="All Sports">
     <ng-template matTabContent>

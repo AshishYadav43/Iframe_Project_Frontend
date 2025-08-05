@@ -14,6 +14,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { CountryManagementComponent } from '../../country/country-management/country-management.component';
 import { CurrencyManagementComponent } from '../../currency/currency-management.component';
 import { CompanyManagementComponent } from '../../company-management/company-management.component';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-sport-management',
   imports: [CommonModule,
@@ -36,6 +37,9 @@ export class SportManagementComponent {
 
 displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType'];
   dataSource = new MatTableDataSource<any>();
+    selectedTabIndex = 0;
+
+  constructor(private route: ActivatedRoute) {}
 
   private api = inject(AuthService);
   private dialog = inject(MatDialog);
@@ -45,6 +49,14 @@ displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType'];
 
   ngOnInit() {
     this.loadSportsList();
+     this.route.queryParams.subscribe(params => {
+      const tab = +params['tab'];
+      if (!isNaN(tab)) {
+        setTimeout(() => {
+          this.selectedTabIndex = tab;
+        }, 0);
+      }
+    });
   }
 
   loadSportsList() {

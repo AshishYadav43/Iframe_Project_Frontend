@@ -39,11 +39,12 @@ export const routes: Routes = [
       },
       {
         path: 'countries',
-        component: CountryManagementComponent
+          redirectTo: '/sports?tab=1',
       },
       {
         path: 'currencies',
-        component: CurrencyManagementComponent
+          redirectTo: '/sports?tab=2',
+
       },
       {
         path: 'sports',
@@ -70,7 +71,7 @@ export const routes: Routes = [
       },
       {
         path: 'company',
-        component: CompanyManagementComponent
+          redirectTo: '/sports?tab=3',
       },
       {
         path: 'loginPermission',

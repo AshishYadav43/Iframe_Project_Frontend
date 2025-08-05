@@ -74,6 +74,7 @@ mat-toolbar.header-toolbar {
   color: #fff;
   cursor: pointer;
   text-decoration: none;
+
 }
 
 .nested-links a:hover {
