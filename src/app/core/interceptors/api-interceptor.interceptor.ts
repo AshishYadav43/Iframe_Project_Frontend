@@ -51,7 +51,6 @@ export const apiInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
   const toaster = inject(ToastrService);  
   return from(api.getFingerprint()).pipe( // 👈 convert Promise to Observable
     switchMap(fingerprint => {
-      console.log("FINGERPRINT",fingerprint);
       // Clone request with credentials + fingerprint in body
       let clonedReq = req.clone({ withCredentials: true });
 

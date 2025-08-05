@@ -56,7 +56,9 @@
             <input [appPatternRestrict]="pattern.mobile" maxlength="20" matInput formControlName="id"
                 placeholder="Enter ID">
             <mat-error *ngIf="form.get('id')?.hasError('required')">Id is required</mat-error>
-
+            <mat-error *ngIf="form.get('id')?.hasError('minlength')">
+                Id must be at least {{ form.get('id')?.errors?.['minlength']?.requiredLength }} characters
+            </mat-error>
         </mat-form-field>
 
         <!-- API Paths -->

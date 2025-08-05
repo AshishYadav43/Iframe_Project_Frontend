@@ -124,4 +124,8 @@ export class AuthService {
   private generateDeviceId(fingerprintId: string): string {
     return `DEV-${btoa(fingerprintId).replace(/=/g, '').substring(0, 12)}`;
   }
+
+  addLoginPermission(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/login-permission/add`, data);
+  }
 }

@@ -35,6 +35,11 @@
     Competition
   </a>
 
+   <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/loginPermission']">
+    <mat-icon>settings</mat-icon>
+    Login Permisison
+  </a>
+
   <a class="side-bar-link" mat-list-item (click)="logout()">
     <mat-icon>logout</mat-icon>
     Logout

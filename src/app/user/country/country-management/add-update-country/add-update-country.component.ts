@@ -110,7 +110,7 @@ export class AddUpdateCountryComponent {
       next: () => {
         this.loading = false;
         this.dialogRef.close(true); // ✅ Close dialog with success
-        this.toaster.success("User Created Successfully");
+        this.toaster.success("Country Created Successfully");
       },
       error: (err) => {
         this.loading = false;

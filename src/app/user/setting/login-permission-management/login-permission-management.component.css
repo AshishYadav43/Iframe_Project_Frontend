@@ -64,3 +64,10 @@
 ::ng-deep .select .mat-mdc-form-field-infix {
   padding: 0 !important; /* Remove extra vertical padding */
 }
+
+.action-btn {
+  margin-left: 10px !important;
+  border-radius: 5px !important;
+  background-color: rgb(9, 190, 9) !important;
+  color: white !important;
+}

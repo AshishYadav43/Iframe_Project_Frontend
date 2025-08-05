@@ -54,7 +54,7 @@ h2 {
 
 ::ng-deep .custominput .mat-mdc-input-element::placeholder {
   color: white !important;
-  opacity: 0;
+  /* opacity: 0; */
 }
 
 ::ng-deep .custominput  input,

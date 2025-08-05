@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatOption, MatSelectModule } from '@angular/material/select';
 
-import { log } from 'console';
+import { ToastrService } from 'ngx-toastr';
 
 import { AuthService } from '../../../core/services/auth.service';
 
@@ -37,35 +37,36 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class LoginPermissionManagementComponent {
   roleData!: any;
-  displayedColumns: string[] = ['srNo', 'name', 'role', 'user', 'actions'];
+  displayedColumns: string[] = ['srNo', 'name', 'role', 'user', 'status', 'actions'];
   dataSource = new MatTableDataSource<any>();
   private router = inject(Router);
   private api = inject(AuthService);
+  private toaster = inject(ToastrService);
   options: any[] = [];
   userOptions: any[] = [];
   constructor() {
     const nav = this.router.getCurrentNavigation();
     this.roleData = nav?.extras.state?.['roleData'];
-    console.log("Role Data", this.roleData);
     this.getRole();
-    this.getUser();
+    if (this.roleData) {
+      this.getUser(this.roleData.id);
+    }
   }
 
   ngOnInit() {
-    if (!this.roleData) {
-      this.router.navigate(['/role']);
-    } else {
-      this.dataSource.data = [
-        { name: 'Email Otp', enabled: true, role: this.roleData.id || '', multiRoles: [] },
-        { name: 'Mobile Otp', enabled: true, role: this.roleData.id || '', multiRoles: [] },
-        { name: 'ON Screen Otp', enabled: true, role: this.roleData.id || '', multiRoles: [] },
-        { name: 'Telegram Otp', enabled: true, role: this.roleData.id || '', multiRoles: [] },
-        { name: 'DeviceId', enabled: true, role: this.roleData.id || '', multiRoles: [] },
-        { name: 'Geo Location', enabled: true, role: this.roleData.id || '', multiRoles: [] },
-        { name: 'Fingerprint', enabled: true, role: this.roleData.id || '', multiRoles: [] },
-        { name: 'Multi Login', enabled: true, role: this.roleData.id || '', multiRoles: [] },
-      ];
-    }
+    this.dataSource.data = [
+      { name: 'Email Varification', name_value: 'emailVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      { name: 'Mobile Varification', name_value: 'mobileVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      { name: 'ON Screen Otp Varification', name_value: 'onScreenOTPVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      { name: 'Telegram Varification', name_value: 'telegramVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      { name: 'Ip Address Verification', name_value: 'ipAddressVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      { name: 'IPv4 Verification', name_value: 'IPv4Verification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      { name: 'IPv6 Verification', name_value: 'IPv6Verification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      { name: 'DeviceId Verification', name_value: 'deviceIdVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      { name: 'Geo Location Verification', name_value: 'useGeoLocationVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      { name: 'Fingerprint Verification', name_value: 'fingerprintVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      { name: 'Multi Login Verification', name_value: 'multiLoginVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+    ];
   }
 
   onTogglePermission(row: any) {
@@ -74,7 +75,6 @@ export class LoginPermissionManagementComponent {
   }
 
   onSelectionChange(row: any) {
-    console.log(`Row ${row.name} selected option:`, row.selection);
   }
 
   toggleSelectAll(event: any, row: any) {
@@ -114,19 +114,45 @@ export class LoginPermissionManagementComponent {
     })
   }
 
-  getUser() {
-    this.api.getUsers().subscribe({
+  getUser(roleId: string = this.roleData?.id || '') {
+    const payload = { type: this.roleData?.id || roleId || '' };
+    this.api.getUsers(payload).subscribe({
       next: (res: any) => {
-        console.log("USERS", res);
         this.userOptions = res.data.map((ele: any) => {
           return {
             value: ele._id,
             label: ele.userId
           }
         })
-
       }
     })
   }
 
+  onRoleChange(data: any, event: any) {
+    this.getUser(event.value);
+  }
+
+  onActionClick(row: any) {
+    if (!row.role) { 
+      this.toaster.error("Please Select the Roles");
+      return; 
+    }
+    if (!row.multiRoles.length) {
+      this.toaster.error("Please Select the Users");
+      return;
+    }
+    const payload: any = {
+      [row.name_value]: true,
+      userIds: row.multiRoles,
+      roleId: row.role,
+      status: Number(row.enabled)
+    }
+    this.api.addLoginPermission(payload).subscribe({
+      next: (res: any) => {
+        this.toaster.success("Login Permission have been change successfully");   
+        row.multiRoles = [];
+        row.enabled = ''; 
+      }
+    })
+  }
 }
