@@ -11,6 +11,7 @@ import { CountryManagementComponent } from './user/country/country-management/co
 import { LoginPermissionManagementComponent } from './user/setting/login-permission-management/login-permission-management.component';
 import { SportManagementComponent } from './user/sports/sport-management/sport-management.component';
 import { UsedSportsIdsComponent } from './user/SportsId/used-sports-ids/used-sports-ids.component';
+import { BaseSportManagementComponent } from './user/base-sport-management/base-sport-management.component';
 
 export const routes: Routes = [
   {
@@ -74,6 +75,10 @@ export const routes: Routes = [
       {
         path: 'loginPermission',
         component: LoginPermissionManagementComponent
+      },
+      {
+        path: 'baseSports',
+        component: BaseSportManagementComponent
       }
     ]
   },
