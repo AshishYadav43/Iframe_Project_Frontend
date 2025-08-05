@@ -1,0 +1,67 @@
+<!-- Updated Template: add-edit-sport-page.component.html -->
+<mat-card class="user-card">
+    <div class="dialog-header">
+        <h2>{{ userData ? 'Edit Base Sport' : 'Add Base Sport' }}</h2>
+        <button mat-icon-button color="warn" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
+
+        <mat-form-field appearance="outline">
+            <mat-label>Sport Type Name</mat-label>
+            <input maxlength="20" [appPatternRestrict]="pattern.alphabets" matInput formControlName="sport_type_name"
+                placeholder="Enter Sport Type Name">
+            <mat-error *ngIf="form.get('sport_type_name')?.hasError('required')">Sport type name is required</mat-error>
+            <mat-error *ngIf="form.get('sport_type_name')?.hasError('minlength')">
+                Sport type name must be at least 3 characters
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Sport Type Id</mat-label>
+            <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="sport_type_id"
+                placeholder="Enter Sport Type Id">
+            <mat-error *ngIf="form.get('sport_type_id')?.hasError('required')">Sport type id is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Sport Id</mat-label>
+            <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="sport_id"
+                placeholder="Enter Sport Id">
+            <mat-error *ngIf="form.get('sport_id')?.hasError('required')">Sport Id is required</mat-error>
+        </mat-form-field>
+
+        <div formArrayName="apiPaths" class="api-paths">
+            <div *ngFor="let path of apiPaths.controls; let i = index" class="flex items-center gap-2 mb-2">
+                <mat-form-field appearance="outline" class="flex-1">
+                    <mat-label>Sport Sub Type</mat-label>
+                    <input [appPatternRestrict]="pattern.alphabets" maxlength="20" matInput [formControlName]="i"
+                        placeholder="Enter Sport Sub Type Name">
+                    <mat-error *ngIf="path.invalid && path.touched">
+                        Sport Sub Type Name is required
+                    </mat-error>
+                </mat-form-field>
+                <button mat-icon-button color="warn" (click)="removeApiPath(i)" [disabled]="apiPaths.length === 1">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+            <button mat-stroked-button color="primary" type="button" (click)="addApiPath()">
+                <mat-icon>add</mat-icon> Add Sport Sub Type
+            </button>
+        </div>
+
+        <!-- Sports List Display -->
+        <!-- <div class="sports-list">
+            <strong>Reserved Sports:</strong>
+            <p>{{ sportsString }}</p>
+        </div> -->
+
+        <!-- Submit Button -->
+        <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+            <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+            {{ loading ? 'Saving...' : (userData ? 'Update Sport' : 'Add Sport') }}
+        </button>
+    </form>
+</mat-card>
