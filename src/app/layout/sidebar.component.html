@@ -36,6 +36,10 @@
         <mat-icon>business</mat-icon>
         Company
       </a>
+
+      <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/create-member']">
+        <mat-icon>person_add</mat-icon>
+        Create Member</a>
       <a class="side-bar-link" mat-list-item (click)="logout()">
         <mat-icon>logout</mat-icon>
         Logout

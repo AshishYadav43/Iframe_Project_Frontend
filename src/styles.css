@@ -11,6 +11,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-radius: 0 !important;
 } 
 
+
 /* GLOBAL STYLING FOR Angular Material 19.x (MDC-based) */
 .custominput .mat-mdc-form-field {
   /* Border */

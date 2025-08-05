@@ -1,0 +1,199 @@
+<h2 class="page-title">Create Member</h2>
+
+<mat-horizontal-stepper linear selectedIndex="0" #stepper>
+    <mat-step [stepControl]="step1Form">
+        <form [formGroup]="step1Form">
+            <ng-template matStepLabel>Basic Setting</ng-template>
+
+            <mat-form-field appearance="outline" class="full-width" floatLabel="always">
+                <mat-label>Account Type</mat-label>
+                <input maxlength="30" [appPatternRestrict]="pattern.alphabets" matInput formControlName="accountType">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>User ID</mat-label>
+                <input maxlength="20" [appPatternRestrict]="pattern.alphabetsNumbersOnly" matInput
+                    formControlName="userId" placeholder="Max: 20 characters; only lowercase a~z and 0~9.">
+                <mat-error *ngIf="step1Form.get('userId')?.hasError('required')">
+                    Please enter User ID.
+                </mat-error>
+                <mat-error *ngIf="step1Form.get('userId')?.hasError('pattern')">
+                    Only lowercase a-z and 0-9 allowed (max 20 chars).
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>User Name</mat-label>
+                <input maxlength="30" [appPatternRestrict]="pattern.alphabets" matInput formControlName="userName">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Password</mat-label>
+                <input maxlength="20" [appPatternRestrict]="pattern.password" matInput type="password"
+                    formControlName="password" placeholder="At least 8 characters">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Confirm Password</mat-label>
+                <input maxlength="20" [appPatternRestrict]="pattern.password" matInput type="password"
+                    formControlName="confirmPassword" placeholder="At least 8 characters">
+            </mat-form-field>
+
+            <!-- Prefix Row -->
+            <div class="prefix-row">
+                <mat-form-field appearance="outline" class="prefix-field">
+                    <mat-label>Prefix</mat-label>
+                    <mat-select formControlName="prefix1">
+                        <mat-option *ngFor="let option of prefixOptions" [value]="option">{{ option }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="prefix-field">
+                    <mat-label>Prefix</mat-label>
+                    <mat-select formControlName="prefix2">
+                        <mat-option *ngFor="let option of prefixOptions" [value]="option">{{ option }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="prefix-field">
+                    <mat-label>Prefix</mat-label>
+                    <mat-select formControlName="prefix3">
+                        <mat-option *ngFor="let option of prefixOptions" [value]="option">{{ option }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="prefix-actions">
+                <button mat-flat-button color="primary" type="button" (click)="generateRandomPrefix()">
+                    Generate Prefix
+                </button>
+                <span *ngIf="prefixAvailable" class="available-text">✅ Available</span>
+            </div>
+
+            <mat-checkbox formControlName="singleWallet">Single Wallet</mat-checkbox>
+
+            <div *ngIf="step1Form.get('singleWallet')?.value" class="full-width">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Client API Secret Key</mat-label>
+                    <input matInput formControlName="clientApiSecretKey" placeholder="Client API SecretKey(optional)">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Callback URL</mat-label>
+                    <input matInput formControlName="callbackUrl" placeholder="ex:http://[your api callback url]/">
+                </mat-form-field>
+            </div>
+
+
+            <p class="note">
+                * The callback URL input here needs to be approved by AWC before it takes effect.
+            </p>
+
+            <!-- Error Summary -->
+            <div *ngIf="step1Form.invalid && step1Form.touched" class="error-summary">
+                <mat-icon color="warn">error</mat-icon>
+                <span *ngIf="step1Form.get('userId')?.hasError('required')">
+                    <strong>User ID</strong> : Please enter User ID.
+                </span>
+            </div>
+
+            <div class="form-footer">
+                <button mat-stroked-button color="primary" type="button">Cancel</button>
+                <button mat-flat-button color="primary" type="submit" (click)="stepper.next()">Next</button>
+            </div>
+        </form>
+    </mat-step>
+
+    <!-- Currency Step -->
+    <mat-step [stepControl]="currencyForm">
+        <form [formGroup]="currencyForm">
+
+            <ng-template matStepLabel>Currency</ng-template>
+
+            <mat-checkbox (change)="toggleAllCurrencies($event)" [checked]="allSelectedCurrencies()">
+                <strong>Select All</strong>
+            </mat-checkbox>
+
+            <h3>Currency List</h3>
+
+            <div class="currency-list">
+                <mat-checkbox *ngFor="let c of currencyList" [formControlName]="c">
+                    {{ c }}
+                </mat-checkbox>
+            </div>
+
+            <mat-divider class="my-4"></mat-divider>
+
+            <h3 class="text-lg font-semibold bg-gray-100 p-2">Selected Product and Currency</h3>
+
+            <table mat-table [dataSource]="productCurrencyList" class="mat-elevation-z1 full-width">
+                <!-- Product Column -->
+                <ng-container matColumnDef="product">
+                    <th mat-header-cell *matHeaderCellDef>Product</th>
+                    <td mat-cell *matCellDef="let row">{{ row.product }}</td>
+                </ng-container>
+
+                <!-- Dynamic Currency Columns -->
+                <ng-container *ngFor="let c of currencyList" [matColumnDef]="c">
+                    <th mat-header-cell *matHeaderCellDef>{{ c }}</th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-checkbox [(ngModel)]="row.currencies[c]"></mat-checkbox>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <div class="form-footer">
+                <button mat-stroked-button color="primary" type="button" (click)="stepper.previous()">Back</button>
+                <button mat-flat-button color="primary" type="submit" (click)="stepper.next()">Next</button>
+            </div>
+        </form>
+
+    </mat-step>
+
+    <mat-step [stepControl]="companyForm">
+        <form [formGroup]="companyForm">
+
+            <ng-template matStepLabel>Company</ng-template>
+
+            <mat-checkbox (change)="toggleAllCompanies($event)" [checked]="allSelectedCompanies()">
+                <strong>Select All</strong>
+            </mat-checkbox>
+
+            <h3>Company List</h3>
+
+            <div class="currency-list">
+                <mat-checkbox *ngFor="let c of companyList" [formControlName]="c">
+                    {{ c }}
+                </mat-checkbox>
+            </div>
+            <div class="form-footer">
+                <button mat-stroked-button color="primary" type="button" (click)="stepper.previous()">Back</button>
+                <button mat-flat-button color="primary" type="button" (click)="onSubmit()">Submit</button>
+            </div>
+        </form>
+    </mat-step>
+
+
+    <mat-step>
+        <ng-template matStepLabel>Product</ng-template>
+        <p>Product step content will go here.</p>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Product Setting</ng-template>
+        <p>Product Setting step content will go here.</p>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Jackpot Setting</ng-template>
+        <p>Jackpot Setting step content will go here.</p>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Bet Limit</ng-template>
+        <p>Bet Limit step content will go here.</p>
+    </mat-step>
+</mat-horizontal-stepper>

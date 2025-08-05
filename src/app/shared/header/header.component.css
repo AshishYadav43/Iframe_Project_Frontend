@@ -1,22 +1,4 @@
-/* .app-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 16px;
-}
-
-.menu-icon {
-  margin-right: 8px;
-}
-
-.app-title {
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.spacer {
-  flex: 1 1 auto;
-} */
-
+/* 
 .awc-header {
   background-color: #1b1b1b;
   color: #fff;
@@ -80,6 +62,105 @@
       border-radius: 24px;
       padding: 4px 12px;
       text-transform: none;
+    }
+  }
+}
+ */
+
+ .awc-header {
+  background-color: #1b1b1b;
+  color: #fff;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  height: auto;
+
+  .left-section {
+    display: flex;
+    align-items: center;
+
+    .logo {
+      height: 42px;
+      margin-right: 10px;
+    }
+
+    .brand-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: #cda349;
+    }
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .right-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    flex-wrap: wrap;
+
+    .icon {
+      color: #cda349;
+    }
+
+    .lang {
+      font-weight: 500;
+    }
+
+    .username {
+      font-weight: bold;
+      color: #cda349;
+    }
+
+    .role {
+      background-color: #7b5fa0;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: white;
+    }
+
+    .logout-btn {
+      background-color: #f2c94c;
+      color: #000;
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 24px;
+      padding: 4px 12px;
+      text-transform: none;
+      white-space: nowrap;
+    }
+  }
+
+  /* // 🔽 Responsive Styles */
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+
+    .right-section {
+      width: 100%;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .left-section {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .spacer {
+      display: none;
+    }
+
+    .logout-btn {
+      width: 100%;
+      margin-top: 10px;
     }
   }
 }

@@ -9,6 +9,7 @@ import { ModuleManagementComponent } from './user/module-management/module-manag
 import { RoleManagementComponent } from './user/role-management/role-management.component';
 import { CountryManagementComponent } from './user/country/country-management/country-management.component';
 import { SportManagementComponent } from './user/sports/sport-management/sport-management.component';
+import { CreateMemberComponent } from './user/member/create-member/create-member.component';
 
 export const routes: Routes = [
   {
@@ -61,6 +62,10 @@ export const routes: Routes = [
       {
         path: 'company',
         component: CompanyManagementComponent
+      },
+      {
+        path:"create-member",
+        component:CreateMemberComponent
       }
 
     ]
