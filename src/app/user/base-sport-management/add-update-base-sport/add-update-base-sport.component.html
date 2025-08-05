@@ -26,14 +26,14 @@
             <mat-error *ngIf="form.get('sport_type_id')?.hasError('required')">Sport type id is required</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <!-- <mat-form-field appearance="outline">
             <mat-label>Sport Id</mat-label>
             <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="sport_id"
                 placeholder="Enter Sport Id">
             <mat-error *ngIf="form.get('sport_id')?.hasError('required')">Sport Id is required</mat-error>
-        </mat-form-field>
+        </mat-form-field> -->
 
-        <div formArrayName="apiPaths" class="api-paths">
+        <!-- <div formArrayName="apiPaths" class="api-paths">
             <div *ngFor="let path of apiPaths.controls; let i = index" class="flex items-center gap-2 mb-2">
                 <mat-form-field appearance="outline" class="flex-1">
                     <mat-label>Sport Sub Type</mat-label>
@@ -50,7 +50,43 @@
             <button mat-stroked-button color="primary" type="button" (click)="addApiPath()">
                 <mat-icon>add</mat-icon> Add Sport Sub Type
             </button>
+        </div> -->
+
+        <div formArrayName="apiPaths" class="api-paths">
+            <div *ngFor="let group of apiPaths.controls; let i = index" [formGroupName]="i"
+                class="flex items-center gap-2 mb-2">
+                <!-- Name -->
+                <mat-form-field appearance="outline" class="flex-1">
+                    <mat-label>Sport Sub Type Name</mat-label>
+                    <input maxlength="20" [appPatternRestrict]="pattern.alphabets" matInput formControlName="name"
+                        placeholder="Enter Name">
+                    <mat-error *ngIf="group.get('name')?.hasError('required') && group.get('name')?.touched">
+                        Name is required
+                    </mat-error>
+                </mat-form-field>
+
+                 <!-- ID -->
+                <mat-form-field appearance="outline" class="flex-1">
+                    <mat-label>Sport Sub Type ID</mat-label>
+                    <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="id"
+                        placeholder="Enter ID">
+                    <mat-error *ngIf="group.get('id')?.hasError('required') && group.get('id')?.touched">
+                        ID is required
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Delete Button -->
+                <button mat-icon-button color="warn" (click)="removeApiPath(i)" [disabled]="apiPaths.length === 1">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+
+            <!-- Add Button -->
+            <button mat-stroked-button color="primary" type="button" (click)="addApiPath()">
+                <mat-icon>add</mat-icon> Add Sport Sub Type
+            </button>
         </div>
+
 
         <!-- Sports List Display -->
         <!-- <div class="sports-list">

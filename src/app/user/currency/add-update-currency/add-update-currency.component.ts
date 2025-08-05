@@ -135,6 +135,7 @@ export class AddUpdateCurrencyComponent {
   }
 
   onSubmit() {
+    if (this.form.invalid) return;
     const payload: any = { 
       name: this.form.value.name, 
       symbol: this.form.value.symbol, 

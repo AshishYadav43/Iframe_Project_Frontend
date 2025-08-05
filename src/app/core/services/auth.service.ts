@@ -59,6 +59,10 @@ export class AuthService {
     return this.http.post(`${this.baseUserUrl}/sport/getSports`, data);
   }
 
+  getAllBaseSports(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/base-sport/getSports`, data);
+  }
+
   addSport(data: any): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/sport/createSport`, data);
   }
@@ -127,5 +131,9 @@ export class AuthService {
 
   addLoginPermission(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/login-permission/add`, data);
+  }
+
+  addBaseSports(data: any): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/base-sport/createSport`, data);
   }
 }
