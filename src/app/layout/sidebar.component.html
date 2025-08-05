@@ -30,10 +30,26 @@
     <mat-icon>business</mat-icon>
     Company
   </a>
-  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/sports']">
+  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/sports']" (click)="toggleAddDefaults()" >
     <mat-icon>sports</mat-icon>
     Add Defaults
   </a>
+
+  <div *ngIf="showAddDefaults" class="nested-links">
+  <a
+    *ngFor="let item of addDefaultsChildren"
+    class="side-bar-link"
+    mat-list-item
+    [routerLinkActive]="['active']"
+    [routerLink]="[item.route]"
+  >
+    {{ item.name }}
+  </a>
+</div>
+
+  <!-- Add Defaults Parent Item -->
+
+
 
     <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/usedSportsIds']">
     <mat-icon>sports</mat-icon>

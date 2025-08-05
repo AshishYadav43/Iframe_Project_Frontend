@@ -39,3 +39,49 @@ mat-toolbar.header-toolbar {
 ::ng-deep .sidebar-nav .side-bar-link.active {
   background: goldenrod !important;
 }
+
+.parent-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #fff;
+}
+
+.parent-link:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.parent-icon {
+  margin-right: 8px;
+  color: goldenrod;
+}
+
+.expand-icon {
+  margin-left: auto;
+  color: goldenrod;
+}
+
+.nested-links {
+  padding-left: 32px;
+}
+
+.nested-links a {
+  display: block;
+  padding: 8px 0 8px 16px;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.nested-links a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nested-links a.active {
+  background-color: goldenrod;
+  color: black;
+  border-radius: 20px;
+}
