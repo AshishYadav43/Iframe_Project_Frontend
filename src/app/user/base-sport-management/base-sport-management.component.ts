@@ -8,7 +8,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+
 import { AuthService } from '../../core/services/auth.service';
+
 import { AddUpdateBaseSportComponent } from './add-update-base-sport/add-update-base-sport.component';
 
 @Component({
@@ -28,21 +30,42 @@ import { AddUpdateBaseSportComponent } from './add-update-base-sport/add-update-
 })
 export class BaseSportManagementComponent {
 
-  displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType'];
+  displayedColumns: string[] = ['srNo', 'sportId', 'name', 'subtypeid', 'subtypename'];
   dataSource = new MatTableDataSource<any>();
 
   private api = inject(AuthService);
   private dialog = inject(MatDialog);
 
-    openAddSport() {
-      this.dialog.open(AddUpdateBaseSportComponent, {
-        width: '600px',
-        maxHeight: '90vh',
-        autoFocus: false,
-        data: null
-      }).afterClosed().subscribe(result => {
-        // if (result) this.loadSportsList();
-      });
-    }
+  constructor() {
+    this.getBaseSports();
+  }
+
+  openAddSport() {
+    this.dialog.open(AddUpdateBaseSportComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: null
+    }).afterClosed().subscribe(result => {
+      if (result) this.getBaseSports();
+    });
+  }
+
+  getBaseSports() {
+    this.api.getAllBaseSports().subscribe({
+      next: (res: any) => {
+        console.log("RESPONSE", res);
+        this.dataSource.data = res.data;
+      }
+    })
+  }
+
+  getSubtypeNames(row: any): string {
+    return row?.sport_sub_type?.map((item: any) => item.name).join(', ') || '';
+  }
+
+  getSubtypeIds(row: any): string {
+    return row?.sport_sub_type?.map((item: any) => item.id).join(', ') || '';
+  }
 
 }

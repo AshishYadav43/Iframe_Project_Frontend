@@ -47,17 +47,17 @@ export class AddUpdateModuleComponent {
   private fb = inject(FormBuilder);
   private api = inject(AuthService);
   private toaster = inject(ToastrService);
- companyType: SelectOption[] = [
-  { id: '3rd-party', name: 'THIRD_PARTY' },
-  { id: 'Our Company', name: 'B2C' },
-];
-  sportTypes: SelectOption[] = [
-    { id: 'Manual', name: 'MANUAL' },
-    { id: 'Lottery', name: 'LOTTERY' },
-    { id: 'Live', name: 'LIVE' },
-    { id: 'Virtual', name: 'VIRTUAL' },
-    { id: 'Table', name: 'TABLE' },
-    { id: 'Slot', name: 'SLOT' }
+  companyType: SelectOption[] = [
+    { id: '3rd-party', name: 'THIRD_PARTY' },
+    { id: 'Our Company', name: 'B2C' },
+  ];
+  sports: SelectOption[] = [
+    // { id: 'Manual', name: 'MANUAL' },
+    // { id: 'Lottery', name: 'LOTTERY' },
+    // { id: 'Live', name: 'LIVE' },
+    // { id: 'Virtual', name: 'VIRTUAL' },
+    // { id: 'Table', name: 'TABLE' },
+    // { id: 'Slot', name: 'SLOT' }
   ]
   companies: SelectOption[] = [];
   countries: SelectOption[] = [];
@@ -70,18 +70,20 @@ export class AddUpdateModuleComponent {
     this.getCountry();
     this.getCurrency();
     this.getCompany();
+    this.getSports();
   }
 
   ngOnInit(): void {
     this.form = this.fb.group({
       companySelection: ['', Validators.required],
-      sportType: ['', Validators.required],
+      sport: ['', Validators.required],
       company: ['', Validators.required],
       country: ['', Validators.required],
       currency: ['', Validators.required],
-      competitionName: ['', Validators.required],
-      eventName: ['', Validators.required],
-      marketName: ['', Validators.required]
+      competitionId: ['', [Validators.required, Validators.minLength(3)]],
+      competitionName: ['', [Validators.required, Validators.minLength(3)]],
+      eventName: ['', [Validators.required, Validators.minLength(3)]],
+      marketName: ['', [Validators.required, Validators.minLength(3)]]
     });
 
     if (this.comptitionData) {
@@ -151,6 +153,20 @@ export class AddUpdateModuleComponent {
           return {
             id: ele._id,
             name: ele.name
+          }
+        })
+      }
+    })
+  }
+
+  getSports() {
+    this.api.getAllSports().subscribe({
+      next: (res: any) => {
+        console.log("SPORTS",res);
+        this.sports = res.data.map((ele: any) => {
+          return {
+            id: ele._id,
+            name: ele.sport_name
           }
         })
       }
