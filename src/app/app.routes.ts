@@ -10,6 +10,7 @@ import { RoleManagementComponent } from './user/role-management/role-management.
 import { CountryManagementComponent } from './user/country/country-management/country-management.component';
 import { LoginPermissionManagementComponent } from './user/setting/login-permission-management/login-permission-management.component';
 import { SportManagementComponent } from './user/sports/sport-management/sport-management.component';
+import { UsedSportsIdsComponent } from './user/SportsId/used-sports-ids/used-sports-ids.component';
 
 export const routes: Routes = [
   {
@@ -37,7 +38,7 @@ export const routes: Routes = [
       },
       {
         path: 'countries',
-       component: CountryManagementComponent
+        component: CountryManagementComponent
       },
       {
         path: 'currencies',
@@ -47,6 +48,13 @@ export const routes: Routes = [
         path: 'sports',
         component: SportManagementComponent
       },
+
+
+      {
+        path: 'usedSportsIds',
+        component: UsedSportsIdsComponent
+      },
+
       {
         path: 'role',
         component: RoleManagementComponent
