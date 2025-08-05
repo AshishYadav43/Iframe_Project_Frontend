@@ -11,6 +11,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddEditSportPageComponent } from './add-edit-sport-page/add-edit-sport-page.component';
 import { AuthService } from '../../../core/services/auth.service';
+import { CountryManagementComponent } from '../../country/country-management/country-management.component';
+import { CurrencyManagementComponent } from '../../currency/currency-management.component';
+import { CompanyManagementComponent } from '../../company-management/company-management.component';
 @Component({
   selector: 'app-sport-management',
   imports: [CommonModule,
@@ -21,7 +24,11 @@ import { AuthService } from '../../../core/services/auth.service';
     MatIconModule,
     MatFormFieldModule,
     MatTabsModule,
-    MatInputModule,],
+    MatInputModule,
+    CountryManagementComponent,
+    CurrencyManagementComponent,
+    CompanyManagementComponent
+  ],
   templateUrl: './sport-management.component.html',
   styleUrl: './sport-management.component.css'
 })

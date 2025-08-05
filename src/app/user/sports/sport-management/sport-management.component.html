@@ -47,7 +47,7 @@
   <mat-tab label="All Sports">
     <ng-template matTabContent>
       <div class="table-header">
-        <span>All Sports</span>
+        <span>Sports</span>
         <span class="spacer"></span>
         <button mat-raised-button color="accent" (click)="openAddSport()">
           <mat-icon>add</mat-icon> Add Sport
@@ -91,26 +91,21 @@
     </ng-template>
   </mat-tab>
 
-  <!-- Active Sports Tab -->
   <mat-tab label="Country">
     <ng-template matTabContent>
-      <!-- <app-sport-table [status]="'active'"></app-sport-table> -->
-       <p>Country content goes here</p>
+       <app-country-management></app-country-management>
     </ng-template>
   </mat-tab>
 
-  <!-- Inactive Sports Tab -->
   <mat-tab label="Currency">
     <ng-template matTabContent>
-      <!-- <app-sport-table [status]="'inactive'"></app-sport-table> -->
-      <p>Currency content goes here</p>
+       <app-currency-management></app-currency-management>
     </ng-template>
   </mat-tab>
 
     <mat-tab label="Company">
     <ng-template matTabContent>
-      <p>Company content goes here</p>
-      <!-- <app-sport-table [status]="'inactive'"></app-sport-table> -->
+      <app-company-management></app-company-management>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
