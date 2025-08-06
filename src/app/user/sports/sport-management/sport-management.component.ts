@@ -31,7 +31,7 @@ import { CasinoManagementComponent } from '../casino-management/casino-managemen
 })
 export class SportManagementComponent {
 
-displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType'];
+displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType','status'];
   dataSource = new MatTableDataSource<any>();
     selectedTabIndex = 0;
 

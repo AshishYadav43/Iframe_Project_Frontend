@@ -1,5 +1,5 @@
 .user-card {
-  width: 100%;
+  width:100%;
   /* margin: 2rem auto; */
   padding: 1.5rem;
 }
@@ -11,8 +11,27 @@
 }
 
 mat-form-field {
-  width: 100%;
+  width: 90%;
 }
+
+
+.api-paths {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.api-path-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.api-path-input {
+  flex: 1;
+}
+
 
 .dialog-header {
   display: flex;
@@ -22,4 +41,43 @@ mat-form-field {
 
 .dialog-header h2 {
   margin: 0;
+}
+
+.dropdown-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.flex-grow {
+  flex: 1;
+}
+
+.icon-buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+:host ::ng-deep .mat-dialog-container {
+  width: 800px;
+  max-width: 90vw;
+}
+
+.api-path-row, .sport-pair-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.api-path-input, mat-form-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+.sport-buttons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }

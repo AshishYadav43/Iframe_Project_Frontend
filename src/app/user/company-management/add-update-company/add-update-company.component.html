@@ -1,91 +1,122 @@
 <mat-card class="user-card">
-    <div class="dialog-header">
-        <h2>{{ companyData ? 'Edit Company' : 'Add Company' }}</h2>
-        <button mat-icon-button color="warn" (click)="onCancel()">
-            <mat-icon>close</mat-icon>
+  <div class="dialog-header">
+    <h2>{{ companyData ? 'Edit Company' : 'Add Company' }}</h2>
+    <button mat-icon-button color="warn" (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
+    <!-- Company Selection -->
+    <mat-form-field appearance="outline">
+      <mat-label>Company Type Selection</mat-label>
+      <mat-select formControlName="company_selection">
+        <mat-option *ngFor="let option of companySelectionOptions" [value]="option.value">
+          {{ option.key }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('company_selection')?.hasError('required')">Company Selection is required</mat-error>
+    </mat-form-field>
+
+    <!-- Company Type -->
+    <mat-form-field appearance="outline">
+      <mat-label>Company Type</mat-label>
+      <mat-select formControlName="companyType">
+        <mat-option *ngFor="let type of companyType" [value]="type.id">{{ type.name }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('companyType')?.hasError('required')">Company Type is required</mat-error>
+    </mat-form-field>
+
+    <!-- Country -->
+    <mat-form-field appearance="outline">
+      <mat-label>Country</mat-label>
+      <mat-select formControlName="country">
+        <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('country')?.hasError('required')">Country is required</mat-error>
+    </mat-form-field>
+
+    <!-- Supported Currencies -->
+    <mat-form-field appearance="outline">
+      <mat-label>Supported Currencies</mat-label>
+      <mat-select formControlName="supportedCurrencies" multiple>
+        <mat-option *ngFor="let currency of currencies" [value]="currency.id">{{ currency.name }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('supportedCurrencies')?.hasError('required')">Supported Currencies are required</mat-error>
+    </mat-form-field>
+
+    <!-- Name -->
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" maxlength="20" placeholder="Enter Company Name" [appPatternRestrict]="pattern.alphabets" />
+      <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
+    </mat-form-field>
+
+    <!-- ID -->
+    <mat-form-field appearance="outline">
+      <mat-label>ID</mat-label>
+      <input matInput formControlName="id" maxlength="20" placeholder="Enter ID" [appPatternRestrict]="pattern.mobile" />
+      <mat-error *ngIf="form.get('id')?.hasError('required')">ID is required</mat-error>
+      <mat-error *ngIf="form.get('id')?.hasError('minlength')">
+        ID must be at least {{ form.get('id')?.errors?.['minlength']?.requiredLength }} characters
+      </mat-error>
+    </mat-form-field>
+
+    <!-- API Paths -->
+    <div formArrayName="apiPaths" class="api-paths">
+      <div *ngFor="let path of apiPaths.controls; let i = index" [formGroupName]="i" class="api-path-row">
+        <mat-form-field appearance="outline" class="api-path-input">
+          <mat-label>API Path</mat-label>
+          <input matInput formControlName="value" maxlength="200" placeholder="Enter API Path" [appPatternRestrict]="pattern.password" />
+          <mat-error *ngIf="path.get('value')?.invalid && path.get('value')?.touched">API Path is required</mat-error>
+        </mat-form-field>
+
+        <button *ngIf="apiPaths.length > 1" mat-icon-button color="warn" (click)="removeApiPath(i)">
+          <mat-icon>delete</mat-icon>
         </button>
+
+        <button *ngIf="i === apiPaths.length - 1" mat-icon-button color="primary" (click)="addApiPath()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
     </div>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
-
-        <!-- Company Type -->
+    <!-- Sport Category and SubType Dynamic FormArray -->
+    <div formArrayName="sportTypeAndSubType">
+      <div *ngFor="let group of sportTypeAndSubType.controls; let i = index" [formGroupName]="i" class="sport-pair-row">
         <mat-form-field appearance="outline">
-            <mat-label>Company Type</mat-label>
-            <mat-select formControlName="companyType">
-                <mat-option *ngFor="let type of companyType" [value]="type.id">
-                    {{ type.name }}
-                </mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.get('companyType')?.hasError('required')">Company Type is required</mat-error>
+          <mat-label>Sport Category Type</mat-label>
+          <mat-select formControlName="sport_category">
+            <mat-option *ngFor="let type of sportTypes" [value]="type.id">{{ type.name }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="group.get('sport_category')?.hasError('required')">Sport Category is required</mat-error>
         </mat-form-field>
 
-        <!-- Country -->
         <mat-form-field appearance="outline">
-            <mat-label>Country</mat-label>
-            <mat-select formControlName="country">
-                <mat-option *ngFor="let country of countries" [value]="country.id">
-                    {{ country.name }}
-                </mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.get('country')?.hasError('required')">Country Type is required</mat-error>
+          <mat-label>Sub Type</mat-label>
+          <mat-select formControlName="sub_types" multiple>
+            <mat-option *ngFor="let item of group.get('sub_type_options')?.value" [value]="item._id">
+              {{ item.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="group.get('sub_types')?.hasError('required')">Sub Type is required</mat-error>
         </mat-form-field>
 
-        <!-- Supported Currencies -->
-        <mat-form-field appearance="outline">
-            <mat-label>Supported Currencies</mat-label>
-            <mat-select formControlName="supportedCurrencies" multiple>
-                <mat-option *ngFor="let currency of currencies" [value]="currency.id">
-                    {{ currency.name }}
-                </mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.get('supportedCurrencies')?.hasError('required')">Supported Currencies is
-                required</mat-error>
-        </mat-form-field>
-
-        <!-- Name -->
-        <mat-form-field appearance="outline">
-            <mat-label>Name</mat-label>
-            <input [appPatternRestrict]="pattern.alphabets" matInput maxlength="20" formControlName="name"
-                placeholder="Enter Company Name">
-            <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
-        </mat-form-field>
-
-        <!-- ID -->
-        <mat-form-field appearance="outline">
-            <mat-label>ID</mat-label>
-            <input [appPatternRestrict]="pattern.mobile" maxlength="20" matInput formControlName="id"
-                placeholder="Enter ID">
-            <mat-error *ngIf="form.get('id')?.hasError('required')">Id is required</mat-error>
-            <mat-error *ngIf="form.get('id')?.hasError('minlength')">
-                Id must be at least {{ form.get('id')?.errors?.['minlength']?.requiredLength }} characters
-            </mat-error>
-        </mat-form-field>
-
-        <!-- API Paths -->
-        <div formArrayName="apiPaths" class="api-paths">
-            <div *ngFor="let path of apiPaths.controls; let i = index" class="flex items-center gap-2 mb-2">
-                <mat-form-field appearance="outline" class="flex-1">
-                    <mat-label>Api Paths</mat-label>
-                    <input [appPatternRestrict]="pattern.password" maxlength="20" matInput [formControlName]="i"
-                        placeholder="Enter API Path">
-                    <mat-error *ngIf="path.invalid && path.touched">
-                        API Path is required
-                    </mat-error>
-                </mat-form-field>
-                <button mat-icon-button color="warn" (click)="removeApiPath(i)" [disabled]="apiPaths.length === 1">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </div>
-            <button mat-stroked-button color="primary" type="button" (click)="addApiPath()">
-                <mat-icon>add</mat-icon> Add Path
-            </button>
+        <div class="sport-buttons">
+          <button *ngIf="sportTypeAndSubType.length > 1" mat-icon-button color="warn" (click)="removeSportTypeGroup(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button *ngIf="i === sportTypeAndSubType.length - 1" mat-icon-button color="primary" (click)="addSportTypeGroup()">
+            <mat-icon>add</mat-icon>
+          </button>
         </div>
+      </div>
+    </div>
 
-        <!-- Submit Button -->
-        <button mat-raised-button color="primary" type="submit" [disabled]="loading">
-            <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
-            {{ loading ? 'Saving...' : (companyData ? 'Update Company' : 'Add Company') }}
-        </button>
-
-    </form>
+    <!-- Submit Button -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+      <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+      {{ loading ? 'Saving...' : (companyData ? 'Update Company' : 'Add Company') }}
+    </button>
+  </form>
 </mat-card>
