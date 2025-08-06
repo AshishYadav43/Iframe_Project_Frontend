@@ -10,19 +10,19 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
 
         <mat-form-field appearance="outline">
-            <mat-label>Sport Type Name</mat-label>
+            <mat-label>Type Name</mat-label>
             <input maxlength="20" [appPatternRestrict]="pattern.alphabets" matInput formControlName="sport_type_name"
-                placeholder="Enter Sport Type Name">
-            <mat-error *ngIf="form.get('sport_type_name')?.hasError('required')">Sport type name is required</mat-error>
+                placeholder="Enter Type Name">
+            <mat-error *ngIf="form.get('sport_type_name')?.hasError('required')">Type name is required</mat-error>
             <mat-error *ngIf="form.get('sport_type_name')?.hasError('minlength')">
-                Sport type name must be at least 3 characters
+                type name must be at least 3 characters
             </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
             <mat-label>Sport Type Id</mat-label>
             <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="sport_type_id"
-                placeholder="Enter Sport Type Id">
+                placeholder="Enter Type Id">
             <mat-error *ngIf="form.get('sport_type_id')?.hasError('required')">Sport type id is required</mat-error>
         </mat-form-field>
 
@@ -57,7 +57,7 @@
                 class="flex items-center gap-2 mb-2">
                 <!-- Name -->
                 <mat-form-field appearance="outline" class="flex-1">
-                    <mat-label>Sport Sub Type Name</mat-label>
+                    <mat-label>Sub Type Name</mat-label>
                     <input maxlength="20" [appPatternRestrict]="pattern.alphabets" matInput formControlName="name"
                         placeholder="Enter Name">
                     <mat-error *ngIf="group.get('name')?.hasError('required') && group.get('name')?.touched">
@@ -67,7 +67,7 @@
 
                  <!-- ID -->
                 <mat-form-field appearance="outline" class="flex-1">
-                    <mat-label>Sport Sub Type ID</mat-label>
+                    <mat-label>Sub Type ID</mat-label>
                     <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="id"
                         placeholder="Enter ID">
                     <mat-error *ngIf="group.get('id')?.hasError('required') && group.get('id')?.touched">
@@ -83,7 +83,7 @@
 
             <!-- Add Button -->
             <button mat-stroked-button color="primary" type="button" (click)="addApiPath()">
-                <mat-icon>add</mat-icon> Add Sport Sub Type
+                <mat-icon>add</mat-icon> Add Sub Type
             </button>
         </div>
 

@@ -1,0 +1,107 @@
+<!-- Updated Template: add-edit-sport-page.component.html -->
+<mat-card class="user-card">
+  <div class="dialog-header">
+    <h2>{{ userData ? 'Edit Casino' : 'Add Casino' }}</h2>
+    <button mat-icon-button color="warn" (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
+
+    
+    <!-- Company Selection Type Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Company Type Selection</mat-label>
+      <mat-select formControlName="company_type">
+        <mat-option *ngFor="let option of companySelectionOptions" [value]="option.value">{{ option.key }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('company_type')?.hasError('required')">company Selection is required</mat-error>
+    </mat-form-field>
+
+    <!-- Company Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Company</mat-label>
+      <mat-select formControlName="company">
+        <mat-option *ngFor="let company of companies" [value]="company._id">{{ company?.name }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('company')?.hasError('required')">Company is required</mat-error>
+    </mat-form-field>
+    
+    <!-- Sport Category Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Base Sport</mat-label>
+      <mat-select formControlName="base_sport" aria-label="Select Sport Category">
+        <mat-option *ngFor="let item of sportTypes" [value]="item.sport_type_id">{{ item.sport_type_name  }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('base_sport')?.hasError('required')">Sport Category is required</mat-error>
+    </mat-form-field>
+
+    <!-- Supported sub_sports -->
+    <mat-form-field appearance="outline">
+        <mat-label>Base Sub Type</mat-label>
+        <mat-select formControlName="sub_sports" multiple>
+          <mat-option *ngFor="let item of sport_sub_types" [value]="item._id">
+                {{ item.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('sub_sports')?.hasError('required')">Supported Currencies is
+            required</mat-error>
+    </mat-form-field>
+
+
+    <!-- Sport Name -->
+    <mat-form-field appearance="outline">
+      <mat-label>Casino Name</mat-label>
+      <input maxlength="30" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput formControlName="casino_name"
+        placeholder="Enter Casino Name">
+      <mat-error *ngIf="form.get('casino_name')?.hasError('required')">Casino name is required</mat-error>
+      <mat-error *ngIf="form.get('casino_name')?.hasError('minlength')">
+        Casino name must be at least 3 characters
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Casino Id</mat-label>
+      <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="casino_id"
+        placeholder="Enter Casino Id">
+      <mat-error *ngIf="form.get('casino_id')?.hasError('required')">Casino Id is required</mat-error>
+    </mat-form-field>
+
+    <!-- Supported Country -->
+    <mat-form-field appearance="outline">
+        <mat-label>Country</mat-label>
+        <mat-select formControlName="country" multiple>
+            <mat-option *ngFor="let item of countries" [value]="item.id">
+                {{ item.name }}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('country')?.hasError('required')">Country is
+            required</mat-error>
+    </mat-form-field>
+
+    <!-- Supported Currencies -->
+    <mat-form-field appearance="outline">
+        <mat-label>Supported Currencies</mat-label>
+        <mat-select formControlName="currency" multiple>
+            <mat-option *ngFor="let currency of currencies" [value]="currency.id">
+                {{ currency.name }}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('currency')?.hasError('required')">Supported Currencies is
+            required</mat-error>
+    </mat-form-field>
+
+    <!-- Sports List Display -->
+    <div class="sports-list">
+      <strong>Reserved Sports:</strong>
+      <p>{{ sportsString }}</p>
+    </div>
+
+    <!-- Submit Button -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+      <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+      {{ loading ? 'Saving...' : (userData ? 'Update Casino' : 'Add Casino') }}
+    </button>
+  </form>
+</mat-card>
