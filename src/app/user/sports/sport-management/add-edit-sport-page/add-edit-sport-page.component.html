@@ -30,20 +30,24 @@
     
     <!-- Sport Category Dropdown -->
     <mat-form-field appearance="outline">
-      <mat-label>Sport Category</mat-label>
+      <mat-label>Base Sport</mat-label>
       <mat-select formControlName="sport_category" aria-label="Select Sport Category">
         <mat-option *ngFor="let cat of sportCategoriesNameArrayList" [value]="cat.value">{{ cat.value }}</mat-option>
       </mat-select>
       <mat-error *ngIf="form.get('sport_category')?.hasError('required')">Sport Category is required</mat-error>
     </mat-form-field>
 
-    <!-- Dynamic Checkboxes -->
-    <fieldset formArrayName="selectedItems" *ngIf="apiResults.length > 0" [disabled]="!form.get('sport_category')?.value">
-      <legend>Select Items:</legend>
-      <div *ngFor="let item of apiResults; let i = index">
-        <mat-checkbox [formControlName]="i">{{ item.name }}</mat-checkbox>
-      </div>
-    </fieldset>
+    <!-- Supported sport_sub_type -->
+    <mat-form-field appearance="outline">
+        <mat-label>Base Sub Type</mat-label>
+        <mat-select formControlName="sport_sub_type" multiple>
+          <mat-option *ngFor="let item of apiResults" [value]="item._id">
+                {{ item.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('sport_sub_type')?.hasError('required')">Supported Currencies is
+            required</mat-error>
+    </mat-form-field>
 
 
     <!-- Sport Name -->

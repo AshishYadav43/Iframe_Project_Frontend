@@ -47,7 +47,7 @@ export class AddEditSportPageComponent {
   sport_categories_name = SPORT_CATEGORIES_NAME;
   sportCategoriesNameArrayList = Object.entries(this.sport_categories_name).map(([key, value]) => ({ key, value }));
 
-  apiResults: { id: string; name: string }[] = [];
+  apiResults: { id: number; name: string; _id: string }[] = [];
   
 
   companies: { _id: string; name: string }[] = [];
@@ -81,7 +81,7 @@ export class AddEditSportPageComponent {
       sport_name: [this.userData?.sport_name || '', [Validators.required, Validators.minLength(3)]],
       company: [this.userData?.company || '', Validators.required],
       sport_category: [this.userData?.sport_category || '', Validators.required],
-      selectedItems: this.fb.array([]),
+      sport_sub_type: [this.userData?.selectedSubtypes || [], Validators.required],
       sport_type: [this.userData?.sport_type || '', Validators.required],
       sport_id: [this.userData?.sport_id || '', Validators.required],
     });
@@ -92,7 +92,7 @@ export class AddEditSportPageComponent {
         this.loadApiResults(value);
       } else {
         this.apiResults = [];
-        this.clearSelectedItems();
+        this.form.get('sport_sub_type')?.setValue([]);
       }
     });
   }
@@ -142,49 +142,28 @@ export class AddEditSportPageComponent {
   }
 
   
-  loadApiResults(category: string) {
-    console.log("inside loadApiResults");
-
-    this.api.getBaseSportSubType().subscribe({
+  loadApiResults(sport_type_name: string) {    
+    
+    // api call to get the result
+    const payload = {sport_type_name: sport_type_name}
+    this.api.getBaseSportSubType(payload).subscribe({
       next: (res: any) => {
-        if (res.data.length > 0) {
+        if (res.status === 'success' && res.data.length > 0) {
+          
           // Directly assign the subtypes from res.data
           // Assuming res.data is array of subtypes, e.g.:
-          // [{ id: 1, name: 'subOne', ... }, { id: 2, name: 'Sub Two', ... }]
-          this.apiResults = res.data;
-          this.clearSelectedItems();
-          this.addCheckboxes();
+          // [{ id: 1, name: 'subOne', ... }, { id: 2, name: 'Sub Two', ... }]          
+          this.apiResults = res.data[0]?.sport_sub_type || [];
+
+          // Reset selected items when new api results loaded
+          this.form.get('sport_sub_type')?.setValue([]);
         }
         else {
           this.apiResults = [];
-          this.clearSelectedItems();
+          this.form.get('sport_sub_type')?.setValue([]);
         }
       }
     })
-  }
-
-  clearSelectedItems() {
-    const selectedItems = this.form.get('selectedItems') as FormArray;
-    if (selectedItems) {
-      selectedItems.clear();
-    }
-  }
-
-  addCheckboxes() {
-    const selectedItems = this.form.get('selectedItems') as FormArray;
-
-    // List of selected IDs from userData (empty array if none)
-    const selectedIds = this.userData?.selectedSubtypes || [];
-
-    this.apiResults.forEach(item => {
-      console.log(item);
-      
-      // const isSelected = selectedIds.includes(item._id);
-      // selectedItems.push(this.fb.control(isSelected));
-    });
-
-    // const selectedItems = this.form.get('selectedItems') as FormArray;
-    // selectedItems.push(this.fb.control(false));
   }
 }
 
