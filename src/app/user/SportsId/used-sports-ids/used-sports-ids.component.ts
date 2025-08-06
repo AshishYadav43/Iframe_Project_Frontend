@@ -23,26 +23,31 @@ import { MatTabsModule } from '@angular/material/tabs';
   templateUrl: './used-sports-ids.component.html',
   styleUrl: './used-sports-ids.component.css'
 })
+
+
 export class UsedSportsIdsComponent {
- displayedColumns: string[] = ['srNo', 'range', 'used_for'];
-  dataSource = new MatTableDataSource<any>([
-    { range: '5000', used_for: 'Cricket' },
-  ]);
+  dataList = new MatTableDataSource<any>();
+  displayedColumns: string[] = ['srNo', 'module_name', 'from', 'to'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+
+  private api = inject(AuthService);
+
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    
+    this.getAllData();
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.dataSource.filter = filterValue;
+  getAllData() {
+    this.api.getAllUsedIds().subscribe({
+      next: (res: any) => {
+        
+        this.dataList = res.data || [];
+        console.log(this.dataList);
+        
+      }
+    });
   }
-
-
-
-
 }

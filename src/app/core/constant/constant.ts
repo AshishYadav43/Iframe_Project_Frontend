@@ -54,3 +54,11 @@ export const SPORT_CATEGORIES = {
   ESPORTS: 3,
   VIRTUALGAMING: 4,
 };
+
+
+export const STATUS_V1: Record<number, string> = {
+  1: 'Active',
+  2: 'Inactive',
+  3: 'Pending',
+  4: 'Deleted'
+};

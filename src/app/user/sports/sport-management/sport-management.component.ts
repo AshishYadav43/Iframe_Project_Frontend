@@ -13,6 +13,8 @@ import { AddEditSportPageComponent } from './add-edit-sport-page/add-edit-sport-
 import { AuthService } from '../../../core/services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { CasinoManagementComponent } from '../casino-management/casino-management.component';
+import { STATUS_V1 } from '../../../core/constant/constant';
+
 @Component({
   selector: 'app-sport-management',
   imports: [CommonModule,
@@ -58,6 +60,11 @@ displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType','status'];
   loadSportsList() {
     this.api.getAllSports().subscribe(users => {
       this.dataSource.data = users.data;
+      this.dataSource.data = users.data.map((item: any) => ({
+        ...item,
+        status: STATUS_V1[item.status] || 'UNKNOWN'
+      }));
+
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

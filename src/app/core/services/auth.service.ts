@@ -150,4 +150,9 @@ export class AuthService {
   getBaseSportSubType(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/base-sport/sport-with-type`, data);
   }
+
+  getAllUsedIds(): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/numeric-config/get`, {});
+  }
+
 }
