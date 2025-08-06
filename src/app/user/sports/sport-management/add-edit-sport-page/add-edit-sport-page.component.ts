@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Inject } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 import { STATIC_SPORTS, VALIDATION_PATTERNS } from '../../../../core/constant/constant';
 import { AuthService } from '../../../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
-import { SPORT_CATEGORIES_NAME , COMPANY_SELECTION_V1 } from '../../../../shared/constants/enum.constants';
+import { SPORT_CATEGORIES_NAME , COMPANY_SELECTION_V1 } from '../../../../core/constant/constant';
 
 @Component({
   selector: 'app-add-edit-sport-page',
@@ -81,8 +81,19 @@ export class AddEditSportPageComponent {
       sport_name: [this.userData?.sport_name || '', [Validators.required, Validators.minLength(3)]],
       company: [this.userData?.company || '', Validators.required],
       sport_category: [this.userData?.sport_category || '', Validators.required],
+      selectedItems: this.fb.array([]),
       sport_type: [this.userData?.sport_type || '', Validators.required],
       sport_id: [this.userData?.sport_id || '', Validators.required],
+    });
+
+    // Listen for changes to selectedCategory
+    this.form.get('sport_category')!.valueChanges.subscribe(value => {
+      if (value) {
+        this.loadApiResults(value);
+      } else {
+        this.apiResults = [];
+        this.clearSelectedItems();
+      }
     });
   }
 
@@ -128,6 +139,52 @@ export class AddEditSportPageComponent {
         })
       }
     })
+  }
+
+  
+  loadApiResults(category: string) {
+    console.log("inside loadApiResults");
+
+    this.api.getBaseSportSubType().subscribe({
+      next: (res: any) => {
+        if (res.data.length > 0) {
+          // Directly assign the subtypes from res.data
+          // Assuming res.data is array of subtypes, e.g.:
+          // [{ id: 1, name: 'subOne', ... }, { id: 2, name: 'Sub Two', ... }]
+          this.apiResults = res.data;
+          this.clearSelectedItems();
+          this.addCheckboxes();
+        }
+        else {
+          this.apiResults = [];
+          this.clearSelectedItems();
+        }
+      }
+    })
+  }
+
+  clearSelectedItems() {
+    const selectedItems = this.form.get('selectedItems') as FormArray;
+    if (selectedItems) {
+      selectedItems.clear();
+    }
+  }
+
+  addCheckboxes() {
+    const selectedItems = this.form.get('selectedItems') as FormArray;
+
+    // List of selected IDs from userData (empty array if none)
+    const selectedIds = this.userData?.selectedSubtypes || [];
+
+    this.apiResults.forEach(item => {
+      console.log(item);
+      
+      // const isSelected = selectedIds.includes(item._id);
+      // selectedItems.push(this.fb.control(isSelected));
+    });
+
+    // const selectedItems = this.form.get('selectedItems') as FormArray;
+    // selectedItems.push(this.fb.control(false));
   }
 }
 

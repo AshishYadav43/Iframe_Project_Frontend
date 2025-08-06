@@ -136,4 +136,8 @@ export class AuthService {
   addBaseSports(data: any): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/base-sport/createSport`, data);
   }
+
+  getBaseSportSubType(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/base-sport/sport-with-type`, data);
+  }
 }
