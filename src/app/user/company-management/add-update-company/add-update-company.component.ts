@@ -131,7 +131,7 @@ export class AddUpdateCompanyComponent {
     return this.form.get('sportTypeAndSubType') as FormArray;
   }
 
-  addSportTypeGroup(initialType: string = '', initialSubType: string = '') {
+  addSportTypeGroup(initialType: any = '{}', initialSubType: string = '') {
     const group = this.fb.group({
       sport_category: [initialType, Validators.required],
       sub_types: [[initialSubType], Validators.required],
