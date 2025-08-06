@@ -13,10 +13,10 @@
     <!-- Company Selection Type Dropdown -->
     <mat-form-field appearance="outline">
       <mat-label>Company Type Selection</mat-label>
-      <mat-select formControlName="company_selection">
+      <mat-select formControlName="company_type">
         <mat-option *ngFor="let option of companySelectionOptions" [value]="option.value">{{ option.key }}</mat-option>
       </mat-select>
-      <mat-error *ngIf="form.get('company_selection')?.hasError('required')">company Selection is required</mat-error>
+      <mat-error *ngIf="form.get('company_type')?.hasError('required')">company Selection is required</mat-error>
     </mat-form-field>
 
     <!-- Company Dropdown -->
@@ -31,21 +31,21 @@
     <!-- Sport Category Dropdown -->
     <mat-form-field appearance="outline">
       <mat-label>Base Sport</mat-label>
-      <mat-select formControlName="sport_category" aria-label="Select Sport Category">
-        <mat-option *ngFor="let cat of sportCategoriesNameArrayList" [value]="cat.value">{{ cat.value }}</mat-option>
+      <mat-select formControlName="base_sport" aria-label="Select Sport Category">
+        <mat-option *ngFor="let item of sportTypes" [value]="item.sport_type_id">{{ item.sport_type_name  }}</mat-option>
       </mat-select>
-      <mat-error *ngIf="form.get('sport_category')?.hasError('required')">Sport Category is required</mat-error>
+      <mat-error *ngIf="form.get('base_sport')?.hasError('required')">Sport Category is required</mat-error>
     </mat-form-field>
 
-    <!-- Supported sport_sub_type -->
+    <!-- Supported sub_sports -->
     <mat-form-field appearance="outline">
         <mat-label>Base Sub Type</mat-label>
-        <mat-select formControlName="sport_sub_type" multiple>
-          <mat-option *ngFor="let item of apiResults" [value]="item._id">
+        <mat-select formControlName="sub_sports" multiple>
+          <mat-option *ngFor="let item of sport_sub_types" [value]="item._id">
                 {{ item.name }}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="form.get('sport_sub_type')?.hasError('required')">Supported Currencies is
+        <mat-error *ngIf="form.get('sub_sports')?.hasError('required')">Supported Currencies is
             required</mat-error>
     </mat-form-field>
 
@@ -68,16 +68,40 @@
       <mat-error *ngIf="form.get('sport_id')?.hasError('required')">Sport Id is required</mat-error>
     </mat-form-field>
 
+    <!-- Supported Country -->
+    <mat-form-field appearance="outline">
+        <mat-label>Country</mat-label>
+        <mat-select formControlName="country" multiple>
+            <mat-option *ngFor="let item of countries" [value]="item.id">
+                {{ item.name }}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('country')?.hasError('required')">Country is
+            required</mat-error>
+    </mat-form-field>
+
+    <!-- Supported Currencies -->
+    <mat-form-field appearance="outline">
+        <mat-label>Supported Currencies</mat-label>
+        <mat-select formControlName="currency" multiple>
+            <mat-option *ngFor="let currency of currencies" [value]="currency.id">
+                {{ currency.name }}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('currency')?.hasError('required')">Supported Currencies is
+            required</mat-error>
+    </mat-form-field>
+
     <!-- Sports List Display -->
     <div class="sports-list">
       <strong>Reserved Sports:</strong>
       <p>{{ sportsString }}</p>
     </div>
 
-      <!-- Submit Button -->
-      <button mat-raised-button color="primary" type="submit" [disabled]="loading">
-        <mat-spinner *ngIf="loading" diameter="20" style="margin-right: 8px;"></mat-spinner>
-        {{ loading ? 'Saving...' : (userData ? 'Update Sport' : 'Add Sport') }}
-      </button>
+    <!-- Submit Button -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+      <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+      {{ loading ? 'Saving...' : (userData ? 'Update Sport' : 'Add Sport') }}
+    </button>
   </form>
 </mat-card>

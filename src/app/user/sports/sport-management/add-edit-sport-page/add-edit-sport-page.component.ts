@@ -17,6 +17,11 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
 import { SPORT_CATEGORIES_NAME , COMPANY_SELECTION_V1 } from '../../../../core/constant/constant';
 
+interface SelectOption {
+  id: string;
+  name: string;
+}
+
 @Component({
   selector: 'app-add-edit-sport-page',
   imports: [CommonModule,
@@ -43,22 +48,14 @@ export class AddEditSportPageComponent {
   companySelection = COMPANY_SELECTION_V1;
   companySelectionOptions = Object.entries(this.companySelection).map(([key, value]) => ({ key, value }));
 
-  // Convert object to array for *ngFor
-  sport_categories_name = SPORT_CATEGORIES_NAME;
-  sportCategoriesNameArrayList = Object.entries(this.sport_categories_name).map(([key, value]) => ({ key, value }));
+  // get the avialable sport type
+  sportTypes: Array<{ sport_type_id: number, sport_type_name: string }> = [];
 
-  apiResults: { id: number; name: string; _id: string }[] = [];
+  sport_sub_types: { id: number; name: string; _id: string }[] = [];
   
-
+  countries: SelectOption[] = [];
+  currencies: SelectOption[] = [];
   companies: { _id: string; name: string }[] = [];
-  sportTypes: { _id: string; name: string }[] = [
-    { _id: "MANUAL", name: "Manual" },
-    { _id: "LOTTERY", name: "Lottery" },
-    { _id: "LIVE", name: "Live" },
-    { _id: "VIRTUAL", name: "Virtual" },
-    { _id: "TABLE", name: "Table" },
-    { _id: "SLOT", name: "Slot" }
-  ];
 
   sportsString: string = Object.values(STATIC_SPORTS)
     .map(sport => `${sport.name} (${sport.id})`)
@@ -72,32 +69,42 @@ export class AddEditSportPageComponent {
     private dialogRef: MatDialogRef<AddEditSportPageComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
   ) {
+    this.loadApiResults();
     this.getCompany();
+    this.getCurrency();
+    this.getCountry();
   }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      company_selection: [null, Validators.required],
+      company_type: [null, Validators.required],
       sport_name: [this.userData?.sport_name || '', [Validators.required, Validators.minLength(3)]],
       company: [this.userData?.company || '', Validators.required],
-      sport_category: [this.userData?.sport_category || '', Validators.required],
-      sport_sub_type: [this.userData?.selectedSubtypes || [], Validators.required],
-      sport_type: [this.userData?.sport_type || '', Validators.required],
+      base_sport: [this.userData?.base_sport || '', Validators.required],
+      sub_sports: [this.userData?.selectedSubtypes || [], Validators.required],
       sport_id: [this.userData?.sport_id || '', Validators.required],
+      country: [this.userData?.country || '',[Validators.required]],
+      currency: [this.userData?.currency || '',[Validators.required]],
     });
 
     // Listen for changes to selectedCategory
-    this.form.get('sport_category')!.valueChanges.subscribe(value => {
-      if (value) {
-        this.loadApiResults(value);
+    this.form.get('base_sport')!.valueChanges.subscribe(selectedSportTypeId => {
+        if (selectedSportTypeId) {
+          // Find the base_sport_name from sportTypes by id
+          const selectedSport = this.sportTypes.find(item => item.sport_type_id === selectedSportTypeId);
+          if (selectedSport) {
+            this.loadApiResults(selectedSport.sport_type_name);
+          }
       } else {
-        this.apiResults = [];
-        this.form.get('sport_sub_type')?.setValue([]);
+        this.sport_sub_types = [];
+        this.form.get('sub_sports')?.setValue([]);
       }
     });
   }
 
   onSubmit(): void {
+    console.log(this.form.value);
+    
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -105,6 +112,7 @@ export class AddEditSportPageComponent {
 
     this.loading = true;
     this.form.value.sport_id = Number(this.form.value.sport_id)
+    // this.form.value.sub_sports = this.form.value.sport_sub_type
     const payload = this.form.value;
 
 
@@ -141,11 +149,38 @@ export class AddEditSportPageComponent {
     })
   }
 
+  getCurrency() {
+    this.api.getAllCurrencies().subscribe({
+      next: (res: any) => {
+        this.currencies = res.data.map((ele: any) => {
+          return {
+            id: ele._id,
+            name: ele.name
+          }
+        })
+      }
+    })
+  }
+
+  getCountry() {
+    this.api.getAllCountries().subscribe({
+      next: (res: any) => {
+        this.countries = res.data.map((ele: any) => {
+          return {
+            id: ele._id,
+            name: ele.countryName
+          }
+        })
+      }
+    })
+  }
+
   
-  loadApiResults(sport_type_name: string) {    
+  loadApiResults(sport_type_name?: string) {  
+    // If sport_type_name is empty or undefined, send no filter or a special value to get all results
+    const payload = sport_type_name ? { sport_type_name } : {};  
     
     // api call to get the result
-    const payload = {sport_type_name: sport_type_name}
     this.api.getBaseSportSubType(payload).subscribe({
       next: (res: any) => {
         if (res.status === 'success' && res.data.length > 0) {
@@ -153,14 +188,21 @@ export class AddEditSportPageComponent {
           // Directly assign the subtypes from res.data
           // Assuming res.data is array of subtypes, e.g.:
           // [{ id: 1, name: 'subOne', ... }, { id: 2, name: 'Sub Two', ... }]          
-          this.apiResults = res.data[0]?.sport_sub_type || [];
+          this.sport_sub_types = res.data[0]?.sport_sub_type || [];
+        
+          // Save the entire sport types list for the select dropdown
+          this.sportTypes = res.data.map((item: any) => ({
+            sport_type_id: item._id,
+            sport_type_name: item.sport_type_name
+          }));
+          
 
           // Reset selected items when new api results loaded
-          this.form.get('sport_sub_type')?.setValue([]);
+          this.form.get('sub_sports')?.setValue([]);
         }
         else {
-          this.apiResults = [];
-          this.form.get('sport_sub_type')?.setValue([]);
+          this.sport_sub_types = [];
+          this.form.get('sub_sports')?.setValue([]);
         }
       }
     })
