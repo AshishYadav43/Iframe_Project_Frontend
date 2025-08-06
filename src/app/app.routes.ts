@@ -40,12 +40,16 @@ export const routes: Routes = [
       },
       {
         path: 'countries',
-          redirectTo: '/sports?tab=1',
+          redirectTo: '/country-management?tab=0',
       },
       {
         path: 'currencies',
           redirectTo: '/country-management?tab=1',
 
+      },
+      {
+        path: 'company',
+          redirectTo: '/country-management?tab=2',
       },
       {
         path: 'sports',
@@ -77,10 +81,6 @@ export const routes: Routes = [
       {
         path: 'comptition',
         component: ComptititonManagementComponent
-      },
-      {
-        path: 'company',
-          redirectTo: '/country-management?tab=2',
       },
       {
         path: 'loginPermission',
