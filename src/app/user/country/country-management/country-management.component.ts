@@ -18,6 +18,10 @@ import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
 
 import { AddUpdateCountryComponent } from './add-update-country/add-update-country.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { CurrencyManagementComponent } from '../../currency/currency-management.component';
+import { CompanyManagementComponent } from '../../company-management/company-management.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-country-management',
@@ -32,13 +36,17 @@ import { AddUpdateCountryComponent } from './add-update-country/add-update-count
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatPaginator
+    MatPaginator,
+    MatTabsModule,
+    CurrencyManagementComponent,
+    CompanyManagementComponent
   ],
   templateUrl: './country-management.component.html',
   styleUrls: ['./country-management.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class CountryManagementComponent implements OnInit {
+  selectedTabIndex = 0;
   pattern = VALIDATION_PATTERNS;
   submitted = false;
   loading = false;
@@ -54,9 +62,19 @@ export class CountryManagementComponent implements OnInit {
   private dialog = inject(MatDialog);
 
   private api = inject(AuthService);
-  constructor(private toastr: ToastrService, private fb: FormBuilder) { }
+  constructor(private toastr: ToastrService, private fb: FormBuilder,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+      this.route.queryParams.subscribe(params => {
+      const tab = +params['tab'];
+      if (!isNaN(tab)) {
+        setTimeout(() => {
+          this.selectedTabIndex = tab;
+        }, 0);
+      }
+    });
     this.getAllCountries();
     this.initForm();
   }

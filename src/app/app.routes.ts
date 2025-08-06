@@ -12,6 +12,7 @@ import { LoginPermissionManagementComponent } from './user/setting/login-permiss
 import { SportManagementComponent } from './user/sports/sport-management/sport-management.component';
 import { UsedSportsIdsComponent } from './user/SportsId/used-sports-ids/used-sports-ids.component';
 import { BaseSportManagementComponent } from './user/base-sport-management/base-sport-management.component';
+import { CasinoManagementComponent } from './user/sports/casino-management/casino-management.component';
 
 export const routes: Routes = [
   {
@@ -43,12 +44,20 @@ export const routes: Routes = [
       },
       {
         path: 'currencies',
-          redirectTo: '/sports?tab=2',
+          redirectTo: '/country-management?tab=1',
 
       },
       {
         path: 'sports',
         component: SportManagementComponent
+      },
+      {
+        path: 'casino',
+        redirectTo: '/sports?tab=1'
+      },
+      {
+        path: 'country-management',
+        component: CountryManagementComponent
       },
 
 
@@ -71,7 +80,7 @@ export const routes: Routes = [
       },
       {
         path: 'company',
-          redirectTo: '/sports?tab=3',
+          redirectTo: '/country-management?tab=2',
       },
       {
         path: 'loginPermission',

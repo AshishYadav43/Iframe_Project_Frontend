@@ -49,6 +49,27 @@
   </a>
 </div>
 
+
+  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/country-management']" (click)="toggleDefaults()" >
+    <mat-icon>settings</mat-icon>
+    Add Defaults Copy
+  </a>
+
+  
+  <div *ngIf="showAddDefault" class="nested-links">
+  <a
+    *ngFor="let item of addDefaultsjaved"
+    class="side-bar-link"
+    mat-list-item
+    [routerLinkActive]="['active']"
+    [routerLink]="[item.route]"
+  >
+      <mat-icon>{{ item.icon }}</mat-icon>
+
+    {{ item.name }}
+  </a>
+</div>
+
   <!-- Add Defaults Parent Item -->
 
 

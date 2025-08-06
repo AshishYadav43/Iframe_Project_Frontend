@@ -17,9 +17,16 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class SidebarComponent {
   showAddDefaults = false;
+  showAddDefault = false;
 
   addDefaultsChildren = [
-    { name: 'Country', route: '/countries',icon: 'public' },
+    // { name: 'Sport', route: '/sports',icon: 'public' },
+    { name: 'Casino', route: '/casino',icon: 'public' },
+  ];
+
+  
+  addDefaultsjaved = [
+    // { name: 'Country', route: '/countries',icon: 'public' },
     { name: 'Currency', route: '/currencies',icon: 'currency_exchange' },
     { name: 'Company', route: '/company',icon: 'business' }
   ];
@@ -35,7 +42,11 @@ export class SidebarComponent {
     })
   }
 
-    toggleAddDefaults() {
+  toggleAddDefaults() {
     this.showAddDefaults = !this.showAddDefaults;
+  }
+
+  toggleDefaults() {
+    this.showAddDefault = !this.showAddDefault;
   }
 }
