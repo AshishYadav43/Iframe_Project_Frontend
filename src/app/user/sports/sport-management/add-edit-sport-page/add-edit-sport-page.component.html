@@ -9,6 +9,16 @@
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
 
+    
+    <!-- Company Selection Type Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Company Type Selection</mat-label>
+      <mat-select formControlName="company_selection">
+        <mat-option *ngFor="let option of companySelectionOptions" [value]="option.value">{{ option.key }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('company_selection')?.hasError('required')">company Selection is required</mat-error>
+    </mat-form-field>
+
     <!-- Company Dropdown -->
     <mat-form-field appearance="outline">
       <mat-label>Company</mat-label>
@@ -18,13 +28,13 @@
       <mat-error *ngIf="form.get('company')?.hasError('required')">Company is required</mat-error>
     </mat-form-field>
 
-    <!-- Sport Type Dropdown -->
+    <!-- Sport category Dropdown -->
     <mat-form-field appearance="outline">
-      <mat-label>Sport Type</mat-label>
-      <mat-select formControlName="sport_type">
-        <mat-option *ngFor="let type of sportTypes" [value]="type.name">{{ type._id }}</mat-option>
+      <mat-label>Sport Category</mat-label>
+      <mat-select formControlName="sport_category">
+        <mat-option *ngFor="let cat of sportCategoriesNameArrayList" [value]="cat.value">{{ cat.value }}</mat-option>
       </mat-select>
-      <mat-error *ngIf="form.get('sport_type')?.hasError('required')">Sport type is required</mat-error>
+      <mat-error *ngIf="form.get('sport_category')?.hasError('required')">Sport Category is required</mat-error>
     </mat-form-field>
 
     <!-- Sport Name -->
@@ -44,6 +54,19 @@
         placeholder="Enter Sport Id">
       <mat-error *ngIf="form.get('sport_id')?.hasError('required')">Sport Id is required</mat-error>
     </mat-form-field>
+    
+
+    <!-- Supported Currencies -->
+    <!-- <mat-form-field appearance="outline">
+        <mat-label>Supported Currencies</mat-label>
+        <mat-select formControlName="supportedCurrencies" multiple>
+            <mat-option *ngFor="let currency of currencies" [value]="currency.id">
+                {{ currency.name }}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('supportedCurrencies')?.hasError('required')">Supported Currencies is
+            required</mat-error>
+    </mat-form-field> -->
 
     <!-- Sports List Display -->
     <div class="sports-list">

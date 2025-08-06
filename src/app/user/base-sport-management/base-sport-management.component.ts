@@ -30,7 +30,7 @@ import { AddUpdateBaseSportComponent } from './add-update-base-sport/add-update-
 })
 export class BaseSportManagementComponent {
 
-  displayedColumns: string[] = ['srNo', 'sportId', 'name', 'subtypeid', 'subtypename'];
+  displayedColumns: string[] = ['srNo', 'name','sportId'];
   dataSource = new MatTableDataSource<any>();
 
   private api = inject(AuthService);

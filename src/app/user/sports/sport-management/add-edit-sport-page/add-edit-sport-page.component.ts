@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 import { STATIC_SPORTS, VALIDATION_PATTERNS } from '../../../../core/constant/constant';
 import { AuthService } from '../../../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
+import { SPORT_CATEGORIES_NAME , COMPANY_SELECTION_V1 } from '../../../../shared/constants/enum.constants';
 
 @Component({
   selector: 'app-add-edit-sport-page',
@@ -36,6 +37,18 @@ export class AddEditSportPageComponent {
 
   form!: FormGroup;
   loading = false;
+
+  
+  // Convert object to array for *ngFor
+  companySelection = COMPANY_SELECTION_V1;
+  companySelectionOptions = Object.entries(this.companySelection).map(([key, value]) => ({ key, value }));
+
+  // Convert object to array for *ngFor
+  sport_categories_name = SPORT_CATEGORIES_NAME;
+  sportCategoriesNameArrayList = Object.entries(this.sport_categories_name).map(([key, value]) => ({ key, value }));
+
+  apiResults: { id: string; name: string }[] = [];
+  
 
   companies: { _id: string; name: string }[] = [];
   sportTypes: { _id: string; name: string }[] = [
@@ -59,14 +72,15 @@ export class AddEditSportPageComponent {
     private dialogRef: MatDialogRef<AddEditSportPageComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
   ) {
-
     this.getCompany();
   }
 
   ngOnInit(): void {
     this.form = this.fb.group({
+      company_selection: [null, Validators.required],
       sport_name: [this.userData?.sport_name || '', [Validators.required, Validators.minLength(3)]],
       company: [this.userData?.company || '', Validators.required],
+      sport_category: [this.userData?.sport_category || '', Validators.required],
       sport_type: [this.userData?.sport_type || '', Validators.required],
       sport_id: [this.userData?.sport_id || '', Validators.required],
     });
