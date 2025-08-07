@@ -70,7 +70,7 @@ export class AddUpdateBaseSportComponent {
   ngOnInit(): void {
     this.form = this.fb.group({
       sport_type_name: [this.userData?.sport_type_name || '', [Validators.required, Validators.minLength(3)]],
-      sport_type_id: [this.userData?.sport_type_id || '', [Validators.required]],
+      sport_type_id: [{value: this.userData?.sport_type_id || '', disabled: true}, [Validators.required]],
       apiPaths: this.fb.array([this.createApiPath()])
     });
   }
@@ -81,7 +81,7 @@ export class AddUpdateBaseSportComponent {
 
   createApiPath(): FormGroup {
     return this.fb.group({
-      id: ['', Validators.required],
+      id: [{value:'', disabled: true}, Validators.required],
       name: ['', Validators.required]
     });
   }
@@ -108,7 +108,7 @@ export class AddUpdateBaseSportComponent {
     // this.form.value.sport_id = Number(this.form.value.sport_id)
     const payload = {
       sport_type_name : this.form.value.sport_type_name,
-      sport_type_id : Number(this.form.value.sport_type_id),
+      // sport_type_id : Number(this.form.value.sport_type_id),
       sport_sub_type: this.form.value.apiPaths
     }
 

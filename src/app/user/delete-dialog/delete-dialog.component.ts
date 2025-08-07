@@ -4,6 +4,8 @@ import { MatIcon } from '@angular/material/icon';
 
 import { ToastrService } from 'ngx-toastr';
 
+import { finalize } from 'rxjs';
+
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -17,6 +19,7 @@ import { AuthService } from '../../core/services/auth.service';
   styleUrl: './delete-dialog.component.css'
 })
 export class DeleteDialogComponent {
+  isLoading: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<DeleteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -36,9 +39,10 @@ export class DeleteDialogComponent {
   }
 
   deleteCountry() {
-    this.api.updateCountry({ _id: this.data._id, updatedData: { isDeleted: true } }).subscribe({
+    if (this.isLoading) return;
+    this.isLoading = true;
+    this.api.updateCountry({ _id: this.data._id, updatedData: { isDeleted: true } }).pipe(finalize(() => this.isLoading = false)).subscribe({
       next: (res: any) => {
-        console.log("RESPONSE", res);
         this.toaster.success("Country deleted successfully");
       }
     })

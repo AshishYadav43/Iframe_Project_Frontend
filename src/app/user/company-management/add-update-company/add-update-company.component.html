@@ -10,12 +10,12 @@
     <!-- Company Selection -->
     <mat-form-field appearance="outline">
       <mat-label>Company Type Selection</mat-label>
-      <mat-select formControlName="company_selection">
+      <mat-select formControlName="companySelection">
         <mat-option *ngFor="let option of companySelectionOptions" [value]="option.value">
           {{ option.key }}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="form.get('company_selection')?.hasError('required')">Company Selection is required</mat-error>
+      <mat-error *ngIf="form.get('companySelection')?.hasError('required')">Company Selection is required</mat-error>
     </mat-form-field>
 
     <!-- Company Type -->

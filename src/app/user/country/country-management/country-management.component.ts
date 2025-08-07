@@ -49,10 +49,12 @@ import { AddUpdateCountryComponent } from './add-update-country/add-update-count
   encapsulation: ViewEncapsulation.None
 })
 export class CountryManagementComponent implements OnInit {
+  
   selectedTabIndex = 0;
   pattern = VALIDATION_PATTERNS;
   submitted = false;
   loading = false;
+  statusUpdating: boolean = false;
   showForm = false;
   countryList = new MatTableDataSource<any>();
 
@@ -176,17 +178,15 @@ export class CountryManagementComponent implements OnInit {
   }
 
   toggleStatus(country: any): void {
+    this.statusUpdating = true;
     const updatedStatus = country.status == 1 ? 2 : 1;
-console.log("COUNTRY",country);
-
     const payload = {
       _id: country._id,
       updatedData: {
         status: updatedStatus
       }
     };
-
-    this.api.updateCountry(payload).subscribe({
+    this.api.updateCountry(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
       next: () => {
         // this.toastr.success(`Country ${updatedStatus.toLowerCase()} successfully`);
         this.getAllCountries();

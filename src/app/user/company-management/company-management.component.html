@@ -67,17 +67,14 @@
   </ng-container>
 
   <!-- Actions -->
-  <!-- <ng-container matColumnDef="actions">
+  <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let row">
-      <button mat-icon-button color="primary" (click)="openEditUser(row)">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button color="warn" (click)="deleteUser(row)">
-        <mat-icon>delete</mat-icon>
+      <button class="edit_button" color="primary" (click)="openEditCompany(row)">
+        Edit
       </button>
     </td>
-  </ng-container> -->
+  </ng-container>
 
   <!-- Table Rendering -->
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -10,10 +10,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 import { ToastrService } from 'ngx-toastr';
 
 import { finalize } from 'rxjs';
+
+import { log } from 'console';
 
 import { VALIDATION_PATTERNS } from '../../core/constant/constant';
 import { AuthService } from '../../core/services/auth.service';
@@ -35,6 +38,7 @@ import { AddUpdateCurrencyComponent } from './add-update-currency/add-update-cur
     MatSelectModule,
     MatCheckboxModule,
     PatternRestrictDirective,
+    MatSlideToggle
   ],
   templateUrl: './currency-management.component.html',
   styleUrl: './currency-management.component.css'
@@ -45,7 +49,7 @@ export class CurrencyManagementComponent {
 
   private api = inject(AuthService);
   private toastr = inject(ToastrService);
-   private dialog = inject(MatDialog);
+  private dialog = inject(MatDialog);
   currencies = new MatTableDataSource<any>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   countries: any[] = [
@@ -59,23 +63,25 @@ export class CurrencyManagementComponent {
   showForm = false;
   showLimits = false;
   loading = false;
+  statusUpdating: boolean = false;
   displayedColumns: string[] = [
-   'name',
-  'symbol',
-  'country',
-  'status',
-  'conversionRate',
-  // 'limits'
+    'name',
+    'symbol',
+    'country',
+    'conversionRate',
+    'status',
+    'action'
+    // 'limits'
   ];
 
   currencyOptions = [
-  { label: "INR - ₹", value: "INR" },
-  { label: "PKR - ₨", value: "PKR" },
-  { label: "BDT - ৳", value: "BDT" },
-  { label: "IDR - Rp", value: "IDR" },
-  { label: "CNY - ¥", value: "CNY" },
-  { label: "VND - ₫", value: "VND" }
-];
+    { label: "INR - ₹", value: "INR" },
+    { label: "PKR - ₨", value: "PKR" },
+    { label: "BDT - ৳", value: "BDT" },
+    { label: "IDR - Rp", value: "IDR" },
+    { label: "CNY - ¥", value: "CNY" },
+    { label: "VND - ₫", value: "VND" }
+  ];
 
 
   ngOnInit() {
@@ -100,21 +106,21 @@ export class CurrencyManagementComponent {
     ).subscribe({
       next: (res: any) => {
         this.currencies.data = res.data || res;
-        this.currencies.paginator = this.paginator;      
+        this.currencies.paginator = this.paginator;
       }
       // error: () => this.toastr.error('Failed to fetch currencies')
     });
   }
 
   openForm() {
-     this.dialog.open(AddUpdateCurrencyComponent, {
-          width: '600px',
-          maxHeight: '90vh',
-          autoFocus: false,
-          data: null
-        }).afterClosed().subscribe((result: any) => {
-          if (result) this.fetchCurrencies();
-        });
+    this.dialog.open(AddUpdateCurrencyComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: null
+    }).afterClosed().subscribe((result: any) => {
+      if (result) this.fetchCurrencies();
+    });
   }
 
   cancel() {
@@ -181,6 +187,45 @@ export class CurrencyManagementComponent {
         this.fetchCurrencies();
       },
       // error: () => this.toastr.error('Failed to add currency')
+    });
+  }
+
+  toggleStatus(country: any): void {
+    this.statusUpdating = true;
+    const updatedStatus = country.status == 1 ? 2 : 1;
+    const payload = {
+      _id: country._id,
+      updatedData: {
+        status: updatedStatus
+      }
+    };
+    this.api.updateCurrency(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
+      next: () => {
+        // this.toastr.success(`Country ${updatedStatus.toLowerCase()} successfully`);
+        this.fetchCurrencies();
+      },
+      error: () => {
+        this.toastr.error('Failed to update status');
+      }
+    });
+  }
+
+  OpenEditCurrency(data: any) {
+    const selectedLimit = data.pre_fix.map((ele: any) => {
+      return {
+        code: ele.pre_fix,
+        min: ele.min_limit,
+        max: ele.max_limit,
+      }
+    })
+    const payload = { ...data, symbol: data.symbol.toUpperCase(), country: data.country._id,selectedCodes: selectedLimit }
+    this.dialog.open(AddUpdateCurrencyComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: payload
+    }).afterClosed().subscribe((result: any) => {
+      if (result) this.fetchCurrencies();
     });
   }
 }

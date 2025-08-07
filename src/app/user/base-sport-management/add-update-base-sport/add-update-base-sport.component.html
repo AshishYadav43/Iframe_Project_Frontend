@@ -67,7 +67,7 @@
 
                 <!-- ID -->
                 <mat-form-field appearance="outline" class="flex-1">
-                    <mat-label>Sub Type ID</mat-label>
+                    <mat-label>{{ 'Sub Type ID ' + (i + 1) }}</mat-label>
                     <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="id"
                         placeholder="Enter ID">
                     <mat-error *ngIf="group.get('id')?.hasError('required') && group.get('id')?.touched">

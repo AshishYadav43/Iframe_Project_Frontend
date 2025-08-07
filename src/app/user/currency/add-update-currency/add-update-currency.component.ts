@@ -14,6 +14,8 @@ import { MatListModule } from '@angular/material/list';
 
 import { ToastrService } from 'ngx-toastr';
 
+import { log } from 'console';
+
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
@@ -76,12 +78,14 @@ export class AddUpdateCurrencyComponent {
     // ✅ Initialize form with userData if available
     this.form = this.fb.group({
       name: [this.currencyData?.name || '', [Validators.required, Validators.minLength(3)]],
-      currencyId: [this.currencyData?.currencyId || '', [Validators.required, Validators.minLength(3)]],
+      currencyId: [{value: this.currencyData?.currencyId || '', disabled: true }, [Validators.required, Validators.minLength(3)]],
       conversion_rate: [this.currencyData?.conversion_rate || '', [Validators.required]],
       country: [this.currencyData?.country || '', Validators.required],
       symbol: [this.currencyData?.symbol || '', Validators.required],
       selectedCodes: [this.currencyData?.selectedCodes || '', Validators.required],
     });
+    console.log("LIMIT",this.limitsControls);
+    
   }
 
 

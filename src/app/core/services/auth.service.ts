@@ -55,6 +55,10 @@ export class AuthService {
     return this.http.post(`${this.baseUserUrl}/currency/add`, data);
   }
 
+  updateCurrency(data: any): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/currency/update`, data);
+  }
+
   getAllCurrencies(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/currency/getCurrency`, data);
   }

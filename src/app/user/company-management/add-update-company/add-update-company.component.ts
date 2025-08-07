@@ -16,13 +16,17 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+
 import { ToastrService } from 'ngx-toastr';
 
+import { startWith } from 'rxjs/operators';
+
+import { log } from 'console';
+
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
+import { COMPANY_SELECTION_V1 } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
-import { COMPANY_SELECTION_V1 } from '../../../core/constant/constant';
-import { startWith } from 'rxjs/operators';
 
 interface SelectOption {
   id: string;
@@ -81,18 +85,22 @@ export class AddUpdateCompanyComponent {
     private dialogRef: MatDialogRef<AddUpdateCompanyComponent>,
     @Inject(MAT_DIALOG_DATA) public companyData: any
   ) {
+    console.log("COMPANY DATA", companyData);
+    console.log("companySelectionOptions", this.companySelectionOptions);
+
+    this.getSubType();
     this.getCountry();
     this.getCurrency();
   }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      company_selection: [this.companyData?.companySelection || '', Validators.required],
+      companySelection: [this.companyData?.companySelection || '', Validators.required],
       // companyType: [this.companyData?.companyType || '', Validators.required],
       name: [this.companyData?.name || '', Validators.required],
-      id: [this.companyData?.id || '', [Validators.required, Validators.minLength(3)]],
+      id: [{value: this.companyData?.id || '',disabled: true}, [Validators.required, Validators.minLength(3)]],
       supportedCurrencies: [this.companyData?.supportedCurrencies || [], Validators.required],
-      country: [this.companyData?.country || '', Validators.required],
+      country: [this.companyData?.country?._id || '', Validators.required],
       apiPaths: this.fb.array(
         this.companyData?.apiPaths?.length
           ? this.companyData.apiPaths.map((p: string) => this.fb.group({ value: [p, Validators.required] }))
@@ -103,7 +111,9 @@ export class AddUpdateCompanyComponent {
 
     // Initialize sport type groups
     if (this.companyData?.sportTypeAndSubType?.length) {
+
       this.companyData.sportTypeAndSubType.forEach((item: any) => {
+        console.log("item", item);
         this.addSportTypeGroup(item.typeId, item.subTypeId);
       });
     } else {
@@ -132,6 +142,9 @@ export class AddUpdateCompanyComponent {
   }
 
   addSportTypeGroup(initialType: any = '{}', initialSubType: string = '') {
+    console.log("initialType", initialType)
+    console.log("initialSubType", initialSubType)
+
     const group = this.fb.group({
       sport_category: [initialType, Validators.required],
       sub_types: [[initialSubType], Validators.required],
@@ -148,6 +161,8 @@ export class AddUpdateCompanyComponent {
     group.get('sport_category')?.valueChanges
       .pipe(startWith(initialType))
       .subscribe((typeName: any) => {
+        console.log("VALUE CHANGES");
+        
         this.loadApiResults(typeName, group);
       });
   }
@@ -163,6 +178,8 @@ export class AddUpdateCompanyComponent {
     this.api.getBaseSportSubType(payload).subscribe({
       next: (res: any) => {
         const baseType = res?.data?.[0];
+        console.log("BASE TYPES",baseType);
+        
         if (baseType) {
           group.patchValue({
             sub_type_options: baseType.sport_sub_type || [],
@@ -192,7 +209,7 @@ export class AddUpdateCompanyComponent {
     const formValue = this.form.value;
 
     const payload = {
-      companySelection: formValue.company_selection,
+      companySelection: formValue.companySelection,
       // companyType: formValue.companyType,
       name: formValue.name,
       id: formValue.id,
@@ -247,5 +264,18 @@ export class AddUpdateCompanyComponent {
         }));
       }
     });
+  }
+
+  getSubType() {
+    this.api.getBaseSportSubType().subscribe({
+      next: (res: any) => {
+        this.sportTypes = res.data.map((ele: any) => {
+          return {
+            name: ele.sport_type_name,
+            id: ele._id
+          }
+        })
+      }
+    })
   }
 }

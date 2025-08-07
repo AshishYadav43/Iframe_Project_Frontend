@@ -42,7 +42,7 @@ export class CompanyManagementComponent {
   filterValues = { name: '', companyType: '', sort: '' };
 
 
-  displayedColumns: string[] = ['srNo', 'name', 'companyType', 'country'];
+  displayedColumns: string[] = ['srNo', 'name', 'companyType', 'country','action'];
   dataSource = new MatTableDataSource<any>();
   
   companyType: any[] = [
@@ -94,5 +94,18 @@ getCurrencyNames(row: any): string {
         this.dataSource.sort = this.sort;
       }
     })
+  }
+
+  openEditCompany(data: any) {
+    const payload = {...data, companySelection: Number(data.companySelection)};
+    payload.supportedCurrencies = payload.supportedCurrencies.map((ele: any) => ele._id);
+      this.dialog.open(AddUpdateCompanyComponent, {
+          width: '600px',
+          maxHeight: '90vh',
+          autoFocus: false,
+          data: payload
+        }).afterClosed().subscribe((result: any) => {
+          if (result) this.getCompany();
+        });
   }
 }
