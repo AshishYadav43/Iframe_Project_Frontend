@@ -1,7 +1,12 @@
+.sport-pair-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
 .user-card {
-  width:100%;
-  /* margin: 2rem auto; */
-  padding: 1.5rem;
+  width: 100%;
+  border-radius: 15px;
 }
 
 .form-grid {
@@ -11,73 +16,36 @@
 }
 
 mat-form-field {
-  width: 90%;
+  /* width: 100%; */
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
-
-.api-paths {
+.button_container {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 1rem;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  background-color: #2472bb;
 }
 
-.api-path-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.submit_btn {
+  margin: 1.5rem;
+  border-radius: 5px !important;
 }
-
-.api-path-input {
-  flex: 1;
-}
-
 
 .dialog-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #2472bb;
+  padding: 1.5rem;
+  color: white;
 }
 
 .dialog-header h2 {
   margin: 0;
 }
 
-.dropdown-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.flex-grow {
-  flex: 1;
-}
-
-.icon-buttons {
-  display: flex;
-  align-items: center;
-  margin-top: 8px;
-}
-
-:host ::ng-deep .mat-dialog-container {
-  width: 800px;
-  max-width: 90vw;
-}
-
-.api-path-row, .sport-pair-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.api-path-input, mat-form-field {
-  flex: 1;
-  min-width: 200px;
-}
-
-.sport-buttons {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+.dialog-header button {
+  color: white;
 }

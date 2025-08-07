@@ -65,7 +65,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                 <!-- ID -->
+                <!-- ID -->
                 <mat-form-field appearance="outline" class="flex-1">
                     <mat-label>Sub Type ID</mat-label>
                     <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="id"
@@ -95,9 +95,14 @@
         </div> -->
 
         <!-- Submit Button -->
-        <button mat-raised-button color="primary" type="submit" [disabled]="loading">
-            <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
-            {{ loading ? 'Saving...' : (userData ? 'Update Sport' : 'Add Sport') }}
-        </button>
+        <div class="button_container">
+            <button class="submit_btn" mat-raised-button color="primary" type="button" (click)="onCancel()">
+                Cancle
+            </button>
+            <button class="submit_btn" mat-raised-button color="primary" type="submit" [disabled]="loading">
+                <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+                {{ loading ? 'Saving...' : (userData ? 'Update Sport' : 'Add Sport') }}
+            </button>
+        </div>
     </form>
 </mat-card>

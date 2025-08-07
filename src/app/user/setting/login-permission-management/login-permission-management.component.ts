@@ -115,7 +115,7 @@ export class LoginPermissionManagementComponent {
   }
 
   getUser(roleId: string = this.roleData?.id || '') {
-    const payload = { type: this.roleData?.id || roleId || '' };
+    const payload = { type: roleId };
     this.api.getUsers(payload).subscribe({
       next: (res: any) => {
         this.userOptions = res.data.map((ele: any) => {

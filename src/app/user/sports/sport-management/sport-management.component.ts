@@ -9,15 +9,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AddEditSportPageComponent } from './add-edit-sport-page/add-edit-sport-page.component';
-import { AuthService } from '../../../core/services/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { CasinoManagementComponent } from '../casino-management/casino-management.component';
-import { MatSelectModule } from '@angular/material/select';
+import { MatOption, MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
+
+import { CasinoManagementComponent } from '../casino-management/casino-management.component';
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
-import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
 import { STATUS_V1 } from '../../../core/constant/constant';
+import { AuthService } from '../../../core/services/auth.service';
+import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
+
+import { AddEditSportPageComponent } from './add-edit-sport-page/add-edit-sport-page.component';
 
 @Component({
   selector: 'app-sport-management',
@@ -34,6 +36,7 @@ import { STATUS_V1 } from '../../../core/constant/constant';
     MatSelectModule,
     PatternRestrictDirective,
     CasinoManagementComponent,
+    MatOption
   ],
   templateUrl: './sport-management.component.html',
   styleUrl: './sport-management.component.css'

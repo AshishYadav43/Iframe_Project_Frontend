@@ -1,11 +1,10 @@
 <mat-card class="user-card">
-    <div class="dialog-header">
+    <div class="dialog-header ">
         <h2>{{ comptitionData ? 'Edit Competition' : 'Add Competition' }}</h2>
         <button mat-icon-button color="warn" (click)="onCancel()">
             <mat-icon>close</mat-icon>
         </button>
     </div>
-
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
 
         <!-- Company Selection -->
@@ -103,9 +102,14 @@
         </mat-form-field>
 
         <!-- Submit -->
-        <button mat-raised-button color="primary" type="submit" [disabled]="loading">
-            <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
-            {{ loading ? 'Saving...' : (comptitionData ? 'Update Competition' : 'Add Competition') }}
-        </button>
+        <div class="button_container">
+            <button class="submit_btn" mat-raised-button color="primary" type="button" (click)="onCancel()">
+                Cancle
+            </button>
+            <button class="submit_btn" mat-raised-button color="primary" type="submit" [disabled]="loading">
+                <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+                {{ loading ? 'Saving...' : (comptitionData ? 'Update Competition' : 'Add Competition') }}
+            </button>
+        </div>
     </form>
 </mat-card>

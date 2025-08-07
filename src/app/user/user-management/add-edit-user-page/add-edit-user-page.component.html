@@ -11,21 +11,24 @@
     <!-- User ID -->
     <mat-form-field appearance="outline">
       <mat-label>User ID</mat-label>
-      <input maxlength="20" [appPatternRestrict]="pattern.alphabetsNumbersOnly" matInput formControlName="userId" placeholder="Enter your UserId">
+      <input maxlength="20" [appPatternRestrict]="pattern.alphabetsNumbersOnly" matInput formControlName="userId"
+        placeholder="Enter your UserId">
       <mat-error *ngIf="form.get('userId')?.hasError('required')">User ID is required</mat-error>
     </mat-form-field>
 
     <!-- Name -->
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
-      <input maxlength="20" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput formControlName="name" placeholder="Enter your Name">
+      <input maxlength="20" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput formControlName="name"
+        placeholder="Enter your Name">
       <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
     </mat-form-field>
 
     <!-- Email -->
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input maxlength="50" matInput [appPatternRestrict]="pattern.email" formControlName="email" placeholder="Enter your Email">
+      <input maxlength="50" matInput [appPatternRestrict]="pattern.email" formControlName="email"
+        placeholder="Enter your Email">
       <mat-error *ngIf="form.get('email')?.hasError('required')">Email is required</mat-error>
       <mat-error *ngIf="form.get('email')?.hasError('email')">Enter a valid email</mat-error>
     </mat-form-field>
@@ -35,19 +38,21 @@
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <!-- <input type="password" matInput formControlName="password"> -->
-        <input maxlength="20" [appPatternRestrict]="pattern.password" [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password" placeholder="Enter your Password">
+        <input maxlength="20" [appPatternRestrict]="pattern.password" [type]="hidePassword ? 'password' : 'text'"
+          matInput formControlName="password" placeholder="Enter your Password">
         <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
           <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
         <mat-error *ngIf="form.get('password')?.hasError('required')">Password is required</mat-error>
         <mat-error *ngIf="form.get('password')?.hasError('pattern')">
-        Password must contain at least 6 characters, including uppercase, lowercase, number, and special character.
-      </mat-error>
+          Password must contain at least 6 characters, including uppercase, lowercase, number, and special character.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Confirm Password</mat-label>
-        <input maxlength="20" [appPatternRestrict]="pattern.password" [type]="hideConfirmPassword ? 'password' : 'text'" matInput formControlName="confirmPassword" placeholder="Enter your Confirm Password">
+        <input maxlength="20" [appPatternRestrict]="pattern.password" [type]="hideConfirmPassword ? 'password' : 'text'"
+          matInput formControlName="confirmPassword" placeholder="Enter your Confirm Password">
         <button mat-icon-button matSuffix type="button" (click)="hideConfirmPassword = !hideConfirmPassword">
           <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
@@ -62,7 +67,8 @@
     <!-- Mobile Number -->
     <mat-form-field appearance="outline">
       <mat-label>Mobile Number</mat-label>
-      <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="mobileNumber" placeholder="Enter your Mobile Number">
+      <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="mobileNumber"
+        placeholder="Enter your Mobile Number">
       <mat-error *ngIf="form.get('mobileNumber')?.hasError('required')">Mobile number is required</mat-error>
     </mat-form-field>
 
@@ -75,7 +81,8 @@
     <!-- IPv4 -->
     <mat-form-field appearance="outline">
       <mat-label>IPv4</mat-label>
-      <input maxlength="20" [appPatternRestrict]="pattern.ipv4" matInput formControlName="ipv4" placeholder="Enter your IPV4">
+      <input maxlength="20" [appPatternRestrict]="pattern.ipv4" matInput formControlName="ipv4"
+        placeholder="Enter your IPV4">
     </mat-form-field>
 
     <!-- IPv6 -->
@@ -102,10 +109,15 @@
 
 
     <!-- Submit Button -->
-    <button mat-raised-button color="primary" type="submit" [disabled]="loading">
-      <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
-      {{ loading ? 'Saving...' : (userData ? 'Update User' : 'Add User') }}
-    </button>
+    <div class="button_container">
+      <button class="submit_btn" mat-raised-button color="primary" type="button" (click)="onCancel()">
+        Cancle        
+      </button>
+      <button class="submit_btn" mat-raised-button color="primary" type="submit" [disabled]="loading">
+        <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+        {{ loading ? 'Saving...' : (userData ? 'Update User' : 'Add User') }}
+      </button>
+    </div>
 
   </form>
 </mat-card>

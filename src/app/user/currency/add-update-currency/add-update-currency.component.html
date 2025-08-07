@@ -28,8 +28,8 @@
 
         <mat-form-field appearance="outline">
             <mat-label>Currency Id</mat-label>
-            <input maxlength="20" [appPatternRestrict]="pattern.alphabetsNumbersOnly" matInput formControlName="currencyId"
-                placeholder="Enter your Currency Id">
+            <input maxlength="20" [appPatternRestrict]="pattern.alphabetsNumbersOnly" matInput
+                formControlName="currencyId" placeholder="Enter your Currency Id">
             <mat-error *ngIf="form.get('currencyId')?.hasError('required')">Currency Id is required</mat-error>
             <mat-error *ngIf="form.get('currencyId')?.hasError('minlength')">
                 Currency Id must be at least 3 characters
@@ -83,9 +83,14 @@
         </mat-form-field>
 
         <!-- Submit Button -->
-        <button mat-raised-button color="primary" type="submit" [disabled]="loading">
-            <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
-            {{ loading ? 'Saving...' : (currencyData ? 'Update Currency' : 'Add Currency') }}
-        </button>
+        <div class="button_container">
+            <button class="submit_btn" mat-raised-button color="primary" type="button" (click)="onCancel()">
+                Cancel
+            </button>
+            <button class="submit_btn" mat-raised-button color="primary" type="submit" [disabled]="loading">
+                <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+                {{ loading ? 'Saving...' : (currencyData ? 'Update Currency' : 'Add Currency') }}
+            </button>
+        </div>
     </form>
 </mat-card>

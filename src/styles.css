@@ -115,3 +115,8 @@ input:-webkit-autofill:focus {
   background-clip: text;
   /* -webkit-text-fill-color: black !important; */
 }
+
+.mat-mdc-dialog-container {
+  border-radius: 15px !important;
+  overflow: clip;
+}
