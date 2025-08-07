@@ -53,7 +53,7 @@
         </mat-form-field>
 
         <mat-form-field class="filter-input" appearance="outline">
-          <mat-label>Sport Type</mat-label>
+          <mat-label>Status Type</mat-label>
           <mat-select [(ngModel)]="filterValues.companyType">
             <mat-option value="1">ACTIVE</mat-option>
             <mat-option value="2">INACTIVE</mat-option>
@@ -131,6 +131,37 @@
 
   <mat-tab label="Casino">
     <ng-template matTabContent>
+         <div class="filter-section">
+        <mat-form-field class="filter-input" appearance="outline">
+          <mat-label>Casino Name</mat-label>
+          <input [appPatternRestrict]="pattern.alphabets" maxlength="20" matInput [(ngModel)]="filterCasinoValues.casino_name" placeholder="Search Name">
+        </mat-form-field>
+
+        <mat-form-field class="filter-input" appearance="outline">
+          <mat-label>Status Type</mat-label>
+          <mat-select  [(ngModel)]="filterCasinoValues.status">
+            <mat-option value="1">ACTIVE</mat-option>
+            <mat-option value="2">INACTIVE</mat-option>
+            <!-- <mat-option *ngFor="let type of Status" [value]="type.id">{{ type.name }}</mat-option> -->
+          </mat-select>
+        </mat-form-field>
+
+        <!-- <mat-form-field class="filter-input" appearance="outline">
+          <mat-label>Sort</mat-label>
+          <mat-select [(ngModel)]="filterValues.sort">
+            <mat-option value="">All</mat-option>
+            <mat-option *ngFor="let c of sortType" [value]="c.id">{{ c.name }}</mat-option>
+          </mat-select>
+        </mat-form-field> -->
+
+        <button class="search_btn" mat-stroked-button (click)="applyFilterForCasino()">
+          Search
+        </button>
+
+        <button class="clear_btn" mat-stroked-button (click)="clearFilters()">
+          Clear
+        </button>
+      </div>
       <app-casino-management></app-casino-management>
     </ng-template>
   </mat-tab>

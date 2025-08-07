@@ -20,6 +20,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
 
 import { AddEditSportPageComponent } from './add-edit-sport-page/add-edit-sport-page.component';
+import { SharedDataService } from '../../../core/services/shared-data.service';
 
 @Component({
   selector: 'app-sport-management',
@@ -42,13 +43,18 @@ import { AddEditSportPageComponent } from './add-edit-sport-page/add-edit-sport-
   styleUrl: './sport-management.component.css'
 })
 export class SportManagementComponent {
+  casino: any
   pattern = VALIDATION_PATTERNS;
   displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType', 'status'];
   dataSource = new MatTableDataSource<any>();
   selectedTabIndex = 0;
   filterValues = { name: '', companyType: '1', sort: '' };
+  filterCasinoValues = { casino_name: '', status: '1', sort: '' };
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+    private dataService: SharedDataService
+  ) {
+  }
 
   private api = inject(AuthService);
   private dialog = inject(MatDialog);
@@ -89,9 +95,15 @@ export class SportManagementComponent {
 
 
   clearFilters() {
-    this.filterValues = { name: '', companyType: '', sort: '' };
-    this.applyFilters();
+    if (this.selectedTabIndex === 0) {
+      this.filterValues = { name: '', companyType: '', sort: '' };
+      this.applyFilters();
+    } else if (this.selectedTabIndex === 1) {
+      this.filterCasinoValues = { casino_name: '', status: '', sort: '' };
+      this.applyFilterForCasino();
+    }
   }
+
 
   Status: any[] = [
     { id: '1', name: 'ACTIVE' },
@@ -155,5 +167,40 @@ export class SportManagementComponent {
     // if (confirm(`Delete user ${user.name}?`)) {
     //   this.userService.deleteUser(user.id).subscribe(() => this.loadUsers());
     // }
+
   }
+
+
+  applyFilterForCasino() {
+    const payload = {
+      page: 1,
+      limit: 100,
+      isPaginated: "true",
+      filters: {} as any
+    };
+
+    if (this.filterCasinoValues.casino_name) {
+      payload.filters.casino_name = this.filterCasinoValues.casino_name;
+    }
+
+    if (this.filterCasinoValues.status) {
+      payload.filters.status = this.filterCasinoValues.status;
+    }
+
+    if (this.selectedTabIndex === 0) {
+      this.api.getAllSports(payload).subscribe((res: any) => {
+        this.dataSource.data = res.data || [];
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+    } else if (this.selectedTabIndex === 1) {
+      this.dataService.setCasinoFilter(payload); // pass payload to <app-casino-management>
+    }
+  }
+
+
+
+
+
+
 }

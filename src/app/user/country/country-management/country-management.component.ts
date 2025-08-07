@@ -49,7 +49,7 @@ import { AddUpdateCountryComponent } from './add-update-country/add-update-count
   encapsulation: ViewEncapsulation.None
 })
 export class CountryManagementComponent implements OnInit {
-  
+  filterValues = {name: '', status: '1', sort: '' };
   selectedTabIndex = 0;
   pattern = VALIDATION_PATTERNS;
   submitted = false;
@@ -61,7 +61,7 @@ export class CountryManagementComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   currencies = ['INR', 'NPR', 'USD'];
   timezones = ['Asia/Kolkata', 'Europe/London', 'UTC', 'America/New_York'];
-  displayedColumns = ['countryName', 'countryId', 'countryCode', 'numberCode', 'shortName', 'countryRegion', 'countryTimezones', 'status', 'action'];
+  displayedColumns = [ 'srNo','countryName',];
 
   countryForm!: FormGroup;
   private dialog = inject(MatDialog);
@@ -153,48 +153,30 @@ export class CountryManagementComponent implements OnInit {
     });
   }
 
-  openEditCountry(data: any) {
-    this.dialog.open(AddUpdateCountryComponent, {
-      width: '600px',
-      maxHeight: '90vh',
-      autoFocus: false,
-      data: data
-    }).afterClosed().subscribe((result: any) => {
-      if (result) this.getAllCountries();
-    });
-  }
 
-  openDeleteDialog(data: any) {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      width: '350px',
-      data: { _id: data._id, type: "country" }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.getAllCountries();
-      }
-    });
-  }
-
-  toggleStatus(country: any): void {
-    this.statusUpdating = true;
-    const updatedStatus = country.status == 1 ? 2 : 1;
+   applyFilters() {
     const payload = {
-      _id: country._id,
-      updatedData: {
-        status: updatedStatus
-      }
+      page: 1,
+      limit: 100,
+      isPaginated: true,
+      sort: this.filterValues.sort || 'desc',
+      sortBy: 'createdAt',
+      filters: {} as any
     };
-    this.api.updateCountry(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
-      next: () => {
-        // this.toastr.success(`Country ${updatedStatus.toLowerCase()} successfully`);
-        this.getAllCountries();
-      },
-      error: () => {
-        this.toastr.error('Failed to update status');
-      }
+
+    // Add filters only if values exist
+    if (this.filterValues.name) {
+      payload.filters.sport_name = this.filterValues.name;
+    }
+
+    if (this.filterValues.status) {
+      payload.filters.status = this.filterValues.status;
+    }
+
+    this.api.getAllSports(payload).subscribe((res: any) => {
+      // this.dataSource.data = res.data || [];
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
     });
   }
-
 }

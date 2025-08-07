@@ -55,7 +55,7 @@ export class AddUpdateCountryComponent {
 
   countries: SelectOption[] = [];
 
-  timeZones: string[] = [];
+  countryName: any[] = [];
 
   private fb = inject(FormBuilder);
   private api = inject(AuthService);
@@ -71,25 +71,29 @@ export class AddUpdateCountryComponent {
   ngOnInit(): void {
     // ✅ Initialize form with userData if available
     this.form = this.fb.group({
-      countryName: [this.countryData?.countryName || '', [Validators.required, Validators.minLength(3)]],
-      countryId: [this.countryData?.countryId ?? '', [Validators.required]],
-      countryCode: [this.countryData?.countryCode || '', [Validators.required]],
-      countryTimezones: [this.countryData?.countryTimezones || ''],
-      shortName: [this.countryData?.shortName || '', [Validators.required]],
-      numberCode: [this.countryData?.numberCode || '', [Validators.required]],
-      countryRegion: [this.countryData?.countryRegion || ''],
+      // countryName: [this.countryData?.countryName || '', [Validators.required, Validators.minLength(3)]],
+      // countryId: [this.countryData?.countryId ?? '', [Validators.minLength(3)]],
+      // countryCode: [this.countryData?.countryCode || '', [Validators.required]],
+countryName: [
+  typeof this.countryData?.countryName === 'string'
+    ? this.countryData.countryName
+    : this.countryData?.countryName?.countryName || ''
+],
+      // shortName: [this.countryData?.shortName || '', [Validators.required]],
+      // numberCode: [this.countryData?.numberCode || '', [Validators.required]],
+      // countryRegion: [this.countryData?.countryRegion || ''],
     });
 
-    this.form.get('shortName')?.valueChanges.subscribe(value => {
-      if (value) {
-        this.form.get('shortName')?.setValue(value.toUpperCase(), { emitEvent: false });
-      }
-    });
-    this.form.get('countryCode')?.valueChanges.subscribe(value => {
-      if (value) {
-        this.form.get('countryCode')?.setValue(value.toUpperCase(), { emitEvent: false });
-      }
-    });
+    // this.form.get('shortName')?.valueChanges.subscribe(value => {
+    //   if (value) {
+    //     this.form.get('shortName')?.setValue(value.toUpperCase(), { emitEvent: false });
+    //   }
+    // });
+    // this.form.get('countryCode')?.valueChanges.subscribe(value => {
+    //   if (value) {
+    //     this.form.get('countryCode')?.setValue(value.toUpperCase(), { emitEvent: false });
+    //   }
+    // });
   }
 
   onSubmit(): void {
@@ -99,16 +103,8 @@ export class AddUpdateCountryComponent {
     }
 
     this.loading = true;
-    this.form.value.numberCode = Number(this.form.value.numberCode);
-    let payload = this.form.value;
-
-    if (this.countryData) {
-      payload = {
-        _id: this.countryData._id,
-        updatedData: { ...this.form.value }
-      }
-      delete payload.updatedData.countryId;
-    }
+    // this.form.value.numberCode = Number(this.form.value.numberCode);
+    const payload = this.form.value;
 
     const request = this.countryData
       ? this.api.updateCountry(payload)
@@ -131,9 +127,9 @@ export class AddUpdateCountryComponent {
   }
 
   getTimeZones() {
-    this.api.timezone().subscribe({
+    this.api.getAllStaticComapany({}).subscribe({
       next: (res: any) => {
-        this.timeZones = res.data.alltimezones;
+        this.countryName = res.data;
       }
     })
   }

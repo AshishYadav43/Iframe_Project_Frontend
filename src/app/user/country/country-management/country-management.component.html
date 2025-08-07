@@ -1,3 +1,4 @@
+
 <!-- <div *ngIf="showForm" class="form-container">
   <form [formGroup]="countryForm" (ngSubmit)="saveCountry()">
     <div class="form-row">
@@ -69,6 +70,11 @@
 
       <table mat-table [dataSource]="countryList" class="mat-elevation-z8 full-width-table">
 
+          <ng-container matColumnDef="srNo">
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
+          <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
+        </ng-container>
+
         <!-- Country Name Column -->
         <ng-container matColumnDef="countryName">
           <th mat-header-cell *matHeaderCellDef> Country Name </th>
@@ -76,61 +82,61 @@
         </ng-container>
 
         <!-- Country ID Column -->
-        <ng-container matColumnDef="countryId">
+        <!-- <ng-container matColumnDef="countryId">
           <th mat-header-cell *matHeaderCellDef> Country ID </th>
           <td mat-cell *matCellDef="let country"> {{ country.countryId }} </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- Country Code Column -->
-        <ng-container matColumnDef="countryCode">
+        <!-- <ng-container matColumnDef="countryCode">
           <th mat-header-cell *matHeaderCellDef> Country Code </th>
           <td mat-cell *matCellDef="let country">{{ country.countryCode }} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <ng-container matColumnDef="numberCode">
+        <!-- <ng-container matColumnDef="numberCode">
           <th mat-header-cell *matHeaderCellDef> Number Code </th>
           <td mat-cell *matCellDef="let country"> {{ country.numberCode ? '+ ' + country.numberCode : '' }}
           </td>
-        </ng-container>
+        </ng-container> -->
 
-        <ng-container matColumnDef="shortName">
+        <!-- <ng-container matColumnDef="shortName">
           <th mat-header-cell *matHeaderCellDef> Short Name </th>
           <td mat-cell *matCellDef="let country"> {{ country.shortName}}
           </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- Region Column -->
-        <ng-container matColumnDef="countryRegion">
+        <!-- <ng-container matColumnDef="countryRegion">
           <th mat-header-cell *matHeaderCellDef> Region </th>
           <td mat-cell *matCellDef="let country"> {{ country.countryRegion }} </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- Timezones Column -->
-        <ng-container matColumnDef="countryTimezones">
+        <!-- <ng-container matColumnDef="countryTimezones">
           <th mat-header-cell *matHeaderCellDef> Timezones </th>
           <td mat-cell *matCellDef="let country"> {{ country.countryTimezones.join(', ') }} </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- Status Column -->
-        <ng-container matColumnDef="status">
+        <!-- <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef> Status </th>
           <td mat-cell *matCellDef="let country">
-            <mat-slide-toggle [checked]="country.status == 1" (change)="toggleStatus(country)" [disabled]="statusUpdating">
+            <mat-slide-toggle >
             </mat-slide-toggle>
           </td>
-        </ng-container>
+        </ng-container> -->
 
-        <ng-container matColumnDef="action">
+        <!-- <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef>Actions</th>
           <td mat-cell *matCellDef="let row">
-            <button class="edit_button" color="primary" (click)="openEditCountry(row)">
+            <button class="edit_button" color="primary" >
               Edit
             </button>
-            <button class="add_button" color="warn" (click)="openDeleteDialog(row)">
+            <button class="add_button" color="warn" >
               Delete
             </button>
           </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- Header and Row Definitions -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns" style="background-color: black; color: white;"></tr>

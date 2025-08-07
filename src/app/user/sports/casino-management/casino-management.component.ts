@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, Input, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -13,6 +13,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AddEditCasinoPageComponent } from './add-edit-casino-page/add-edit-casino-page.component';
 import { STATUS_V1 } from '../../../core/constant/constant';
+import { DataSource } from '@angular/cdk/collections';
+import { SharedDataService } from '../../../core/services/shared-data.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-casino-management',
@@ -29,14 +32,19 @@ import { STATUS_V1 } from '../../../core/constant/constant';
   styleUrl: './casino-management.component.css'
 })
 export class CasinoManagementComponent {
+  private casinoDataSubject = new BehaviorSubject<any[]>([]);
+  casinoData$ = this.casinoDataSubject.asObservable();
+  @Input() filters: { name: string; status: string } = { name: '', status: '' };
 
-displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType'];
+  displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType'];
 
   currencies = new MatTableDataSource<any>();
   dataSource = new MatTableDataSource<any>();
-    selectedTabIndex = 0;
-
-  constructor(private route: ActivatedRoute) {}
+  selectedTabIndex = 0;
+  private pendingPayload: any = null;
+  constructor(private route: ActivatedRoute,
+    private dataService: SharedDataService
+  ) { }
 
   private api = inject(AuthService);
   private dialog = inject(MatDialog);
@@ -45,10 +53,29 @@ displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType'];
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit() {
-    this.loadSportsList();
+    this.dataService.casinoFilter$.subscribe(payload => {
+      if (payload) {
+        this.pendingPayload = payload;
+        this.api.getAllCasino(this.pendingPayload).subscribe({
+          next: (res: any) => {
+            this.dataSource.data = res.data.map((item: any) => ({
+              ...item,
+              status: STATUS_V1[item.status] || 'UNKNOWN'
+            }));
+
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          }
+        })
+      } else {
+        this.loadSportsList();
+      }
+    });
+
   }
 
-  loadSportsList() {    
+
+  loadSportsList() {
     this.api.getAllCasino().subscribe(users => {
       this.dataSource.data = users.data;
       this.dataSource.data = users.data.map((item: any) => ({
@@ -92,5 +119,8 @@ displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType'];
     //   this.userService.deleteUser(user.id).subscribe(() => this.loadUsers());
     // }
   }
+
+
+
 
 }

@@ -135,7 +135,7 @@ export class AuthService {
       const fp = await FingerprintJS.load();
       result = await fp.get();
       this.fingerprint = result.visitorId;
-       this.deviceId = this.generateDeviceId(result.visitorId); 
+      this.deviceId = this.generateDeviceId(result.visitorId);
     }
     return {
       fingerprint: this.fingerprint,
@@ -162,5 +162,11 @@ export class AuthService {
   getAllUsedIds(): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/numeric-config/get`, {});
   }
+
+  getAllStaticComapany(data: any): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/country/countries-list`, data);
+
+  }
+
 
 }
