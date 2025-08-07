@@ -16,17 +16,17 @@
 <!-- Name -->
 <ng-container matColumnDef="module_name">
   <th mat-header-cell *matHeaderCellDef mat-sort-header>Module Name</th>
-  <td mat-cell *matCellDef="let row">{{ row?.sport_type_name }}</td>
+  <td mat-cell *matCellDef="let row">{{ row?.module_name }}</td>
 </ng-container>
 
 <ng-container matColumnDef="from">
   <th mat-header-cell *matHeaderCellDef mat-sort-header>Range Start</th>
-  <td mat-cell *matCellDef="let row">{{ row?.getSubtypeIds }}</td>
+  <td mat-cell *matCellDef="let row">{{ row?.from }}</td>
 </ng-container>
 
 <ng-container matColumnDef="to">
   <th mat-header-cell *matHeaderCellDef mat-sort-header>Range End</th>
-   <td mat-cell *matCellDef="let row">{{ row?.getSubtypeIds }}</td>
+   <td mat-cell *matCellDef="let row">{{ row?.to }}</td>
 
 </ng-container>
   <!-- Actions -->
