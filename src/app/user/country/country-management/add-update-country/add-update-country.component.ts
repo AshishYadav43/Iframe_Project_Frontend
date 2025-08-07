@@ -72,7 +72,7 @@ export class AddUpdateCountryComponent {
     // ✅ Initialize form with userData if available
     this.form = this.fb.group({
       countryName: [this.countryData?.countryName || '', [Validators.required, Validators.minLength(3)]],
-      countryId: [this.countryData?.countryId ?? '', [Validators.minLength(3)]],
+      countryId: [this.countryData?.countryId ?? '', [Validators.required]],
       countryCode: [this.countryData?.countryCode || '', [Validators.required]],
       countryTimezones: [this.countryData?.countryTimezones || ''],
       shortName: [this.countryData?.shortName || '', [Validators.required]],
