@@ -49,7 +49,7 @@ body {
 }
 .sidenav-container {
   height: 100vh; /* or 100% if parent has height set */
-  width: 100vw;
+  width: 100%; /* 100vw */
 }
 
 mat-sidenav {
@@ -119,4 +119,7 @@ input:-webkit-autofill:focus {
 .mat-mdc-dialog-container {
   border-radius: 15px !important;
   overflow: clip;
+}
+.mat-drawer-container{
+  background-color: transparent !important;
 }
