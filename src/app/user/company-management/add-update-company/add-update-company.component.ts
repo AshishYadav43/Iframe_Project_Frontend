@@ -88,7 +88,7 @@ export class AddUpdateCompanyComponent {
   ngOnInit(): void {
     this.form = this.fb.group({
       company_selection: [this.companyData?.companySelection || '', Validators.required],
-      companyType: [this.companyData?.companyType || '', Validators.required],
+      // companyType: [this.companyData?.companyType || '', Validators.required],
       name: [this.companyData?.name || '', Validators.required],
       id: [this.companyData?.id || '', [Validators.required, Validators.minLength(3)]],
       supportedCurrencies: [this.companyData?.supportedCurrencies || [], Validators.required],
@@ -193,7 +193,7 @@ export class AddUpdateCompanyComponent {
 
     const payload = {
       companySelection: formValue.company_selection,
-      companyType: formValue.companyType,
+      // companyType: formValue.companyType,
       name: formValue.name,
       id: formValue.id,
       supportedCurrencies: formValue.supportedCurrencies,

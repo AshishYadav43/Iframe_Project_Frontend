@@ -13,29 +13,38 @@ import { AddEditSportPageComponent } from './add-edit-sport-page/add-edit-sport-
 import { AuthService } from '../../../core/services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { CasinoManagementComponent } from '../casino-management/casino-management.component';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
+import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
+import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
+
 @Component({
   selector: 'app-sport-management',
   imports: [CommonModule,
     MatTableModule,
     MatPaginatorModule,
+    FormsModule,
     MatSortModule,
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
     MatTabsModule,
     MatInputModule,
+    MatSelectModule,
+    PatternRestrictDirective,
     CasinoManagementComponent,
   ],
   templateUrl: './sport-management.component.html',
   styleUrl: './sport-management.component.css'
 })
 export class SportManagementComponent {
-
-displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType','status'];
+  pattern = VALIDATION_PATTERNS;
+  displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType', 'status'];
   dataSource = new MatTableDataSource<any>();
-    selectedTabIndex = 0;
+  selectedTabIndex = 0;
+  filterValues = { name: '', companyType: '1', sort: '' };
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) { }
 
   private api = inject(AuthService);
   private dialog = inject(MatDialog);
@@ -43,9 +52,52 @@ displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType','status'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  sortType: any[] = [
+    { id: 'asc', name: 'ASC' },
+    { id: 'desc', name: 'DESC' },
+  ];
+
+  applyFilters() {
+    const payload = {
+      page: 1,
+      limit: 100,
+      isPaginated: true,
+      sort: this.filterValues.sort || 'desc',
+      sortBy: 'createdAt',
+      filters: {} as any
+    };
+
+    // Add filters only if values exist
+    if (this.filterValues.name) {
+      payload.filters.sport_name = this.filterValues.name;
+    }
+
+    if (this.filterValues.companyType) {
+      payload.filters.status = this.filterValues.companyType;
+    }
+
+    this.api.getAllSports(payload).subscribe((res: any) => {
+      this.dataSource.data = res.data || [];
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
+
+
+  clearFilters() {
+    this.filterValues = { name: '', companyType: '', sort: '' };
+    this.applyFilters();
+  }
+
+  Status: any[] = [
+    { id: '1', name: 'ACTIVE' },
+    { id: '2', name: 'INACTIVE' },
+
+  ];
+
   ngOnInit() {
     this.loadSportsList();
-     this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       const tab = +params['tab'];
       if (!isNaN(tab)) {
         setTimeout(() => {
