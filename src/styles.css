@@ -1,10 +1,16 @@
+@import 'ngx-toastr/toastr';
+
 /* You can add global styles to this file, and also import other style files */
 *{
   box-sizing: border-box;
 }
-@import 'ngx-toastr/toastr';
+
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+  background-color: #F0EEE8;
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
 
 .mat-mdc-dialog-surface  {
   scrollbar-width: none;

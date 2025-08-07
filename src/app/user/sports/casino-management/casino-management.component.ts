@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AddEditCasinoPageComponent } from './add-edit-casino-page/add-edit-casino-page.component';
+import { STATUS_V1 } from '../../../core/constant/constant';
 
 @Component({
   selector: 'app-casino-management',
@@ -50,6 +51,10 @@ displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType'];
   loadSportsList() {    
     this.api.getAllCasino().subscribe(users => {
       this.dataSource.data = users.data;
+      this.dataSource.data = users.data.map((item: any) => ({
+        ...item,
+        status: STATUS_V1[item.status] || 'UNKNOWN'
+      }));
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

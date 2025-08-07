@@ -70,7 +70,7 @@ export class AddEditCasinoPageComponent {pattern = VALIDATION_PATTERNS;
     @Inject(MAT_DIALOG_DATA) public userData: any
   ) {
     this.loadApiResults();
-    this.getCompany();
+    // this.getCompany();
     this.getCurrency();
     this.getCountry();
   }
@@ -98,6 +98,15 @@ export class AddEditCasinoPageComponent {pattern = VALIDATION_PATTERNS;
       } else {
         this.sport_sub_types = [];
         this.form.get('sub_sports')?.setValue([]);
+      }
+    });
+
+    this.form.get('company_type')!.valueChanges.subscribe(selectedCompanyType => {      
+      if (selectedCompanyType) {
+        this.getCompany(selectedCompanyType);
+      } else {
+        this.companies = [];
+        this.form.get('company')?.setValue('');
       }
     });
   }
@@ -134,8 +143,9 @@ export class AddEditCasinoPageComponent {pattern = VALIDATION_PATTERNS;
     this.dialogRef.close(false);
   }
 
-  getCompany() {
-    this.api.getCompany().subscribe({
+  getCompany(companySelection?: number) {
+    const payload = { filters: { companySelection: companySelection } };
+    this.api.getCompany(payload).subscribe({
       next: (res: any) => {
         this.companies = res.data.map((ele: any) => {
           return {

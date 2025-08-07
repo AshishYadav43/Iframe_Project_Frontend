@@ -1,12 +1,27 @@
-/* layout.component.css */
-:host {
-  display: flex;
+/* Fixed top menu bar */
+.top-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px; /* default mat-toolbar height */
+  z-index: 1000;
 }
 
-app-sidebar {
+/* Make sidenav-container take full height minus toolbar height */
+.sidenav-container {
+  height: calc(100vh - 64px);
+  margin-top: 64px; /* push down below top-menu */
+}
+
+/* Sidebar styling (optional) */
+.sidenav {
   width: 250px;
+  border-radius: 0 !important;
 }
 
+/* Main content area styling */
 .main-content {
-  flex: 1;
+  padding: 10px;
 }
+

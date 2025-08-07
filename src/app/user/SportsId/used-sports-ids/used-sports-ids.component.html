@@ -1,6 +1,6 @@
 <!-- Table Header -->
 <div class="table-header">
-  <span>Used Sports IDs</span>
+  <span>Used IDs</span>
   <span class="spacer"></span>
   <!-- <mat-form-field appearance="outline" class="search-field">
     <mat-label>Search</mat-label>
@@ -9,7 +9,7 @@
 </div>
 
 <!-- Table -->
-<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+<table mat-table [dataSource]="dataList" matSort class="mat-elevation-z8">
 
   <!-- S.No. -->
   <ng-container matColumnDef="srNo">
@@ -17,16 +17,22 @@
     <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
   </ng-container>
 
-  <!-- Range -->
-  <ng-container matColumnDef="range">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Range</th>
-    <td mat-cell *matCellDef="let row">{{ row.range }}</td>
+  <!-- module_name Column -->
+  <ng-container matColumnDef="module_name">
+    <th mat-header-cell *matHeaderCellDef> Module Name </th>
+    <td mat-cell *matCellDef="let element"> {{ element.module_name }} </td>
   </ng-container>
 
-  <!-- Used For -->
-  <ng-container matColumnDef="used_for">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Used For</th>
-    <td mat-cell *matCellDef="let row">{{ row.used_for }}</td>
+  <!-- from Column -->
+  <ng-container matColumnDef="from">
+    <th mat-header-cell *matHeaderCellDef> Range Start </th>
+    <td mat-cell *matCellDef="let element"> {{ element.from }} </td>
+  </ng-container>
+
+  <!-- to  Column -->
+  <ng-container matColumnDef="to">
+    <th mat-header-cell *matHeaderCellDef> Range End </th>
+    <td mat-cell *matCellDef="let element"> {{ element.to }} </td>
   </ng-container>
 
   <!-- Render Rows -->

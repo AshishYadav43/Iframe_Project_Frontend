@@ -17,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
+import { STATUS_V1 } from '../../../core/constant/constant';
 
 @Component({
   selector: 'app-sport-management',
@@ -110,6 +111,11 @@ export class SportManagementComponent {
   loadSportsList() {
     this.api.getAllSports().subscribe(users => {
       this.dataSource.data = users.data;
+      this.dataSource.data = users.data.map((item: any) => ({
+        ...item,
+        status: STATUS_V1[item.status] || 'UNKNOWN'
+      }));
+
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
