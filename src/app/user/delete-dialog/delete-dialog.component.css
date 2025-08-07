@@ -1,0 +1,64 @@
+.delete-dialog-container {
+  padding: 1rem;
+  max-width: 400px;
+}
+
+.delete-dialog-container h2 {
+    color: red;
+}
+
+.delete-icon {
+  vertical-align: middle;
+  margin-right: 8px;
+  font-size: 24px;
+  color: red;
+}
+
+.message {
+    font-size: medium;
+    font-weight: 500;
+    color: black;
+}
+
+mat-dialog-title {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+mat-dialog-content p {
+  margin: 0;
+  font-size: 15px;
+  color: #444;
+}
+
+mat-dialog-actions {
+  margin-top: 20px;
+}
+
+.button_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.cancel_btn {
+    min-width: 80px;
+    min-height: 40px;
+    background-color: red;
+    border-radius: 5px;
+    border-color: transparent;
+    color: white;
+}
+
+.delete_btn {
+    min-width: 80px;
+    min-height: 40px;
+    background-color: rgb(14, 194, 14);
+    border-radius: 5px;
+    border-color: transparent;
+    color: white;
+}

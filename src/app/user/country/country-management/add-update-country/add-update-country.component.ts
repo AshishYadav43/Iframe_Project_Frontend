@@ -100,17 +100,25 @@ export class AddUpdateCountryComponent {
 
     this.loading = true;
     this.form.value.numberCode = Number(this.form.value.numberCode);
-    const payload = this.form.value;
+    let payload = this.form.value;
+
+    if (this.countryData) {
+      payload = {
+        _id: this.countryData._id,
+        updatedData: { ...this.form.value }
+      }
+      delete payload.updatedData.countryId;
+    }
 
     const request = this.countryData
-      ? this.api.updateUser(payload)
+      ? this.api.updateCountry(payload)
       : this.api.addCountry(payload);
 
     request.subscribe({
-      next: () => {
+      next: (res: any) => {
         this.loading = false;
         this.dialogRef.close(true); // ✅ Close dialog with success
-        this.toaster.success("Country Created Successfully");
+        this.toaster.success(res.message);
       },
       error: (err) => {
         this.loading = false;

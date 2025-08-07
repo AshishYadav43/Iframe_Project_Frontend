@@ -50,7 +50,7 @@
   gap: 20px;
   padding: 3px;
   margin: 5px;
-  border: white solid;
+  /* border: white solid; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 

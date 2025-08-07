@@ -9,19 +9,21 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatTabsModule } from '@angular/material/tabs';
+import { ActivatedRoute } from '@angular/router';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 import { ToastrService } from 'ngx-toastr';
 
 import { finalize } from 'rxjs';
 
+import { CompanyManagementComponent } from '../../company-management/company-management.component';
+import { CurrencyManagementComponent } from '../../currency/currency-management.component';
+import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
 
 import { AddUpdateCountryComponent } from './add-update-country/add-update-country.component';
-import { MatTabsModule } from '@angular/material/tabs';
-import { CurrencyManagementComponent } from '../../currency/currency-management.component';
-import { CompanyManagementComponent } from '../../company-management/company-management.component';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-country-management',
@@ -39,7 +41,8 @@ import { ActivatedRoute } from '@angular/router';
     MatPaginator,
     MatTabsModule,
     CurrencyManagementComponent,
-    CompanyManagementComponent
+    CompanyManagementComponent,
+    MatSlideToggle
   ],
   templateUrl: './country-management.component.html',
   styleUrls: ['./country-management.component.css'],
@@ -56,7 +59,7 @@ export class CountryManagementComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   currencies = ['INR', 'NPR', 'USD'];
   timezones = ['Asia/Kolkata', 'Europe/London', 'UTC', 'America/New_York'];
-  displayedColumns = ['countryName', 'countryId', 'countryCode', 'numberCode', 'shortName', 'countryRegion', 'countryTimezones', 'status'];
+  displayedColumns = ['countryName', 'countryId', 'countryCode', 'numberCode', 'shortName', 'countryRegion', 'countryTimezones', 'status', 'action'];
 
   countryForm!: FormGroup;
   private dialog = inject(MatDialog);
@@ -67,7 +70,7 @@ export class CountryManagementComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       const tab = +params['tab'];
       if (!isNaN(tab)) {
         setTimeout(() => {
@@ -147,4 +150,48 @@ export class CountryManagementComponent implements OnInit {
       if (result) this.getAllCountries();
     });
   }
+
+  openEditCountry(data: any) {
+    this.dialog.open(AddUpdateCountryComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: data
+    }).afterClosed().subscribe((result: any) => {
+      if (result) this.getAllCountries();
+    });
+  }
+
+  openDeleteDialog(data: any) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '350px',
+      data: { _id: data._id, type: "country" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getAllCountries();
+      }
+    });
+  }
+
+  toggleStatus(country: any): void {
+    const updatedStatus = country.status === 'active' ? 'Inactive' : 'Active';
+
+    const payload = {
+      ...country,
+      status: updatedStatus
+    };
+
+    // this.api.updateCountryStatus(country._id, payload).subscribe({
+    //   next: () => {
+    //     this.toastr.success(`Country ${updatedStatus.toLowerCase()} successfully`);
+    //     this.getAllCountries();
+    //   },
+    //   error: () => {
+    //     this.toastr.error('Failed to update status');
+    //   }
+    // });
+  }
+
 }

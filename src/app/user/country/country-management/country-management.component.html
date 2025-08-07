@@ -1,5 +1,3 @@
-
-
 <!-- <div *ngIf="showForm" class="form-container">
   <form [formGroup]="countryForm" (ngSubmit)="saveCountry()">
     <div class="form-row">
@@ -62,85 +60,100 @@
   <!-- All Sports Tab -->
   <mat-tab label="Country">
     <ng-template matTabContent>
-      
-        <div
-          style="background-color: #3f51b5; color: white; padding: .6rem; display: flex; justify-content: space-between; align-items: center;">
-          <div>Country Management</div>
-          <button mat-raised-button color="accent" (click)="openDialog()"><mat-icon>add</mat-icon>Add Country</button>
-        </div>
-        
-        <table mat-table [dataSource]="countryList" class="mat-elevation-z8 full-width-table">
 
-          <!-- Country Name Column -->
-          <ng-container matColumnDef="countryName">
-            <th mat-header-cell *matHeaderCellDef> Country Name </th>
-            <td mat-cell *matCellDef="let country"> {{ country.countryName }} </td>
-          </ng-container>
+      <div
+        style="background-color: #3f51b5; color: white; padding: .6rem; display: flex; justify-content: space-between; align-items: center;">
+        <div>Country Management</div>
+        <button mat-raised-button color="accent" (click)="openDialog()"><mat-icon>add</mat-icon>Add Country</button>
+      </div>
 
-          <!-- Country ID Column -->
-          <ng-container matColumnDef="countryId">
-            <th mat-header-cell *matHeaderCellDef> Country ID </th>
-            <td mat-cell *matCellDef="let country"> {{ country.countryId }} </td>
-          </ng-container>
+      <table mat-table [dataSource]="countryList" class="mat-elevation-z8 full-width-table">
 
-          <!-- Country Code Column -->
-          <ng-container matColumnDef="countryCode">
-            <th mat-header-cell *matHeaderCellDef> Country Code </th>
-            <td mat-cell *matCellDef="let country">{{ country.countryCode }} </td>
-          </ng-container>
+        <!-- Country Name Column -->
+        <ng-container matColumnDef="countryName">
+          <th mat-header-cell *matHeaderCellDef> Country Name </th>
+          <td mat-cell *matCellDef="let country"> {{ country.countryName }} </td>
+        </ng-container>
 
-          <ng-container matColumnDef="numberCode">
-            <th mat-header-cell *matHeaderCellDef> Number Code </th>
-            <td mat-cell *matCellDef="let country"> {{ country.numberCode ? '+ ' + country.numberCode : '' }}
-            </td>
-          </ng-container>
+        <!-- Country ID Column -->
+        <ng-container matColumnDef="countryId">
+          <th mat-header-cell *matHeaderCellDef> Country ID </th>
+          <td mat-cell *matCellDef="let country"> {{ country.countryId }} </td>
+        </ng-container>
 
-          <ng-container matColumnDef="shortName">
-            <th mat-header-cell *matHeaderCellDef> Short Name </th>
-            <td mat-cell *matCellDef="let country"> {{ country.shortName}}
-            </td>
-          </ng-container>
+        <!-- Country Code Column -->
+        <ng-container matColumnDef="countryCode">
+          <th mat-header-cell *matHeaderCellDef> Country Code </th>
+          <td mat-cell *matCellDef="let country">{{ country.countryCode }} </td>
+        </ng-container>
 
-          <!-- Region Column -->
-          <ng-container matColumnDef="countryRegion">
-            <th mat-header-cell *matHeaderCellDef> Region </th>
-            <td mat-cell *matCellDef="let country"> {{ country.countryRegion }} </td>
-          </ng-container>
+        <ng-container matColumnDef="numberCode">
+          <th mat-header-cell *matHeaderCellDef> Number Code </th>
+          <td mat-cell *matCellDef="let country"> {{ country.numberCode ? '+ ' + country.numberCode : '' }}
+          </td>
+        </ng-container>
 
-          <!-- Timezones Column -->
-          <ng-container matColumnDef="countryTimezones">
-            <th mat-header-cell *matHeaderCellDef> Timezones </th>
-            <td mat-cell *matCellDef="let country"> {{ country.countryTimezones.join(', ') }} </td>
-          </ng-container>
+        <ng-container matColumnDef="shortName">
+          <th mat-header-cell *matHeaderCellDef> Short Name </th>
+          <td mat-cell *matCellDef="let country"> {{ country.shortName}}
+          </td>
+        </ng-container>
 
-          <!-- Status Column -->
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef> Status </th>
-            <td mat-cell *matCellDef="let country"> {{ country.status }} </td>
-          </ng-container>
+        <!-- Region Column -->
+        <ng-container matColumnDef="countryRegion">
+          <th mat-header-cell *matHeaderCellDef> Region </th>
+          <td mat-cell *matCellDef="let country"> {{ country.countryRegion }} </td>
+        </ng-container>
 
-          <!-- Header and Row Definitions -->
-          <tr mat-header-row *matHeaderRowDef="displayedColumns" style="background-color: black; color: white;"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <!-- Timezones Column -->
+        <ng-container matColumnDef="countryTimezones">
+          <th mat-header-cell *matHeaderCellDef> Timezones </th>
+          <td mat-cell *matCellDef="let country"> {{ country.countryTimezones.join(', ') }} </td>
+        </ng-container>
 
-          <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" [attr.colspan]="displayedColumns.length" style="text-align: center; padding: 50px;">
-              No records found
-            </td>
-          </tr>
-        </table>
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let country">
+            <mat-slide-toggle [checked]="country.status == 'active'" (change)="toggleStatus(country)">
+            </mat-slide-toggle>
+          </td>
+        </ng-container>
 
-        <mat-paginator [pageSizeOptions]="[50, 100, 150]" showFirstLastButtons></mat-paginator>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let row">
+            <button class="edit_button" color="primary" (click)="openEditCountry(row)">
+              Edit
+            </button>
+            <button class="add_button" color="warn" (click)="openDeleteDialog(row)">
+              Delete
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Header and Row Definitions -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" style="background-color: black; color: white;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" [attr.colspan]="displayedColumns.length" style="text-align: center; padding: 50px;">
+            No records found
+          </td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[50, 100, 150]" showFirstLastButtons></mat-paginator>
     </ng-template>
   </mat-tab>
 
   <mat-tab label="Currency">
     <ng-template matTabContent>
-       <app-currency-management></app-currency-management>
+      <app-currency-management></app-currency-management>
     </ng-template>
   </mat-tab>
 
-    <mat-tab label="Company">
+  <mat-tab label="Company">
     <ng-template matTabContent>
       <app-company-management></app-company-management>
     </ng-template>

@@ -28,6 +28,10 @@ export class AuthService {
     return this.http.post(`${this.baseUserUrl}/country/addCountry`, data);
   }
 
+  updateCountry(data: any): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/country/update`, data);
+  }
+
   getAllCountries(): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/country/lists`, {});
   }
