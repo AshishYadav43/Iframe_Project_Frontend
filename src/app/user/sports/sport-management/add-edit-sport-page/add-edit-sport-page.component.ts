@@ -99,7 +99,6 @@ export class AddEditSportPageComponent {
   onSubmit(): void {
     console.log(this.form.value);
 
-    delete this.form.value.base_sport; // unset before form submission    
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -150,7 +149,7 @@ export class AddEditSportPageComponent {
       next: (res: any) => {
         this.currencies = res.data.map((ele: any) => {
           return {
-            id: ele._id,
+            id: ele.id,
             name: ele.name
           }
         })
@@ -174,7 +173,7 @@ export class AddEditSportPageComponent {
   
   loadApiResults(sport_type_name?: string) {  
     // If sport_type_name is empty or undefined, send no filter or a special value to get all results
-    const payload = sport_type_name ? { sport_type_name } : {};  
+    const payload = sport_type_name ? {sport_type_name: sport_type_name} : {sport_type_name: "SPORTS"};
     
     // api call to get the result
     this.api.getBaseSportSubType(payload).subscribe({
