@@ -32,7 +32,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Base Sport</mat-label>
       <mat-select formControlName="base_sport" aria-label="Select Sport Category">
-        <mat-option *ngFor="let item of sportTypes" [value]="item.sport_type_id">{{ item.sport_type_name }}</mat-option>
+        <mat-option  value="">Sports</mat-option>
       </mat-select>
       <mat-error *ngIf="form.get('base_sport')?.hasError('required')">Sport Category is required</mat-error>
     </mat-form-field>

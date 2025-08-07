@@ -49,8 +49,6 @@ export class AddEditSportPageComponent {
   companySelectionOptions = Object.entries(this.companySelection).map(([key, value]) => ({ key, value }));
 
   // get the avialable sport type
-  sportTypes: Array<{ sport_type_id: number, sport_type_name: string }> = [];
-
   sport_sub_types: { id: number; name: string; _id: string }[] = [];
   
   countries: SelectOption[] = [];
@@ -80,27 +78,14 @@ export class AddEditSportPageComponent {
       company_type: [null, Validators.required],
       sport_name: [this.userData?.sport_name || '', [Validators.required, Validators.minLength(3)]],
       company: [this.userData?.company || '', Validators.required],
-      base_sport: [this.userData?.base_sport || '', Validators.required],
+      base_sport: [{ value: this.userData?.base_sport || '', disabled: true }, Validators.required],
       sub_sports: [this.userData?.selectedSubtypes || [], Validators.required],
       sport_id: [this.userData?.sport_id || '', Validators.required],
       country: [this.userData?.country || '',[Validators.required]],
       currency: [this.userData?.currency || '',[Validators.required]],
     });
 
-    // Listen for changes to selectedCategory
-    this.form.get('base_sport')!.valueChanges.subscribe(selectedSportTypeId => {
-        if (selectedSportTypeId) {
-          // Find the base_sport_name from sportTypes by id
-          const selectedSport = this.sportTypes.find(item => item.sport_type_id === selectedSportTypeId);
-          if (selectedSport) {
-            this.loadApiResults(selectedSport.sport_type_name);
-          }
-      } else {
-        this.sport_sub_types = [];
-        this.form.get('sub_sports')?.setValue([]);
-      }
-    });
-
+    // Listen for changes to company_type
     this.form.get('company_type')!.valueChanges.subscribe(selectedCompanyType => {
       if (selectedCompanyType) {
         this.getCompany(selectedCompanyType);
@@ -113,7 +98,8 @@ export class AddEditSportPageComponent {
 
   onSubmit(): void {
     console.log(this.form.value);
-    
+
+    delete this.form.value.base_sport; // unset before form submission    
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -199,13 +185,6 @@ export class AddEditSportPageComponent {
           // Assuming res.data is array of subtypes, e.g.:
           // [{ id: 1, name: 'subOne', ... }, { id: 2, name: 'Sub Two', ... }]          
           this.sport_sub_types = res.data[0]?.sport_sub_type || [];
-        
-          // Save the entire sport types list for the select dropdown
-          this.sportTypes = res.data.map((item: any) => ({
-            sport_type_id: item._id,
-            sport_type_name: item.sport_type_name
-          }));
-          
 
           // Reset selected items when new api results loaded
           this.form.get('sub_sports')?.setValue([]);
