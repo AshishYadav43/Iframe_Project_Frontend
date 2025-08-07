@@ -6,7 +6,11 @@
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+  background-color: #F0EEE8;
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
 
 .mat-mdc-dialog-surface  {
   scrollbar-width: none;
