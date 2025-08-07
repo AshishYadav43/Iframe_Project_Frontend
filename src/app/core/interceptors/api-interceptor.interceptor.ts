@@ -58,7 +58,7 @@ export const apiInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
         clonedReq = clonedReq.clone({
           body: {
             ...clonedReq.body,
-            // fingerprint: fingerprint.fingerprint,
+            fingerprint: fingerprint.fingerprint,
             // deviceId: fingerprint.deviceId
           }
         });
