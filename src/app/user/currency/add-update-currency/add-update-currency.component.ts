@@ -77,14 +77,13 @@ export class AddUpdateCurrencyComponent {
   ngOnInit(): void {
     // ✅ Initialize form with userData if available
     this.form = this.fb.group({
-      name: [this.currencyData?.name || '', [Validators.required, Validators.minLength(3)]],
-      currencyId: [{value: this.currencyData?.currencyId || '', disabled: true }, [Validators.required, Validators.minLength(3)]],
+      // name: [this.currencyData?.name || '', [Validators.required, Validators.minLength(3)]],
+      // currencyId: [this.currencyData?.currencyId || '', [Validators.required, Validators.minLength(3)]],
       conversion_rate: [this.currencyData?.conversion_rate || '', [Validators.required]],
       country: [this.currencyData?.country || '', Validators.required],
-      symbol: [this.currencyData?.symbol || '', Validators.required],
+      // symbol: [this.currencyData?.symbol || '', Validators.required],
       selectedCodes: [this.currencyData?.selectedCodes || '', Validators.required],
     });
-    console.log("LIMIT",this.limitsControls);
     
   }
 
@@ -142,9 +141,9 @@ export class AddUpdateCurrencyComponent {
   onSubmit() {
     if (this.form.invalid) return;
     const payload: any = {
-      name: this.form.value.name,
-      symbol: this.form.value.symbol,
-      currencyId: this.form.value.currencyId,
+      // name: this.form.value.name,
+      // symbol: this.form.value.symbol,
+      // currencyId: this.form.value.currencyId,
       country: this.form.value.country,
       conversion_rate: Number(this.form.value.conversion_rate),
       pre_fix: this.form.value.selectedCodes
