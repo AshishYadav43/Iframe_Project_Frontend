@@ -52,18 +52,18 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
+            <mat-label>Country Region</mat-label>
+            <input [appPatternRestrict]="pattern.region" maxlength="20" matInput formControlName="countryRegion"
+                placeholder="Enter Country Region">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
             <mat-label>Country Timezones</mat-label>
             <mat-select formControlName="countryTimezones" multiple>
                 <mat-option *ngFor="let timeZones of timeZones" [value]="timeZones">
                     {{ timeZones }}
                 </mat-option>
             </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Country Region</mat-label>
-            <input [appPatternRestrict]="pattern.region" maxlength="20" matInput formControlName="countryRegion"
-                placeholder="Enter Country Region">
         </mat-form-field>
 
         <!-- Submit Button -->

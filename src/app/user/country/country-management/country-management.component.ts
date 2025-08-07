@@ -176,22 +176,25 @@ export class CountryManagementComponent implements OnInit {
   }
 
   toggleStatus(country: any): void {
-    const updatedStatus = country.status === 'active' ? 'Inactive' : 'Active';
+    const updatedStatus = country.status == 1 ? 2 : 1;
+console.log("COUNTRY",country);
 
     const payload = {
-      ...country,
-      status: updatedStatus
+      _id: country._id,
+      updatedData: {
+        status: updatedStatus
+      }
     };
 
-    // this.api.updateCountryStatus(country._id, payload).subscribe({
-    //   next: () => {
-    //     this.toastr.success(`Country ${updatedStatus.toLowerCase()} successfully`);
-    //     this.getAllCountries();
-    //   },
-    //   error: () => {
-    //     this.toastr.error('Failed to update status');
-    //   }
-    // });
+    this.api.updateCountry(payload).subscribe({
+      next: () => {
+        // this.toastr.success(`Country ${updatedStatus.toLowerCase()} successfully`);
+        this.getAllCountries();
+      },
+      error: () => {
+        this.toastr.error('Failed to update status');
+      }
+    });
   }
 
 }
