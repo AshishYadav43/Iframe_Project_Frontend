@@ -28,16 +28,35 @@ mat-toolbar.header-toolbar {
 }
 
 ::ng-deep .sidebar-nav .mdc-list-item__primary-text {
-  color: white !important;
+  color: #f2c94c !important;
   background-color: transparent !important;
+  font-size: 13px !important;
 }
 
 ::ng-deep .sidebar-nav .active .mdc-list-item__primary-text {
-  color: white !important;
+  color: #f2c94c !important; 
 }
 
+::ng-deep .sidebar-nav a.active mat-icon {
+  color: #f2c94c !important;
+}
 ::ng-deep .sidebar-nav .side-bar-link.active {
-  background: goldenrod !important;
+  /* background: goldenrod !important; */
+  background: #000000d9 !important;
+}
+::ng-deep .sidebar-nav .side-bar-link {
+  border-radius: 0 !important;
+}
+::ng-deep mat-sidenav{
+  width: 260px !important;
+}
+::ng-deep .mat-icon{
+  height: 15px  !important;
+  font-size: 16px  !important;
+  width: 20px !important;
+}
+::ng-deep .mat-drawer-inner-container{
+  overflow: hidden;
 }
 
 .parent-link {

@@ -89,9 +89,6 @@ mat-toolbar.header-toolbar {
   color: #ffd700 !important; 
 }
 
-.sidebar-nav a.active mat-icon {
-  color: #ffffff !important;
-}
 
 /* .mdc-list-item__primary-text{
   color: white !important;
