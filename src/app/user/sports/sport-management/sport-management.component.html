@@ -46,15 +46,7 @@
   <!-- All Sports Tab -->
   <mat-tab label="All Sports">
     <ng-template matTabContent>
-      <div class="table-header">
-        <span>Sports</span>
-        <span class="spacer"></span>
-        <button mat-raised-button color="accent" (click)="openAddSport()">
-          <mat-icon>add</mat-icon> Add Sport
-        </button>
-      </div>
-
-      <div class="filter-section">
+       <div class="filter-section">
         <mat-form-field class="filter-input" appearance="outline">
           <mat-label>Sport Name</mat-label>
           <input [appPatternRestrict]="pattern.alphabets" maxlength="20" matInput [(ngModel)]="filterValues.name" placeholder="Search Name">
@@ -85,6 +77,15 @@
           Clear
         </button>
       </div>
+      <div class="table-header">
+        <span>Sports</span>
+        <span class="spacer"></span>
+        <button mat-raised-button color="accent" (click)="openAddSport()">
+          <mat-icon>add</mat-icon> Add Sport
+        </button>
+      </div>
+
+     
 
       <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
         <!-- Columns -->

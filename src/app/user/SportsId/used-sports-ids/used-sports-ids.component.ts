@@ -35,6 +35,11 @@ export class UsedSportsIdsComponent {
 
   private api = inject(AuthService);
 
+  ngAfterViewInit() {
+  this.dataList.paginator = this.paginator;
+  this.dataList.sort = this.sort;
+}
+
   ngOnInit() {
     
     this.getAllData();

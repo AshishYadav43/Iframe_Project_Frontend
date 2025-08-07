@@ -81,6 +81,11 @@ export class CompanyManagementComponent {
     });
   }
 
+getCurrencyNames(row: any): string {
+  return row.supportedCurrencies?.map((c: any) => c.name).join(', ') || '';
+}
+
+
   getCompany() {
     this.api.getCompany().subscribe({
       next: (res: any) => {
