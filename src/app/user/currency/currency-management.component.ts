@@ -18,6 +18,7 @@ import { finalize } from 'rxjs';
 
 import { log } from 'console';
 
+import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { VALIDATION_PATTERNS } from '../../core/constant/constant';
 import { AuthService } from '../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../core/directives/directives/pattern-restrict.directive';
@@ -193,7 +194,8 @@ export class CurrencyManagementComponent {
   }
 
   toggleStatus(country: any): void {
-    this.statusUpdating = true;
+    if (this.statusUpdating) return;
+
     const updatedStatus = country.status == 1 ? 2 : 1;
     const payload = {
       _id: country._id,
@@ -201,15 +203,25 @@ export class CurrencyManagementComponent {
         status: updatedStatus
       }
     };
-    this.api.updateCurrency(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
-      next: () => {
-        this.toastr.success('Status updated successfullly');
-        this.fetchCurrencies();
-      },
-      error: () => {
-        this.toastr.error('Failed to update status');
+    const action = country.status === 1 ? 'block' : 'unblock';
+    this.dialog.open(MessageDialogComponent, {
+      width: '600px',
+      data: { action }
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.statusUpdating = true;
+        this.api.updateCurrency(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
+          next: () => {
+            this.toastr.success('Status updated successfullly');
+            this.fetchCurrencies();
+          },
+          error: () => {
+            this.toastr.error('Failed to update status');
+          }
+        });
       }
-    });
+    })
+
   }
 
   OpenEditCurrency(data: any) {

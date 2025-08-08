@@ -20,11 +20,11 @@ import { finalize } from 'rxjs';
 import { CompanyManagementComponent } from '../../company-management/company-management.component';
 import { CurrencyManagementComponent } from '../../currency/currency-management.component';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
+import { MessageDialogComponent } from '../../message-dialog/message-dialog.component';
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
 
 import { AddUpdateCountryComponent } from './add-update-country/add-update-country.component';
-import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-country-management',
