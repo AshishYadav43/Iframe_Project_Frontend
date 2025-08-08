@@ -76,7 +76,7 @@
                 </mat-form-field>
 
                 <!-- Delete Button -->
-                <button mat-icon-button color="warn" (click)="removeApiPath(i)" [disabled]="apiPaths.length === 1">
+                <button *ngIf="!userData" mat-icon-button color="warn" (click)="removeApiPath(i)" [disabled]="apiPaths.length === 1">
                     <mat-icon>delete</mat-icon>
                 </button>
                 <button mat-icon-button color="primary" (click)="addApiPath()">

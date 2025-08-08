@@ -63,6 +63,8 @@ export class AddUpdateBaseSportComponent {
     private dialogRef: MatDialogRef<AddEditSportPageComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
   ) {    
+    console.log("BASE DATA", userData);
+    
     this.getCompany();
   }
 
@@ -127,10 +129,23 @@ export class AddUpdateBaseSportComponent {
     // this.form.value.sport_id = Number(this.form.value.sport_id)
     const payload = {
       sport_type_name : this.form.value.sport_type_name,
-      // sport_type_id : Number(this.form.value.sport_type_id),
       sport_sub_type: this.form.value.apiPaths
     }
+if (this.userData) {
 
+  payload.sport_sub_type = payload.sport_sub_type.map((ele: any, index: any) => {
+    const data = this.userData.sport_sub_type[index]
+      if (this.userData.sport_sub_type[index]) {
+        return {
+          name: ele.name,
+          _id: data._id
+        }
+      } 
+      return {
+        name: ele.name
+      }
+    }); 
+  }
     const request = this.userData
       ? this.api.updateSport(payload)
       : this.api.addBaseSports(payload);
