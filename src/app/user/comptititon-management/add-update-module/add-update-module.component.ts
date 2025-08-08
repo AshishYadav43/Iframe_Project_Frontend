@@ -162,7 +162,6 @@ export class AddUpdateModuleComponent {
   getSports() {
     this.api.getAllSports().subscribe({
       next: (res: any) => {
-        console.log("SPORTS",res);
         this.sports = res.data.map((ele: any) => {
           return {
             id: ele._id,

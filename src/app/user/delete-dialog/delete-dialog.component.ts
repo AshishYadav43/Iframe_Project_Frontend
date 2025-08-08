@@ -26,7 +26,6 @@ export class DeleteDialogComponent {
     private api: AuthService,
     private toaster: ToastrService
   ) {
-    console.log("DATA", data);
   }
 
   onCancel(): void {

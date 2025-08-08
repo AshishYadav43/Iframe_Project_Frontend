@@ -65,8 +65,6 @@ export class AddUpdateCountryComponent {
     private dialogRef: MatDialogRef<AddUpdateCountryComponent>,
     @Inject(MAT_DIALOG_DATA) public countryData: any
   ) {
-    console.log("COUNTRY DATA", countryData);
-
     this.getTimeZones();
   }
 

@@ -54,7 +54,6 @@ export class BaseSportManagementComponent {
   getBaseSports() {
     this.api.getAllBaseSports().subscribe({
       next: (res: any) => {
-        console.log("RESPONSE", res);
         this.dataSource.data = res.data;
       }
     })

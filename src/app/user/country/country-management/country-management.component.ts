@@ -189,9 +189,6 @@ export class CountryManagementComponent implements OnInit {
         status: data.status == 1 ? 2 : 1
       }
     }
-    console.log("Toggle", data);
-    console.log("PAYLOAD", payload);
-
     this.api.updateCountry(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
       next: (res: any) => {
         this.toastr.success("Status updated successfully");

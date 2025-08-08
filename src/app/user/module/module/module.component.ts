@@ -1,8 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { AddModuleComponent } from './add-module/add-module.component';
-import { AuthService } from '../../../core/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+
+import { AuthService } from '../../../core/services/auth.service';
+
+import { AddModuleComponent } from './add-module/add-module.component';
 
 @Component({
   selector: 'app-module',
@@ -36,7 +38,6 @@ export class ModuleComponent {
   getBaseSports() {
     this.api.getAllBaseSports().subscribe({
       next: (res: any) => {
-        console.log("RESPONSE", res);
         this.dataSource.data = res.data;
       }
     })

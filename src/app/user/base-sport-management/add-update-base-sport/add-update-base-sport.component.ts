@@ -62,9 +62,7 @@ export class AddUpdateBaseSportComponent {
   constructor(
     private dialogRef: MatDialogRef<AddEditSportPageComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
-  ) {
-    console.log("DATA",userData);
-    
+  ) {    
     this.getCompany();
   }
 
@@ -119,7 +117,6 @@ export class AddUpdateBaseSportComponent {
   }
 
   onSubmit(): void {
-    console.log("FORM VALUE", this.form.value);
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();

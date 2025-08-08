@@ -64,9 +64,7 @@ export class AddUpdateCurrencyComponent {
   constructor(
     private dialogRef: MatDialogRef<AddUpdateCurrencyComponent>,
     @Inject(MAT_DIALOG_DATA) public currencyData: any
-  ) {
-    console.log("Currency data", currencyData);
-    
+  ) {    
     this.getCountry();
     this.generateLimits();
   }

@@ -3,12 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { AuthService } from '../../../core/services/auth.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
+
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-used-sports-ids',
@@ -49,9 +50,7 @@ export class UsedSportsIdsComponent {
     this.api.getAllUsedIds().subscribe({
       next: (res: any) => {
         
-        this.dataList = res.data || [];
-        console.log(this.dataList);
-        
+        this.dataList = res.data || [];        
       }
     });
   }

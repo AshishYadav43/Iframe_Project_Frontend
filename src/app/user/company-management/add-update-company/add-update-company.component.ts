@@ -83,7 +83,6 @@ export class AddUpdateCompanyComponent {
     private dialogRef: MatDialogRef<AddUpdateCompanyComponent>,
     @Inject(MAT_DIALOG_DATA) public companyData: any
   ) {
-    console.log("COMPANY DATA", companyData);
     this.getSubType();
     this.getCountry();
     this.getCurrency();
@@ -108,9 +107,7 @@ export class AddUpdateCompanyComponent {
     // Initialize sport type groups
     if (this.companyData?.sportTypeAndSubType?.length) {
 
-      this.companyData.sportTypeAndSubType.forEach((item: any) => {  
-        console.log("TYP",this.sportTypes);
-          
+      this.companyData.sportTypeAndSubType.forEach((item: any) => {            
         this.addSportTypeGroup(item.typeId, item.subTypeId);
       });
     } else {
@@ -189,9 +186,7 @@ export class AddUpdateCompanyComponent {
   }
 
   // ====== FORM SUBMIT ======
-  onSubmit(): void {
-    console.log("FOMR",this.form.value);
-    
+  onSubmit(): void {    
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
