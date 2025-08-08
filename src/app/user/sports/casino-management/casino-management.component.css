@@ -43,7 +43,6 @@
   background-color: #f2f2f2;
 }
 
-::ng-deep .mat-mdc-tab-label-container .mat-focus-indicator.mdc-tab--active{
+/* ::ng-deep .mat-mdc-tab-label-container .mat-focus-indicator.mdc-tab--active{
   background: #aaa !important;
-}
-
+} */

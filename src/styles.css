@@ -120,3 +120,51 @@ input:-webkit-autofill:focus {
 .mat-drawer-container{
   background-color: transparent !important;
 }
+
+/* START - zain bhai */
+
+
+/* START - Zain bhai*/
+
+.mat-mdc-tab-label-container .mat-mdc-tab-labels {
+    display: flex;
+    flex: 1 0 auto;
+    max-width: 75%;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.mat-mdc-tab-label-container .mat-focus-indicator.mdc-tab--active{
+  background: #000 !important;
+}
+.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab{
+    border: 3px solid #000;
+    background: #fff;
+    border-radius: 30px;
+}
+.mat-mdc-tab-label-container .mat-focus-indicator.mdc-tab--active{
+    border: 3px solid #f2c94c !important;
+    background: #000000;
+}
+.mat-mdc-tab-label-container .mat-focus-indicator.mdc-tab--active .mdc-tab__text-label{
+  color: #f2c94c !important;
+    margin-top: -5px;
+}
+.mat-mdc-tab-label-container .mat-mdc-tab .mdc-tab-indicator__content--underline{
+  border-width: 0 !important;
+}
+.mat-mdc-tab-label-container .mat-mdc-tab-labels { 
+    max-width: 50% !important;
+}
+/* END - Zain bhai*/
+
+.dialog-header{
+  padding: .5rem 1.5rem !important;
+}
+.button_container .submit_btn{
+  margin: 0.5rem 1.5rem !important;
+}
+.mat-mdc-text-field-wrapper
+{
+  height: 50px !important;
+}
+/* END - zain bhai */

@@ -45,15 +45,20 @@
 
 .filter-section {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   /* align-items: center; */
-  gap: 20px;
-  padding: 3px;
-  margin: 5px;
+  gap: 8px;
+  border: 2px solid #ddd;
+  background: white;
+  padding: 18px 10px 0px 10px;
+  margin: 20px 0px 20px 0;
   /* border: white solid; */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
 }
 
+/* ::ng-deep .mdc-notched-outline{
+  height: 70% !important;
+} */
 
 .filter-input {
   min-width: 300px;
