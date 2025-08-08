@@ -91,7 +91,7 @@
         <mat-form-field style="width: 42% !important;" appearance="outline">
           <mat-label>Sport Category Type</mat-label>
           <mat-select formControlName="sport_category">
-            <mat-option *ngFor="let type of sportTypes" [value]="type.id">{{ type.name }}</mat-option>
+            <mat-option *ngFor="let type of sportTypes" [value]="type">{{ type.name }}</mat-option>
           </mat-select>
           <mat-error *ngIf="group.get('sport_category')?.hasError('required')">Sport Category is required</mat-error>
         </mat-form-field>

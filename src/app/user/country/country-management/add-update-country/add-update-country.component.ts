@@ -65,6 +65,8 @@ export class AddUpdateCountryComponent {
     private dialogRef: MatDialogRef<AddUpdateCountryComponent>,
     @Inject(MAT_DIALOG_DATA) public countryData: any
   ) {
+    console.log("COUNTRY DATA", countryData);
+
     this.getTimeZones();
   }
 
@@ -74,11 +76,11 @@ export class AddUpdateCountryComponent {
       // countryName: [this.countryData?.countryName || '', [Validators.required, Validators.minLength(3)]],
       // countryId: [this.countryData?.countryId ?? '', [Validators.minLength(3)]],
       // countryCode: [this.countryData?.countryCode || '', [Validators.required]],
-countryName: [
-  typeof this.countryData?.countryName === 'string'
-    ? this.countryData.countryName
-    : this.countryData?.countryName?.countryName || ''
-],
+      countryName: [
+        typeof this.countryData?.countryName === 'string'
+          ? this.countryData.countryName
+          : this.countryData?.countryName?.countryName || ''
+      ],
       // shortName: [this.countryData?.shortName || '', [Validators.required]],
       // numberCode: [this.countryData?.numberCode || '', [Validators.required]],
       // countryRegion: [this.countryData?.countryRegion || ''],

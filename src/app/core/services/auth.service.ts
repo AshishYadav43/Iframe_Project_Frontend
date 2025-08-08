@@ -108,7 +108,11 @@ export class AuthService {
   addCompany(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/company/add`, data);
   }
-
+  
+  updateCompany(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/company/update`, data);
+  }
+  
   checkLogin(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUrl}/auth/check-login`, data);
   }

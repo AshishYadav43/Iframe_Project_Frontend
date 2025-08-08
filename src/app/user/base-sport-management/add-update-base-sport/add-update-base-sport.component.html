@@ -58,7 +58,7 @@
                 <!-- Name -->
                 <mat-form-field appearance="outline" class="flex-1">
                     <mat-label>Sub Type Name</mat-label>
-                    <input maxlength="20" [appPatternRestrict]="pattern.alphabets" matInput formControlName="name"
+                    <input maxlength="20" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput formControlName="name"
                         placeholder="Enter Name">
                     <mat-error *ngIf="group.get('name')?.hasError('required') && group.get('name')?.touched">
                         Name is required
@@ -66,7 +66,7 @@
                 </mat-form-field>
 
                 <!-- ID -->
-                <mat-form-field appearance="outline" class="flex-1">
+                <mat-form-field style="width: 85% !important;" appearance="outline" class="flex-1">
                     <mat-label>{{ 'Sub Type ID ' + (i + 1) }}</mat-label>
                     <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="id"
                         placeholder="Enter ID">
@@ -79,12 +79,13 @@
                 <button mat-icon-button color="warn" (click)="removeApiPath(i)" [disabled]="apiPaths.length === 1">
                     <mat-icon>delete</mat-icon>
                 </button>
+                <button mat-icon-button color="primary" (click)="addApiPath()">
+          <mat-icon>add</mat-icon>
+        </button>
             </div>
 
             <!-- Add Button -->
-            <button mat-stroked-button color="primary" type="button" (click)="addApiPath()">
-                <mat-icon>add</mat-icon> Add Sub Type
-            </button>
+            
         </div>
 
 

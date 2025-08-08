@@ -63,21 +63,43 @@ export class AddUpdateBaseSportComponent {
     private dialogRef: MatDialogRef<AddEditSportPageComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
   ) {
-
+    console.log("DATA",userData);
+    
     this.getCompany();
   }
 
   ngOnInit(): void {
+    
     this.form = this.fb.group({
       sport_type_name: [this.userData?.sport_type_name || '', [Validators.required, Validators.minLength(3)]],
       sport_type_id: [{value: this.userData?.sport_type_id || '', disabled: true}, [Validators.required]],
       apiPaths: this.fb.array([this.createApiPath()])
     });
+
+    if (this.userData?.sport_sub_type?.length) {
+    this.patchApiPaths(this.userData.sport_sub_type);
+  }
   }
 
   get apiPaths(): FormArray {
     return this.form.get('apiPaths') as FormArray;
   }
+
+  patchApiPaths(paths: { id: string; name: string }[]) {
+  const apiPathsFormArray = this.apiPaths;
+
+  while (apiPathsFormArray.length !== 0) {
+    apiPathsFormArray.removeAt(0);
+  }
+  paths.forEach(path => {
+    const group = this.fb.group({
+      id: [{ value: path.id, disabled: true }, Validators.required],
+      name: [path.name, Validators.required]
+    });
+    apiPathsFormArray.push(group);
+  });
+}
+
 
   createApiPath(): FormGroup {
     return this.fb.group({
@@ -124,7 +146,8 @@ export class AddUpdateBaseSportComponent {
       },
       error: () => {
         this.loading = false;
-      }
+      }  // Add each path
+
     });
   }
 

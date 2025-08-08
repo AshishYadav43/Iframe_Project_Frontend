@@ -201,7 +201,7 @@ export class CurrencyManagementComponent {
     };
     this.api.updateCurrency(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
       next: () => {
-        // this.toastr.success(`Country ${updatedStatus.toLowerCase()} successfully`);
+        this.toastr.success('Status updated successfullly');
         this.fetchCurrencies();
       },
       error: () => {

@@ -30,7 +30,7 @@ import { AddUpdateBaseSportComponent } from './add-update-base-sport/add-update-
 })
 export class BaseSportManagementComponent {
 
-  displayedColumns: string[] = ['srNo', 'name','sportId'];
+  displayedColumns: string[] = ['srNo', 'name', 'sportId', 'action'];
   dataSource = new MatTableDataSource<any>();
 
   private api = inject(AuthService);
@@ -66,6 +66,17 @@ export class BaseSportManagementComponent {
 
   getSubtypeIds(row: any): string {
     return row?.sport_sub_type?.map((item: any) => item.id).join(', ') || '';
+  }
+
+  openEditSport(data: any) {
+    this.dialog.open(AddUpdateBaseSportComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: data
+    }).afterClosed().subscribe((result: any) => {
+      if (result) this.getBaseSports();
+    });
   }
 
 }

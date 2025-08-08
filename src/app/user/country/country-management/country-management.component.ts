@@ -49,7 +49,7 @@ import { AddUpdateCountryComponent } from './add-update-country/add-update-count
   encapsulation: ViewEncapsulation.None
 })
 export class CountryManagementComponent implements OnInit {
-  filterValues = {name: '', status: '1', sort: '' };
+  filterValues = { name: '', status: '1', sort: '' };
   selectedTabIndex = 0;
   pattern = VALIDATION_PATTERNS;
   submitted = false;
@@ -61,7 +61,7 @@ export class CountryManagementComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   currencies = ['INR', 'NPR', 'USD'];
   timezones = ['Asia/Kolkata', 'Europe/London', 'UTC', 'America/New_York'];
-  displayedColumns = [ 'srNo','countryName','countryId','countryCode','numberCode','shortName','countryRegion','countryTimezones','action'];
+  displayedColumns = ['srNo', 'countryName', 'countryId', 'countryCode', 'numberCode', 'shortName', 'countryRegion', 'countryTimezones', 'status', 'action'];
 
   countryForm!: FormGroup;
   private dialog = inject(MatDialog);
@@ -154,7 +154,7 @@ export class CountryManagementComponent implements OnInit {
   }
 
 
-   applyFilters() {
+  applyFilters() {
     const payload = {
       page: 1,
       limit: 100,
@@ -177,6 +177,35 @@ export class CountryManagementComponent implements OnInit {
       // this.dataSource.data = res.data || [];
       // this.dataSource.paginator = this.paginator;
       // this.dataSource.sort = this.sort;
+    });
+  }
+
+  toggleStatus(data: any) {
+    if (this.statusUpdating) return;
+    this.statusUpdating = true;
+    const payload = {
+      _id: data._id,
+      updatedData: {
+        status: data.status == 1 ? 2 : 1
+      }
+    }
+    console.log("Toggle", data);
+    console.log("PAYLOAD", payload);
+
+    this.api.updateCountry(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
+      next: (res: any) => {
+        this.toastr.success("Status updated successfully");
+      }
+    })
+  }
+  openUpdateCompany(data: any) {
+    this.dialog.open(AddUpdateCountryComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: data
+    }).afterClosed().subscribe((result: any) => {
+      if (result) this.getAllCountries();
     });
   }
 }

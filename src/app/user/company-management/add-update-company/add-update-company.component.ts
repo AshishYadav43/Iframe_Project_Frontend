@@ -21,8 +21,6 @@ import { ToastrService } from 'ngx-toastr';
 
 import { startWith } from 'rxjs/operators';
 
-import { log } from 'console';
-
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { COMPANY_SELECTION_V1 } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
@@ -66,10 +64,10 @@ export class AddUpdateCompanyComponent {
   ];
 
   sportTypes: SelectOption[] = [
-    { id: 'SPORTS', name: 'Sports' },
-    { id: 'CASINO', name: 'Casino' },
-    { id: 'ESPORTS', name: 'Esports' },
-    { id: 'VIRTUAL_GAMING', name: 'Virtual Gaming' }
+    // { id: 'SPORTS', name: 'Sports' },
+    // { id: 'CASINO', name: 'Casino' },
+    // { id: 'ESPORTS', name: 'Esports' },
+    // { id: 'VIRTUAL_GAMING', name: 'Virtual Gaming' }
   ];
 
   countries: SelectOption[] = [];
@@ -86,8 +84,6 @@ export class AddUpdateCompanyComponent {
     @Inject(MAT_DIALOG_DATA) public companyData: any
   ) {
     console.log("COMPANY DATA", companyData);
-    console.log("companySelectionOptions", this.companySelectionOptions);
-
     this.getSubType();
     this.getCountry();
     this.getCurrency();
@@ -112,8 +108,9 @@ export class AddUpdateCompanyComponent {
     // Initialize sport type groups
     if (this.companyData?.sportTypeAndSubType?.length) {
 
-      this.companyData.sportTypeAndSubType.forEach((item: any) => {
-        console.log("item", item);
+      this.companyData.sportTypeAndSubType.forEach((item: any) => {  
+        console.log("TYP",this.sportTypes);
+          
         this.addSportTypeGroup(item.typeId, item.subTypeId);
       });
     } else {
@@ -142,9 +139,6 @@ export class AddUpdateCompanyComponent {
   }
 
   addSportTypeGroup(initialType: any = '{}', initialSubType: string = '') {
-    console.log("initialType", initialType)
-    console.log("initialSubType", initialSubType)
-
     const group = this.fb.group({
       sport_category: [initialType, Validators.required],
       sub_types: [[initialSubType], Validators.required],
@@ -160,9 +154,7 @@ export class AddUpdateCompanyComponent {
 
     group.get('sport_category')?.valueChanges
       .pipe(startWith(initialType))
-      .subscribe((typeName: any) => {
-        console.log("VALUE CHANGES");
-        
+      .subscribe((typeName: any) => {        
         this.loadApiResults(typeName, group);
       });
   }
@@ -173,13 +165,11 @@ export class AddUpdateCompanyComponent {
     }
   }
 
-  loadApiResults(typeName: string, group: FormGroup) {
-    const payload = { sport_type_name: typeName };
+  loadApiResults(typeName: any, group: FormGroup) {    
+    const payload = { sport_type_name: typeName.name };
     this.api.getBaseSportSubType(payload).subscribe({
       next: (res: any) => {
-        const baseType = res?.data?.[0];
-        console.log("BASE TYPES",baseType);
-        
+        const baseType = res?.data?.[0];        
         if (baseType) {
           group.patchValue({
             sub_type_options: baseType.sport_sub_type || [],
@@ -200,6 +190,8 @@ export class AddUpdateCompanyComponent {
 
   // ====== FORM SUBMIT ======
   onSubmit(): void {
+    console.log("FOMR",this.form.value);
+    
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;

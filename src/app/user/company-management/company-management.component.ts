@@ -10,6 +10,11 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatOption, MatSelect, MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+
+import { finalize } from 'rxjs';
+
+import { ToastrService } from 'ngx-toastr';
 
 import { AuthService } from '../../core/services/auth.service';
 
@@ -28,7 +33,8 @@ import { AddUpdateCompanyComponent } from './add-update-company/add-update-compa
     MatFormFieldModule,
     MatInputModule,
     MatOption,
-    MatSelectModule
+    MatSelectModule,
+    MatSlideToggle
   ],
   templateUrl: './company-management.component.html',
   styleUrl: './company-management.component.css'
@@ -39,12 +45,13 @@ export class CompanyManagementComponent {
   @ViewChild(MatSort) sort!: MatSort;
   private api = inject(AuthService);
   private dialog = inject(MatDialog);
+  private toastr = inject(ToastrService);
   filterValues = { name: '', companyType: '', sort: '' };
+  statusUpdating: boolean = false;
 
-
-  displayedColumns: string[] = ['srNo', 'name', 'companyType', 'country','action'];
+  displayedColumns: string[] = ['srNo', 'name', 'companyType', 'country','status', 'action'];
   dataSource = new MatTableDataSource<any>();
-  
+
   companyType: any[] = [
     { id: 'SPORTS', name: 'Sports' },
     { id: 'FANCY', name: 'Fancy' },
@@ -52,7 +59,7 @@ export class CompanyManagementComponent {
     { id: 'VIRTUALGAMING', name: 'Virtual Gaming' },
     { id: 'ESPORTS', name: 'Esports' },
   ];
-  
+
   sortType: any[] = [
     { id: 'asc', name: 'ASC' },
     { id: 'desc', name: 'DESC' },
@@ -81,9 +88,9 @@ export class CompanyManagementComponent {
     });
   }
 
-getCurrencyNames(row: any): string {
-  return row.supportedCurrencies?.map((c: any) => c.name).join(', ') || '';
-}
+  getCurrencyNames(row: any): string {
+    return row.supportedCurrencies?.map((c: any) => c.name).join(', ') || '';
+  }
 
 
   getCompany() {
@@ -97,15 +104,34 @@ getCurrencyNames(row: any): string {
   }
 
   openEditCompany(data: any) {
-    const payload = {...data, companySelection: Number(data.companySelection)};
+    const payload = { ...data, companySelection: Number(data.companySelection) };
     payload.supportedCurrencies = payload.supportedCurrencies.map((ele: any) => ele._id);
-      this.dialog.open(AddUpdateCompanyComponent, {
-          width: '600px',
-          maxHeight: '90vh',
-          autoFocus: false,
-          data: payload
-        }).afterClosed().subscribe((result: any) => {
-          if (result) this.getCompany();
-        });
+    this.dialog.open(AddUpdateCompanyComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: payload
+    }).afterClosed().subscribe((result: any) => {
+      if (result) this.getCompany();
+    });
+  }
+
+  toggleStatus(data: any) {
+    if (this.statusUpdating) return;
+    this.statusUpdating = true;
+    const payload = {
+      _id: data._id,
+      updatedData: {
+        status: data.status == 1 ? 2 : 1
+      }
+    }
+    console.log("Toggle", data);
+    console.log("PAYLOAD", payload);
+
+    this.api.updateCompany(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
+      next: (res: any) => {
+        this.toastr.success("Status updated successfully");
+      }
+    })
   }
 }

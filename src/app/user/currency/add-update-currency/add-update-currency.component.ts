@@ -65,6 +65,8 @@ export class AddUpdateCurrencyComponent {
     private dialogRef: MatDialogRef<AddUpdateCurrencyComponent>,
     @Inject(MAT_DIALOG_DATA) public currencyData: any
   ) {
+    console.log("Currency data", currencyData);
+    
     this.getCountry();
     this.generateLimits();
   }
@@ -78,7 +80,7 @@ export class AddUpdateCurrencyComponent {
     // ✅ Initialize form with userData if available
     this.form = this.fb.group({
       // name: [this.currencyData?.name || '', [Validators.required, Validators.minLength(3)]],
-      // currencyId: [this.currencyData?.currencyId || '', [Validators.required, Validators.minLength(3)]],
+      currencyId: [{value: this.currencyData?.currencyId || '', disabled: true}, [Validators.required, Validators.minLength(3)]],
       conversion_rate: [this.currencyData?.conversion_rate || '', [Validators.required]],
       country: [this.currencyData?.country || '', Validators.required],
       // symbol: [this.currencyData?.symbol || '', Validators.required],
@@ -140,7 +142,7 @@ export class AddUpdateCurrencyComponent {
 
   onSubmit() {
     if (this.form.invalid) return;
-    const payload: any = {
+    let payload: any = {
       // name: this.form.value.name,
       // symbol: this.form.value.symbol,
       // currencyId: this.form.value.currencyId,
@@ -156,8 +158,16 @@ export class AddUpdateCurrencyComponent {
       }
     });
 
+    if (this.currencyData) {
+      payload = {
+        _id: this.currencyData._id,
+        updatedData: {
+          ...payload
+        }
+      }
+    }
     const request = this.currencyData
-      ? this.api.updateSport(payload)
+      ? this.api.updateCurrency(payload)
       : this.api.addCurrency(payload);
 
     request.subscribe({
