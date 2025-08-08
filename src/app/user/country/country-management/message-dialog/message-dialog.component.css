@@ -1,0 +1,19 @@
+.dialog-header {
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.dialog-content {
+  padding: 20px 0;
+  font-size: 15px;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}

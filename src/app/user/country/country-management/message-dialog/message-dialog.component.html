@@ -1,0 +1,14 @@
+<h2 mat-dialog-title class="dialog-header">
+  {{ data.action | titlecase }} Confirmation
+</h2>
+
+<div class="dialog-content">
+  Are you sure you want to {{ data.action }} this user?
+</div>
+
+<div class="dialog-footer">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onConfirm()">
+    Yes, {{ data.action | titlecase }}
+  </button>
+</div>

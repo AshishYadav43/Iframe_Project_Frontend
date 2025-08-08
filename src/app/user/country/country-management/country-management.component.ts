@@ -24,6 +24,7 @@ import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
 
 import { AddUpdateCountryComponent } from './add-update-country/add-update-country.component';
+import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-country-management',
@@ -180,21 +181,56 @@ export class CountryManagementComponent implements OnInit {
     });
   }
 
-  toggleStatus(data: any) {
-    if (this.statusUpdating) return;
-    this.statusUpdating = true;
-    const payload = {
-      _id: data._id,
-      updatedData: {
-        status: data.status == 1 ? 2 : 1
+  // toggleStatus(data: any) {
+  //   if (this.statusUpdating) return;
+  //   this.statusUpdating = true;
+  //   const payload = {
+  //     _id: data._id,
+  //     updatedData: {
+  //       status: data.status == 1 ? 2 : 1
+  //     }
+  //   }
+  //   this.api.updateCountry(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
+  //     next: (res: any) => {
+  //       this.toastr.success("Status updated successfully");
+  //     }
+  //   })
+  // }
+
+  toggleStatus(user: any) {
+    const action = user.status === 1 ? 'block' : 'unblock'; // assuming status 1 = active, 2 = blocked
+
+    this.dialog.open(MessageDialogComponent, {
+      width: '600px',
+      data: { action }
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.statusUpdating = true;
+
+        const payload = {
+          _id: user._id,
+          updatedData: {
+            status: user.status === 1 ? 2 : 1
+          }
+        };
+
+        this.api.updateCountry(payload)
+          .pipe(finalize(() => this.statusUpdating = false))
+          .subscribe({
+            next: (res: any) => {
+              this.toastr.success("Status updated successfully");
+              // Local update so UI refresh ho jaye bina reload ke
+              user.status = payload.updatedData.status;
+            },
+            error: (err) => {
+              console.error('Status update failed', err);
+              this.toastr.error("Failed to update status");
+            }
+          });
       }
-    }
-    this.api.updateCountry(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
-      next: (res: any) => {
-        this.toastr.success("Status updated successfully");
-      }
-    })
+    });
   }
+
   openUpdateCompany(data: any) {
     this.dialog.open(AddUpdateCountryComponent, {
       width: '600px',
