@@ -118,50 +118,107 @@ export class AddUpdateBaseSportComponent {
     }
   }
 
-  onSubmit(): void {
+//   onSubmit(): void {
 
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
+//     if (this.form.invalid) {
+//       this.form.markAllAsTouched();
+//       return;
+//     }
 
-    this.loading = true;
-    // this.form.value.sport_id = Number(this.form.value.sport_id)
-    const payload = {
-      sport_type_name : this.form.value.sport_type_name,
-      sport_sub_type: this.form.value.apiPaths
-    }
-if (this.userData) {
+//     this.loading = true;
+//     // this.form.value.sport_id = Number(this.form.value.sport_id)
+//     const payload = {
+//       sport_type_name : this.form.value.sport_type_name,
+//       sport_sub_type: this.form.value.apiPaths
+//     }
+// if (this.userData) {
 
-  payload.sport_sub_type = payload.sport_sub_type.map((ele: any, index: any) => {
-    const data = this.userData.sport_sub_type[index]
-      if (this.userData.sport_sub_type[index]) {
-        return {
-          name: ele.name,
-          _id: data._id
-        }
-      } 
-      return {
-        name: ele.name
+//   payload.sport_sub_type = payload.sport_sub_type.map((ele: any, index: any) => {
+//     const data = this.userData.sport_sub_type[index]
+//       if (this.userData.sport_sub_type[index]) {
+//         return {
+//           name: ele.name,
+//           _id: data._id
+//         }
+//       } 
+//       return {
+//         name: ele.name
+//       }
+//     }); 
+//   }
+//     const request = this.userData
+//       ? this.api.updateBaseSport(payload)
+//       : this.api.addBaseSports(payload);
+
+//     request.subscribe({
+//       next: () => {
+//         this.loading = false;
+//         this.dialogRef.close(true);
+//         this.toaster.success("Base Sport saved successfully");
+//       },
+//       error: () => {
+//         this.loading = false;
+//       }  // Add each path
+
+//     });
+//   }
+
+onSubmit(): void {
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
+  }
+
+  this.loading = true;
+
+  let payload: any;
+
+  if (this.userData?._id) {
+    // Editing case
+    payload = {
+      _id: this.userData._id,
+      updatedData: {
+        sport_type_name: this.form.getRawValue().sport_type_name, // getRawValue to include disabled fields
+        sport_sub_type: this.form.getRawValue().apiPaths.map((ele: any, index: number) => {
+          const existing = this.userData.sport_sub_type?.[index];
+          if (existing?.id) {
+            return {
+              id: existing.id, 
+              name: ele.name
+            };
+          }
+          return {
+            name: ele.name 
+          };
+        })
       }
-    }); 
+    };
+  } else {
+    // Add case
+    payload = {
+      sport_type_name: this.form.value.sport_type_name,
+      sport_sub_type: this.form.value.apiPaths.map((ele: any) => ({
+        name: ele.name
+      }))
+    };
   }
-    const request = this.userData
-      ? this.api.updateBaseSport(payload)
-      : this.api.addBaseSports(payload);
 
-    request.subscribe({
-      next: () => {
-        this.loading = false;
-        this.dialogRef.close(true);
-        this.toaster.success("Base Sport saved successfully");
-      },
-      error: () => {
-        this.loading = false;
-      }  // Add each path
+  const request = this.userData
+    ? this.api.updateBaseSport(payload)
+    : this.api.addBaseSports(payload);
 
-    });
-  }
+  request.subscribe({
+    next: () => {
+      this.loading = false;
+      this.dialogRef.close(true);
+      this.toaster.success("Base Sport saved successfully");
+    },
+    error: () => {
+      this.loading = false;
+    }
+  });
+}
+
 
   onCancel(): void {
     this.dialogRef.close(false);
