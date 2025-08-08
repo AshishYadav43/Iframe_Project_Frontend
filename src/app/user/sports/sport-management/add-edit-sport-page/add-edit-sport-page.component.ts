@@ -77,9 +77,9 @@ export class AddEditSportPageComponent {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      company_type: [this.userData.company_type, Validators.required],
+      company_type: [this.userData?.company_type || '', Validators.required],
       sport_name: [this.userData?.sportName || '', [Validators.required, Validators.minLength(3)]],
-      company: [this.userData?.company.id || '', Validators.required],
+      company: [this.userData?.company?.id || '', Validators.required],
       base_sport: [{ value: this.userData?.base_sport || '', disabled: true }, Validators.required],
       sub_sports: [this.userData?.sub_sports || [], Validators.required],
       sport_id: [this.userData?.sportId || '', Validators.required],
@@ -99,7 +99,7 @@ export class AddEditSportPageComponent {
     this.form.patchValue({
       company_type: this.userData?.company_type,
       country: this.userData.country.map((c: any) => c._id),
-      currency: this.userData.currency.map((c: any) => c._id)
+      currency: this.userData.currency.map((c: any) => c._id),
     });
   }
 
