@@ -65,6 +65,7 @@ export class CurrencyManagementComponent {
   loading = false;
   statusUpdating: boolean = false;
   displayedColumns: string[] = [
+    'sno',
     'name',
     'symbol',
     'country',
