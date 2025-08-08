@@ -4,18 +4,21 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
 import { MatIconModule } from "@angular/material/icon";
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
-import { AddEditCasinoPageComponent } from './add-edit-casino-page/add-edit-casino-page.component';
-import { STATUS_V1 } from '../../../core/constant/constant';
 import { DataSource } from '@angular/cdk/collections';
-import { SharedDataService } from '../../../core/services/shared-data.service';
+
 import { BehaviorSubject } from 'rxjs';
+
+import { STATUS_V1 } from '../../../core/constant/constant';
+import { AuthService } from '../../../core/services/auth.service';
+import { SharedDataService } from '../../../core/services/shared-data.service';
+
+import { AddEditCasinoPageComponent } from './add-edit-casino-page/add-edit-casino-page.component';
 
 @Component({
   selector: 'app-casino-management',
@@ -36,7 +39,7 @@ export class CasinoManagementComponent {
   casinoData$ = this.casinoDataSubject.asObservable();
   @Input() filters: { name: string; status: string } = { name: '', status: '' };
 
-  displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType'];
+  displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType', 'action'];
 
   currencies = new MatTableDataSource<any>();
   dataSource = new MatTableDataSource<any>();
@@ -120,7 +123,16 @@ export class CasinoManagementComponent {
     // }
   }
 
-
+  openEditCasino(data: any) {
+    this.dialog.open(AddEditCasinoPageComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: data
+    }).afterClosed().subscribe((result: any) => {
+      if (result) this.loadSportsList();
+    });
+  }
 
 
 }

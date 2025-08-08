@@ -90,7 +90,7 @@ export class AuthService {
     return this.http.post(`${this.baseUserUrl}/casino/create-casino`, data);
   }
   updateCasino(data: any): Observable<any> {
-    return this.http.post(`${this.baseUserUrl}/casino/create-casino`, data);
+    return this.http.post(`${this.baseUserUrl}/casino/update`, data);
   }
 
   updateComptition(data: any): Observable<any> {

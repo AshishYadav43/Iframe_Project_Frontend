@@ -13,7 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ToastrService } from 'ngx-toastr';
 
 import { STATIC_SPORTS, VALIDATION_PATTERNS } from '../../../../core/constant/constant';
-import { SPORT_CATEGORIES_NAME , COMPANY_SELECTION_V1 } from '../../../../core/constant/constant';
+import { SPORT_CATEGORIES_NAME, COMPANY_SELECTION_V1 } from '../../../../core/constant/constant';
 import { AuthService } from '../../../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
 
@@ -38,19 +38,20 @@ interface SelectOption {
   templateUrl: './add-edit-casino-page.component.html',
   styleUrl: './add-edit-casino-page.component.css'
 })
-export class AddEditCasinoPageComponent {pattern = VALIDATION_PATTERNS;
+export class AddEditCasinoPageComponent {
+    pattern = VALIDATION_PATTERNS;
 
   form!: FormGroup;
   loading = false;
 
-  
+
   // Convert object to array for *ngFor
   companySelection = COMPANY_SELECTION_V1;
   companySelectionOptions = Object.entries(this.companySelection).map(([key, value]) => ({ key, value }));
 
   // get the avialable sport type
   sport_sub_types: { id: number; name: string; _id: string }[] = [];
-  
+
   countries: SelectOption[] = [];
   currencies: SelectOption[] = [];
   companies: { _id: string; name: string }[] = [];
@@ -74,19 +75,27 @@ export class AddEditCasinoPageComponent {pattern = VALIDATION_PATTERNS;
   }
 
   ngOnInit(): void {
+    console.log("CASINO DATA", this.userData);
+
     this.form = this.fb.group({
-      company_type: [null, Validators.required],
-      casino_name: [this.userData?.casino_name || '', [Validators.required, Validators.minLength(3)]],
-      company: [this.userData?.company || '', Validators.required],
+      company_type: [ '', Validators.required],
+      casino_name: [this.userData?.casinoName || '', [Validators.required, Validators.minLength(3)]],
+      company: [this.userData?.company.id || '', Validators.required],
       base_sport: [{ value: this.userData?.base_sport || '', disabled: true }, Validators.required],
-      sub_sports: [this.userData?.selectedSubtypes || [], Validators.required],
-      casino_id: [this.userData?.casino_id || '', Validators.required],
-      country: [this.userData?.country || '',[Validators.required]],
-      currency: [this.userData?.currency || '',[Validators.required]],
+      sub_sports: [this.userData?.sub_sports || [], Validators.required],
+      casino_id: [this.userData?.casinoId || '', Validators.required],
+      country: [ '', [Validators.required]],
+      currency: ['', [Validators.required]],
     });
 
+    
+
+   
+
     // Listen for changes to company_type
-    this.form.get('company_type')!.valueChanges.subscribe(selectedCompanyType => {      
+    this.form.get('company_type')!.valueChanges.subscribe(selectedCompanyType => {   
+      console.log("CHANGES ");
+         
       if (selectedCompanyType) {
         this.getCompany(selectedCompanyType);
       } else {
@@ -94,9 +103,15 @@ export class AddEditCasinoPageComponent {pattern = VALIDATION_PATTERNS;
         this.form.get('company')?.setValue('');
       }
     });
+
+     this.form.patchValue({
+      company_type: this.userData?.company_type,
+      country: this.userData.country.map((c: any) => c._id),
+      currency: this.userData.currency.map((c: any) => c._id)
+    });
   }
 
-  onSubmit(): void {    
+  onSubmit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -166,16 +181,16 @@ export class AddEditCasinoPageComponent {pattern = VALIDATION_PATTERNS;
     })
   }
 
-  
-  loadApiResults(sport_type_name?: string) {  
+
+  loadApiResults(sport_type_name?: string) {
     // If sport_type_name is empty or undefined, send no filter or a special value to get all results
-    const payload = sport_type_name ? {sport_type_name: sport_type_name} : {sport_type_name: "CASINO"};
-    
+    const payload = sport_type_name ? { sport_type_name: sport_type_name } : { sport_type_name: "CASINO" };
+
     // api call to get the result
     this.api.getBaseSportSubType(payload).subscribe({
       next: (res: any) => {
         if (res.status === 'success' && res.data.length > 0) {
-          
+
           // Directly assign the subtypes from res.data
           // Assuming res.data is array of subtypes, e.g.:
           // [{ id: 1, name: 'subOne', ... }, { id: 2, name: 'Sub Two', ... }]          
@@ -183,6 +198,9 @@ export class AddEditCasinoPageComponent {pattern = VALIDATION_PATTERNS;
 
           // Reset selected items when new api results loaded
           this.form.get('sub_sports')?.setValue([]);
+          if(this.userData) {
+            this.form.get('sub_sports')?.setValue(this.userData.sub_sports);
+          }
         }
         else {
           this.sport_sub_types = [];
