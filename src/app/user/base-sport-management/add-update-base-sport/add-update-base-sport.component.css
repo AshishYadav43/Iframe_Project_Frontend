@@ -18,26 +18,29 @@ mat-form-field {
 .button_container {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-between;
-  background-color: #2472bb;
+  justify-content: right;
+  background-color: #1b1b1b;
+  padding: 10px;
 }
 
 .submit_btn {
-  margin: 1.5rem;
   border-radius: 5px !important;
+  margin-left: 10px;
 }
 
 .dialog-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2472bb;
-  padding: 1.5rem;
+  background-color: #1b1b1b;
+  padding: 10px;
   color: white;
 }
 
 .dialog-header h2 {
   margin: 0;
+  font-size: 18px;
+  margin-left: 15px;
 }
 
 .dialog-header button {

@@ -97,12 +97,12 @@
 
         <!-- Submit Button -->
         <div class="button_container">
-            <button class="submit_btn" mat-raised-button color="primary" type="button" (click)="onCancel()">
-                Cancle
-            </button>
+            <!-- <button class="submit_btn" mat-raised-button color="primary" type="button" (click)="onCancel()">
+                Cancel
+            </button> -->
             <button class="submit_btn" mat-raised-button color="primary" type="submit" [disabled]="loading">
                 <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
-                {{ loading ? 'Saving...' : (userData ? 'Update Sport' : 'Add Sport') }}
+                {{ loading ? 'Saving...' : (userData ? 'Update' : 'Submit') }}
             </button>
         </div>
     </form>
