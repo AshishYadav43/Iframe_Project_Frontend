@@ -49,7 +49,7 @@ export class CompanyManagementComponent {
   filterValues = { name: '', companyType: '', sort: '' };
   statusUpdating: boolean = false;
 
-  displayedColumns: string[] = ['srNo', 'name', 'companyType', 'country','status', 'action'];
+  displayedColumns: string[] = ['srNo', 'name', 'companyId','companyType', 'country','status', 'action'];
   dataSource = new MatTableDataSource<any>();
 
   companyType: any[] = [

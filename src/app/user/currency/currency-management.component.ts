@@ -67,6 +67,7 @@ export class CurrencyManagementComponent {
   displayedColumns: string[] = [
     'sno',
     'name',
+    'currencyId',
     'symbol',
     'country',
     'conversionRate',
@@ -219,7 +220,7 @@ export class CurrencyManagementComponent {
         max: ele.max_limit,
       }
     })
-    const payload = { ...data, symbol: data.symbol.toUpperCase(), country: data.country._id,selectedCodes: selectedLimit }
+    const payload = { ...data, symbol: data.symbol.toUpperCase(), country: data.country._id, selectedCodes: selectedLimit }
     this.dialog.open(AddUpdateCurrencyComponent, {
       width: '600px',
       maxHeight: '90vh',

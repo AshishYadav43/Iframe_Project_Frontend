@@ -54,6 +54,11 @@
     <td mat-cell *matCellDef="let row">{{ row.name }}</td>
   </ng-container>
 
+    <ng-container matColumnDef="companyId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Company Id</th>
+    <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+  </ng-container>
+
   <!-- Email -->
   <ng-container matColumnDef="companyType">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Supported Currencies</th>
