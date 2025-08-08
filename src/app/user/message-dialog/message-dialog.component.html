@@ -1,14 +1,14 @@
 <h2 mat-dialog-title class="dialog-header">
-  {{ data.action | titlecase }} Confirmation
+  {{ data.action=="unblock"?"Enable":"Disable"| titlecase }} Confirmation
 </h2>
 
 <div class="dialog-content">
-  Are you sure you want to {{ data.action }} this ?
+  Are you sure you want to {{ data.action=="unblock"?"enable":"disable" }} {{ getDisplayName() }} {{data.name}} ?
 </div>
 
 <div class="dialog-footer">
-  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onCancel()" >Cancel</button>
   <button mat-button color="primary" (click)="onConfirm()">
-    {{ data.action | titlecase }}
+    {{ data.action=="unblock"?"Enable":"Disable" | titlecase }}
   </button>
 </div>

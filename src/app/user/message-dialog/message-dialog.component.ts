@@ -13,14 +13,34 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/materia
 export class MessageDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<MessageDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { action: string }
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: { action: string, name: string ,data:any}
+  ) {
+
+  }
+
+  ngOnInit() {
+    console.log(this.data);
+
+  }
 
   onConfirm(): void {
     this.dialogRef.close(true);
   }
 
-  onCancel(): void {
-    this.dialogRef.close(false);
+onCancel(): void {
+  this.dialogRef.close(false);
+}
+
+
+  getDisplayName(): string {
+  if (this.data.name === 'Country') {
+    return this.data?.data?.countryName || '';
+  } else if (this.data.name === 'Currency') {
+    return this.data?.data?.name || '';
+  } else if (this.data.name === 'Company') {
+    return this.data?.data?.name || '';
   }
+  return '';
+}
+
 }

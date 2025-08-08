@@ -197,39 +197,48 @@ export class CountryManagementComponent implements OnInit {
   //   })
   // }
 
-  toggleStatus(user: any) {
-    const action = user.status === 1 ? 'block' : 'unblock'; // assuming status 1 = active, 2 = blocked
+toggleStatus(user: any) {
+  const prevStatus = user.status;
+  const action = user.status === 1 ? 'block' : 'unblock'; // assuming 1=active, 2=blocked
 
-    this.dialog.open(MessageDialogComponent, {
-      width: '600px',
-      data: { action }
-    }).afterClosed().subscribe(result => {
-      if (result) {
-        this.statusUpdating = true;
+  user.status = user.status === 1 ? 2 : 1;
 
-        const payload = {
-          _id: user._id,
-          updatedData: {
-            status: user.status === 1 ? 2 : 1
+  this.dialog.open(MessageDialogComponent, {
+    width: '600px',
+    data: { action, name: "Country", data: user }
+  }).afterClosed().subscribe(result => {
+    if (result) {
+      this.statusUpdating = true;
+
+      const payload = {
+        _id: user._id,
+        updatedData: {
+          status: user.status // already toggled above
+        }
+      };
+
+      this.api.updateCountry(payload)
+        .pipe(finalize(() => this.statusUpdating = false))
+        .subscribe({
+          next: (res: any) => {
+            this.toastr.success("Status updated successfully");
+            this.getAllCountries();
+            // UI already updated optimistically
+          },
+          error: (err) => {
+            console.error('Status update failed', err);
+            this.toastr.error("Failed to update status");
+            // Revert UI on API error
+            user.status = prevStatus;
           }
-        };
+        });
+    } else {
+      // User cancelled — revert UI toggle back
+      user.status = prevStatus;
+    }
+  });
+}
 
-        this.api.updateCountry(payload)
-          .pipe(finalize(() => this.statusUpdating = false))
-          .subscribe({
-            next: (res: any) => {
-              this.toastr.success("Status updated successfully");
-              // Local update so UI refresh ho jaye bina reload ke
-              user.status = payload.updatedData.status;
-            },
-            error: (err) => {
-              console.error('Status update failed', err);
-              this.toastr.error("Failed to update status");
-            }
-          });
-      }
-    });
-  }
 
   openUpdateCompany(data: any) {
     this.dialog.open(AddUpdateCountryComponent, {

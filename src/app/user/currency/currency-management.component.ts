@@ -194,35 +194,46 @@ export class CurrencyManagementComponent {
   }
 
   toggleStatus(country: any): void {
-    if (this.statusUpdating) return;
+  if (this.statusUpdating) return;
 
-    const updatedStatus = country.status == 1 ? 2 : 1;
-    const payload = {
-      _id: country._id,
-      updatedData: {
-        status: updatedStatus
-      }
-    };
-    const action = country.status === 1 ? 'block' : 'unblock';
-    this.dialog.open(MessageDialogComponent, {
-      width: '600px',
-      data: { action }
-    }).afterClosed().subscribe(result => {
-      if (result) {
-        this.statusUpdating = true;
-        this.api.updateCurrency(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
-          next: () => {
-            this.toastr.success('Status updated successfullly');
-            this.fetchCurrencies();
-          },
-          error: () => {
-            this.toastr.error('Failed to update status');
-          }
-        });
-      }
-    })
+  const originalStatus = country.status;  // Pehle ka status save karo
+  const updatedStatus = country.status == 1 ? 2 : 1;
+  const payload = {
+    _id: country._id,
+    updatedData: {
+      status: updatedStatus
+    }
+  };
+  const action = country.status === 1 ? 'block' : 'unblock';
 
-  }
+  // Temporarily update UI toggle for instant feedback
+  country.status = updatedStatus;
+
+  this.dialog.open(MessageDialogComponent, {
+    width: '600px',
+    data: { action, name: "Currency", data: country }
+  }).afterClosed().subscribe(result => {
+    if (result) {
+      // User confirmed, call API to update
+      this.statusUpdating = true;
+      this.api.updateCurrency(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
+        next: () => {
+          this.toastr.success('Status updated successfully');
+          this.fetchCurrencies();  // Refresh data if needed
+        },
+        error: () => {
+          this.toastr.error('Failed to update status');
+          // Revert toggle if API fails
+          country.status = originalStatus;
+        }
+      });
+    } else {
+      // User cancelled => revert toggle to original status
+      country.status = originalStatus;
+    }
+  });
+}
+
 
   OpenEditCurrency(data: any) {
     const selectedLimit = data.pre_fix.map((ele: any) => {

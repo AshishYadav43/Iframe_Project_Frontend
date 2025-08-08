@@ -19,6 +19,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../core/services/auth.service';
 
 import { AddUpdateCompanyComponent } from './add-update-company/add-update-company.component';
+import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-company-management',
@@ -49,7 +50,7 @@ export class CompanyManagementComponent {
   filterValues = { name: '', companyType: '', sort: '' };
   statusUpdating: boolean = false;
 
-  displayedColumns: string[] = ['srNo', 'name', 'companyId','companyType', 'country','status', 'action'];
+  displayedColumns: string[] = ['srNo', 'name', 'companyId', 'companyType', 'country', 'status', 'action'];
   dataSource = new MatTableDataSource<any>();
 
   companyType: any[] = [
@@ -116,19 +117,67 @@ export class CompanyManagementComponent {
     });
   }
 
-  toggleStatus(data: any) {
-    if (this.statusUpdating) return;
-    this.statusUpdating = true;
-    const payload = {
-      _id: data._id,
-      updatedData: {
-        status: data.status == 1 ? 2 : 1
+  // toggleStatus(data: any) {
+  //   if (this.statusUpdating) return;
+  //   this.statusUpdating = true;
+  //   const payload = {
+  //     _id: data._id,
+  //     updatedData: {
+  //       status: data.status == 1 ? 2 : 1
+  //     }
+  //   }
+  //   this.api.updateCompany(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
+  //     next: (res: any) => {
+  //       this.toastr.success("Status updated successfully");
+  //     }
+  //   })
+  // }
+
+
+  toggleStatus(user: any) {
+    const prevStatus = user.status;
+    const action = user.status === 1 ? 'block' : 'unblock'; // 1=active, 2=blocked
+    user.status = user.status === 1 ? 2 : 1;
+
+    this.dialog.open(MessageDialogComponent, {
+      width: '600px',
+      data: { action, name: "Company", data: user }
+    }).afterClosed().subscribe(result => {
+      // this.getCompany()
+      if (result) {
+        this.statusUpdating = true;
+
+        const payload = {
+          _id: user._id,
+          updatedData: {
+            status: prevStatus === 1 ? 2 : 1
+          }
+        };
+
+        this.api.updateCompany(payload)
+          .pipe(finalize(() => this.statusUpdating = false))
+          .subscribe({
+            next: (res: any) => {
+              this.toastr.success("Status updated successfully");
+              this.getCompany();
+              user.status = payload.updatedData.status;
+            },
+            error: (err) => {
+              console.error('Status update failed', err);
+              this.toastr.error("Failed to update status");
+              user.status = prevStatus;
+            }
+          });
+      } else {
+        // Dialog canceled — revert toggle UI by restoring status
+        user.status = prevStatus;
+        console.log(user.status);
+
       }
-    }
-    this.api.updateCompany(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
-      next: (res: any) => {
-        this.toastr.success("Status updated successfully");
-      }
-    })
+    });
   }
+
+
+
+
 }
