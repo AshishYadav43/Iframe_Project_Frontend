@@ -3,12 +3,12 @@
 </h2>
 
 <div class="dialog-content">
-  Are you sure you want to {{ data.action }} this user?
+  Are you sure you want to {{ data.action }} this ?
 </div>
 
 <div class="dialog-footer">
   <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-raised-button color="primary" (click)="onConfirm()">
-    Yes, {{ data.action | titlecase }}
+  <button mat-button color="primary" (click)="onConfirm()">
+    {{ data.action | titlecase }}
   </button>
 </div>

@@ -3,10 +3,12 @@
   font-weight: bold;
   padding-bottom: 10px;
   border-bottom: 1px solid #ddd;
+  background: #1b1b1b;
+  color: white;
 }
 
 .dialog-content {
-  padding: 20px 0;
+  padding: 30px;
   font-size: 15px;
 }
 
