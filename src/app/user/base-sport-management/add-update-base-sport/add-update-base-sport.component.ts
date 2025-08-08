@@ -147,7 +147,7 @@ if (this.userData) {
     }); 
   }
     const request = this.userData
-      ? this.api.updateSport(payload)
+      ? this.api.updateBaseSport(payload)
       : this.api.addBaseSports(payload);
 
     request.subscribe({

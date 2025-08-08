@@ -79,6 +79,10 @@ export class AuthService {
     return this.http.post(`${this.baseUserUrl}/sport/updateSport`, data);
   }
 
+  updateBaseSport(data: any): Observable<any> {
+    return this.http.put(`${this.baseUserUrl}/base-sport/update`, data);
+  }
+
   getAllCasino(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/casino/get`, data);
   }
