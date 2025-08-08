@@ -1,0 +1,28 @@
+.details-card {
+  background: #fff8e1; /* light gold background */
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.sub-type-item {
+  background: white;
+  border: 1px solid #ffe082;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.sub-type-id {
+  font-weight: bold;
+  color: #ff6f00;
+}
+
+.sub-type-name {
+  color: #424242;
+}
+
+.no-data {
+  font-style: italic;
+  color: #757575;
+}

@@ -12,6 +12,7 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { AuthService } from '../../core/services/auth.service';
 
 import { AddUpdateBaseSportComponent } from './add-update-base-sport/add-update-base-sport.component';
+import { ViewDialogComponent } from './view-dialog/view-dialog.component';
 
 @Component({
   selector: 'app-base-sport-management',
@@ -30,7 +31,7 @@ import { AddUpdateBaseSportComponent } from './add-update-base-sport/add-update-
 })
 export class BaseSportManagementComponent {
 
-  displayedColumns: string[] = ['srNo', 'name', 'sportId', 'action'];
+  displayedColumns: string[] = ['srNo', 'name', 'sportId','view', 'action'];
   dataSource = new MatTableDataSource<any>();
 
   private api = inject(AuthService);
@@ -77,5 +78,17 @@ export class BaseSportManagementComponent {
       if (result) this.getBaseSports();
     });
   }
+
+openViewDialog(row: any) {
+  this.dialog.open(ViewDialogComponent, {
+    width: '450px',
+    data: {
+      sportTypeName: row.sport_type_name,
+      sportSubTypes: row.sport_sub_type || []
+    }
+  });
+}
+
+
 
 }

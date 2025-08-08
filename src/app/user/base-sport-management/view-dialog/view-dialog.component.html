@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>{{ data.sportTypeName }} DETAILS</h2>
+
+<mat-dialog-content>
+  <mat-card class="details-card">
+    <mat-card-content>
+      <div *ngIf="data.sportSubTypes.length > 0; else noData">
+        <div *ngFor="let sub of data.sportSubTypes" class="sub-type-item">
+          <div class="sub-type-id">ID: {{ sub.id }}</div>
+          <div class="sub-type-name">Name: {{ sub.name }}</div>
+        </div>
+      </div>
+      <ng-template #noData>
+        <p class="no-data">No sport sub types available.</p>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="dialogRef.close()">Close</button>
+</mat-dialog-actions>

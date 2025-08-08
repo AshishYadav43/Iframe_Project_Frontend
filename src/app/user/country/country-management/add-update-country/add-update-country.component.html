@@ -51,13 +51,25 @@
             <mat-error *ngIf="form.get('numberCode')?.hasError('required')">Number Code is required</mat-error>
         </mat-form-field> -->
 
+
+
         <mat-form-field appearance="outline">
             <mat-label>Country List</mat-label>
-            <mat-select formControlName="countryName" >
+            <mat-select formControlName="countryName">
                 <mat-option *ngFor="let name of countryName" [value]="name.countryName">
                     {{ name?.countryName }}
                 </mat-option>
             </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>ID</mat-label>
+            <input matInput formControlName="id" maxlength="20" placeholder="Enter ID"
+                [appPatternRestrict]="pattern.mobile" />
+            <mat-error *ngIf="form.get('id')?.hasError('required')">ID is required</mat-error>
+            <mat-error *ngIf="form.get('id')?.hasError('minlength')">
+                ID must be at least {{ form.get('id')?.errors?.['minlength']?.requiredLength }} characters
+            </mat-error>
         </mat-form-field>
 
         <!-- <mat-form-field appearance="outline">

@@ -74,6 +74,8 @@ export class AddUpdateCountryComponent {
       // countryName: [this.countryData?.countryName || '', [Validators.required, Validators.minLength(3)]],
       // countryId: [this.countryData?.countryId ?? '', [Validators.minLength(3)]],
       // countryCode: [this.countryData?.countryCode || '', [Validators.required]],
+      id: [{ value: this.countryData?.id || '', disabled: true }, [Validators.required, Validators.minLength(3)]],
+
       countryName: [
         typeof this.countryData?.countryName === 'string'
           ? this.countryData.countryName
@@ -105,7 +107,7 @@ export class AddUpdateCountryComponent {
     this.loading = true;
     // this.form.value.numberCode = Number(this.form.value.numberCode);
     const payload = this.form.value;
-
+    delete payload.id;
     const request = this.countryData
       ? this.api.updateCountry(payload)
       : this.api.addCountry(payload);
