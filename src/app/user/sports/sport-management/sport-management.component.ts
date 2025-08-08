@@ -208,44 +208,52 @@ export class SportManagementComponent {
       this.dataService.setCasinoFilter(payload); // pass payload to <app-casino-management>
     }
   }
-  
+
   openEditSports(data: any) {
-        this.dialog.open(AddEditSportPageComponent, {
-          width: '600px',
-          maxHeight: '90vh',
-          autoFocus: false,
-          data: data
-        }).afterClosed().subscribe((result: any) => {
-          if (result) this.loadSportsList();
-        });
+    this.dialog.open(AddEditSportPageComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: data
+    }).afterClosed().subscribe((result: any) => {
+      if (result) this.loadSportsList();
+    });
   }
 
   toggleStatus(casino: any): void {
-      if (this.statusUpdating) return;
-  
-      const updatedStatus = casino.status == 1 ? 2 : 1;
-      const payload = {
-        _id: casino.id,
-        updatedData: {
-          status: updatedStatus
-        }
-      };
-      const action = casino.status == 1 ? 'block' : 'unblock';
-      this.dialog.open(MessageDialogComponent, {
-        width: '600px',
-        data: { action }
-      }).afterClosed().subscribe(result => {
-        if (result) {
-          this.statusUpdating = true;
-          this.api.updateSport(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
-            next: () => {
-              this.loadSportsList();
-              this.toastr.success('Status updated successfullly');
-            },
-            error: () => {
-            }
-          });
-        }
-      })
-    }
+    const prevStatus = casino.status;
+    casino.status = casino.status === 1 ? 2 : 1;
+
+    if (this.statusUpdating) return;
+
+    const updatedStatus = casino.status == 1 ? 2 : 1;
+    const payload = {
+      _id: casino.id,
+      updatedData: {
+        status: updatedStatus
+      }
+    };
+    const action = casino.status == 1 ? 'block' : 'unblock';
+    this.dialog.open(MessageDialogComponent, {
+      width: '600px',
+      data: { action }
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.statusUpdating = true;
+        this.api.updateSport(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
+          next: () => {
+            this.loadSportsList();
+            this.toastr.success('Status updated successfullly');
+            casino.status = payload.updatedData.status;
+
+          },
+          error: () => {
+          }
+        });
+      } else {
+        casino.status = prevStatus;
+
+      }
+    })
+  }
 }

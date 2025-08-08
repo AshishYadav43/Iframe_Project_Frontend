@@ -171,7 +171,6 @@ export class CompanyManagementComponent {
       } else {
         // Dialog canceled — revert toggle UI by restoring status
         user.status = prevStatus;
-        console.log(user.status);
 
       }
     });

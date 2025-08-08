@@ -144,6 +144,8 @@ export class CasinoManagementComponent {
   }
 
   toggleStatus(casino: any): void {
+    const prevStatus = casino.status;
+    casino.status = casino.status === 1 ? 2 : 1;
     if (this.statusUpdating) return;
 
     const updatedStatus = casino.status == 1 ? 2 : 1;
@@ -163,11 +165,16 @@ export class CasinoManagementComponent {
         this.api.updateCasino(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
           next: () => {
             this.loadSportsList();
+            casino.status = payload.updatedData.status;
+
             this.toastr.success('Status updated successfullly');
           },
           error: () => {
           }
         });
+      } else {
+        casino.status = prevStatus;
+
       }
     })
   }
