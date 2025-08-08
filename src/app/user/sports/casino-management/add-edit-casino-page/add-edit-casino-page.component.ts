@@ -39,7 +39,7 @@ interface SelectOption {
   styleUrl: './add-edit-casino-page.component.css'
 })
 export class AddEditCasinoPageComponent {
-    pattern = VALIDATION_PATTERNS;
+  pattern = VALIDATION_PATTERNS;
 
   form!: FormGroup;
   loading = false;
@@ -78,24 +78,22 @@ export class AddEditCasinoPageComponent {
     console.log("CASINO DATA", this.userData);
 
     this.form = this.fb.group({
-      company_type: [ '', Validators.required],
+      company_type: ['', Validators.required],
       casino_name: [this.userData?.casinoName || '', [Validators.required, Validators.minLength(3)]],
       company: [this.userData?.company.id || '', Validators.required],
       base_sport: [{ value: this.userData?.base_sport || '', disabled: true }, Validators.required],
       sub_sports: [this.userData?.sub_sports || [], Validators.required],
       casino_id: [this.userData?.casinoId || '', Validators.required],
-      country: [ '', [Validators.required]],
+      country: ['', [Validators.required]],
       currency: ['', [Validators.required]],
     });
 
-    
 
-   
+
+
 
     // Listen for changes to company_type
-    this.form.get('company_type')!.valueChanges.subscribe(selectedCompanyType => {   
-      console.log("CHANGES ");
-         
+    this.form.get('company_type')!.valueChanges.subscribe(selectedCompanyType => {
       if (selectedCompanyType) {
         this.getCompany(selectedCompanyType);
       } else {
@@ -104,7 +102,7 @@ export class AddEditCasinoPageComponent {
       }
     });
 
-     this.form.patchValue({
+    this.form.patchValue({
       company_type: this.userData?.company_type,
       country: this.userData.country.map((c: any) => c._id),
       currency: this.userData.currency.map((c: any) => c._id)
@@ -120,16 +118,25 @@ export class AddEditCasinoPageComponent {
     this.loading = true;
     this.form.value.casino_id = Number(this.form.value.casino_id)
     // this.form.value.sub_sports = this.form.value.sport_sub_type
-    const payload = this.form.value;
+    let payload = this.form.value;
+
+    if (this.userData) {
+      payload = {
+        _id: this.userData.id,
+        updatedData: {
+          ...this.form.value
+        }
+      }      
+    }
 
 
     const request = this.userData ? this.api.updateCasino(payload) : this.api.addCasino(payload);
 
     request.subscribe({
-      next: () => {
+      next: (res: any) => {
         this.loading = false;
         this.dialogRef.close(true);
-        this.toaster.success("Casino saved successfully");
+        this.toaster.success(res.message);
       },
       error: () => {
         this.loading = false;
@@ -198,7 +205,7 @@ export class AddEditCasinoPageComponent {
 
           // Reset selected items when new api results loaded
           this.form.get('sub_sports')?.setValue([]);
-          if(this.userData) {
+          if (this.userData) {
             this.form.get('sub_sports')?.setValue(this.userData.sub_sports);
           }
         }

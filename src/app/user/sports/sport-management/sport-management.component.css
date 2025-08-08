@@ -81,3 +81,15 @@
   border-radius: 5px;
   font-size: 15px;
 }
+
+.edit_button {
+  height: 40px;
+  color: white !important;
+  background-color: rgb(32, 182, 18) !important;
+  border-radius: 5px !important;
+  margin-right: 15px;
+  min-width: 70px;
+  font-weight: 500;
+  font-size: 15px;
+  border-color: transparent;
+}

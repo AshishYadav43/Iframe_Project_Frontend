@@ -11,9 +11,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DataSource } from '@angular/cdk/collections';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, finalize } from 'rxjs';
 
+import { ToastrService } from 'ngx-toastr';
+
+import { MessageDialogComponent } from '../../message-dialog/message-dialog.component';
 import { STATUS_V1 } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
 import { SharedDataService } from '../../../core/services/shared-data.service';
@@ -30,7 +34,9 @@ import { AddEditCasinoPageComponent } from './add-edit-casino-page/add-edit-casi
     MatIconModule,
     MatFormFieldModule,
     MatTabsModule,
-    MatInputModule,],
+    MatInputModule,
+    MatSlideToggle
+  ],
   templateUrl: './casino-management.component.html',
   styleUrl: './casino-management.component.css'
 })
@@ -39,14 +45,16 @@ export class CasinoManagementComponent {
   casinoData$ = this.casinoDataSubject.asObservable();
   @Input() filters: { name: string; status: string } = { name: '', status: '' };
 
-  displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType', 'action'];
+  displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType', 'status', 'action'];
 
   currencies = new MatTableDataSource<any>();
   dataSource = new MatTableDataSource<any>();
   selectedTabIndex = 0;
+  statusUpdating: boolean = false;
   private pendingPayload: any = null;
   constructor(private route: ActivatedRoute,
-    private dataService: SharedDataService
+    private dataService: SharedDataService,
+    private toastr: ToastrService
   ) { }
 
   private api = inject(AuthService);
@@ -83,10 +91,11 @@ export class CasinoManagementComponent {
       this.dataSource.data = users.data;
       this.dataSource.data = users.data.map((item: any) => ({
         ...item,
-        status: STATUS_V1[item.status] || 'UNKNOWN'
+        status: item.status
       }));
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      console.log("DATA", this.dataSource.data);
     });
   }
 
@@ -134,5 +143,33 @@ export class CasinoManagementComponent {
     });
   }
 
+  toggleStatus(casino: any): void {
+    if (this.statusUpdating) return;
+
+    const updatedStatus = casino.status == 1 ? 2 : 1;
+    const payload = {
+      _id: casino.id,
+      updatedData: {
+        status: updatedStatus
+      }
+    };
+    const action = casino.status === 1 ? 'block' : 'unblock';
+    this.dialog.open(MessageDialogComponent, {
+      width: '600px',
+      data: { action }
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.statusUpdating = true;
+        this.api.updateCasino(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
+          next: () => {
+            this.loadSportsList();
+            this.toastr.success('Status updated successfullly');
+          },
+          error: () => {
+          }
+        });
+      }
+    })
+  }
 
 }

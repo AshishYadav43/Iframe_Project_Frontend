@@ -76,7 +76,7 @@ export class AuthService {
   }
 
   updateSport(data: any): Observable<any> {
-    return this.http.post(`${this.baseUserUrl}/sport/updateSport`, data);
+    return this.http.post(`${this.baseUserUrl}/sport/update`, data);
   }
 
   updateBaseSport(data: any): Observable<any> {

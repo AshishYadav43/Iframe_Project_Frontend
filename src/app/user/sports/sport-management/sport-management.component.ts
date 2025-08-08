@@ -12,15 +12,23 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute } from '@angular/router';
 import { MatOption, MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+
+import { finalize } from 'rxjs';
+
+import { BlobOptions } from 'buffer';
+
+import { ToastrService } from 'ngx-toastr';
 
 import { CasinoManagementComponent } from '../casino-management/casino-management.component';
+import { MessageDialogComponent } from '../../message-dialog/message-dialog.component';
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { STATUS_V1 } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
+import { SharedDataService } from '../../../core/services/shared-data.service';
 import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
 
 import { AddEditSportPageComponent } from './add-edit-sport-page/add-edit-sport-page.component';
-import { SharedDataService } from '../../../core/services/shared-data.service';
 
 @Component({
   selector: 'app-sport-management',
@@ -37,7 +45,8 @@ import { SharedDataService } from '../../../core/services/shared-data.service';
     MatSelectModule,
     PatternRestrictDirective,
     CasinoManagementComponent,
-    MatOption
+    MatOption,
+    MatSlideToggle
   ],
   templateUrl: './sport-management.component.html',
   styleUrl: './sport-management.component.css'
@@ -45,14 +54,16 @@ import { SharedDataService } from '../../../core/services/shared-data.service';
 export class SportManagementComponent {
   casino: any
   pattern = VALIDATION_PATTERNS;
-  displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType', 'status'];
+  displayedColumns: string[] = ['srNo', 'name', 'company', 'sportType', 'status', 'action'];
   dataSource = new MatTableDataSource<any>();
   selectedTabIndex = 0;
   filterValues = { name: '', companyType: '1', sort: '' };
   filterCasinoValues = { casino_name: '', status: '1', sort: '' };
+  statusUpdating: boolean = false;
 
   constructor(private route: ActivatedRoute,
-    private dataService: SharedDataService
+    private dataService: SharedDataService,
+    private toastr: ToastrService
   ) {
   }
 
@@ -128,7 +139,7 @@ export class SportManagementComponent {
       this.dataSource.data = users.data;
       this.dataSource.data = users.data.map((item: any) => ({
         ...item,
-        status: STATUS_V1[item.status] || 'UNKNOWN'
+        status: item.status
       }));
 
       this.dataSource.paginator = this.paginator;
@@ -197,10 +208,44 @@ export class SportManagementComponent {
       this.dataService.setCasinoFilter(payload); // pass payload to <app-casino-management>
     }
   }
+  
+  openEditSports(data: any) {
+        this.dialog.open(AddEditSportPageComponent, {
+          width: '600px',
+          maxHeight: '90vh',
+          autoFocus: false,
+          data: data
+        }).afterClosed().subscribe((result: any) => {
+          if (result) this.loadSportsList();
+        });
+  }
 
-
-
-
-
-
+  toggleStatus(casino: any): void {
+      if (this.statusUpdating) return;
+  
+      const updatedStatus = casino.status == 1 ? 2 : 1;
+      const payload = {
+        _id: casino.id,
+        updatedData: {
+          status: updatedStatus
+        }
+      };
+      const action = casino.status == 1 ? 'block' : 'unblock';
+      this.dialog.open(MessageDialogComponent, {
+        width: '600px',
+        data: { action }
+      }).afterClosed().subscribe(result => {
+        if (result) {
+          this.statusUpdating = true;
+          this.api.updateSport(payload).pipe(finalize(() => this.statusUpdating = false)).subscribe({
+            next: () => {
+              this.loadSportsList();
+              this.toastr.success('Status updated successfullly');
+            },
+            error: () => {
+            }
+          });
+        }
+      })
+    }
 }

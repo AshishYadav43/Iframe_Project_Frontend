@@ -46,10 +46,11 @@
   <!-- All Sports Tab -->
   <mat-tab label="All Sports">
     <ng-template matTabContent>
-       <div class="filter-section">
+      <div class="filter-section">
         <mat-form-field class="filter-input" appearance="outline">
           <mat-label>Sport Name</mat-label>
-          <input [appPatternRestrict]="pattern.alphabets" maxlength="20" matInput [(ngModel)]="filterValues.name" placeholder="Search Name">
+          <input [appPatternRestrict]="pattern.alphabets" maxlength="20" matInput [(ngModel)]="filterValues.name"
+            placeholder="Search Name">
         </mat-form-field>
 
         <mat-form-field class="filter-input" appearance="outline">
@@ -85,7 +86,7 @@
         </button>
       </div>
 
-     
+
 
       <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
         <!-- Columns -->
@@ -110,8 +111,21 @@
         </ng-container>
 
         <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-          <td mat-cell *matCellDef="let row">{{ row.status }}</td>
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-slide-toggle [checked]="element.status == 1" (change)="toggleStatus(element)"
+              [disabled]="statusUpdating">
+            </mat-slide-toggle>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let row">
+            <button class="edit_button" color="primary" (click)="openEditSports(row)">
+              Edit
+            </button>
+          </td>
         </ng-container>
 
         <!-- Rows -->
@@ -131,15 +145,16 @@
 
   <mat-tab label="Casino">
     <ng-template matTabContent>
-         <div class="filter-section">
+      <div class="filter-section">
         <mat-form-field class="filter-input" appearance="outline">
           <mat-label>Casino Name</mat-label>
-          <input [appPatternRestrict]="pattern.alphabets" maxlength="20" matInput [(ngModel)]="filterCasinoValues.casino_name" placeholder="Search Name">
+          <input [appPatternRestrict]="pattern.alphabets" maxlength="20" matInput
+            [(ngModel)]="filterCasinoValues.casino_name" placeholder="Search Name">
         </mat-form-field>
 
         <mat-form-field class="filter-input" appearance="outline">
           <mat-label>Status Type</mat-label>
-          <mat-select  [(ngModel)]="filterCasinoValues.status">
+          <mat-select [(ngModel)]="filterCasinoValues.status">
             <mat-option value="1">ACTIVE</mat-option>
             <mat-option value="2">INACTIVE</mat-option>
             <!-- <mat-option *ngFor="let type of Status" [value]="type.id">{{ type.name }}</mat-option> -->
