@@ -21,6 +21,8 @@ import { ToastrService } from 'ngx-toastr';
 
 import { startWith } from 'rxjs/operators';
 
+import { log } from 'console';
+
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { COMPANY_SELECTION_V1 } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
@@ -78,6 +80,10 @@ export class AddUpdateCompanyComponent {
   private fb = inject(FormBuilder);
   private api = inject(AuthService);
   private toaster = inject(ToastrService);
+  sportTypeAndSubTypeModel: { typeId: string; subTypeId: string[] }[] = [];
+  subTypeOptionsMap: { [typeId: string]: any[] } = {};
+
+
 
   constructor(
     private dialogRef: MatDialogRef<AddUpdateCompanyComponent>,
@@ -101,18 +107,29 @@ export class AddUpdateCompanyComponent {
           ? this.companyData.apiPaths.map((p: string) => this.fb.group({ value: [p, Validators.required] }))
           : [this.fb.group({ value: ['', Validators.required] })]
       ),
-      sportTypeAndSubType: this.fb.array([])
+      // sportTypeAndSubType: this.fb.array([])
     });
 
     // Initialize sport type groups
-    if (this.companyData?.sportTypeAndSubType?.length) {
+    // if (this.companyData?.sportTypeAndSubType?.length) {
 
-      this.companyData.sportTypeAndSubType.forEach((item: any) => {            
-        this.addSportTypeGroup(item.typeId, item.subTypeId);
-      });
-    } else {
-      this.addSportTypeGroup();
-    }
+    //   this.companyData.sportTypeAndSubType.forEach((item: any) => {            
+    //     this.addSportTypeGroup(item.typeId, item.subTypeId);
+    //   });
+    // } else {
+    //   this.addSportTypeGroup();
+    // }
+
+    if (this.companyData?.sportTypeAndSubType?.length) {
+    this.sportTypeAndSubTypeModel = this.companyData.sportTypeAndSubType.map((item: any) => ({
+      typeId: item.typeId,
+      subTypeId: item.subTypeId || []
+    }));
+  } else {
+    this.sportTypeAndSubTypeModel.push({ typeId: '', subTypeId: [] });
+  }
+  console.log("SUB TYPE",this.sportTypeAndSubTypeModel);
+  
   }
 
   // ====== API PATHS ======
@@ -130,6 +147,15 @@ export class AddUpdateCompanyComponent {
     }
   }
 
+  onSportTypeChange(group: { typeId: string; subTypeId: string[] }) {
+  if (!group.typeId) return;
+  const index = this.sportTypes.findIndex(item => item.id == group.typeId);
+  this.api.getBaseSportSubType({ sport_type_name: this.sportTypes[index].name }).subscribe(res => {
+    this.subTypeOptionsMap[group.typeId] = res?.data?.[0]?.sport_sub_type || [];
+    group.subTypeId = []; // reset selection
+  });
+}
+
   // ====== SPORT TYPE / SUBTYPE ======
   get sportTypeAndSubType(): FormArray {
     return this.form.get('sportTypeAndSubType') as FormArray;
@@ -143,6 +169,8 @@ export class AddUpdateCompanyComponent {
       typeId: ['']
     });
 
+    
+
     this.sportTypeAndSubType.push(group);
 
     if (initialType) {
@@ -155,6 +183,11 @@ export class AddUpdateCompanyComponent {
         this.loadApiResults(typeName, group);
       });
   }
+
+
+  getSubTypesFor(typeId: string): any[] {
+  return this.subTypeOptionsMap[typeId] || [];
+}
 
   removeSportTypeGroup(index: number) {
     if (this.sportTypeAndSubType.length > 1) {
@@ -187,6 +220,8 @@ export class AddUpdateCompanyComponent {
 
   // ====== FORM SUBMIT ======
   onSubmit(): void {    
+    console.log("sportTypeAndSubTypeModel", this.sportTypeAndSubTypeModel);
+    
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -203,10 +238,7 @@ export class AddUpdateCompanyComponent {
       supportedCurrencies: formValue.supportedCurrencies,
       country: formValue.country,
       apiPaths: formValue.apiPaths.map((x: any) => x.value),
-      sportTypeAndSubType: formValue.sportTypeAndSubType.map((item: any) => ({
-        typeId: item.typeId,
-        subTypeId: item.sub_types[0] || null
-      }))
+      sportTypeAndSubType: this.sportTypeAndSubTypeModel
     };
 
     const request = this.companyData
@@ -262,6 +294,8 @@ export class AddUpdateCompanyComponent {
             id: ele._id
           }
         })
+        console.log("SPORT TYPE", this.sportTypes);
+        
       }
     })
   }
