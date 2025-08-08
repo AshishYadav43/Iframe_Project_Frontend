@@ -61,7 +61,7 @@ export class CountryManagementComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   currencies = ['INR', 'NPR', 'USD'];
   timezones = ['Asia/Kolkata', 'Europe/London', 'UTC', 'America/New_York'];
-  displayedColumns = ['srNo', 'countryName', 'countryId', 'countryCode', 'numberCode', 'shortName', 'countryRegion', 'countryTimezones', 'status', 'action'];
+  displayedColumns = ['srNo', 'countryName', 'countryId', 'countryCode', 'numberCode', 'shortName', 'countryRegion', 'countryTimezones', 'status'];
 
   countryForm!: FormGroup;
   private dialog = inject(MatDialog);

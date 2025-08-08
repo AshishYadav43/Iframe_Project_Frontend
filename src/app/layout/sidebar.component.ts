@@ -20,13 +20,13 @@ export class SidebarComponent {
   showAddDefault = false;
 
   addDefaultsChildren = [
-    // { name: 'Sport', route: '/sports',icon: 'public' },
+    { name: 'Sport', route: '/sports',icon: 'public' },
     { name: 'Casino', route: '/casino',icon: 'public' },
   ];
 
   
   addDefaultsjaved = [
-    // { name: 'Country', route: '/countries',icon: 'public' },
+    { name: 'Country', route: '/countries',icon: 'public' },
     { name: 'Currency', route: '/currencies',icon: 'currency_exchange' },
     { name: 'Company', route: '/company',icon: 'business' }
   ];

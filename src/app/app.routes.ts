@@ -53,11 +53,15 @@ export const routes: Routes = [
       },
       {
         path: 'sports',
-        component: SportManagementComponent
+        redirectTo: '/sports-management?tab=0'
       },
       {
         path: 'casino',
-        redirectTo: '/sports?tab=1'
+        redirectTo: '/sports-management?tab=1'
+      },
+      {
+        path: 'sports-management',
+        component: SportManagementComponent
       },
       {
         path: 'country-management',

@@ -145,7 +145,7 @@ export class AddEditCasinoPageComponent {pattern = VALIDATION_PATTERNS;
       next: (res: any) => {
         this.currencies = res.data.map((ele: any) => {
           return {
-            id: ele.id,
+            id: ele._id,
             name: ele.name
           }
         })
