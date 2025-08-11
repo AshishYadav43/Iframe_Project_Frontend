@@ -1,0 +1,144 @@
+/* .file-upload-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  padding: 0 12px;
+}
+
+.preview-box {
+  text-align: center;
+
+  .preview-image {
+    max-height: 260px;
+    max-width: 260px;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    object-fit: cover;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
+}
+
+.upload-container {
+  display: block;
+  cursor: pointer;
+  border: 2px dashed #bbb;
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+  width: 100%;
+
+  &:hover {
+    border-color: #3f51b5;
+    background-color: #eef1ff;
+  }
+
+  .upload-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .upload-icon {
+      font-size: 24px;
+      color: #3f51b5;
+      margin-bottom: 8px;
+    }
+
+    .upload-text {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.5;
+    }
+  }
+}
+
+.view-button {
+  height: 28px;
+  float: right;
+  width: 37px;
+  position: relative;
+  right: 21px;
+}
+
+.close-button {
+  height: 27px;
+  width: 38px;
+  float: right;
+  position: relative;
+  right: 21px;
+  margin-bottom: 5px;
+} */
+
+.file-upload-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+}
+
+h3 {
+  margin: 0;
+  color: #3f51b5;
+  font-weight: 600;
+}
+
+.preview-box {
+  position: relative;
+}
+
+.preview-image {
+  max-height: 260px;
+  max-width: 260px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+}
+
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.upload-container {
+  display: block;
+  cursor: pointer;
+  border: 2px dashed #bbb;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.upload-container:hover {
+  border-color: #3f51b5;
+  background-color: #eef1ff;
+}
+
+.upload-icon {
+  font-size: 32px;
+  color: #3f51b5;
+  margin-bottom: 8px;
+}
+
+.upload-text {
+  font-size: 15px;
+  color: #444;
+}
+
+mat-dialog-actions {
+  margin-top: 20px;
+}

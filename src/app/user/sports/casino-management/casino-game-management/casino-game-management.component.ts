@@ -19,6 +19,8 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
 
 import { AddUpdateCasinoGameComponent } from './add-update-casino-game/add-update-casino-game.component';
+import { UploadImageComponent } from './upload-image/upload-image.component';
+import { FileUploadComponent } from '../../../file-upload/file-upload.component';
 
 @Component({
   selector: 'app-casino-game-management',
@@ -38,12 +40,13 @@ import { AddUpdateCasinoGameComponent } from './add-update-casino-game/add-updat
     MatSelectModule,
     PatternRestrictDirective,
     MatOption,
+    FileUploadComponent
   ],
   templateUrl: './casino-game-management.component.html',
   styleUrl: './casino-game-management.component.css'
 })
 export class CasinoGameManagementComponent {
-  displayedColumns: string[] = ['srNo', 'providerName', 'comapanyName', 'gameName', 'gameCode'];
+  displayedColumns: string[] = ['srNo', 'providerName', 'comapanyName', 'gameName', 'gameCode','uploadImage'];
   dataSource = new MatTableDataSource<any>();
   showButton: boolean = true;
   private api = inject(AuthService);
@@ -82,6 +85,20 @@ export class CasinoGameManagementComponent {
       if (result) this.getCasinoGame();
     });
   }
+
+ openUploadImage(data: any, type: any) {
+  this.dialog.open(FileUploadComponent, {
+    width: '600px',
+    maxHeight: '90vh',
+    autoFocus: false,
+    data: { data,type} // type pass kar diya
+  }).afterClosed().subscribe(result => {
+    if (result) {
+      this.getCasinoGame(); // refresh table
+    }
+  });
+}
+
 
   getCasinoGame(payload: any = {}) {
     this.api.getCasinoGame(payload).subscribe({

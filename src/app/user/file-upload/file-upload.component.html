@@ -1,0 +1,51 @@
+<!-- <div class="file-upload-wrapper">
+
+  <div *ngIf="previewUrl" class="preview-box">
+    <button class="close-button" (click)="removeImage()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <img [src]="previewUrl" alt="Preview" class="preview-image" />
+    <button class="view-button" >
+      <mat-icon (click)="viewImage()">visibility</mat-icon>
+    </button>
+  </div>
+
+  <label class="upload-container">
+    <input #fileInput type="file" [accept]="accept" hidden (change)="onFileChange($event)" />
+    <div class="upload-box">
+      <mat-icon class="upload-icon">cloud_upload</mat-icon>
+      <p class="upload-text">
+        <strong>{{ fileName || 'Click to upload image' }}</strong>
+        <span *ngIf="!fileName"> (Only image files)</span>
+      </p>
+    </div>
+  </label>
+
+</div> -->
+
+<div class="file-upload-wrapper">
+  <h3>{{ data.uploadType | titlecase }} Image Upload</h3>
+
+  <div *ngIf="previewUrl" class="preview-box">
+    <img [src]="previewUrl" alt="Preview" class="preview-image" />
+    <button mat-mini-fab color="warn" class="close-button" (click)="removeImage()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="!previewUrl" class="upload-container" (click)="fileInputRef.nativeElement.click()">
+    <div class="upload-box">
+      <mat-icon class="upload-icon">cloud_upload</mat-icon>
+      <span class="upload-text">Click or Drag & Drop to upload</span>
+    </div>
+    <input #fileInput type="file" hidden (change)="onFileChange($event)" accept="image/*" />
+  </div>
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button >Cancel</button>
+  <button mat-raised-button color="primary" [disabled]="isUploading" (click)="saveImage()">
+    <mat-spinner *ngIf="isUploading" diameter="20"></mat-spinner>
+    <span *ngIf="!isUploading">Save</span>
+  </button>
+</mat-dialog-actions>
