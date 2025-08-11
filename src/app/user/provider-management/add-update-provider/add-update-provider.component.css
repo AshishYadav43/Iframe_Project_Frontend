@@ -1,0 +1,51 @@
+.user-card {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.form-grid {
+  display: grid;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+mat-form-field {
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.button_container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  background-color: #2472bb;
+}
+
+.submit_btn {
+  margin: 1.5rem;
+  border-radius: 5px !important;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2472bb;
+  padding: 1.5rem;
+  color: white;
+}
+
+.dialog-header h2 {
+  margin: 0;
+  /* padding-left: 1.5rem; */
+}
+
+.dialog-header button {
+  color: white;
+}
+
+
+.sports-list {
+  padding-left: 1.5rem;
+}

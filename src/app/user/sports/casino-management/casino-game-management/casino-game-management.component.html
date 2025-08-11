@@ -1,0 +1,103 @@
+<div class="filter-section" [formGroup]="filterForm">
+    <mat-form-field appearance="outline">
+        <mat-label>Companies</mat-label>
+        <mat-select formControlName="companies" multiple>
+            <mat-option *ngFor="let companie of companyOption" [value]="companie.id">
+                {{ companie.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Casino</mat-label>
+        <mat-select formControlName="casinos" multiple>
+            <mat-option *ngFor="let casino of casinoOption" [value]="casino.id">
+                {{ casino.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Providers</mat-label>
+        <mat-select formControlName="providers" multiple>
+            <mat-option *ngFor="let provider of providerOption" [value]="provider.id">
+                {{ provider.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button class="search_btn" mat-stroked-button (click)="applyFilters()">
+        Search
+    </button>
+    <button class="clear_btn" mat-stroked-button (click)="clearFilters()">
+        Clear
+    </button>
+</div>
+
+<!-- Table Header -->
+<div [ngClass]="showButton ? 'table-header' : 'table-header-button'">
+    <span>Casino Game Management</span>
+    <span class="spacer"></span>
+    <button *ngIf="showButton" mat-raised-button color="accent" (click)="openAddCasinoGame()">
+        <mat-icon>add</mat-icon> Add Casino Game
+    </button>
+</div>
+
+<!-- Table -->
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <!-- S.No. -->
+    <ng-container matColumnDef="srNo">
+        <th mat-header-cell *matHeaderCellDef>S.No.</th>
+        <td mat-cell *matCellDef="let row; let i = index">
+            {{ i + 1 }}
+        </td>
+    </ng-container>
+    <!-- Name -->
+    <ng-container matColumnDef="providerName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Provider Name</th>
+        <td mat-cell *matCellDef="let row">{{ row.provider?.name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="comapanyName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Comapany Name</th>
+        <td mat-cell *matCellDef="let row">{{ row.company?.name }}</td>
+    </ng-container>
+
+    <!-- Email -->
+    <ng-container matColumnDef="gameName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Game Name</th>
+        <td mat-cell *matCellDef="let row">{{ row.gameName }}</td>
+    </ng-container>
+
+    <!-- Mobile -->
+    <ng-container matColumnDef="gameCode">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Game Code</th>
+        <td mat-cell *matCellDef="let row">{{ row.gameCode }}</td>
+    </ng-container>
+
+    <!-- Actions -->
+    <!-- <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-icon-button color="primary" (click)="openEditUser(row)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteUser(row)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container> -->
+
+    <!-- Table Rendering -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" [attr.colspan]="displayedColumns.length" style="text-align: center; padding: 50px;">
+            No records found
+        </td>
+    </tr>
+
+</table>
+
+<!-- Paginator -->
+<mat-paginator [pageSizeOptions]="[50, 100, 150]" showFirstLastButtons></mat-paginator>

@@ -46,6 +46,16 @@
         required</mat-error>
     </mat-form-field>
 
+        <mat-form-field appearance="outline">
+      <mat-label>Provider</mat-label>
+      <mat-select formControlName="providers">
+        <mat-option *ngFor="let option of providerOption" [value]="option.id">
+          {{ option.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('companySelection')?.hasError('required')">Partner is required</mat-error>
+    </mat-form-field>
+
     <!-- Name -->
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>

@@ -22,8 +22,8 @@ import { ToastrService } from 'ngx-toastr';
 
 import { CasinoManagementComponent } from '../casino-management/casino-management.component';
 import { MessageDialogComponent } from '../../message-dialog/message-dialog.component';
+import { CasinoGameManagementComponent } from '../casino-management/casino-game-management/casino-game-management.component';
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
-import { STATUS_V1 } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
 import { SharedDataService } from '../../../core/services/shared-data.service';
 import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
@@ -46,7 +46,8 @@ import { AddEditSportPageComponent } from './add-edit-sport-page/add-edit-sport-
     PatternRestrictDirective,
     CasinoManagementComponent,
     MatOption,
-    MatSlideToggle
+    MatSlideToggle,
+    CasinoGameManagementComponent
   ],
   templateUrl: './sport-management.component.html',
   styleUrl: './sport-management.component.css'

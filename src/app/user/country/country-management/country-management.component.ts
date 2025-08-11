@@ -21,6 +21,7 @@ import { CompanyManagementComponent } from '../../company-management/company-man
 import { CurrencyManagementComponent } from '../../currency/currency-management.component';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import { MessageDialogComponent } from '../../message-dialog/message-dialog.component';
+import { ProviderManagementComponent } from '../../provider-management/provider-management.component';
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
 
@@ -43,7 +44,8 @@ import { AddUpdateCountryComponent } from './add-update-country/add-update-count
     MatTabsModule,
     CurrencyManagementComponent,
     CompanyManagementComponent,
-    MatSlideToggle
+    MatSlideToggle,
+    ProviderManagementComponent
   ],
   templateUrl: './country-management.component.html',
   styleUrls: ['./country-management.component.css'],

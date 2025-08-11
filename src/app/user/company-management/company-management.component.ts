@@ -16,10 +16,11 @@ import { finalize } from 'rxjs';
 
 import { ToastrService } from 'ngx-toastr';
 
+import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
+import { AddUpdateProviderComponent } from '../provider-management/add-update-provider/add-update-provider.component';
 import { AuthService } from '../../core/services/auth.service';
 
 import { AddUpdateCompanyComponent } from './add-update-company/add-update-company.component';
-import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-company-management',
@@ -33,7 +34,6 @@ import { MessageDialogComponent } from '../message-dialog/message-dialog.compone
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatOption,
     MatSelectModule,
     MatSlideToggle
   ],
@@ -86,6 +86,16 @@ export class CompanyManagementComponent {
       data: null
     }).afterClosed().subscribe((result: any) => {
       if (result) this.getCompany();
+    });
+  }
+
+  openAddProvider() {
+    this.dialog.open(AddUpdateProviderComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: null
+    }).afterClosed().subscribe((result: any) => {
     });
   }
 

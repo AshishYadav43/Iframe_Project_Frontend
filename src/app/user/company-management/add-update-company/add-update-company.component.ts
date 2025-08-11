@@ -74,6 +74,7 @@ export class AddUpdateCompanyComponent {
 
   countries: SelectOption[] = [];
   currencies: SelectOption[] = [];
+  providerOption: any[] = [];
 
   companySelectionOptions = Object.entries(COMPANY_SELECTION_V1).map(([key, value]) => ({ key, value }));
 
@@ -92,6 +93,7 @@ export class AddUpdateCompanyComponent {
     this.getSubType();
     this.getCountry();
     this.getCurrency();
+    this.getProviders();
   }
 
   ngOnInit(): void {
@@ -102,6 +104,7 @@ export class AddUpdateCompanyComponent {
       id: [{ value: this.companyData?.id || '', disabled: true }, [Validators.required, Validators.minLength(3)]],
       supportedCurrencies: [this.companyData?.supportedCurrencies || [], Validators.required],
       country: [this.companyData?.country?._id || '', Validators.required],
+      providers: [this.companyData?.providers || '', Validators.required],
       apiPaths: this.fb.array(
         this.companyData?.apiPaths?.length
           ? this.companyData.apiPaths.map((p: string) => this.fb.group({ value: [p, Validators.required] }))
@@ -236,7 +239,7 @@ export class AddUpdateCompanyComponent {
     this.loading = true;
     const formValue = this.form.value;
 
-    const payload = {
+    let payload: any = {
       companySelection: formValue.companySelection,
       // companyType: formValue.companyType,
       name: formValue.name,
@@ -244,18 +247,24 @@ export class AddUpdateCompanyComponent {
       supportedCurrencies: formValue.supportedCurrencies,
       country: formValue.country,
       apiPaths: formValue.apiPaths.map((x: any) => x.value),
-      sportTypeAndSubType: this.sportTypeAndSubTypeModel
+      sportTypeAndSubType: this.sportTypeAndSubTypeModel,
+      providers: formValue.providers
     };
+    let updatePayload: any = {};
+    if (this.companyData) {
+      updatePayload._id = this.companyData._id,
+        updatePayload.updatedData = { ...payload }
+    }
 
     const request = this.companyData
-      ? this.api.updateUser(payload)
+      ? this.api.updateCompany(updatePayload)
       : this.api.addCompany(payload);
 
     request.subscribe({
-      next: () => {
+      next: (res: any) => {
         this.loading = false;
         this.dialogRef.close(true);
-        this.toaster.success('Company Saved Successfully');
+        this.toaster.success(res.message);
       },
       error: (err: any) => {
         this.loading = false;
@@ -302,6 +311,20 @@ export class AddUpdateCompanyComponent {
         })
         console.log("SPORT TYPE", this.sportTypes);
 
+      }
+    })
+  }
+
+  getProviders() {
+    this.api.getProvider().subscribe({
+      next: (res: any) => {
+        console.log("RESPONSE", res);
+        this.providerOption = res.data.map((ele: any) => {
+          return {
+            id: ele._id,
+            name: ele.name
+          }
+        })
       }
     })
   }

@@ -13,7 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ToastrService } from 'ngx-toastr';
 
 import { STATIC_SPORTS, VALIDATION_PATTERNS } from '../../../../core/constant/constant';
-import { SPORT_CATEGORIES_NAME, COMPANY_SELECTION_V1 } from '../../../../core/constant/constant';
+import { COMPANY_SELECTION_V1 } from '../../../../core/constant/constant';
 import { AuthService } from '../../../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
 

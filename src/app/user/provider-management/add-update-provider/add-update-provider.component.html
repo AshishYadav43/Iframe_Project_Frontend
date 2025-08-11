@@ -1,0 +1,44 @@
+<!-- Updated Template: add-edit-sport-page.component.html -->
+<mat-card class="user-card">
+  <div class="dialog-header">
+    <h2>{{ userData ? 'Edit Provider' : 'Add Provider' }}</h2>
+    <button mat-icon-button color="warn" (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
+
+    <!-- Provider Name -->
+    <mat-form-field appearance="outline">
+      <mat-label>Provider Name</mat-label>
+      <input maxlength="30" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput formControlName="name"
+        placeholder="Enter Provider Name">
+      <mat-error *ngIf="form.get('name')?.hasError('required')">Provider name is required</mat-error>
+      <mat-error *ngIf="form.get('name')?.hasError('minlength')">
+        Provider name must be at least 3 characters
+      </mat-error>
+    </mat-form-field>
+
+     <mat-form-field appearance="outline">
+      <mat-label>Provider Id</mat-label>
+      <input maxlength="30" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput formControlName="provider_id"
+        placeholder="Enter Provider Id">
+      <mat-error *ngIf="form.get('provider_id')?.hasError('required')">Provider id is required</mat-error>
+      <mat-error *ngIf="form.get('provider_id')?.hasError('minlength')">
+        Provider id must be at least 3 characters
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Submit Button -->
+    <div class="button_container">
+      <button class="submit_btn" mat-raised-button color="primary" type="button" (click)="onCancel()">
+        Cancle
+      </button>
+      <button class="submit_btn" mat-raised-button color="primary" type="submit" [disabled]="loading">
+        <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+        {{ loading ? 'Saving...' : (userData ? 'Update Provider' : 'Add Provider') }}
+      </button>
+    </div>
+  </form>
+</mat-card>

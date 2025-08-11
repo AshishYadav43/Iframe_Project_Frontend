@@ -1,0 +1,144 @@
+import { CommonModule } from '@angular/common';
+import { Component, inject, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule, MatOption } from '@angular/material/select';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialog } from '@angular/material/dialog';
+
+import { CasinoManagementComponent } from '../casino-management.component';
+import { VALIDATION_PATTERNS } from '../../../../core/constant/constant';
+import { AuthService } from '../../../../core/services/auth.service';
+import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
+
+import { AddUpdateCasinoGameComponent } from './add-update-casino-game/add-update-casino-game.component';
+
+@Component({
+  selector: 'app-casino-game-management',
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    FormsModule,
+    MatSortModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatTabsModule,
+    MatInputModule,
+    MatSelectModule,
+    PatternRestrictDirective,
+    MatOption,
+  ],
+  templateUrl: './casino-game-management.component.html',
+  styleUrl: './casino-game-management.component.css'
+})
+export class CasinoGameManagementComponent {
+  displayedColumns: string[] = ['srNo', 'providerName', 'comapanyName', 'gameName', 'gameCode'];
+  dataSource = new MatTableDataSource<any>();
+  showButton: boolean = true;
+  private api = inject(AuthService);
+  private dialog = inject(MatDialog);
+  pattern = VALIDATION_PATTERNS;
+  filterForm!: FormGroup;
+  companyOption: any[] = [];
+  casinoOption: any[] = [];
+  providerOption: any[] = [];
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(private fb: FormBuilder) {
+    this.getCompany();
+    this.getCasinoGame();
+    this.getProviders();
+    this.getCasino();
+  }
+
+  ngOnInit() {
+    this.filterForm = this.fb.group({
+      companies: [null],
+      casinos: [null],
+      providers: [null]
+    });
+  }
+
+  openAddCasinoGame() {
+    this.dialog.open(AddUpdateCasinoGameComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: null
+    }).afterClosed().subscribe(result => {
+      if (result) this.getCasinoGame();
+    });
+  }
+
+  getCasinoGame(payload: any = {}) {
+    this.api.getCasinoGame(payload).subscribe({
+      next: (res: any) => {
+        this.dataSource.data = res.data.games;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    })
+  }
+
+  getProviders() {
+    this.api.getProvider().subscribe({
+      next: (res: any) => {
+        this.providerOption = res.data.map((ele:any) => {
+          return {
+            id: ele._id,
+            name: ele.name
+          }
+        })
+      }
+    })
+  }
+
+  getCasino() {
+    this.api.getAllCasino().subscribe({
+      next: (res: any) => {
+        this.casinoOption = res.data.map((ele: any) => {
+          return {
+            id: ele.id,
+            name: ele.casinoName
+          }
+        })
+      }
+    })
+  }
+
+  getCompany(){
+    this.api.getCompany().subscribe({
+      next: (res: any) => {
+        this.companyOption = res.data.map((ele: any) => {
+          return {
+            id: ele._id,
+            name: ele.name
+          }
+        })
+      }
+    })
+  }
+
+  applyFilters() {
+    this.getCasinoGame(this.filterForm.value);
+  }
+
+  clearFilters() {
+    this.filterForm.reset();
+    this.getCasinoGame();
+  }
+
+}

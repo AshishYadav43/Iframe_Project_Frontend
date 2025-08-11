@@ -112,11 +112,11 @@ export class AuthService {
   addCompany(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/company/add`, data);
   }
-  
+
   updateCompany(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/company/update`, data);
   }
-  
+
   checkLogin(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUrl}/auth/check-login`, data);
   }
@@ -137,6 +137,22 @@ export class AuthService {
     this.toaster.error(err)
   }
 
+  addProvider(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/provider/add`, data);
+  }
+
+  getProvider(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/provider/get`, data);
+  }
+
+  addCasinoGame(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/casino-games/add`, data);
+  }
+
+  getCasinoGame(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/casino-games/get`, data);
+  }
+  
   async getFingerprint(): Promise<any> {
     let result: any;
     if (!this.fingerprint) {
