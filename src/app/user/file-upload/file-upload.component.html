@@ -43,7 +43,7 @@
 </div>
 
 <mat-dialog-actions align="end">
-  <button mat-stroked-button >Cancel</button>
+  <button mat-stroked-button (click)="onCancel()" >Cancel</button>
   <button mat-raised-button color="primary" [disabled]="isUploading" (click)="saveImage()">
     <mat-spinner *ngIf="isUploading" diameter="20"></mat-spinner>
     <span *ngIf="!isUploading">Save</span>

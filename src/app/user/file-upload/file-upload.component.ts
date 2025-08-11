@@ -78,8 +78,8 @@ export class FileUploadComponent {
     this.isUploading = true;
 
     const formData = new FormData();
-    // formData.append('gameId', this.data.data._id);
-    // formData.append('gameImage', this.selectedFile);
+    formData.append('gameId', this.data.data._id);
+    formData.append('gameImage', this.selectedFile);
 
     if (this.data.data.type == 1) {
       formData.append('gameId', this.data.data._id);
@@ -99,6 +99,8 @@ export class FileUploadComponent {
     });
   }
 
-
+onCancel() {
+  this.dialogRef.close()
+}
 
 }
