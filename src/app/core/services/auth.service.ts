@@ -192,5 +192,11 @@ export class AuthService {
 
   }
 
+    uploadImage(data: any): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/casino-games/upload-image`, data);
+
+  }
+
+
 
 }

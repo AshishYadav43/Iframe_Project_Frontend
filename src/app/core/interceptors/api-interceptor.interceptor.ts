@@ -54,12 +54,17 @@ export const apiInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
       // Clone request with credentials + fingerprint in body
       let clonedReq = req.clone({ withCredentials: true });
 
-      if (clonedReq.body && typeof clonedReq.body === 'object') {
+    if (clonedReq.body instanceof FormData) {
+        const fd = clonedReq.body as FormData;
+        fd.append('fingerprint', fingerprint.fingerprint);
+        clonedReq = clonedReq.clone({ body: fd });
+      }
+      // ✅ If body is a plain object, spread + add
+      else if (clonedReq.body && typeof clonedReq.body === 'object') {
         clonedReq = clonedReq.clone({
           body: {
             ...clonedReq.body,
             fingerprint: fingerprint.fingerprint,
-            // deviceId: fingerprint.deviceId
           }
         });
       }
