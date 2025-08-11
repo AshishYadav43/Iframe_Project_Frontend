@@ -14,6 +14,8 @@ import { MatOption, MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { VALIDATION_PATTERNS } from '../../../../core/constant/constant';
 import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
+import { ToastrService } from 'ngx-toastr';
+import { MatSlideToggle } from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-compition-provider',
@@ -29,8 +31,9 @@ import { PatternRestrictDirective } from '../../../../core/directives/directives
     MatSelectModule,
     MatOption,
     FormsModule,
-    PatternRestrictDirective
-  ], templateUrl: './compition-provider.component.html',
+    PatternRestrictDirective,
+    MatSlideToggle
+], templateUrl: './compition-provider.component.html',
   styleUrl: './compition-provider.component.css'
 })
 export class CompitionProviderComponent {
@@ -39,12 +42,13 @@ export class CompitionProviderComponent {
   @ViewChild(MatSort) sort!: MatSort;
   filterValues = { competitionName: '', status: '1', sort: '' };
 
-  displayedColumns: string[] = ['srNo', 'provider', 'competition_id', 'competition_name', 'competitionRegion'];
+  statusUpdating: boolean = false;
+  displayedColumns: string[] = ['srNo', 'competition_id', 'competition_name', 'competitionRegion', "status"];
   dataSource = new MatTableDataSource<any>();
   private api = inject(AuthService);
   private dialog = inject(MatDialog);
 
-  constructor() { }
+  constructor(private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getComptition();
@@ -93,6 +97,8 @@ export class CompitionProviderComponent {
       this.filterValues = { competitionName: '', status: '', sort: '' };
       this.applyFilters();
   }
-
-
+  
+    toggleStatus(casino: any): void {
+      this.toastr.info('We are working on it.');
+    }
 }
