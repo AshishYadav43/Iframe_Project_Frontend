@@ -1,96 +1,81 @@
 <mat-nav-list class="sidebar-nav">
-  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/dashboard']">
-    <mat-icon>dashboard</mat-icon>
-    Dashboard
+  <!-- Dashboard -->
+  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" routerLink="/dashboard">
+    <mat-icon>dashboard</mat-icon> Dashboard
   </a>
 
-  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/users']">
-    <mat-icon>group</mat-icon>
-    Users
+  <!-- Users -->
+  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" routerLink="/users">
+    <mat-icon>group</mat-icon> Users
   </a>
 
-  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/baseSports']">
-    <mat-icon>sports_soccer</mat-icon>
-    Add Base Sports
+  <!-- Add Base Sports -->
+  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" routerLink="/baseSports">
+    <mat-icon>sports_soccer</mat-icon> Add Base Sports
   </a>
 
-  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/role']">
-    <mat-icon>security</mat-icon>
-    Roles
-  </a>
-  <!-- <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/countries']">
-    <mat-icon>public</mat-icon>
-    Country
-  </a>
-  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/currencies']">
-    <mat-icon>currency_exchange</mat-icon>
-    Currency
-  </a>
-  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/company']">
-    <mat-icon>business</mat-icon>
-    Company
-  </a> -->
-  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/sports-management']" (click)="toggleAddDefaults()" >
-    <mat-icon>sports</mat-icon>
-    Add Defaults Sports
+  <!-- Roles -->
+  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" routerLink="/role">
+    <mat-icon>security</mat-icon> Roles
   </a>
 
+  <!-- Add Defaults Sports -->
+  <a class="side-bar-link" [class.parent-active]="isParentActive(sportChildRoutes)" [routerLinkActive]="['active']"
+    [routerLink]="['/sports-management']" mat-list-item (click)="toggleAddDefaults()">
+    <mat-icon>sports</mat-icon> Add Defaults Sports
+  </a>
+
+  <!-- Add Defaults Sports Children -->
   <div *ngIf="showAddDefaults" class="nested-links">
-  <a
-    *ngFor="let item of addDefaultsChildren"
-    class="side-bar-link"
-    mat-list-item
-    [routerLinkActive]="['active']"
-    [routerLink]="[item.route]"
-  >
-      <mat-icon>{{ item.icon }}</mat-icon>
+    <ng-container *ngFor="let item of addDefaultsChildren">
+      <a *ngIf="!item.children" class="side-bar-link" mat-list-item [routerLinkActive]="['active']"
+        [routerLink]="item.route">
+        <mat-icon>{{ item.icon }}</mat-icon> {{ item.name }}
+      </a>
 
-    {{ item.name }}
+      <!-- Sport with nested children -->
+      <div *ngIf="item.children">
+        <a class="side-bar-link" mat-list-item (click)="toggleSportChildren()">
+          <mat-icon>{{ item.icon }}</mat-icon> {{ item.name }}
+        </a>
+
+        <div *ngIf="showSportChildren" class="nested-links">
+          <a *ngFor="let child of item.children" class="side-bar-link" mat-list-item [routerLinkActive]="['active']"
+            [routerLink]="child.route">
+            <mat-icon>{{ child.icon }}</mat-icon> {{ child.name }}
+          </a>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Add Defaults -->
+  <a class="side-bar-link" [class.parent-active]="isParentActive(addDefaultsChildRoutes)"
+    [routerLinkActive]="['active']" [routerLink]="['/country-management']" mat-list-item (click)="toggleDefaults()">
+    <mat-icon>settings</mat-icon> Add Defaults
   </a>
-</div>
 
-
-  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/country-management']" (click)="toggleDefaults()" >
-    <mat-icon>settings</mat-icon>
-    Add Defaults
-  </a>
-
-  
   <div *ngIf="showAddDefault" class="nested-links">
-  <a
-    *ngFor="let item of addDefaultsjaved"
-    class="side-bar-link"
-    mat-list-item
-    [routerLinkActive]="['active']"
-    [routerLink]="[item.route]"
-  >
-      <mat-icon>{{ item.icon }}</mat-icon>
+    <a *ngFor="let item of addDefaultsjaved" class="side-bar-link" mat-list-item [routerLinkActive]="['active']"
+      [routerLink]="item.route">
+      <mat-icon>{{ item.icon }}</mat-icon> {{ item.name }}
+    </a>
+  </div>
 
-    {{ item.name }}
-  </a>
-</div>
-
-  <!-- Add Defaults Parent Item -->
-
-
-
-    <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/usedSportsIds']">
-    <mat-icon>sports</mat-icon>
-    usedSportsIds
+  <!-- Other links -->
+  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" routerLink="/usedSportsIds">
+    <mat-icon>sports</mat-icon> usedSportsIds
   </a>
 
-  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/comptition']">
-    <mat-icon>emoji_events</mat-icon>
-    Competition
-  </a>
+  <!-- <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" routerLink="/comptition">
+    <mat-icon>emoji_events</mat-icon> Competition
+  </a> -->
 
-   <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" [routerLink]="['/loginPermission']">
-    <mat-icon>settings</mat-icon>
-    Login Permisison
+  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" routerLink="/loginPermission">
+    <mat-icon>settings</mat-icon> Login Permission
   </a>
 
   <a class="side-bar-link" mat-list-item (click)="logout()">
-    <mat-icon>logout</mat-icon>
-    Logout
+    <mat-icon>logout</mat-icon> Logout
   </a>
 </mat-nav-list>

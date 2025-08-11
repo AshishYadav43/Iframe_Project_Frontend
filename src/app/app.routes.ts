@@ -13,6 +13,7 @@ import { SportManagementComponent } from './user/sports/sport-management/sport-m
 import { UsedSportsIdsComponent } from './user/SportsId/used-sports-ids/used-sports-ids.component';
 import { BaseSportManagementComponent } from './user/base-sport-management/base-sport-management.component';
 import { CasinoManagementComponent } from './user/sports/casino-management/casino-management.component';
+import { CompitionProviderComponent } from './user/sports/sport-management/compition-provider/compition-provider.component';
 
 export const routes: Routes = [
   {
@@ -40,16 +41,16 @@ export const routes: Routes = [
       },
       {
         path: 'countries',
-          redirectTo: '/country-management?tab=0',
+        redirectTo: '/country-management?tab=0',
       },
       {
         path: 'currencies',
-          redirectTo: '/country-management?tab=1',
+        redirectTo: '/country-management?tab=1',
 
       },
       {
         path: 'company',
-          redirectTo: '/country-management?tab=2',
+        redirectTo: '/country-management?tab=2',
       },
       {
         path: 'sports',
@@ -85,6 +86,10 @@ export const routes: Routes = [
       {
         path: 'comptition',
         component: ComptititonManagementComponent
+      },
+      {
+        path: 'comptitionprovider',
+        component: CompitionProviderComponent
       },
       {
         path: 'loginPermission',

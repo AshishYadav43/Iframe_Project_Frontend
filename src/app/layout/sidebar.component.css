@@ -105,3 +105,16 @@ mat-toolbar.header-toolbar {
   color: black;
   border-radius: 20px;
 }
+
+.parent-active {
+  background-color: #000000d9;
+  color: white;
+}
+
+/* .parent-active mat-icon {
+  color: white;
+} */
+
+
+
+

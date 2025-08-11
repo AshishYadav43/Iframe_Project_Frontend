@@ -10,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
-import { DataSource } from '@angular/cdk/collections';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 import { BehaviorSubject, finalize } from 'rxjs';
@@ -20,9 +19,9 @@ import { ToastrService } from 'ngx-toastr';
 import { MessageDialogComponent } from '../../message-dialog/message-dialog.component';
 import { STATUS_V1 } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
-import { SharedDataService } from '../../../core/services/shared-data.service';
 
 import { AddEditCasinoPageComponent } from './add-edit-casino-page/add-edit-casino-page.component';
+import { SharedDataService } from '../../../core/services/shared-data.service';
 
 @Component({
   selector: 'app-casino-management',

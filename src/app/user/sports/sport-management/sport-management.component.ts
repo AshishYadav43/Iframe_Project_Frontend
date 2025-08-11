@@ -182,34 +182,6 @@ export class SportManagementComponent {
 
   }
 
-
-  applyFilterForCasino() {
-    const payload = {
-      page: 1,
-      limit: 100,
-      isPaginated: "true",
-      filters: {} as any
-    };
-
-    if (this.filterCasinoValues.casino_name) {
-      payload.filters.casino_name = this.filterCasinoValues.casino_name;
-    }
-
-    if (this.filterCasinoValues.status) {
-      payload.filters.status = this.filterCasinoValues.status;
-    }
-
-    if (this.selectedTabIndex === 0) {
-      this.api.getAllSports(payload).subscribe((res: any) => {
-        this.dataSource.data = res.data || [];
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
-    } else if (this.selectedTabIndex === 1) {
-      this.dataService.setCasinoFilter(payload); // pass payload to <app-casino-management>
-    }
-  }
-
   openEditSports(data: any) {
     this.dialog.open(AddEditSportPageComponent, {
       width: '600px',
@@ -257,4 +229,38 @@ export class SportManagementComponent {
       }
     })
   }
+
+
+  applyFilterForCasino() {
+    const payload = {
+      page: 1,
+      limit: 100,
+      isPaginated: "true",
+      filters: {} as any
+    };
+
+    if (this.filterCasinoValues.casino_name) {
+      payload.filters.casino_name = this.filterCasinoValues.casino_name;
+    }
+
+    if (this.filterCasinoValues.status) {
+      payload.filters.status = this.filterCasinoValues.status;
+    }
+
+    if (this.selectedTabIndex === 0) {
+      this.api.getAllSports(payload).subscribe((res: any) => {
+        this.dataSource.data = res.data || [];
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+    } else if (this.selectedTabIndex === 1) {
+      this.dataService.setCasinoFilter(payload); // pass payload to <app-casino-management>
+    }
+  }
+
+
+
+
+
+
 }

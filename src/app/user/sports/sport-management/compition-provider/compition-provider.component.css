@@ -1,0 +1,94 @@
+.table-header {
+    display: flex;
+    align-items: center;
+    padding: 20px 16px;
+    background: #e94e06;
+    color: white;
+    box-shadow: #000 0 2px 6px;
+}
+
+.table-header button {
+    color: #e94e06 !important;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.toolbar {
+    margin: 10px 0;
+}
+
+.search-field {
+    width: 300px;
+}
+
+::ng-deep .mat-mdc-header-row {
+    background-color: black !important;
+    color: white !important;
+    font-weight: 600;
+}
+
+.mat-mdc-row:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.mat-mdc-row:nth-child(odd) {
+    background-color: white;
+}
+
+.mat-mdc-row:hover {
+    background-color: #f2f2f2;
+}
+
+::ng-deep .mat-mdc-table {
+    box-shadow: #000 0 2px 6px;
+}
+
+::ng-deep .mat-mdc-paginator {
+    box-shadow: #000 0 2px 6px;
+}
+
+.filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    /* align-items: center; */
+    gap: 8px;
+    border: 2px solid #ddd;
+    background: white;
+    padding: 18px 10px 0px 10px;
+    margin: 20px 0px 20px 0;
+    /* border: white solid; */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+}
+
+/* ::ng-deep .mdc-notched-outline{
+  height: 70% !important;
+} */
+
+.filter-input {
+    min-width: 300px;
+}
+
+.search_btn {
+    background-color: rgb(67, 67, 224) !important;
+    color: white !important;
+    height: 50px;
+    width: 150px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.clear_btn {
+    background-color: rgb(253, 253, 255);
+    color: black;
+    height: 50px;
+    width: 150px;
+    border-radius: 5px;
+    font-size: 15px;
+}
