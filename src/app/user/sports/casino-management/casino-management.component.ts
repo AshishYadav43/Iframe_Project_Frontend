@@ -95,7 +95,6 @@ export class CasinoManagementComponent {
       }));
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log("DATA", this.dataSource.data);
     });
   }
 

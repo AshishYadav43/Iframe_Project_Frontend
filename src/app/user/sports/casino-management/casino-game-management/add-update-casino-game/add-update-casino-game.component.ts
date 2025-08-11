@@ -92,7 +92,6 @@ export class AddUpdateCasinoGameComponent {
   getProvider() {
     this.api.getProvider().subscribe({
       next: (res: any) => {
-        console.log("RESPONSE", res);
         this.providerOption = res.data.map((ele: any) => {
           return {
             id: ele._id,
@@ -106,7 +105,6 @@ export class AddUpdateCasinoGameComponent {
   getCasino() {
     this.api.getAllCasino().subscribe({
       next: (res: any) => {
-        console.log("RESPONSE", res);
         this.casinoOption = res.data.map((ele: any) => {
           return {
             id: ele.id,
@@ -125,7 +123,6 @@ export class AddUpdateCasinoGameComponent {
 
     this.api.addCasinoGame(payload).subscribe({
       next: (res: any) => {
-        console.log("CASINO", res);
         this.dialogRef.close(true);
         this.toaster.success(res.message);
       }

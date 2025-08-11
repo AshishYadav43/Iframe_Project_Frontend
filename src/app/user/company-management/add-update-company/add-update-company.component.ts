@@ -131,7 +131,6 @@ export class AddUpdateCompanyComponent {
     } else {
       this.sportTypeAndSubTypeModel.push({ typeId: '', subTypeId: [] });
     }
-    console.log("SUB TYPE", this.sportTypeAndSubTypeModel);
 
   }
 
@@ -141,7 +140,6 @@ export class AddUpdateCompanyComponent {
   }
 
   addApiPath(): void {
-    console.log("ADD");
 
     this.apiPaths.push(this.fb.group({ value: ['', Validators.required] }));
   }
@@ -167,8 +165,6 @@ export class AddUpdateCompanyComponent {
   }
 
   addSportTypeGroup(initialType: any = '{}', initialSubType: string = '') {
-    console.log("ADD TYPE");
-
     this.sportTypeAndSubTypeModel.push({ typeId: '', subTypeId: [] });
 
     // const group = this.fb.group({
@@ -229,8 +225,6 @@ export class AddUpdateCompanyComponent {
 
   // ====== FORM SUBMIT ======
   onSubmit(): void {
-    console.log("sportTypeAndSubTypeModel", this.sportTypeAndSubTypeModel);
-
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -309,8 +303,6 @@ export class AddUpdateCompanyComponent {
             id: ele._id
           }
         })
-        console.log("SPORT TYPE", this.sportTypes);
-
       }
     })
   }
@@ -318,7 +310,6 @@ export class AddUpdateCompanyComponent {
   getProviders() {
     this.api.getProvider().subscribe({
       next: (res: any) => {
-        console.log("RESPONSE", res);
         this.providerOption = res.data.map((ele: any) => {
           return {
             id: ele._id,

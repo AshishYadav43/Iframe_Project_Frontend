@@ -75,8 +75,6 @@ export class AddEditCasinoPageComponent {
   }
 
   ngOnInit(): void {
-    console.log("CASINO DATA", this.userData);
-
     this.form = this.fb.group({
       company_type: ['', Validators.required],
       casino_name: [this.userData?.casinoName || '', [Validators.required, Validators.minLength(3)]],

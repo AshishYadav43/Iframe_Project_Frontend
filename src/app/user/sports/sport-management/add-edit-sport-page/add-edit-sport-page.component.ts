@@ -67,8 +67,6 @@ export class AddEditSportPageComponent {
     private dialogRef: MatDialogRef<AddEditSportPageComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
   ) {
-    console.log("DATA", userData);
-
     this.loadApiResults();
     // this.getCompany();
     this.getCurrency();

@@ -19,8 +19,6 @@ export class MessageDialogComponent {
   }
 
   ngOnInit() {
-    console.log(this.data);
-
   }
 
   onConfirm(): void {

@@ -228,7 +228,6 @@ toggleStatus(user: any) {
             // UI already updated optimistically
           },
           error: (err) => {
-            console.error('Status update failed', err);
             this.toastr.error("Failed to update status");
             // Revert UI on API error
             user.status = prevStatus;

@@ -173,7 +173,6 @@ export class CompanyManagementComponent {
               user.status = payload.updatedData.status;
             },
             error: (err) => {
-              console.error('Status update failed', err);
               this.toastr.error("Failed to update status");
               user.status = prevStatus;
             }

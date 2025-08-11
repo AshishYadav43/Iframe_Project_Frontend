@@ -62,9 +62,7 @@ export class AddUpdateBaseSportComponent {
   constructor(
     private dialogRef: MatDialogRef<AddEditSportPageComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
-  ) {    
-    console.log("BASE DATA", userData);
-    
+  ) {        
     this.getCompany();
   }
 
