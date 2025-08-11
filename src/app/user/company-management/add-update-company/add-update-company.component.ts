@@ -104,7 +104,7 @@ export class AddUpdateCompanyComponent {
       id: [{ value: this.companyData?.id || '', disabled: true }, [Validators.required, Validators.minLength(3)]],
       supportedCurrencies: [this.companyData?.supportedCurrencies || [], Validators.required],
       country: [this.companyData?.country?._id || '', Validators.required],
-      providers: [this.companyData?.providers._id || '', Validators.required],
+      providers: [this.companyData?.providers?._id || '', Validators.required],
       apiPaths: this.fb.array(
         this.companyData?.apiPaths?.length
           ? this.companyData.apiPaths.map((p: string) => this.fb.group({ value: [p, Validators.required] }))
