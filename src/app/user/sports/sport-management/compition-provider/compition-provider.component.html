@@ -51,9 +51,9 @@
         </td>
     </ng-container>
 
-    <ng-container matColumnDef="provider">
+    <ng-container matColumnDef="provider_type">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Provider</th>
-        <td mat-cell *matCellDef="let row">{{ row.provider }}</td>
+        <td mat-cell *matCellDef="let row">{{ getProviderLabel(row.provider_type) }}</td>
     </ng-container>
 
     <ng-container matColumnDef="competition_id">

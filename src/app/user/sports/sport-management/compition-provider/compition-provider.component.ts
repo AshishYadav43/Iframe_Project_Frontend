@@ -12,7 +12,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { AddUpdateModuleComponent } from '../../../comptititon-management/add-update-module/add-update-module.component';
 import { MatOption, MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
-import { VALIDATION_PATTERNS } from '../../../../core/constant/constant';
+import { VALIDATION_PATTERNS, PROVIDER_SELECTION_V1 } from '../../../../core/constant/constant';
 import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
 import { ToastrService } from 'ngx-toastr';
 import { MatSlideToggle } from "@angular/material/slide-toggle";
@@ -43,7 +43,7 @@ export class CompitionProviderComponent {
   filterValues = { competitionName: '', status: '1', sort: '' };
 
   statusUpdating: boolean = false;
-  displayedColumns: string[] = ['srNo', 'competition_id', 'competition_name', 'competitionRegion', "status"];
+  displayedColumns: string[] = ['srNo', 'provider_type','competition_id', 'competition_name', 'competitionRegion', "status"];
   dataSource = new MatTableDataSource<any>();
   private api = inject(AuthService);
   private dialog = inject(MatDialog);
@@ -98,7 +98,12 @@ export class CompitionProviderComponent {
       this.applyFilters();
   }
   
-    toggleStatus(casino: any): void {
-      this.toastr.info('We are working on it.');
-    }
+  toggleStatus(casino: any): void {
+    this.toastr.info('We are working on it.');
+  }
+
+  getProviderLabel(status: number): string {
+    const entry = Object.entries(PROVIDER_SELECTION_V1).find(([_, value]) => value === status);
+    return entry ? entry[0] : 'Unknown';
+  }
 }

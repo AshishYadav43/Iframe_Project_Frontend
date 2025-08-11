@@ -48,6 +48,11 @@ export const COMPANY_SELECTION_V1 = {
   OTHER: 2,
 };
 
+export const PROVIDER_SELECTION_V1 = {
+  OWN: 1,
+  OTHER: 2,
+};
+
 export const SPORT_CATEGORIES = {
   SPORTS: 1,
   CASINO: 2,
