@@ -111,3 +111,17 @@
   background-color: #cf06e9 !important;
  color: black !important;
 } */
+
+/** START: CSS For Table column center*/
+::ng-deep .mdc-data-table__cell,
+::ng-deep .mat-mdc-header-cell{
+    text-align: center !important;
+}
+::ng-deep .mat-sort-header-arrow{
+    display: none !important;
+}
+::ng-deep .mat-sort-header-container,
+::ng-deep .mat-sort-header-content{
+    display: block !important;
+}
+/** END: CSS For Table column center*/
