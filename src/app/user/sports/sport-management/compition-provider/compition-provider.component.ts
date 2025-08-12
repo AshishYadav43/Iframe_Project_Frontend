@@ -103,7 +103,7 @@ export class CompitionProviderComponent {
   }
 
   getProviderLabel(status: number): string {
-    const entry = Object.entries(PROVIDER_SELECTION_V1).find(([_, value]) => value === status);
+    const entry = Object.entries(PROVIDER_SELECTION_V1).find(([_, value]) => value == status);
     return entry ? entry[0] : 'Unknown';
   }
 }

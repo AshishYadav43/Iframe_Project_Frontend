@@ -45,7 +45,7 @@ export class AddUpdateCurrencyComponent {
   form!: FormGroup;
   loading = false;
 
-  compareCodes = (o1: any, o2: any) => o1.code === o2.code;
+  compareCodes = (o1: any, o2: any) => o1.code == o2.code;
 
   private fb = inject(FormBuilder);
   private api = inject(AuthService);
@@ -96,7 +96,7 @@ export class AddUpdateCurrencyComponent {
   onMinMaxChange(limit: any, key: 'min' | 'max', value: string) {
     limit[key] = value;
     const selected = this.form.get('selectedCodes')?.value || [];
-    const index = selected.findIndex((c: any) => c.code === limit.code);
+    const index = selected.findIndex((c: any) => c.code == limit.code);
     if (index > -1) {
       selected[index][key] = value;
       this.form.get('selectedCodes')?.setValue([...selected]);

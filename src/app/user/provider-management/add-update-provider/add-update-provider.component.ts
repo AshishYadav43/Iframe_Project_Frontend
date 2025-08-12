@@ -45,12 +45,15 @@ export class AddUpdateProviderComponent {
   constructor(
     private dialogRef: MatDialogRef<AddUpdateProviderComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
-  ) { }
+  ) {
+    console.log("DATA", userData);
+  }
+  
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: [this.userData?.provider_name || '', [Validators.required, Validators.minLength(3)]],
-      provider_id: [{ value: this.userData?.provider_id || '', disabled: true }, [Validators.required, Validators.minLength(3)]],
+      name: [this.userData?.name || '', [Validators.required, Validators.minLength(3)]],
+      provider_id: [{ value: this.userData?.id || '', disabled: true }, [Validators.required, Validators.minLength(3)]],
     });
   }
 

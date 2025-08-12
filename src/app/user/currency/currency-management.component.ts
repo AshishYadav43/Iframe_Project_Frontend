@@ -175,7 +175,7 @@ export class CurrencyManagementComponent {
     const payload = {
       name: this.currencyName,
       symbol: this.currencySymbol,
-      country: typeof this.selectedCountry === 'object' ? this.selectedCountry._id : this.selectedCountry,
+      country: typeof this.selectedCountry == 'object' ? this.selectedCountry._id : this.selectedCountry,
       conversion_rate: +this.conversionRate,
       pre_fix: selectedLimits
     };
@@ -204,7 +204,7 @@ export class CurrencyManagementComponent {
       status: updatedStatus
     }
   };
-  const action = country.status === 1 ? 'block' : 'unblock';
+  const action = country.status == 1 ? 'block' : 'unblock';
 
   // Temporarily update UI toggle for instant feedback
   country.status = updatedStatus;

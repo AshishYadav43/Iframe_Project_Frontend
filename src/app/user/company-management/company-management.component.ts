@@ -146,8 +146,8 @@ export class CompanyManagementComponent {
 
   toggleStatus(user: any) {
     const prevStatus = user.status;
-    const action = user.status === 1 ? 'block' : 'unblock'; // 1=active, 2=blocked
-    user.status = user.status === 1 ? 2 : 1;
+    const action = user.status == 1 ? 'block' : 'unblock'; // 1=active, 2=blocked
+    user.status = user.status == 1 ? 2 : 1;
 
     this.dialog.open(MessageDialogComponent, {
       width: '600px',
@@ -160,7 +160,7 @@ export class CompanyManagementComponent {
         const payload = {
           _id: user._id,
           updatedData: {
-            status: prevStatus === 1 ? 2 : 1
+            status: prevStatus == 1 ? 2 : 1
           }
         };
 

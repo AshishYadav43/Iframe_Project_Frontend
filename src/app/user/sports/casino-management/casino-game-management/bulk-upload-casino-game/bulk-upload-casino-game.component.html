@@ -1,7 +1,7 @@
 <!-- Updated Template: add-edit-sport-page.component.html -->
 <mat-card class="user-card">
     <div class="dialog-header">
-        <h2>{{ userData ? 'Edit Casino Game' : 'Add Casino Game' }}</h2>
+        <h2>{{ userData ? 'Edit Bulk Casino Games' : 'Add Bulk Casino Games' }}</h2>
         <button mat-icon-button color="warn" (click)="onCancel()">
             <mat-icon>close</mat-icon>
         </button>
@@ -41,26 +41,6 @@
                 <mat-option *ngFor="let option of casinoOption" [value]="option.id">{{ option.name }}</mat-option>
             </mat-select>
             <mat-error *ngIf="form.get('casino')?.hasError('required')">Casino is required</mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Game Name</mat-label>
-            <input maxlength="20" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput
-                formControlName="gameName" placeholder="Enter Game Name">
-            <mat-error *ngIf="form.get('gameName')?.hasError('required')">Game name is required</mat-error>
-            <mat-error *ngIf="form.get('gameName')?.hasError('minlength')">
-                Game name must be at least 3 characters
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Game Code</mat-label>
-            <input maxlength="20" [appPatternRestrict]="pattern.password" matInput
-                formControlName="gameCode" placeholder="Enter Game Name">
-            <mat-error *ngIf="form.get('gameCode')?.hasError('required')">Game code is required</mat-error>
-            <mat-error *ngIf="form.get('gameCode')?.hasError('minlength')">
-                Game code must be at least 3 characters
-            </mat-error>
         </mat-form-field>
 
         <!-- Submit Button -->

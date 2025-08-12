@@ -79,7 +79,7 @@ export class LoginPermissionManagementComponent {
 
   toggleSelectAll(event: any, row: any) {
     if (event.value.includes('__all__')) {
-      if (row.multiRoles.length - 1 === this.userOptions.length) {
+      if (row.multiRoles.length - 1 == this.userOptions.length) {
         // Deselect all
         row.multiRoles = [];
       } else {
@@ -91,7 +91,7 @@ export class LoginPermissionManagementComponent {
 
   handleSelectionChange(row: any) {
     if (row.multiRoles.includes('__all__')) {
-      if (row.multiRoles.length - 1 === this.options.length) {
+      if (row.multiRoles.length - 1 == this.options.length) {
         // Already all selected -> Deselect all
         row.multiRoles = [];
       } else {

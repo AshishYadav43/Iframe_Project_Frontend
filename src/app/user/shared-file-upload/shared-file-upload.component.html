@@ -1,0 +1,17 @@
+<div class="file-upload-wrapper">
+  <input
+    type="file"
+    #fileInput
+    (change)="onFileSelected($event)"
+    hidden
+  />
+
+  <div class="upload-area" (click)="triggerFileInput(fileInput)">
+    <span *ngIf="!selectedFileName">📂 Click or Drop a file here</span>
+    <span *ngIf="selectedFileName">✅ {{ selectedFileName }}</span>
+  </div>
+
+  <button type="button" (click)="triggerFileInput(fileInput)" class="browse-btn">
+    Browse
+  </button>
+</div>

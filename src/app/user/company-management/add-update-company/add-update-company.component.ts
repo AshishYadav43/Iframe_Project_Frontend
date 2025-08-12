@@ -134,7 +134,7 @@ export class AddUpdateCompanyComponent {
 
   }
 
-  // ====== API PATHS ======
+  // ==== API PATHS ====
   get apiPaths(): FormArray {
     return this.form.get('apiPaths') as FormArray;
   }
@@ -159,7 +159,7 @@ export class AddUpdateCompanyComponent {
     });
   }
 
-  // ====== SPORT TYPE / SUBTYPE ======
+  // ==== SPORT TYPE / SUBTYPE ====
   get sportTypeAndSubType(): FormArray {
     return this.form.get('sportTypeAndSubType') as FormArray;
   }
@@ -223,7 +223,7 @@ export class AddUpdateCompanyComponent {
     });
   }
 
-  // ====== FORM SUBMIT ======
+  // ==== FORM SUBMIT ====
   onSubmit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -271,7 +271,7 @@ export class AddUpdateCompanyComponent {
     this.dialogRef.close(false);
   }
 
-  // ====== INIT DATA LOAD ======
+  // ==== INIT DATA LOAD ====
   getCountry() {
     this.api.getAllCountries().subscribe({
       next: (res: any) => {

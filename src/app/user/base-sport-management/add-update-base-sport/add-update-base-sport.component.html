@@ -1,7 +1,7 @@
 <!-- Updated Template: add-edit-sport-page.component.html -->
 <mat-card class="user-card">
     <div class="dialog-header">
-        <h2>{{ userData ? 'Edit Base Sport' : 'Add Base Sport' }}</h2>
+        <h2>{{ userData ? 'Edit Base' : 'Add Base' }}</h2>
         <button mat-icon-button color="warn" (click)="onCancel()">
             <mat-icon>close</mat-icon>
         </button>
@@ -43,7 +43,7 @@
                         Sport Sub Type Name is required
                     </mat-error>
                 </mat-form-field>
-                <button mat-icon-button color="warn" (click)="removeApiPath(i)" [disabled]="apiPaths.length === 1">
+                <button mat-icon-button color="warn" (click)="removeApiPath(i)" [disabled]="apiPaths.length == 1">
                     <mat-icon>delete</mat-icon>
                 </button>
             </div>
@@ -76,7 +76,7 @@
                 </mat-form-field>
 
                 <!-- Delete Button -->
-                <button *ngIf="!userData" mat-icon-button color="warn" (click)="removeApiPath(i)" [disabled]="apiPaths.length === 1">
+                <button *ngIf="!userData" mat-icon-button color="warn" (click)="removeApiPath(i)" [disabled]="apiPaths.length == 1">
                     <mat-icon>delete</mat-icon>
                 </button>
                 <button mat-icon-button color="primary" (click)="addApiPath()">

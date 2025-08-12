@@ -12,12 +12,12 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { COMPANY_SELECTION_V1, VALIDATION_PATTERNS } from '../../../../../core/constant/constant';
+import { VALIDATION_PATTERNS, COMPANY_SELECTION_V1 } from '../../../../../core/constant/constant';
 import { AuthService } from '../../../../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../../../../core/directives/directives/pattern-restrict.directive';
 
 @Component({
-  selector: 'app-add-update-casino-game',
+  selector: 'app-bulk-upload-casino-game',
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -28,11 +28,11 @@ import { PatternRestrictDirective } from '../../../../../core/directives/directi
     MatCardModule,
     MatProgressSpinnerModule,
     MatIcon,
-    PatternRestrictDirective,],
-  templateUrl: './add-update-casino-game.component.html',
-  styleUrl: './add-update-casino-game.component.css'
+  ],
+  templateUrl: './bulk-upload-casino-game.component.html',
+  styleUrl: './bulk-upload-casino-game.component.css'
 })
-export class AddUpdateCasinoGameComponent {
+export class BulkUploadCasinoGameComponent {
   pattern = VALIDATION_PATTERNS;
   companySelection = COMPANY_SELECTION_V1;
   companySelectionOptions = Object.entries(this.companySelection).map(([key, value]) => ({ key, value }));
@@ -48,22 +48,19 @@ export class AddUpdateCasinoGameComponent {
   casinoOption: any[] = [];
 
   constructor(
-    private dialogRef: MatDialogRef<AddUpdateCasinoGameComponent>,
+    private dialogRef: MatDialogRef<BulkUploadCasinoGameComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
   ) {
-    console.log("Data", userData);
     this.getProvider();
     this.getCasino();
   }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      provider: ['', Validators.required],
-      company_type: ['', Validators.required],
-      company: ['', Validators.required],
-      casino: ['', Validators.required],
-      gameName: ['', [Validators.required, Validators.minLength(3)]],
-      gameCode: ['', [Validators.required, Validators.minLength(3)]],
+      provider: [this.userData?.provider?.id || '', Validators.required],
+      company_type: [this.userData?.company_type || '', Validators.required],
+      company: [this.userData?.company?.id || '', Validators.required],
+      casino: [this.userData?.casino?.id || '', Validators.required],
     });
 
     this.form.get('company_type')!.valueChanges.subscribe(selectedCompanyType => {
@@ -74,17 +71,6 @@ export class AddUpdateCasinoGameComponent {
         this.form.get('company')?.setValue('');
       }
     });
-
-    if (this.userData) {
-      this.form.patchValue({
-        provider: this.userData?.provider?._id,
-        company_type: Number(this.userData?.companyType),
-        company: this.userData?.company?._id,
-        casino: this.userData?.casino?._id,
-        gameName: this.userData?.gameName,
-        gameCode: this.userData?.gameCode,
-      });
-    }
   }
 
   getCompany(companySelection?: number) {
@@ -130,7 +116,7 @@ export class AddUpdateCasinoGameComponent {
   onSubmit() {
     if (this.form.invalid) return;
 
-    const payload = { ...this.form.value }
+    const payload = {...this.form.value}
     delete payload.company_type;
 
     this.api.addCasinoGame(payload).subscribe({

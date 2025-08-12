@@ -77,7 +77,7 @@ export class AddUpdateCountryComponent {
       id: [{ value: this.countryData?.id || '', disabled: true }, [Validators.required, Validators.minLength(3)]],
 
       countryName: [
-        typeof this.countryData?.countryName === 'string'
+        typeof this.countryData?.countryName == 'string'
           ? this.countryData.countryName
           : this.countryData?.countryName?.countryName || ''
       ],

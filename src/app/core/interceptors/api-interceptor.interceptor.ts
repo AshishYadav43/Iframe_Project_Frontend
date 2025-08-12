@@ -24,7 +24,7 @@
 //       setTimeout(() => {
 //         toaster.clear(toastRef.toastId);
 //       }, 3000);
-//       if (error.status === 401) {
+//       if (error.status == 401) {
 //         router.navigate(['/login']); // 🔄 Redirect to login
 //       }
 //       // toaster.error(error.error.message);
@@ -60,7 +60,7 @@ export const apiInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
         clonedReq = clonedReq.clone({ body: fd });
       }
       // ✅ If body is a plain object, spread + add
-      else if (clonedReq.body && typeof clonedReq.body === 'object') {
+      else if (clonedReq.body && typeof clonedReq.body == 'object') {
         clonedReq = clonedReq.clone({
           body: {
             ...clonedReq.body,

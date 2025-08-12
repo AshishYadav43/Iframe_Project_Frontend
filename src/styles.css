@@ -168,3 +168,30 @@ input:-webkit-autofill:focus {
   height: 50px !important;
 }
 /* END - zain bhai */
+
+
+/* Active (checked) color */
+.mdc-switch__track::after {
+    transform: translateX(-100%);
+    background: #24e213 !important;
+}
+
+.mat-mdc-slide-toggle.mdc-switch--checked .mdc-switch__track {
+  background: #24e213 !important;
+}
+
+.mdc-switch__track::before {
+    transform: translateX(-100%);
+    background: #e60d06 !important;
+}
+.mdc-switch--selected .mdc-switch__icon {
+    width: var(--mdc-switch-selected-icon-size, 16px);
+    height: var(--mdc-switch-selected-icon-size, 16px);
+    fill:#24e213  !important;
+}
+
+.mdc-switch--unselected .mdc-switch__icon {
+    width: var(--mdc-switch-unselected-icon-size, 16px);
+    height: var(--mdc-switch-unselected-icon-size, 16px);
+    fill: #e60d06 !important;
+}

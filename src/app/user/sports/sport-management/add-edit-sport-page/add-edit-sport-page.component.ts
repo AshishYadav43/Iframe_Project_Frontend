@@ -69,8 +69,8 @@ export class AddEditSportPageComponent {
   ) {
     this.loadApiResults();
     // this.getCompany();
-    this.getCurrency();
-    this.getCountry();
+    // this.getCurrency();
+    // this.getCountry();
   }
 
   ngOnInit(): void {
@@ -81,8 +81,8 @@ export class AddEditSportPageComponent {
       base_sport: [{ value: this.userData?.base_sport || '', disabled: true }, Validators.required],
       sub_sports: [this.userData?.sub_sports || [], Validators.required],
       sport_id: [this.userData?.sportId || '', Validators.required],
-      country: [this.userData?.country || '', [Validators.required]],
-      currency: [this.userData?.currency || '', [Validators.required]],
+      // country: [this.userData?.country || '', [Validators.required]],
+      // currency: [this.userData?.currency || '', [Validators.required]],
     });
 
     this.form.get('company_type')!.valueChanges.subscribe(selectedCompanyType => {
@@ -96,8 +96,8 @@ export class AddEditSportPageComponent {
 
     this.form.patchValue({
       company_type: this.userData?.company_type,
-      country: this.userData.country.map((c: any) => c._id),
-      currency: this.userData.currency.map((c: any) => c._id),
+      // country: this.userData.country.map((c: any) => c._id),
+      // currency: this.userData.currency.map((c: any) => c._id),
     });
   }
 
@@ -188,7 +188,7 @@ export class AddEditSportPageComponent {
     // api call to get the result
     this.api.getBaseSportSubType(payload).subscribe({
       next: (res: any) => {
-        if (res.status === 'success' && res.data.length > 0) {
+        if (res.status == 'success' && res.data.length > 0) {
 
           // Directly assign the subtypes from res.data
           // Assuming res.data is array of subtypes, e.g.:

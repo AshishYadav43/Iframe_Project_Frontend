@@ -30,7 +30,7 @@
 
     <!-- Sport Category Dropdown -->
     <mat-form-field appearance="outline">
-      <mat-label>Base Sport</mat-label>
+      <mat-label>Base</mat-label>
       <mat-select formControlName="base_sport" aria-label="Select Sport Category">
         <mat-option  value="">Casino</mat-option>
       </mat-select>
@@ -40,12 +40,12 @@
     <!-- Supported sub_sports -->
     <mat-form-field appearance="outline">
       <mat-label>Base Sub Type</mat-label>
-      <mat-select formControlName="sub_sports" multiple>
+      <mat-select formControlName="sub_sports">
         <mat-option *ngFor="let item of sport_sub_types" [value]="item._id">
           {{ item.name }}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="form.get('sub_sports')?.hasError('required')">Supported Currencies is
+      <mat-error *ngIf="form.get('sub_sports')?.hasError('required')">Base Sub Type is
         required</mat-error>
     </mat-form-field>
 
@@ -69,7 +69,7 @@
     </mat-form-field>
 
     <!-- Supported Country -->
-    <mat-form-field appearance="outline">
+    <!-- <mat-form-field appearance="outline">
       <mat-label>Country</mat-label>
       <mat-select formControlName="country" multiple>
         <mat-option *ngFor="let item of countries" [value]="item.id">
@@ -78,10 +78,10 @@
       </mat-select>
       <mat-error *ngIf="form.get('country')?.hasError('required')">Country is
         required</mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <!-- Supported Currencies -->
-    <mat-form-field appearance="outline">
+    <!-- <mat-form-field appearance="outline">
       <mat-label>Supported Currencies</mat-label>
       <mat-select formControlName="currency" multiple>
         <mat-option *ngFor="let currency of currencies" [value]="currency.id">
@@ -90,7 +90,7 @@
       </mat-select>
       <mat-error *ngIf="form.get('currency')?.hasError('required')">Supported Currencies is
         required</mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <!-- Sports List Display -->
     <div class="sports-list">

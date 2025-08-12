@@ -19,9 +19,9 @@ import { ToastrService } from 'ngx-toastr';
 import { MessageDialogComponent } from '../../message-dialog/message-dialog.component';
 import { STATUS_V1 } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
+import { SharedDataService } from '../../../core/services/shared-data.service';
 
 import { AddEditCasinoPageComponent } from './add-edit-casino-page/add-edit-casino-page.component';
-import { SharedDataService } from '../../../core/services/shared-data.service';
 
 @Component({
   selector: 'app-casino-management',
@@ -70,7 +70,7 @@ export class CasinoManagementComponent {
           next: (res: any) => {
             this.dataSource.data = res.data.map((item: any) => ({
               ...item,
-              status: STATUS_V1[item.status] || 'UNKNOWN'
+              status: item.status
             }));
 
             this.dataSource.paginator = this.paginator;
@@ -143,17 +143,16 @@ export class CasinoManagementComponent {
 
   toggleStatus(casino: any): void {
     const prevStatus = casino.status;
-    casino.status = casino.status === 1 ? 2 : 1;
     if (this.statusUpdating) return;
 
-    const updatedStatus = casino.status == 1 ? 2 : 1;
+    const updatedStatus = prevStatus == 1 ? 2 : 1;
     const payload = {
       _id: casino.id,
       updatedData: {
         status: updatedStatus
       }
     };
-    const action = casino.status === 1 ? 'block' : 'unblock';
+    const action = prevStatus == 1 ? 'block' : 'unblock';
     this.dialog.open(MessageDialogComponent, {
       width: '600px',
       data: { action }

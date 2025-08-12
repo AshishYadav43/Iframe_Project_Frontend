@@ -107,10 +107,10 @@ export class SportManagementComponent {
 
 
   clearFilters() {
-    if (this.selectedTabIndex === 0) {
+    if (this.selectedTabIndex == 0) {
       this.filterValues = { name: '', companyType: '', sort: '' };
       this.applyFilters();
-    } else if (this.selectedTabIndex === 1) {
+    } else if (this.selectedTabIndex == 1) {
       this.filterCasinoValues = { casino_name: '', status: '', sort: '' };
       this.applyFilterForCasino();
     }
@@ -195,18 +195,16 @@ export class SportManagementComponent {
 
   toggleStatus(casino: any): void {
     const prevStatus = casino.status;
-    casino.status = casino.status === 1 ? 2 : 1;
-
     if (this.statusUpdating) return;
 
-    const updatedStatus = casino.status == 1 ? 2 : 1;
+    const updatedStatus = prevStatus == 1 ? 2 : 1;
     const payload = {
       _id: casino.id,
       updatedData: {
         status: updatedStatus
       }
     };
-    const action = casino.status == 1 ? 'block' : 'unblock';
+    const action = prevStatus == 1 ? 'block' : 'unblock';
     this.dialog.open(MessageDialogComponent, {
       width: '600px',
       data: { action }
@@ -247,13 +245,13 @@ export class SportManagementComponent {
       payload.filters.status = this.filterCasinoValues.status;
     }
 
-    if (this.selectedTabIndex === 0) {
+    if (this.selectedTabIndex == 0) {
       this.api.getAllSports(payload).subscribe((res: any) => {
         this.dataSource.data = res.data || [];
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       });
-    } else if (this.selectedTabIndex === 1) {
+    } else if (this.selectedTabIndex == 1) {
       this.dataService.setCasinoFilter(payload); // pass payload to <app-casino-management>
     }
   }

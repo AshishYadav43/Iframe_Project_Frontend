@@ -152,7 +152,7 @@ export class AddUpdateBaseSportComponent {
 //       next: () => {
 //         this.loading = false;
 //         this.dialogRef.close(true);
-//         this.toaster.success("Base Sport saved successfully");
+//         this.toaster.success("Base saved successfully");
 //       },
 //       error: () => {
 //         this.loading = false;
@@ -209,7 +209,7 @@ onSubmit(): void {
     next: () => {
       this.loading = false;
       this.dialogRef.close(true);
-      this.toaster.success("Base Sport saved successfully");
+      this.toaster.success("Base saved successfully");
     },
     error: () => {
       this.loading = false;

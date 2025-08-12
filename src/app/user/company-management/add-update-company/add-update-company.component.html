@@ -53,7 +53,7 @@
           {{ option.name }}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="form.get('companySelection')?.hasError('required')">Partner is required</mat-error>
+      <mat-error *ngIf="form.get('companySelection')?.hasError('required')">Provider is required</mat-error>
     </mat-form-field>
 
     <!-- Name -->
@@ -89,7 +89,7 @@
           <mat-icon>delete</mat-icon>
         </button>
 
-        <button *ngIf="i === apiPaths.length - 1" mat-icon-button color="primary" (click)="addApiPath()">
+        <button *ngIf="i == apiPaths.length - 1" mat-icon-button color="primary" (click)="addApiPath()">
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -120,7 +120,7 @@
           <button *ngIf="sportTypeAndSubType.length > 1" mat-icon-button color="warn" (click)="removeSportTypeGroup(i)">
             <mat-icon>delete</mat-icon>
           </button>
-          <button *ngIf="i === sportTypeAndSubType.length - 1" mat-icon-button color="primary"
+          <button *ngIf="i == sportTypeAndSubType.length - 1" mat-icon-button color="primary"
             (click)="addSportTypeGroup()">
             <mat-icon>add</mat-icon>
           </button>
@@ -153,7 +153,7 @@
     <button *ngIf="sportTypeAndSubTypeModel.length > 1" mat-icon-button color="warn" (click)="removeSportTypeGroup(i)">
       <mat-icon>delete</mat-icon>
     </button>
-    <button *ngIf="i === sportTypeAndSubTypeModel.length - 1" mat-icon-button color="primary"
+    <button *ngIf="i == sportTypeAndSubTypeModel.length - 1" mat-icon-button color="primary"
       (click)="addSportTypeGroup()">
       <mat-icon>add</mat-icon>
     </button>

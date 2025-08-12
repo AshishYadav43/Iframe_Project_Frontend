@@ -31,11 +31,11 @@ onCancel(): void {
 
 
   getDisplayName(): string {
-  if (this.data.name === 'Country') {
+  if (this.data.name == 'Country') {
     return this.data?.data?.countryName || '';
-  } else if (this.data.name === 'Currency') {
+  } else if (this.data.name == 'Currency') {
     return this.data?.data?.name || '';
-  } else if (this.data.name === 'Company') {
+  } else if (this.data.name == 'Company') {
     return this.data?.data?.name || '';
   }
   return '';

@@ -69,7 +69,7 @@ export class SidebarComponent {
   isParentActive(childRoutes: string[]): boolean {
     const currentUrl = this.router.url.split('?')[0];
     return childRoutes.some(route =>
-      currentUrl === route || currentUrl.startsWith(route + '/')
+      currentUrl == route || currentUrl.startsWith(route + '/')
     );
   }
 }

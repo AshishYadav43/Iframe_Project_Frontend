@@ -31,7 +31,7 @@ import { AddUpdateProviderComponent } from './add-update-provider/add-update-pro
 })
 export class ProviderManagementComponent {
 
-  displayedColumns: string[] = ['srNo', 'id', 'name',];
+  displayedColumns: string[] = ['srNo', 'id', 'name', 'actions'];
   dataSource = new MatTableDataSource<any>();
   showButton: boolean = true;
   private api = inject(AuthService);
@@ -52,6 +52,17 @@ export class ProviderManagementComponent {
       maxHeight: '90vh',
       autoFocus: false,
       data: null
+    }).afterClosed().subscribe((result: any) => {
+      if (result) this.getProvider();
+    });
+  }
+
+  openEditProvider(data: any) {
+    this.dialog.open(AddUpdateProviderComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: data
     }).afterClosed().subscribe((result: any) => {
       if (result) this.getProvider();
     });

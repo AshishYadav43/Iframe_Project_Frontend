@@ -1,6 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatIcon } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { CommonModule } from '@angular/common';
 
 import { AuthService } from '../../../core/services/auth.service';
 
@@ -8,7 +11,12 @@ import { AddModuleComponent } from './add-module/add-module.component';
 
 @Component({
   selector: 'app-module',
-  imports: [],
+  imports: [
+    MatIcon,
+    MatPaginatorModule,
+    CommonModule,
+    MatTableModule
+  ],
   templateUrl: './module.component.html',
   styleUrl: './module.component.css'
 })

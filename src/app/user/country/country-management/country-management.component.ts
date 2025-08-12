@@ -201,9 +201,9 @@ export class CountryManagementComponent implements OnInit {
 
 toggleStatus(user: any) {
   const prevStatus = user.status;
-  const action = user.status === 1 ? 'block' : 'unblock'; // assuming 1=active, 2=blocked
+  const action = user.status == 1 ? 'block' : 'unblock'; // assuming 1=active, 2=blocked
 
-  user.status = user.status === 1 ? 2 : 1;
+  user.status = user.status == 1 ? 2 : 1;
 
   this.dialog.open(MessageDialogComponent, {
     width: '600px',
