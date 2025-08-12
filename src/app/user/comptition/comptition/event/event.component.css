@@ -1,14 +1,14 @@
 .table-header {
     display: flex;
     align-items: center;
-    padding: 20px 16px;
-    background: #e94e06;
+    padding: 14px 16px;
+    background: #cf06e9;
     color: white;
     box-shadow: #000 0 2px 6px;
 }
 
 .table-header button {
-    color: #e94e06 !important;
+    color: #cf06e9 !important;
 }
 
 .spacer {
@@ -94,10 +94,20 @@
 }
 
 .event-btn {
-  background-color: #e94e06 !important; 
+  background-color: #cf06e9 !important; 
   color: white !important;
   font-weight: 500;
 }
 .event-btn:hover {
-  background-color: #e94e06 !important;
+  background-color: #cf06e9 !important;
 }
+
+.back-btn {
+  /* background-color: #003320d1 !important; */
+  color: white !important;
+  font-weight: 500;
+}
+/* .back-btn:hover {
+  background-color: #cf06e9 !important;
+ color: black !important;
+} */

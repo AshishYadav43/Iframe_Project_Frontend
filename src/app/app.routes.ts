@@ -14,6 +14,10 @@ import { UsedSportsIdsComponent } from './user/SportsId/used-sports-ids/used-spo
 import { BaseSportManagementComponent } from './user/base-sport-management/base-sport-management.component';
 import { CasinoManagementComponent } from './user/sports/casino-management/casino-management.component';
 import { CompitionProviderComponent } from './user/sports/sport-management/compition-provider/compition-provider.component';
+import { ComptitionComponent } from './user/comptition/comptition/comptition.component';
+import { EventComponent } from './user/comptition/comptition/event/event.component';
+import { MarketComponent } from './user/comptition/market/market.component';
+import { JsonDetailsComponent } from './user/comptition/json-details/json-details.component';
 
 export const routes: Routes = [
   {
@@ -89,7 +93,7 @@ export const routes: Routes = [
       },
       {
         path: 'comptitionprovider',
-        component: CompitionProviderComponent
+        component: ComptitionComponent
       },
       {
         path: 'loginPermission',
@@ -98,6 +102,18 @@ export const routes: Routes = [
       {
         path: 'baseSports',
         component: BaseSportManagementComponent
+      },
+      {
+        path: 'event',
+        component: EventComponent
+      },
+      {
+        path:'market',
+        component:MarketComponent
+      },
+      {
+        path:'details',
+        component:JsonDetailsComponent
       }
     ]
   },

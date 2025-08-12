@@ -105,6 +105,14 @@ export class AuthService {
     return this.http.post(`${this.baseUserUrl}/competition/get`, data);
   }
 
+  getEventByCompId(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/competition/get-competitions-events`, data);
+  }
+
+  getMarketByEvent(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/competition/get-competition-event-markets`, data);
+  }
+
   getCompany(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/company/lists`, data);
   }
@@ -164,7 +172,7 @@ export class AuthService {
   getCasinoGame(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/casino-games/get`, data);
   }
-  
+
   async getFingerprint(): Promise<any> {
     let result: any;
     if (!this.fingerprint) {
@@ -204,7 +212,7 @@ export class AuthService {
 
   }
 
-    uploadImage(data: any): Observable<any> {
+  uploadImage(data: any): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/casino-games/upload-image`, data);
 
   }

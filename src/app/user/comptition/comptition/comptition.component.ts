@@ -1,26 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatSelectModule, MatOption } from '@angular/material/select';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { AuthService } from '../../../../core/services/auth.service';
-import { AddUpdateModuleComponent } from '../../../comptititon-management/add-update-module/add-update-module.component';
-import { MatOption, MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
-import { VALIDATION_PATTERNS, PROVIDER_SELECTION_V1 } from '../../../../core/constant/constant';
-import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
 import { ToastrService } from 'ngx-toastr';
-import { MatSlideToggle } from "@angular/material/slide-toggle";
+import { VALIDATION_PATTERNS, PROVIDER_SELECTION_V1 } from '../../../core/constant/constant';
+import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
+import { AuthService } from '../../../core/services/auth.service';
+import { Router } from '@angular/router'; 
 
 @Component({
-  selector: 'app-compition-provider',
-  imports: [
-    CommonModule,
+  selector: 'app-comptition',
+  imports: [   CommonModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
@@ -32,11 +31,11 @@ import { MatSlideToggle } from "@angular/material/slide-toggle";
     MatOption,
     FormsModule,
     PatternRestrictDirective,
-    MatSlideToggle
-], templateUrl: './compition-provider.component.html',
-  styleUrl: './compition-provider.component.css'
+    MatSlideToggle],
+  templateUrl: './comptition.component.html',
+  styleUrl: './comptition.component.css'
 })
-export class CompitionProviderComponent {
+export class ComptitionComponent {
   pattern = VALIDATION_PATTERNS;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -47,8 +46,8 @@ export class CompitionProviderComponent {
   dataSource = new MatTableDataSource<any>();
   private api = inject(AuthService);
   private dialog = inject(MatDialog);
-
-  constructor(private toastr: ToastrService) { }
+ private router=inject(Router)
+  constructor(private toastr: ToastrService,) { }
 
   ngOnInit(): void {
     this.getComptition();
@@ -103,7 +102,11 @@ export class CompitionProviderComponent {
   }
 
   getProviderLabel(status: number): string {
-    const entry = Object.entries(PROVIDER_SELECTION_V1).find(([_, value]) => value == status);
+    const entry = Object.entries(PROVIDER_SELECTION_V1).find(([_, value]) => value === status);
     return entry ? entry[0] : 'Unknown';
   }
+
+goToEventPage(row: any) {
+  this.router.navigateByUrl('/event', { state: { eventData: row } });
+}
 }

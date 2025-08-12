@@ -23,11 +23,12 @@ export class SidebarComponent {
   addDefaultsChildren = [
     {
       name: 'Sport',
-      route: '/sports-management?tab=0',
+      // route: '/sports-management?tab=0',
+      route: '/sports',
       icon: 'sports',
-      children: [
-        { name: 'Competition', route: '/comptitionprovider', icon: 'emoji_events' },
-      ]
+      // children: [
+      //   { name: 'Competition', route: '/comptitionprovider', icon: 'emoji_events' },
+      // ]
     },
     { name: 'Casino', route: '/casino', icon: 'casino' }
   ];

@@ -27,14 +27,14 @@
 
   <!-- Add Defaults Sports Children -->
   <div *ngIf="showAddDefaults" class="nested-links">
-    <ng-container *ngFor="let item of addDefaultsChildren">
+    <!-- <ng-container *ngFor="let item of addDefaultsChildren">
       <a *ngIf="!item.children" class="side-bar-link" mat-list-item [routerLinkActive]="['active']"
         [routerLink]="item.route">
         <mat-icon>{{ item.icon }}</mat-icon> {{ item.name }}
-      </a>
+      </a> -->
 
       <!-- Sport with nested children -->
-      <div *ngIf="item.children">
+      <!-- <div *ngIf="item.children">
         <a class="side-bar-link" mat-list-item (click)="toggleSportChildren()">
           <mat-icon>{{ item.icon }}</mat-icon> {{ item.name }}
         </a>
@@ -45,7 +45,13 @@
             <mat-icon>{{ child.icon }}</mat-icon> {{ child.name }}
           </a>
         </div>
-      </div>
+      </div> -->
+    <!-- </ng-container> -->
+
+        <ng-container *ngFor="let item of addDefaultsChildren">
+      <a class="side-bar-link" mat-list-item  [routerLink]="item.route">
+        <mat-icon>{{ item.icon }}</mat-icon> {{ item.name }}
+      </a>
     </ng-container>
   </div>
 
@@ -67,9 +73,9 @@
     <mat-icon>sports</mat-icon> usedSportsIds
   </a>
 
-  <!-- <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" routerLink="/comptition">
+  <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" routerLink="/comptitionprovider">
     <mat-icon>emoji_events</mat-icon> Competition
-  </a> -->
+  </a>
 
   <a class="side-bar-link" mat-list-item [routerLinkActive]="['active']" routerLink="/loginPermission">
     <mat-icon>settings</mat-icon> Login Permission

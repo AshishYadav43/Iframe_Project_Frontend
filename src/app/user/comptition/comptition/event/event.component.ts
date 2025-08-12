@@ -1,26 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, Inject, inject, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatSelectModule, MatOption } from '@angular/material/select';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { AuthService } from '../../../../core/services/auth.service';
-import { AddUpdateModuleComponent } from '../../../comptititon-management/add-update-module/add-update-module.component';
-import { MatOption, MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { VALIDATION_PATTERNS, PROVIDER_SELECTION_V1 } from '../../../../core/constant/constant';
 import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
-import { ToastrService } from 'ngx-toastr';
-import { MatSlideToggle } from "@angular/material/slide-toggle";
+import { AuthService } from '../../../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-compition-provider',
-  imports: [
-    CommonModule,
+  selector: 'app-event',
+  imports: [CommonModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
@@ -32,30 +31,31 @@ import { MatSlideToggle } from "@angular/material/slide-toggle";
     MatOption,
     FormsModule,
     PatternRestrictDirective,
-    MatSlideToggle
-], templateUrl: './compition-provider.component.html',
-  styleUrl: './compition-provider.component.css'
+    MatSlideToggle],
+  templateUrl: './event.component.html',
+  styleUrl: './event.component.css'
 })
-export class CompitionProviderComponent {
+export class EventComponent {
   pattern = VALIDATION_PATTERNS;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  filterValues = { competitionName: '', status: '1', sort: '' };
-
+  filterValues = { eventName: '', status: '1', sort: '' };
+  eventData: any;
   statusUpdating: boolean = false;
-  displayedColumns: string[] = ['srNo', 'provider_type','competition_id', 'competition_name', 'competitionRegion', "status","action"];
+  displayedColumns: string[] = ['srNo', 'EventId', 'eventname', 'compid', 'date', "name", "marketcount", "action"];
   dataSource = new MatTableDataSource<any>();
   private api = inject(AuthService);
-  private dialog = inject(MatDialog);
-
-  constructor(private toastr: ToastrService) { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.getComptition();
+    this.eventData = history.state.eventData;
+    this.getEventComptition();
   }
 
-  getComptition() {
-    this.api.getComptition().subscribe({
+  getEventComptition() {
+    this.api.getEventByCompId({ competitionId: this.eventData.competitionId }).subscribe({
       next: (res: any) => {
         this.dataSource.data = res.data;
         this.dataSource.paginator = this.paginator;
@@ -68,24 +68,23 @@ export class CompitionProviderComponent {
   }
 
 
-    applyFilters() {
+  applyFilters() {
     const payload = {
       page: 1,
       limit: 100,
       isPaginated: true,
-      filters: {} as any
+      competitionId: this.eventData?.competitionId,
+      filters: {} as any,
     };
 
-    // Add filters only if values exist
-    if (this.filterValues.competitionName) {
-      payload.filters.competitionName = this.filterValues.competitionName;
+    if (this.filterValues.eventName) {
+      payload.filters.eventName = this.filterValues.eventName;
     }
-
     if (this.filterValues.status) {
       payload.filters.status = this.filterValues.status;
-    }
 
-    this.api.getComptition(payload).subscribe((res: any) => {
+    }
+    this.api.getEventByCompId(payload).subscribe((res: any) => {
       this.dataSource.data = res.data || [];
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -94,16 +93,15 @@ export class CompitionProviderComponent {
 
 
   clearFilters() {
-      this.filterValues = { competitionName: '', status: '', sort: '' };
-      this.applyFilters();
-  }
-  
-  toggleStatus(casino: any): void {
-    this.toastr.info('We are working on it.');
+    this.filterValues = { eventName: '', status: '', sort: '' };
+    this.applyFilters();
   }
 
-  getProviderLabel(status: number): string {
-    const entry = Object.entries(PROVIDER_SELECTION_V1).find(([_, value]) => value == status);
-    return entry ? entry[0] : 'Unknown';
+  goToMarketPage(row: any) {
+    this.router.navigateByUrl('/market', { state: { marketData: row } });
+  }
+
+  goBack() {
+    window.history.back();
   }
 }
