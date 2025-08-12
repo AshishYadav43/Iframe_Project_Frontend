@@ -15,11 +15,11 @@ import { ToastrService } from 'ngx-toastr';
 import { VALIDATION_PATTERNS, PROVIDER_SELECTION_V1 } from '../../../core/constant/constant';
 import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
 import { AuthService } from '../../../core/services/auth.service';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comptition',
-  imports: [   CommonModule,
+  imports: [CommonModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
@@ -42,11 +42,11 @@ export class ComptitionComponent {
   filterValues = { competitionName: '', status: '1', sort: '' };
 
   statusUpdating: boolean = false;
-  displayedColumns: string[] = ['srNo', 'provider_type','competition_id', 'competition_name', 'competitionRegion', "status","action"];
+  displayedColumns: string[] = ['srNo', 'provider_type', 'competition_id', 'competition_name', 'competitionRegion', 'sport', 'eventCount', 'marketCount', "action"];
   dataSource = new MatTableDataSource<any>();
   private api = inject(AuthService);
   private dialog = inject(MatDialog);
- private router=inject(Router)
+  private router = inject(Router)
   constructor(private toastr: ToastrService,) { }
 
   ngOnInit(): void {
@@ -67,7 +67,7 @@ export class ComptitionComponent {
   }
 
 
-    applyFilters() {
+  applyFilters() {
     const payload = {
       page: 1,
       limit: 100,
@@ -93,10 +93,10 @@ export class ComptitionComponent {
 
 
   clearFilters() {
-      this.filterValues = { competitionName: '', status: '', sort: '' };
-      this.applyFilters();
+    this.filterValues = { competitionName: '', status: '', sort: '' };
+    this.applyFilters();
   }
-  
+
   toggleStatus(casino: any): void {
     this.toastr.info('We are working on it.');
   }
@@ -106,7 +106,7 @@ export class ComptitionComponent {
     return entry ? entry[0] : 'Unknown';
   }
 
-goToEventPage(row: any) {
-  this.router.navigateByUrl('/event', { state: { eventData: row } });
-}
+  goToEventPage(row: any) {
+    this.router.navigateByUrl('/event', { state: { eventData: row } });
+  }
 }
