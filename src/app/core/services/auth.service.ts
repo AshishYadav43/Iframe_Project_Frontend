@@ -141,12 +141,24 @@ export class AuthService {
     return this.http.post(`${this.baseUserUrl}/provider/add`, data);
   }
 
+  updateProvider(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/provider/update`, data);
+  }
+
   getProvider(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/provider/get`, data);
   }
 
   addCasinoGame(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/casino-games/add`, data);
+  }
+
+  bulkAddCasinoGame(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/casino-games/bulk-add`, data);
+  }
+
+  updateCasinoGame(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/casino-games/update`, data);
   }
 
   getCasinoGame(data: any = {}): Observable<any> {

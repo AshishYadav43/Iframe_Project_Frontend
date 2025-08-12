@@ -12,6 +12,7 @@
   text-align: center;
   cursor: pointer;
   transition: border-color 0.3s ease;
+  margin: 5px;
 }
 
 .upload-area:hover {

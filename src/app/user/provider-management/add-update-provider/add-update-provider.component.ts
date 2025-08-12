@@ -46,9 +46,8 @@ export class AddUpdateProviderComponent {
     private dialogRef: MatDialogRef<AddUpdateProviderComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
   ) {
-    console.log("DATA", userData);
   }
-  
+
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -62,13 +61,33 @@ export class AddUpdateProviderComponent {
   }
 
   onSubmit() {
-    if (this.form.invalid) return;
-    this.api.addProvider(this.form.value).subscribe({
-      next: (res: any) => {
-        this.toaster.success(res.message);
-        this.dialogRef.close(true);
+    if (this.form.invalid || this.loading) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    this.loading = true;
+    let payload = this.form.value;
+
+    if (this.userData) {
+      payload = {
+        _id: this.userData._id,
+        updatedData: {
+          ...this.form.value
+        }
       }
-    })
+    }
+    const request = this.userData ? this.api.updateProvider(payload) : this.api.addProvider(payload);
+    request.subscribe({
+      next: (res: any) => {
+        this.loading = false;
+        this.dialogRef.close(true);
+        this.toaster.success(res.message);
+      },
+      error: () => {
+        this.loading = false;
+      }
+    });
   }
 
 }

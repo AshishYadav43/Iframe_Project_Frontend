@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { ToastrService } from 'ngx-toastr';
 
+import { SharedFileUploadComponent } from '../../../../shared-file-upload/shared-file-upload.component';
 import { VALIDATION_PATTERNS, COMPANY_SELECTION_V1 } from '../../../../../core/constant/constant';
 import { AuthService } from '../../../../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../../../../core/directives/directives/pattern-restrict.directive';
@@ -28,6 +29,7 @@ import { PatternRestrictDirective } from '../../../../../core/directives/directi
     MatCardModule,
     MatProgressSpinnerModule,
     MatIcon,
+    SharedFileUploadComponent
   ],
   templateUrl: './bulk-upload-casino-game.component.html',
   styleUrl: './bulk-upload-casino-game.component.css'
@@ -46,6 +48,7 @@ export class BulkUploadCasinoGameComponent {
   private toaster = inject(ToastrService);
   providerOption: any[] = [];
   casinoOption: any[] = [];
+  selectedFile: File | null = null;
 
   constructor(
     private dialogRef: MatDialogRef<BulkUploadCasinoGameComponent>,
@@ -113,13 +116,20 @@ export class BulkUploadCasinoGameComponent {
     })
   }
 
+  handleFile(event: any) {
+    this.selectedFile = event;
+  }
+
   onSubmit() {
     if (this.form.invalid) return;
 
-    const payload = {...this.form.value}
-    delete payload.company_type;
+    const formData = new FormData();
+    formData.append('provider', this.form.value.provider);
+    formData.append('company', this.form.value.company);
+    formData.append('casino', this.form.value.casino);
+    if (this.selectedFile) formData.append('file', this.selectedFile);
 
-    this.api.addCasinoGame(payload).subscribe({
+    this.api.bulkAddCasinoGame(formData).subscribe({
       next: (res: any) => {
         this.dialogRef.close(true);
         this.toaster.success(res.message);

@@ -32,7 +32,7 @@
 
     <!-- Submit Button -->
     <div class="button_container">
-      <button class="submit_btn" mat-raised-button color="primary" type="button" (click)="onCancel()">
+      <button class="submit_btn" mat-raised-button color="primary" type="button" (click)="onCancel()" [disabled]="loading">
         cancel
       </button>
       <button class="submit_btn" mat-raised-button color="primary" type="submit" [disabled]="loading">

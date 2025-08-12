@@ -51,7 +51,6 @@ export class AddUpdateCasinoGameComponent {
     private dialogRef: MatDialogRef<AddUpdateCasinoGameComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
   ) {
-    console.log("Data", userData);
     this.getProvider();
     this.getCasino();
   }
@@ -128,17 +127,34 @@ export class AddUpdateCasinoGameComponent {
   }
 
   onSubmit() {
-    if (this.form.invalid) return;
+    if (this.form.invalid || this.loading) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
-    const payload = { ...this.form.value }
+    this.loading = true;
+    let payload = this.form.value;
     delete payload.company_type;
-
-    this.api.addCasinoGame(payload).subscribe({
+    
+    if (this.userData) {
+      payload = {
+        _id: this.userData._id,
+        updatedData: {
+          ...this.form.value
+        }
+      }
+    }
+    const request = this.userData ? this.api.updateCasinoGame(payload) : this.api.addCasinoGame(payload);
+    request.subscribe({
       next: (res: any) => {
+        this.loading = false;
         this.dialogRef.close(true);
         this.toaster.success(res.message);
+      },
+      error: () => {
+        this.loading = false;
       }
-    })
+    });
   }
 
   onCancel() {

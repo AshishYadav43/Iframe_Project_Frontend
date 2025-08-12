@@ -43,6 +43,8 @@
             <mat-error *ngIf="form.get('casino')?.hasError('required')">Casino is required</mat-error>
         </mat-form-field>
 
+        <app-shared-file-upload  (fileSelected)="handleFile($event)"></app-shared-file-upload>
+
         <!-- Submit Button -->
         <div class="button_container">
             <button class="submit_btn" mat-raised-button color="primary" type="button" (click)="onCancel()">

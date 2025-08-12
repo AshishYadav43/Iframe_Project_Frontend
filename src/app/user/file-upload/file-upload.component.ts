@@ -3,10 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, EventEmitter, inject, Inject, Input, Output, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { AuthService } from '../../core/services/auth.service';
 import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
+
 import { ToastrService } from 'ngx-toastr';
+
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -42,8 +44,6 @@ export class FileUploadComponent {
   ) { }
 
   ngOnInit() {
-    console.log(this.data);
-
     if (this.data?.existingImage) {
       this.previewUrl = this.data.existingImage;
     }
@@ -93,7 +93,6 @@ export class FileUploadComponent {
         this.dialogRef.close(true);
       },
       error: (err: any) => {
-        console.error(err);
         this.isUploading = false;
       }
     });
