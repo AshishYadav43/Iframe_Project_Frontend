@@ -37,6 +37,7 @@ export class AddUpdateProviderComponent {
   pattern = VALIDATION_PATTERNS;
   form!: FormGroup;
   loading = false;
+  baseSportsList: any[] = []; // store fetched base sports
 
   private fb = inject(FormBuilder);
   private api = inject(AuthService);
@@ -45,14 +46,28 @@ export class AddUpdateProviderComponent {
   constructor(
     private dialogRef: MatDialogRef<AddUpdateProviderComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
-  ) {
-  }
-
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       name: [this.userData?.name || '', [Validators.required, Validators.minLength(3)]],
       provider_id: [{ value: this.userData?.id || '', disabled: true }, [Validators.required, Validators.minLength(3)]],
+      baseSports: [this.userData?.baseSports?.map((b: any) => b._id) || [], [Validators.required]]
+    });
+
+    this.getBaseSportsList();
+  }
+
+  getBaseSportsList() {
+    this.api.getAllBaseSports().subscribe({
+      next: (res: any) => {
+        if (res.status === 'success') {
+          this.baseSportsList = res.data;
+        }
+      },
+      error: () => {
+        this.toaster.error('Failed to load sports list');
+      }
     });
   }
 
@@ -67,16 +82,23 @@ export class AddUpdateProviderComponent {
     }
 
     this.loading = true;
-    let payload = this.form.value;
 
+    let payload;
     if (this.userData) {
       payload = {
         _id: this.userData._id,
         updatedData: {
-          ...this.form.value
+          name: this.form.value.name,
+          baseSports: this.form.value.baseSports 
         }
-      }
+      };
+    } else {
+      payload = {
+        name: this.form.value.name,
+        baseSports: this.form.value.baseSports
+      };
     }
+
     const request = this.userData ? this.api.updateProvider(payload) : this.api.addProvider(payload);
     request.subscribe({
       next: (res: any) => {
@@ -89,5 +111,4 @@ export class AddUpdateProviderComponent {
       }
     });
   }
-
 }
