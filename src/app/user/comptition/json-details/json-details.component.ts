@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Location } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-json-details',
@@ -9,12 +10,14 @@ import { Location } from '@angular/common';
   styleUrl: './json-details.component.css'
 })
 export class JsonDetailsComponent {
+  jsontData: any
 
-    ngOnInit(): void {
-  const eventData = history.state.marketData;
-  console.log('Event data from state:', eventData);
+  ngOnInit(): void {
+    this.jsontData = history.state.marketData;
+    console.log('Event data from state:', this.jsontData);
+    // this.getJsonDetails()
   }
- jsonData = {
+  jsonData = {
     "_id": "6899c1d7066eae2cd61a523d",
     "event_id": "34611275",
     "marketId": "1.246563006",
@@ -31,7 +34,9 @@ export class JsonDetailsComponent {
     "numberOfActiveRunners": 2
   };
 
-  constructor(private location: Location) {}
+  constructor(private location: Location,
+    private http: HttpClient
+  ) { }
 
   goBack() {
     this.location.back();
@@ -39,5 +44,11 @@ export class JsonDetailsComponent {
 
   copyJson() {
     navigator.clipboard.writeText(JSON.stringify(this.jsonData, null, 2));
+  }
+
+  getJsonDetails() {
+    this.http.get(`http://212.71.239.148:6050/api/newmarkets/${this.jsontData.eventId}/${this.jsontData.marketId}`, {})
+      .subscribe((res: any) => {
+      })
   }
 }

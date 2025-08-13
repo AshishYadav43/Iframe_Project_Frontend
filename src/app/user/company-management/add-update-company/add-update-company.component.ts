@@ -124,14 +124,14 @@ export class AddUpdateCompanyComponent {
     // }
 
     if (this.companyData?.sportTypeAndSubType?.length) {
-      this.sportTypeAndSubTypeModel = this.companyData.sportTypeAndSubType.map((item: any) => ({
+      this.sportTypeAndSubTypeModel = this.companyData.sportTypeAndSubType.map((item: any, index: number) => (
+        {
         typeId: item.typeId,
         subTypeId: item.subTypeId || []
       }));
     } else {
       this.sportTypeAndSubTypeModel.push({ typeId: '', subTypeId: [] });
     }
-
   }
 
   // ==== API PATHS ====
@@ -140,7 +140,6 @@ export class AddUpdateCompanyComponent {
   }
 
   addApiPath(): void {
-
     this.apiPaths.push(this.fb.group({ value: ['', Validators.required] }));
   }
 
