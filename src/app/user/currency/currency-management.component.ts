@@ -48,7 +48,7 @@ export class CurrencyManagementComponent {
   pattern = VALIDATION_PATTERNS;
   searchTerm: string = '';
 
-  private api = inject(AuthService);
+  public api = inject(AuthService);
   private toastr = inject(ToastrService);
   private dialog = inject(MatDialog);
   currencies = new MatTableDataSource<any>();

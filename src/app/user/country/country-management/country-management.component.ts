@@ -69,7 +69,7 @@ export class CountryManagementComponent implements OnInit {
   countryForm!: FormGroup;
   private dialog = inject(MatDialog);
 
-  private api = inject(AuthService);
+  public api = inject(AuthService);
   constructor(private toastr: ToastrService, private fb: FormBuilder,
     private route: ActivatedRoute
   ) { }

@@ -34,7 +34,7 @@ export class ProviderManagementComponent {
   displayedColumns: string[] = ['srNo', 'id', 'name', 'actions'];
   dataSource = new MatTableDataSource<any>();
   showButton: boolean = true;
-  private api = inject(AuthService);
+  public api = inject(AuthService);
   private dialog = inject(MatDialog);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

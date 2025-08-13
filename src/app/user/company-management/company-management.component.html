@@ -34,11 +34,14 @@
 <div class="table-header">
   <span>Company Management</span>
   <span class="spacer"></span>
-  <button mat-raised-button  style="margin-right: 10px;" color="accent" (click)="openAddProvider()">
+  <button mat-raised-button style="margin-right: 10px;" color="accent" (click)="openAddProvider()">
     <mat-icon>add</mat-icon> Add Provider
   </button>
   <button mat-raised-button color="accent" (click)="openAddCompany()">
     <mat-icon>add</mat-icon> Add Company
+  </button>
+  <button style="margin-left: 10px;" mat-raised-button color="accent" (click)="api.goBack()">
+    <mat-icon>arrow_back</mat-icon> Back
   </button>
 </div>
 
@@ -57,7 +60,7 @@
     <td mat-cell *matCellDef="let row">{{ row.name }}</td>
   </ng-container>
 
-    <ng-container matColumnDef="companyId">
+  <ng-container matColumnDef="companyId">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Company Id</th>
     <td mat-cell *matCellDef="let row">{{ row.id }}</td>
   </ng-container>
@@ -74,14 +77,13 @@
     <td mat-cell *matCellDef="let row">{{ row.country?.countryName }}</td>
   </ng-container>
 
-   <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef> Status </th>
-          <td mat-cell *matCellDef="let country">
-            <mat-slide-toggle [checked]="country.status == 1" (change)="toggleStatus(country)"
-              [disabled]="statusUpdating">
-            </mat-slide-toggle>
-          </td>
-        </ng-container>
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let country">
+      <mat-slide-toggle [checked]="country.status == 1" (change)="toggleStatus(country)" [disabled]="statusUpdating">
+      </mat-slide-toggle>
+    </td>
+  </ng-container>
 
   <!-- Actions -->
   <ng-container matColumnDef="action">

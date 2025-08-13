@@ -11,11 +11,13 @@ import { MatSelectModule, MatOption } from '@angular/material/select';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { ToastrService } from 'ngx-toastr';
-import { VALIDATION_PATTERNS, PROVIDER_SELECTION_V1 } from '../../../core/constant/constant';
-import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
-import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
+
+import { ToastrService } from 'ngx-toastr';
+
+import { VALIDATION_PATTERNS, PROVIDER_SELECTION_V1 } from '../../../core/constant/constant';
+import { AuthService } from '../../../core/services/auth.service';
+import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
 
 @Component({
   selector: 'app-market',
@@ -31,7 +33,7 @@ import { Router } from '@angular/router';
     MatOption,
     FormsModule,
     PatternRestrictDirective,
-    MatSlideToggle],
+    ],
   templateUrl: './market.component.html',
   styleUrl: './market.component.css'
 })

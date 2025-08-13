@@ -1,9 +1,9 @@
 <!-- Table Header -->
- <div class="filter-section">
+<div class="filter-section">
     <mat-form-field class="filter-input" appearance="outline">
         <mat-label>Competition Name</mat-label>
-        <input [appPatternRestrict]="pattern.alphaNumericWithSpace" maxlength="20" matInput [(ngModel)]="filterValues.competitionName"
-            placeholder="Search Name">
+        <input [appPatternRestrict]="pattern.alphaNumericWithSpace" maxlength="20" matInput
+            [(ngModel)]="filterValues.competitionName" placeholder="Search Name">
     </mat-form-field>
 
     <mat-form-field class="filter-input" appearance="outline">
@@ -34,6 +34,9 @@
 
 <div class="table-header">
     <span>Competition Management</span>
+    <button style="margin-left: 10px;" mat-raised-button color="accent" (click)="api.goBack()">
+        <mat-icon>arrow_back</mat-icon> Back
+    </button>
     <!-- <span class="spacer"></span> -->
     <!-- <button mat-raised-button color="accent" > -->
     <!-- <mat-icon>add</mat-icon> Add Competition -->
@@ -74,19 +77,20 @@
     <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef> Status </th>
         <td mat-cell *matCellDef="let element">
-        <mat-slide-toggle [checked]="element.status == 1" (change)="toggleStatus(element)" [disabled]="statusUpdating">
-        </mat-slide-toggle>
+            <mat-slide-toggle [checked]="element.status == 1" (change)="toggleStatus(element)"
+                [disabled]="statusUpdating">
+            </mat-slide-toggle>
         </td>
     </ng-container>
 
     <ng-container matColumnDef="action">
-  <th mat-header-cell *matHeaderCellDef>Action</th>
-  <td mat-cell *matCellDef="let row">
-    <button mat-raised-button class="event-btn">
-      Event
-    </button>
-  </td>
-</ng-container>
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let row">
+            <button mat-raised-button class="event-btn">
+                Event
+            </button>
+        </td>
+    </ng-container>
 
 
 

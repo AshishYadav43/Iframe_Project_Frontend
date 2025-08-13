@@ -2,6 +2,9 @@
 <div [ngClass]="'table-header-button'">
   <span>{{ roleData?.name || 'Login Permission Management' }}</span>
   <span class="spacer"></span>
+   <button class="header_btn" style="margin-left: 10px;" mat-raised-button color="accent" (click)="api.goBack()">
+    <mat-icon>arrow_back</mat-icon> Back
+  </button>
 </div>
 
 <!-- Table -->

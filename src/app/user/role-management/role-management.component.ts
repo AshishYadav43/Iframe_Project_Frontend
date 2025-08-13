@@ -29,7 +29,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class RoleManagementComponent {
   displayedColumns: string[] = ['srNo', 'name', 'status', 'actions'];
   dataSource = new MatTableDataSource<any>();
-  private api = inject(AuthService);
+  public api = inject(AuthService);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   private router = inject(Router);

@@ -12,6 +12,11 @@
   padding: 18px 16px;
   background: #9b8f0e;
   color: white;
+  justify-content: space-between;
+}
+
+.header_btn {
+  color: #9b8f0e ;
 }
 
 .spacer {

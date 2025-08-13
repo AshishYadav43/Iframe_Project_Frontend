@@ -5,6 +5,9 @@
   <button *ngIf="showButton" mat-raised-button color="accent" (click)="openAddUser()">
     <mat-icon>add</mat-icon> Add User
   </button>
+  <button style="margin-left: 10px;" *ngIf="showButton" mat-raised-button color="accent" (click)="api.goBack()">
+    <mat-icon>arrow_back</mat-icon> Back
+  </button>
 </div>
 
 <!-- Table -->

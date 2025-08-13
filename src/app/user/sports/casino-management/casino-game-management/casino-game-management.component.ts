@@ -48,7 +48,7 @@ export class CasinoGameManagementComponent {
   displayedColumns: string[] = ['srNo', 'providerName', 'comapanyName', 'gameName', 'gameCode', 'uploadImage', 'actions'];
   dataSource = new MatTableDataSource<any>();
   showButton: boolean = true;
-  private api = inject(AuthService);
+  public api = inject(AuthService);
   private dialog = inject(MatDialog);
   pattern = VALIDATION_PATTERNS;
   filterForm!: FormGroup;

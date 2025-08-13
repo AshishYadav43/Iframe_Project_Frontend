@@ -56,7 +56,7 @@ export class CasinoManagementComponent {
     private toastr: ToastrService
   ) { }
 
-  private api = inject(AuthService);
+  public api = inject(AuthService);
   private dialog = inject(MatDialog);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

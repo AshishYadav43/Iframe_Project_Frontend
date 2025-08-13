@@ -44,7 +44,7 @@ export class CompanyManagementComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  private api = inject(AuthService);
+  public api = inject(AuthService);
   private dialog = inject(MatDialog);
   private toastr = inject(ToastrService);
   filterValues = { name: '', companyType: '', sort: '' };

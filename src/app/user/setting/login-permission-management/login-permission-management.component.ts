@@ -40,7 +40,7 @@ export class LoginPermissionManagementComponent {
   displayedColumns: string[] = ['srNo', 'name', 'role', 'user', 'status', 'actions'];
   dataSource = new MatTableDataSource<any>();
   private router = inject(Router);
-  private api = inject(AuthService);
+  public api = inject(AuthService);
   private toaster = inject(ToastrService);
   options: any[] = [];
   userOptions: any[] = [];

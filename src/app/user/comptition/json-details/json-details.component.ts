@@ -10,11 +10,10 @@ import { Location } from '@angular/common';
 })
 export class JsonDetailsComponent {
 
-    ngOnInit(): void {
-  const eventData = history.state.marketData;
-  console.log('Event data from state:', eventData);
+  ngOnInit(): void {
+    const eventData = history.state.marketData;
   }
- jsonData = {
+  jsonData = {
     "_id": "6899c1d7066eae2cd61a523d",
     "event_id": "34611275",
     "marketId": "1.246563006",
@@ -31,7 +30,7 @@ export class JsonDetailsComponent {
     "numberOfActiveRunners": 2
   };
 
-  constructor(private location: Location) {}
+  constructor(private location: Location) { }
 
   goBack() {
     this.location.back();

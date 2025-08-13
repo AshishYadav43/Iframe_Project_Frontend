@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
 
@@ -17,7 +18,8 @@ export class AuthService {
   private fingerprint!: string;
   private deviceId!: string;
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private location: Location
   ) { }
 
   login(data: any): Observable<any> {
@@ -217,6 +219,8 @@ export class AuthService {
 
   }
 
-
+  goBack(): void {
+    this.location.back(); 
+  }
 
 }

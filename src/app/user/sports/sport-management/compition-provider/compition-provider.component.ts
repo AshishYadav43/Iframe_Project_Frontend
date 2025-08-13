@@ -8,14 +8,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { AuthService } from '../../../../core/services/auth.service';
-import { AddUpdateModuleComponent } from '../../../comptititon-management/add-update-module/add-update-module.component';
 import { MatOption, MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
-import { VALIDATION_PATTERNS, PROVIDER_SELECTION_V1 } from '../../../../core/constant/constant';
-import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
-import { ToastrService } from 'ngx-toastr';
 import { MatSlideToggle } from "@angular/material/slide-toggle";
+
+import { ToastrService } from 'ngx-toastr';
+
+import { AddUpdateModuleComponent } from '../../../comptititon-management/add-update-module/add-update-module.component';
+import { VALIDATION_PATTERNS, PROVIDER_SELECTION_V1 } from '../../../../core/constant/constant';
+import { AuthService } from '../../../../core/services/auth.service';
+import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
 
 @Component({
   selector: 'app-compition-provider',
@@ -45,7 +47,7 @@ export class CompitionProviderComponent {
   statusUpdating: boolean = false;
   displayedColumns: string[] = ['srNo', 'provider_type','competition_id', 'competition_name', 'competitionRegion', "status","action"];
   dataSource = new MatTableDataSource<any>();
-  private api = inject(AuthService);
+  public api = inject(AuthService);
   private dialog = inject(MatDialog);
 
   constructor(private toastr: ToastrService) { }

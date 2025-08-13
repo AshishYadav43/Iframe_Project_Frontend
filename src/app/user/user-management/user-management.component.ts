@@ -32,10 +32,10 @@ import { AddEditUserPageComponent } from './add-edit-user-page/add-edit-user-pag
 })
 export class UserManagementComponent implements OnInit {
 
-  displayedColumns: string[] = ['srNo','name','userId', 'email', 'mobileNumber'];
+  displayedColumns: string[] = ['srNo', 'name', 'userId', 'email', 'mobileNumber'];
   dataSource = new MatTableDataSource<any>();
   showButton: boolean = false;
-  private api = inject(AuthService);
+  public api = inject(AuthService);
   private dialog = inject(MatDialog);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -100,4 +100,5 @@ export class UserManagementComponent implements OnInit {
     //   this.userService.deleteUser(user.id).subscribe(() => this.loadUsers());
     // }
   }
+
 }

@@ -34,7 +34,7 @@ export class BaseSportManagementComponent {
   displayedColumns: string[] = ['srNo', 'name', 'sportId','view', 'action'];
   dataSource = new MatTableDataSource<any>();
 
-  private api = inject(AuthService);
+  public api = inject(AuthService);
   private dialog = inject(MatDialog);
 
   constructor() {

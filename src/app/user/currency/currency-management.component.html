@@ -64,19 +64,22 @@
     <span>Currency Management</span>
     <span class="spacer"></span>
     <button mat-raised-button color="accent" (click)="openForm()"><mat-icon>add</mat-icon>Add Currency</button>
+    <button style="margin-left: 10px;" mat-raised-button color="accent" (click)="api.goBack()">
+        <mat-icon>arrow_back</mat-icon> Back
+    </button>
 </div>
 
 
 <!-- Currency Table -->
 <table mat-table [dataSource]="currencies" class="mat-elevation-z8 full-width-table">
 
-  <!-- S.No. -->
-  <ng-container matColumnDef="sno">
-    <th mat-header-cell *matHeaderCellDef>S.No.</th>
-    <td mat-cell *matCellDef="let row; let i = index">
-      {{ i + 1 }}
-    </td>
-  </ng-container>
+    <!-- S.No. -->
+    <ng-container matColumnDef="sno">
+        <th mat-header-cell *matHeaderCellDef>S.No.</th>
+        <td mat-cell *matCellDef="let row; let i = index">
+            {{ i + 1 }}
+        </td>
+    </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
@@ -84,7 +87,7 @@
         <td mat-cell *matCellDef="let element"> {{element?.name}} </td>
     </ng-container>
 
-          <ng-container matColumnDef="currencyId">
+    <ng-container matColumnDef="currencyId">
         <th mat-header-cell *matHeaderCellDef> Currency ID </th>
         <td mat-cell *matCellDef="let element"> {{element?.currencyId}} </td>
     </ng-container>

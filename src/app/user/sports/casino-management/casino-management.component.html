@@ -4,6 +4,9 @@
   <button mat-raised-button color="accent" (click)="openAddSport()">
     <mat-icon>add</mat-icon> Add Casino
   </button>
+  <button style="margin-left: 10px;" mat-raised-button color="accent" (click)="api.goBack()">
+    <mat-icon>arrow_back</mat-icon> Back
+  </button>
 </div>
 
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">

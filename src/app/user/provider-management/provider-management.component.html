@@ -5,6 +5,9 @@
   <button *ngIf="showButton" mat-raised-button color="accent" (click)="OpenProviderModule()">
     <mat-icon>add</mat-icon> Add Provider
   </button>
+  <button style="margin-left: 10px;" mat-raised-button color="accent" (click)="api.goBack()">
+    <mat-icon>arrow_back</mat-icon> Back
+  </button>
 </div>
 
 <!-- Table -->

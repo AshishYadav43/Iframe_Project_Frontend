@@ -34,7 +34,7 @@ export class UsedSportsIdsComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
 
-  private api = inject(AuthService);
+  public api = inject(AuthService);
 
   ngAfterViewInit() {
   this.dataList.paginator = this.paginator;

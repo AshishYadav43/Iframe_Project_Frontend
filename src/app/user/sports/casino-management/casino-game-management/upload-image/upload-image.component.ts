@@ -11,8 +11,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [
     CommonModule,
     MatDialogModule,
-    MatDialogContent,
-    MatDialogActions,
     MatIconModule,
     MatButtonModule,
     MatProgressSpinnerModule
