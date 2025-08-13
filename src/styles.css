@@ -161,7 +161,7 @@ input:-webkit-autofill:focus {
   padding: .5rem 1.5rem !important;
 }
 .button_container .submit_btn{
-  margin: 0.5rem 1.5rem !important;
+  margin: 0.5rem 1rem !important;
 }
 .mat-mdc-text-field-wrapper
 {
@@ -173,11 +173,11 @@ input:-webkit-autofill:focus {
 /* Active (checked) color */
 .mdc-switch__track::after {
     transform: translateX(-100%);
-    background: #24e213 !important;
+    background: #094b03 !important;
 }
 
 .mat-mdc-slide-toggle.mdc-switch--checked .mdc-switch__track {
-  background: #24e213 !important;
+  background: #094b03 !important;
 }
 
 .mdc-switch__track::before {
@@ -187,7 +187,7 @@ input:-webkit-autofill:focus {
 .mdc-switch--selected .mdc-switch__icon {
     width: var(--mdc-switch-selected-icon-size, 16px);
     height: var(--mdc-switch-selected-icon-size, 16px);
-    fill:#24e213  !important;
+    fill:#094b03  !important;
 }
 
 .mdc-switch--unselected .mdc-switch__icon {

@@ -2,7 +2,7 @@
 <mat-card class="user-card">
     <div class="dialog-header">
         <h2>{{ userData ? 'Edit Base' : 'Add Base' }}</h2>
-        <button mat-icon-button color="warn" (click)="onCancel()">
+        <button class="close_btn" mat-icon-button color="warn" (click)="onCancel()">
             <mat-icon>close</mat-icon>
         </button>
     </div>
@@ -100,7 +100,7 @@
             <!-- <button class="submit_btn" mat-raised-button color="primary" type="button" (click)="onCancel()">
                 Cancel
             </button> -->
-            <button class="submit_btn" mat-raised-button color="primary" type="submit" [disabled]="loading">
+            <button class="submit_btn submit_clr" mat-raised-button color="primary" type="submit" [disabled]="loading">
                 <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
                 {{ loading ? 'Saving...' : (userData ? 'Update' : 'Submit') }}
             </button>
