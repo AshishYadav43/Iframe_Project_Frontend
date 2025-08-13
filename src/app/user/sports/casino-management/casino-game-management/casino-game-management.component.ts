@@ -22,6 +22,7 @@ import { PatternRestrictDirective } from '../../../../core/directives/directives
 import { AddUpdateCasinoGameComponent } from './add-update-casino-game/add-update-casino-game.component';
 import { BulkUploadCasinoGameComponent } from './bulk-upload-casino-game/bulk-upload-casino-game.component';
 import { UploadImageComponent } from './upload-image/upload-image.component';
+import { ViewImageComponent } from './view-image/view-image.component';
 
 @Component({
   selector: 'app-casino-game-management',
@@ -45,7 +46,7 @@ import { UploadImageComponent } from './upload-image/upload-image.component';
   styleUrl: './casino-game-management.component.css'
 })
 export class CasinoGameManagementComponent {
-  displayedColumns: string[] = ['srNo', 'providerName', 'comapanyName', 'gameName', 'gameCode', 'uploadImage', 'actions'];
+  displayedColumns: string[] = ['srNo', 'providerName', 'comapanyName', 'gameName', 'gameCode', 'viewImage', 'uploadImage', 'actions'];
   dataSource = new MatTableDataSource<any>();
   showButton: boolean = true;
   private api = inject(AuthService);
@@ -117,6 +118,15 @@ export class CasinoGameManagementComponent {
       if (result) {
         this.getCasinoGame(); // refresh table
       }
+    });
+  }
+
+  openImageDialog(imageUrl: string) {
+    this.dialog.open(ViewImageComponent, {
+      data: { imageUrl },
+      width: '80%',
+      maxWidth: '600px',
+      panelClass: 'image-dialog-container'
     });
   }
 
