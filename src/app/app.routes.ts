@@ -47,6 +47,12 @@ export const routes: Routes = [
         path: 'countries',
         redirectTo: '/country-management?tab=1',
       },
+
+          {
+        path: 'provider',
+        redirectTo: '/country-management?tab=0'
+      },
+      
       {
         path: 'currencies',
         redirectTo: '/country-management?tab=2',

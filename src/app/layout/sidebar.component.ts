@@ -3,8 +3,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../core/services/auth.service';
 import { NgFor, NgIf } from '@angular/common';
+
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -34,6 +35,7 @@ export class SidebarComponent {
   ];
 
   addDefaultsjaved = [
+    { name: 'Provider', route: '/provider', icon: 'apartment' },
     { name: 'Country', route: '/countries', icon: 'public' },
     { name: 'Currency', route: '/currencies', icon: 'currency_exchange' },
     { name: 'Company', route: '/company', icon: 'business' }
