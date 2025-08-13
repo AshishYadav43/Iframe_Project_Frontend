@@ -61,6 +61,7 @@ export class AddUpdateCasinoGameComponent {
       company_type: ['', Validators.required],
       company: ['', Validators.required],
       casino: ['', Validators.required],
+      gameId: ['', [Validators.required, Validators.minLength(3)]],
       gameName: ['', [Validators.required, Validators.minLength(3)]],
       gameCode: ['', [Validators.required, Validators.minLength(3)]],
     });
@@ -82,6 +83,7 @@ export class AddUpdateCasinoGameComponent {
         casino: this.userData?.casino?._id,
         gameName: this.userData?.gameName,
         gameCode: this.userData?.gameCode,
+        gameId: this.userData?.gameId,
       });
     }
   }

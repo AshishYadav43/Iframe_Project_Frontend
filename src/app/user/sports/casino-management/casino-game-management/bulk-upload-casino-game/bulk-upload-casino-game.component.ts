@@ -57,7 +57,6 @@ export class BulkUploadCasinoGameComponent {
     this.getProvider();
     this.getCasino();
   }
-
   ngOnInit(): void {
     this.form = this.fb.group({
       provider: [this.userData?.provider?.id || '', Validators.required],

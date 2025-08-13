@@ -44,22 +44,32 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
+            <mat-label>Game Id</mat-label>
+            <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput
+                formControlName="gameId" placeholder="Enter Game Id">
+            <mat-error *ngIf="form.get('gameId')?.hasError('required')">Game id is required</mat-error>
+            <mat-error *ngIf="form.get('gameId')?.hasError('minlength')">
+                Game id must be at least 3 characters
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Game Code</mat-label>
+            <input maxlength="20" [appPatternRestrict]="pattern.alphabetsNumbersWithUnderscore" matInput
+                formControlName="gameCode" placeholder="Enter Game Name">
+            <mat-error *ngIf="form.get('gameCode')?.hasError('required')">Game code is required</mat-error>
+            <mat-error *ngIf="form.get('gameCode')?.hasError('minlength')">
+                Game code must be at least 3 characters
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
             <mat-label>Game Name</mat-label>
             <input maxlength="20" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput
                 formControlName="gameName" placeholder="Enter Game Name">
             <mat-error *ngIf="form.get('gameName')?.hasError('required')">Game name is required</mat-error>
             <mat-error *ngIf="form.get('gameName')?.hasError('minlength')">
                 Game name must be at least 3 characters
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Game Code</mat-label>
-            <input maxlength="20" [appPatternRestrict]="pattern.password" matInput
-                formControlName="gameCode" placeholder="Enter Game Name">
-            <mat-error *ngIf="form.get('gameCode')?.hasError('required')">Game code is required</mat-error>
-            <mat-error *ngIf="form.get('gameCode')?.hasError('minlength')">
-                Game code must be at least 3 characters
             </mat-error>
         </mat-form-field>
 

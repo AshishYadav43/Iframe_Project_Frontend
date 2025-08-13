@@ -12,6 +12,7 @@ export const VALIDATION_PATTERNS = {
   password: '^[^<>]*$',
   region: '^[a-zA-Z-]*$',
   floatNumber: '^[0-9.]*$',
+  alphabetsNumbersWithUnderscore: '^[A-Za-z0-9_]*$'
 };
 export const STATIC_SPORTS = {
   SOCCER: { id: 1, name: "soccer" },
