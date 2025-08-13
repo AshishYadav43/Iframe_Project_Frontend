@@ -22,7 +22,7 @@
 
   <a class="side-bar-link" [class.parent-active]="isParentActive(addDefaultsChildRoutes)" [routerLinkActive]="['active']"
     [routerLink]="['/sports-management']" mat-list-item (click)=" toggleAddDefaults()">
-    <mat-icon>sports</mat-icon> Add Defaults
+    <mat-icon>sports</mat-icon> Add Defaults Sports
   </a>
 
     <div *ngIf="showAddDefaults" class="nested-links">
@@ -56,7 +56,7 @@
 
   <a class="side-bar-link" [class.parent-active]="isParentActive(sportChildRoutes)"
     [routerLinkActive]="['active']" [routerLink]="['/country-management']" mat-list-item (click)="toggleDefaults()" >
-    <mat-icon>settings</mat-icon> Add Defaults Sports
+    <mat-icon>settings</mat-icon> Add Defaults 
   </a>
 
   <!-- Users -->
