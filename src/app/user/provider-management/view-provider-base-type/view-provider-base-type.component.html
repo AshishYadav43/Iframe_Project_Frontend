@@ -1,36 +1,20 @@
-<h2 mat-dialog-title class="dialog-title">
-  <mat-icon class="title-icon">sports</mat-icon>
-  Provider Base Sports
-</h2>
+<h2 mat-dialog-title>Base Sports</h2>
 
 <mat-dialog-content>
-  <ng-container *ngIf="data.sportTypes?.length > 0; else noSports">
-    <mat-card *ngFor="let sport of data.sportTypes" class="details-card">
-      <mat-card-title>
-        <mat-icon class="sport-icon">category</mat-icon>
-        {{ sport.sport_type_name }}
-      </mat-card-title>
-      <mat-card-content>
-        <div *ngIf="sport.sport_sub_type?.length > 0; else noSubTypes">
-          <div *ngFor="let sub of sport.sport_sub_type" class="sub-type-item">
-            <div class="sub-type-id">ID: {{ sub.id }}</div>
-            <div class="sub-type-name">SubType: {{ sub.name }}</div>
-          </div>
-        </div>
-        <ng-template #noSubTypes>
-          <p class="no-data">No sport sub types available.</p>
-        </ng-template>
-      </mat-card-content>
-    </mat-card>
-  </ng-container>
+  <mat-card class="details-card" *ngFor="let sport of data.sportTypes">
+    <mat-card-content>
+      <div class="sub-type-item">
+        <div class="sub-type-id">ID: {{ sport.sport_type_id }}</div>
+        <div class="sub-type-name">Name: {{ sport.sport_type_name }}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 
-  <ng-template #noSports>
-    <p class="no-data">No base sports available for this provider.</p>
-  </ng-template>
+  <ng-container *ngIf="!data.sportTypes || data.sportTypes.length === 0">
+    <p class="no-data">No sport types available.</p>
+  </ng-container>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-raised-button color="warn" (click)="dialogRef.close()">
-    <mat-icon>close</mat-icon> Close
-  </button>
+  <button mat-raised-button color="primary" (click)="dialogRef.close()">Close</button>
 </mat-dialog-actions>

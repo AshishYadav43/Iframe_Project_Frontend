@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-view-provider-base-type',
-  imports: [CommonModule, MatDialogModule, MatButtonModule, MatCardModule,MatIconModule],
+  imports: [CommonModule, MatDialogModule, MatButtonModule, MatCardModule,MatIconModule,NgIf],
   templateUrl: './view-provider-base-type.component.html',
   styleUrl: './view-provider-base-type.component.css'
 })
@@ -19,6 +19,11 @@ export class ViewProviderBaseTypeComponent {
   ) {
     console.log(data);
     
+  }
+
+
+  closeDialog(){
+
   }
 
 }
