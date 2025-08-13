@@ -12,6 +12,7 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { AuthService } from '../../core/services/auth.service';
 
 import { AddUpdateProviderComponent } from './add-update-provider/add-update-provider.component';
+import { ViewProviderBaseTypeComponent } from './view-provider-base-type/view-provider-base-type.component';
 
 @Component({
   selector: 'app-provider-management',
@@ -31,7 +32,7 @@ import { AddUpdateProviderComponent } from './add-update-provider/add-update-pro
 })
 export class ProviderManagementComponent {
 
-  displayedColumns: string[] = ['srNo', 'id', 'name', 'actions'];
+  displayedColumns: string[] = ['srNo', 'id', 'name','view', 'actions'];
   dataSource = new MatTableDataSource<any>();
   showButton: boolean = true;
   public api = inject(AuthService);
@@ -68,6 +69,7 @@ export class ProviderManagementComponent {
     });
   }
 
+
   getProvider() {
     this.api.getProvider().subscribe({
       next: (res: any) => {
@@ -76,5 +78,14 @@ export class ProviderManagementComponent {
         this.dataSource.sort = this.sort;
       }
     })
+  }
+
+  openViewDialog(baseSports: any[]) {
+    this.dialog.open(ViewProviderBaseTypeComponent, {
+      width: '500px',
+      data: {
+        sportTypes: baseSports || []
+      }
+    });
   }
 }
