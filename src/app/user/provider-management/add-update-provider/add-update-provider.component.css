@@ -19,8 +19,10 @@ mat-form-field {
   display: flex;
   flex-direction: row-reverse;
   flex-wrap: nowrap;
-  background-color:#dddddd3b;
+  /* background-color:#dddddd3b; */
+  background-color: black;
   border: 1px solid #ddd ;
+
 }
 
 .submit_btn {

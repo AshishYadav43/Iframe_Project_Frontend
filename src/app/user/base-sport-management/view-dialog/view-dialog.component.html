@@ -1,12 +1,16 @@
-<h2 mat-dialog-title>{{ data.sportTypeName }} details</h2>
-
+<div class="header_container">
+  <h2 mat-dialog-title>{{ data.sportTypeName }} details</h2>
+  <button class="close_btn" mat-icon-button color="warn" (click)="onCancel()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
 <mat-dialog-content>
   <mat-card class="details-card">
     <mat-card-content>
       <div *ngIf="data.sportSubTypes.length > 0; else noData">
         <div *ngFor="let sub of data.sportSubTypes" class="sub-type-item">
-          <div class="sub-type-id">ID: {{ sub.id }}</div>
           <div class="sub-type-name">Name: {{ sub.name }}</div>
+          <div class="sub-type-id">ID: {{ sub.id }}</div>
         </div>
       </div>
       <ng-template #noData>
@@ -16,6 +20,6 @@
   </mat-card>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-raised-button color="primary" (click)="dialogRef.close()">Close</button>
+<mat-dialog-actions class="close_container" align="end">
+  <button class="cancel_btn" mat-raised-button color="primary" (click)="dialogRef.close()">Close</button>
 </mat-dialog-actions>

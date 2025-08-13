@@ -1,11 +1,16 @@
-<h2 mat-dialog-title>Base Sports</h2>
+<div class="header_container">
+  <h2 mat-dialog-title>Base Sports</h2>
+  <button class="close_btn" mat-icon-button color="warn" (click)="onCancel()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
 
 <mat-dialog-content>
-  <mat-card class="details-card" *ngFor="let sport of data.sportTypes">
+  <mat-card  *ngFor="let sport of data.sportTypes">
     <mat-card-content>
       <div class="sub-type-item">
-        <div class="sub-type-id">ID: {{ sport.sport_type_id }}</div>
         <div class="sub-type-name">Name: {{ sport.sport_type_name }}</div>
+        <div class="sub-type-id">ID: {{ sport.sport_type_id }}</div>
       </div>
     </mat-card-content>
   </mat-card>
@@ -15,6 +20,6 @@
   </ng-container>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-raised-button color="primary" (click)="dialogRef.close()">Close</button>
+<mat-dialog-actions style="background-color: black;" align="end">
+  <button class="cancel_btn" mat-raised-button color="primary" (click)="dialogRef.close()">Close</button>
 </mat-dialog-actions>

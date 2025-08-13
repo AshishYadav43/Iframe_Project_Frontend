@@ -26,4 +26,7 @@ export class ViewProviderBaseTypeComponent {
 
   }
 
+  onCancel() {
+    this.dialogRef.close();
+  }
 }
