@@ -115,6 +115,10 @@ export class AuthService {
     return this.http.post(`${this.baseUserUrl}/competition/get-competition-event-markets`, data);
   }
 
+  // getJsonDetails(data: any = {}): Observable<any> {
+  //   return this.http.post(`${this.baseUserUrl}/competition/get-competition-event-markets`, data);
+  // }
+
   getCompany(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/company/lists`, data);
   }

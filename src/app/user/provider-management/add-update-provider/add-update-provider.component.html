@@ -30,6 +30,18 @@
       </mat-error>
     </mat-form-field>
 
+    <mat-form-field appearance="outline">
+      <mat-label>Select Base Sports</mat-label>
+      <mat-select formControlName="baseSports" multiple>
+        <mat-option *ngFor="let sport of baseSportsList" [value]="sport._id">
+          {{ sport.sport_type_name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('baseSports')?.hasError('required')">
+        At least one base sport is required
+      </mat-error>
+    </mat-form-field>
+
     <!-- Submit Button -->
     <div class="button_container">
        <button class="submit_btn submit_clr" mat-raised-button color="primary" type="submit" [disabled]="loading">

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Location } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-json-details',
@@ -9,9 +10,11 @@ import { Location } from '@angular/common';
   styleUrl: './json-details.component.css'
 })
 export class JsonDetailsComponent {
+  jsontData: any
 
   ngOnInit(): void {
-    const eventData = history.state.marketData;
+    this.jsontData = history.state.marketData;
+    // this.getJsonDetails()
   }
   jsonData = {
     "_id": "6899c1d7066eae2cd61a523d",
@@ -30,7 +33,9 @@ export class JsonDetailsComponent {
     "numberOfActiveRunners": 2
   };
 
-  constructor(private location: Location) { }
+  constructor(private location: Location,
+    private http: HttpClient
+  ) { }
 
   goBack() {
     this.location.back();
@@ -38,5 +43,11 @@ export class JsonDetailsComponent {
 
   copyJson() {
     navigator.clipboard.writeText(JSON.stringify(this.jsonData, null, 2));
+  }
+
+  getJsonDetails() {
+    this.http.get(`http://212.71.239.148:6050/api/newmarkets/${this.jsontData.eventId}/${this.jsontData.marketId}`, {})
+      .subscribe((res: any) => {
+      })
   }
 }
