@@ -19,6 +19,11 @@
     <mat-icon>security</mat-icon> Roles
   </a>
 
+  <a class="side-bar-link" [class.parent-active]="isParentActive(addDefaultsChildRoutes)"
+    [routerLinkActive]="['active']" [routerLink]="['/country-management']" mat-list-item (click)="toggleDefaults()">
+    <mat-icon>settings</mat-icon> Add Defaults
+  </a>
+
   <!-- Add Defaults Sports -->
   <a class="side-bar-link" [class.parent-active]="isParentActive(sportChildRoutes)" [routerLinkActive]="['active']"
     [routerLink]="['/sports-management']" mat-list-item (click)="toggleAddDefaults()">
@@ -56,10 +61,7 @@
   </div>
 
   <!-- Add Defaults -->
-  <a class="side-bar-link" [class.parent-active]="isParentActive(addDefaultsChildRoutes)"
-    [routerLinkActive]="['active']" [routerLink]="['/country-management']" mat-list-item (click)="toggleDefaults()">
-    <mat-icon>settings</mat-icon> Add Defaults
-  </a>
+  
 
   <div *ngIf="showAddDefault" class="nested-links">
     <a *ngFor="let item of addDefaultsjaved" class="side-bar-link" mat-list-item [routerLinkActive]="['active']"

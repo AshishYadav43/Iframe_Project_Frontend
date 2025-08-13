@@ -11,7 +11,7 @@
 
         <mat-form-field appearance="outline">
             <mat-label>Type Name</mat-label>
-            <input maxlength="20" [appPatternRestrict]="pattern.alphabets" matInput formControlName="sport_type_name"
+            <input maxlength="20" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput formControlName="sport_type_name"
                 placeholder="Enter Type Name">
             <mat-error *ngIf="form.get('sport_type_name')?.hasError('required')">Type name is required</mat-error>
             <mat-error *ngIf="form.get('sport_type_name')?.hasError('minlength')">

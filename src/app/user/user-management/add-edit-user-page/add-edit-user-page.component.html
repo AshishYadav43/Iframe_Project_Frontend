@@ -67,7 +67,7 @@
     <!-- Mobile Number -->
     <mat-form-field appearance="outline">
       <mat-label>Mobile Number</mat-label>
-      <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="mobileNumber"
+      <input maxlength="15" [appPatternRestrict]="pattern.mobile" matInput formControlName="mobileNumber"
         placeholder="Enter your Mobile Number">
       <mat-error *ngIf="form.get('mobileNumber')?.hasError('required')">Mobile number is required</mat-error>
     </mat-form-field>

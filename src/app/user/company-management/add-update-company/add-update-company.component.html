@@ -60,7 +60,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" maxlength="20" placeholder="Enter Company Name"
-        [appPatternRestrict]="pattern.alphabets" />
+        [appPatternRestrict]="pattern.alphaNumericWithSpace" />
       <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
     </mat-form-field>
 
@@ -85,11 +85,11 @@
           <mat-error *ngIf="path.get('value')?.invalid && path.get('value')?.touched">API Path is required</mat-error>
         </mat-form-field>
 
-        <button *ngIf="apiPaths.length > 1" mat-icon-button color="warn" (click)="removeApiPath(i)">
+        <button type="button" *ngIf="apiPaths.length > 1" mat-icon-button color="warn" (click)="removeApiPath(i)">
           <mat-icon>delete</mat-icon>
         </button>
 
-        <button *ngIf="i == apiPaths.length - 1" mat-icon-button color="primary" (click)="addApiPath()">
+        <button type="button" *ngIf="i == apiPaths.length - 1" mat-icon-button color="primary" (click)="addApiPath()">
           <mat-icon>add</mat-icon>
         </button>
       </div>
@@ -150,10 +150,10 @@
 
   <!-- Add/Remove -->
   <div class="sport-buttons">
-    <button *ngIf="sportTypeAndSubTypeModel.length > 1" mat-icon-button color="warn" (click)="removeSportTypeGroup(i)">
+    <button type="button" *ngIf="sportTypeAndSubTypeModel.length > 1" mat-icon-button color="warn" (click)="removeSportTypeGroup(i)">
       <mat-icon>delete</mat-icon>
     </button>
-    <button *ngIf="i == sportTypeAndSubTypeModel.length - 1" mat-icon-button color="primary"
+    <button type="button" *ngIf="i == sportTypeAndSubTypeModel.length - 1" mat-icon-button color="primary"
       (click)="addSportTypeGroup()">
       <mat-icon>add</mat-icon>
     </button>

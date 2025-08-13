@@ -1,21 +1,25 @@
 @import 'ngx-toastr/toastr';
 
 /* You can add global styles to this file, and also import other style files */
-*{
+* {
   box-sizing: border-box;
 }
 
-html, body { height: 90%; }
-body { 
-  background-color: #F0EEE8;
-  margin: 0; 
-  font-family: Roboto, "Helvetica Neue", sans-serif; 
+html,
+body {
+  height: 90%;
 }
 
-.mat-mdc-dialog-surface  {
+body {
+  background-color: #F0EEE8;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-mdc-dialog-surface {
   scrollbar-width: none;
   border-radius: 0 !important;
-} 
+}
 
 /* GLOBAL STYLING FOR Angular Material 19.x (MDC-based) */
 .custominput .mat-mdc-form-field {
@@ -47,26 +51,29 @@ body {
 .custominput .mat-mdc-form-field .mat-mdc-form-field-error {
   color: #ff4d4f !important;
 }
+
 .sidenav-container {
-  height: 100vh; /* or 100% if parent has height set */
-  width: 100%; /* 100vw */
+  height: 100vh;
+  /* or 100% if parent has height set */
+  width: 100%;
+  /* 100vw */
 }
 
 mat-sidenav {
-  width: 240px !important; 
+  width: 240px !important;
   /* set your desired sidebar width */
-background: linear-gradient(to bottom, #2d2018 40%, #000000 100%);
+  background: linear-gradient(to bottom, #2d2018 40%, #000000 100%);
 }
 
 mat-sidenav:after {
-    content: "";
-    position: absolute;
-    display: block;
-    z-index: -1;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background: url('./assets/images/bg_pattern-767b8c36.png') 0 bottom repeat-x;
+  content: "";
+  position: absolute;
+  display: block;
+  z-index: -1;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: url('./assets/images/bg_pattern-767b8c36.png') 0 bottom repeat-x;
 }
 
 mat-toolbar.header-toolbar {
@@ -77,16 +84,18 @@ mat-toolbar.header-toolbar {
 }
 
 .main-content {
-  height: calc(100vh - 64px); /* adjust if your toolbar height is different */
+  height: calc(100vh - 64px);
+  /* adjust if your toolbar height is different */
   overflow: auto;
 }
 
 
 
 /* Active route style */
- .active .mdc-list-item__primary-text {
-  background-color:rgba(255, 255, 255, 0.1) !important; /* active background */
-  color: #ffd700 !important; 
+.active .mdc-list-item__primary-text {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  /* active background */
+  color: #ffd700 !important;
 }
 
 
@@ -95,15 +104,15 @@ mat-toolbar.header-toolbar {
 }  */
 
 
-input:-internal-autofill-selected{
+input:-internal-autofill-selected {
   background-color: transparent !important;
 }
 
-.mat-mdc-form-field.mat-form-field-animations-enabled .mdc-text-field__input::autofill{
+.mat-mdc-form-field.mat-form-field-animations-enabled .mdc-text-field__input::autofill {
   background-color: transparent !important;
 }
- 
- input,
+
+input,
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
@@ -117,7 +126,8 @@ input:-webkit-autofill:focus {
   border-radius: 15px !important;
   overflow: clip;
 }
-.mat-drawer-container{
+
+.mat-drawer-container {
   background-color: transparent !important;
 }
 
@@ -127,71 +137,85 @@ input:-webkit-autofill:focus {
 /* START - Zain bhai*/
 
 .mat-mdc-tab-label-container .mat-mdc-tab-labels {
-    display: flex;
-    flex: 1 0 auto;
-    max-width: 75%;
-    gap: 10px;
-    margin-bottom: 10px;
+  display: flex;
+  flex: 1 0 auto;
+  max-width: 75%;
+  gap: 10px;
+  margin-bottom: 10px;
 }
-.mat-mdc-tab-label-container .mat-focus-indicator.mdc-tab--active{
+
+.mat-mdc-tab-label-container .mat-focus-indicator.mdc-tab--active {
   background: #000 !important;
 }
-.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab{
-    border: 3px solid #000;
-    background: #fff;
-    border-radius: 30px;
+
+.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
+  border: 3px solid #000;
+  background: #fff;
+  border-radius: 30px;
 }
-.mat-mdc-tab-label-container .mat-focus-indicator.mdc-tab--active{
-    border: 3px solid #f2c94c !important;
-    background: #000000;
+
+.mat-mdc-tab-label-container .mat-focus-indicator.mdc-tab--active {
+  border: 3px solid #f2c94c !important;
+  background: #000000;
 }
-.mat-mdc-tab-label-container .mat-focus-indicator.mdc-tab--active .mdc-tab__text-label{
+
+.mat-mdc-tab-label-container .mat-focus-indicator.mdc-tab--active .mdc-tab__text-label {
   color: #f2c94c !important;
-    margin-top: -5px;
+  margin-top: -5px;
 }
-.mat-mdc-tab-label-container .mat-mdc-tab .mdc-tab-indicator__content--underline{
+
+.mat-mdc-tab-label-container .mat-mdc-tab .mdc-tab-indicator__content--underline {
   border-width: 0 !important;
 }
-.mat-mdc-tab-label-container .mat-mdc-tab-labels { 
-    max-width: 50% !important;
+
+.mat-mdc-tab-label-container .mat-mdc-tab-labels {
+  max-width: 50% !important;
 }
+
 /* END - Zain bhai*/
 
-.dialog-header{
+.dialog-header {
   padding: .5rem 1.5rem !important;
 }
-.button_container .submit_btn{
+
+.button_container .submit_btn {
   margin: 0.5rem 1rem !important;
 }
-.mat-mdc-text-field-wrapper
-{
+
+.mat-mdc-text-field-wrapper {
   height: 50px !important;
 }
+
 /* END - zain bhai */
 
 
 /* Active (checked) color */
 .mdc-switch__track::after {
-    transform: translateX(-100%);
-    background: #094b03 !important;
+  transform: translateX(-100%);
+  background: darkgreen !important;
 }
 
 .mat-mdc-slide-toggle.mdc-switch--checked .mdc-switch__track {
-  background: #094b03 !important;
+  background: darkgreen !important;
 }
 
 .mdc-switch__track::before {
-    transform: translateX(-100%);
-    background: #e60d06 !important;
+  transform: translateX(-100%);
+  background: darkred !important;
 }
+
 .mdc-switch--selected .mdc-switch__icon {
-    width: var(--mdc-switch-selected-icon-size, 16px);
-    height: var(--mdc-switch-selected-icon-size, 16px);
-    fill:#094b03  !important;
+  width: var(--mdc-switch-selected-icon-size, 16px);
+  height: var(--mdc-switch-selected-icon-size, 16px);
+  fill: darkgreen !important;
 }
 
 .mdc-switch--unselected .mdc-switch__icon {
-    width: var(--mdc-switch-unselected-icon-size, 16px);
-    height: var(--mdc-switch-unselected-icon-size, 16px);
-    fill: #e60d06 !important;
+  width: var(--mdc-switch-unselected-icon-size, 16px);
+  height: var(--mdc-switch-unselected-icon-size, 16px);
+  fill: darkred !important;
+}
+
+.mdc-switch--unselected:enabled .mdc-switch__handle::after {
+  background: #ffffff !important;
 }
