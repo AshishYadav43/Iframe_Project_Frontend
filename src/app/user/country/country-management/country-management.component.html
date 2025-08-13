@@ -57,6 +57,12 @@
 
 
 <mat-tab-group [(selectedIndex)]="selectedTabIndex">
+  <mat-tab label="Provider">
+    <ng-template matTabContent>
+      <app-provider-management></app-provider-management>
+    </ng-template>
+  </mat-tab>
+  
   <mat-tab label="Country">
     <ng-template matTabContent>
 
@@ -167,9 +173,5 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab label="Provider">
-    <ng-template matTabContent>
-      <app-provider-management></app-provider-management>
-    </ng-template>
-  </mat-tab>
+  
 </mat-tab-group>

@@ -2,22 +2,22 @@ import { Routes } from '@angular/router';
 
 import { LayoutComponent } from './layout/layout/layout.component'; // make sure this is created
 import { UserManagementComponent } from './user/user-management/user-management.component';
+import { BaseSportManagementComponent } from './user/base-sport-management/base-sport-management.component';
 import { CompanyManagementComponent } from './user/company-management/company-management.component';
 import { ComptititonManagementComponent } from './user/comptititon-management/comptititon-management.component';
 import { CurrencyManagementComponent } from './user/currency/currency-management.component';
 import { ModuleManagementComponent } from './user/module-management/module-management.component';
 import { RoleManagementComponent } from './user/role-management/role-management.component';
+import { UsedSportsIdsComponent } from './user/SportsId/used-sports-ids/used-sports-ids.component';
+import { ComptitionComponent } from './user/comptition/comptition/comptition.component';
+import { JsonDetailsComponent } from './user/comptition/json-details/json-details.component';
+import { MarketComponent } from './user/comptition/market/market.component';
 import { CountryManagementComponent } from './user/country/country-management/country-management.component';
 import { LoginPermissionManagementComponent } from './user/setting/login-permission-management/login-permission-management.component';
-import { SportManagementComponent } from './user/sports/sport-management/sport-management.component';
-import { UsedSportsIdsComponent } from './user/SportsId/used-sports-ids/used-sports-ids.component';
-import { BaseSportManagementComponent } from './user/base-sport-management/base-sport-management.component';
 import { CasinoManagementComponent } from './user/sports/casino-management/casino-management.component';
-import { CompitionProviderComponent } from './user/sports/sport-management/compition-provider/compition-provider.component';
-import { ComptitionComponent } from './user/comptition/comptition/comptition.component';
+import { SportManagementComponent } from './user/sports/sport-management/sport-management.component';
 import { EventComponent } from './user/comptition/comptition/event/event.component';
-import { MarketComponent } from './user/comptition/market/market.component';
-import { JsonDetailsComponent } from './user/comptition/json-details/json-details.component';
+import { CompitionProviderComponent } from './user/sports/sport-management/compition-provider/compition-provider.component';
 
 export const routes: Routes = [
   {
@@ -45,16 +45,16 @@ export const routes: Routes = [
       },
       {
         path: 'countries',
-        redirectTo: '/country-management?tab=0',
+        redirectTo: '/country-management?tab=1',
       },
       {
         path: 'currencies',
-        redirectTo: '/country-management?tab=1',
+        redirectTo: '/country-management?tab=2',
 
       },
       {
         path: 'company',
-        redirectTo: '/country-management?tab=2',
+        redirectTo: '/country-management?tab=3',
       },
       {
         path: 'sports',
