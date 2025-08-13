@@ -1,5 +1,5 @@
 import { Component, inject, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -39,7 +39,8 @@ import { AddUpdateCurrencyComponent } from './add-update-currency/add-update-cur
     MatSelectModule,
     MatCheckboxModule,
     PatternRestrictDirective,
-    MatSlideToggle
+    MatSlideToggle,
+    TitleCasePipe
   ],
   templateUrl: './currency-management.component.html',
   styleUrl: './currency-management.component.css'

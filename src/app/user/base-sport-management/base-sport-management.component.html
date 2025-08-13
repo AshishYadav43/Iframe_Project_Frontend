@@ -26,7 +26,7 @@
 <!-- Name -->
 <ng-container matColumnDef="name">
   <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-  <td mat-cell *matCellDef="let row">{{ row?.sport_type_name }}</td>
+  <td mat-cell *matCellDef="let row">{{ row?.sport_type_name | titlecase }}</td>
 </ng-container>
 
 <ng-container matColumnDef="subtypeid">
@@ -36,7 +36,7 @@
 
 <ng-container matColumnDef="subtypename">
   <th mat-header-cell *matHeaderCellDef mat-sort-header>Sub Type Name</th>
-  <td mat-cell *matCellDef="let row">{{getSubtypeNames(row) }}</td>
+  <td mat-cell *matCellDef="let row">{{getSubtypeNames(row) | titlecase }}</td>
 </ng-container>
   <!-- Actions -->
   <!-- <ng-container matColumnDef="actions">

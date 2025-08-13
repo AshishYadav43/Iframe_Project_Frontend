@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -47,7 +47,8 @@ import { AddEditSportPageComponent } from './add-edit-sport-page/add-edit-sport-
     CasinoManagementComponent,
     MatOption,
     MatSlideToggle,
-    CasinoGameManagementComponent
+    CasinoGameManagementComponent,
+    TitleCasePipe
   ],
   templateUrl: './sport-management.component.html',
   styleUrl: './sport-management.component.css'

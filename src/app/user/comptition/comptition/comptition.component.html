@@ -1,9 +1,9 @@
 <!-- Table Header -->
- <div class="filter-section">
+<div class="filter-section">
     <mat-form-field class="filter-input" appearance="outline">
         <mat-label>Competition Name</mat-label>
-        <input [appPatternRestrict]="pattern.alphaNumericWithSpace" maxlength="20" matInput [(ngModel)]="filterValues.competitionName"
-            placeholder="Search Name">
+        <input [appPatternRestrict]="pattern.alphaNumericWithSpace" maxlength="20" matInput
+            [(ngModel)]="filterValues.competitionName" placeholder="Search Name">
     </mat-form-field>
 
     <mat-form-field class="filter-input" appearance="outline">
@@ -35,8 +35,8 @@
 <div class="table-header">
     <span>Competition Management</span>
     <button style="margin-left: 10px;" mat-raised-button color="accent" (click)="api.goBack()">
-    <mat-icon>arrow_back</mat-icon> Back
-  </button>
+        <mat-icon>arrow_back</mat-icon> Back
+    </button>
     <!-- <span class="spacer"></span> -->
     <!-- <button mat-raised-button color="accent" > -->
     <!-- <mat-icon>add</mat-icon> Add Competition -->
@@ -66,25 +66,25 @@
 
     <ng-container matColumnDef="competition_name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Competition Name</th>
-        <td mat-cell *matCellDef="let row">{{ row.competitionName }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.competitionName | titlecase}}</td>
     </ng-container>
 
     <ng-container matColumnDef="competitionRegion">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Competition Region</th>
-        <td mat-cell *matCellDef="let row">{{ row?.competitionRegion }}</td>
+        <td mat-cell *matCellDef="let row">{{ row?.competitionRegion | titlecase}}</td>
     </ng-container>
 
-       <ng-container matColumnDef="sport">
+    <ng-container matColumnDef="sport">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Sport Name</th>
-        <td mat-cell *matCellDef="let row">{{ row?.sport?.sport_name }}</td>
+        <td mat-cell *matCellDef="let row">{{ row?.sport?.sport_name | titlecase }}</td>
     </ng-container>
 
-     <ng-container matColumnDef="eventCount">
+    <ng-container matColumnDef="eventCount">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Event Count</th>
         <td mat-cell *matCellDef="let row">{{ row?.eventCount }}</td>
     </ng-container>
 
-     <ng-container matColumnDef="marketCount">
+    <ng-container matColumnDef="marketCount">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Market Count</th>
         <td mat-cell *matCellDef="let row">{{ row?.marketCount }}</td>
     </ng-container>
@@ -98,13 +98,13 @@
     </ng-container> -->
 
     <ng-container matColumnDef="action">
-  <th mat-header-cell *matHeaderCellDef>Action</th>
-  <td mat-cell *matCellDef="let row">
-    <button mat-raised-button class="event-btn" (click)="goToEventPage(row)">
-      Event
-    </button>
-  </td>
-</ng-container>
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let row">
+            <button mat-raised-button class="event-btn" (click)="goToEventPage(row)">
+                Event
+            </button>
+        </td>
+    </ng-container>
 
 
 

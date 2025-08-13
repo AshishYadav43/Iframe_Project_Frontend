@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, inject, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -35,7 +35,8 @@ import { AddUpdateCompanyComponent } from './add-update-company/add-update-compa
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatSlideToggle
+    MatSlideToggle,
+    TitleCasePipe
   ],
   templateUrl: './company-management.component.html',
   styleUrl: './company-management.component.css'

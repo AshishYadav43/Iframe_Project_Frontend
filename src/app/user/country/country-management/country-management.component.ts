@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -45,7 +45,8 @@ import { AddUpdateCountryComponent } from './add-update-country/add-update-count
     CurrencyManagementComponent,
     CompanyManagementComponent,
     MatSlideToggle,
-    ProviderManagementComponent
+    ProviderManagementComponent,
+    TitleCasePipe
   ],
   templateUrl: './country-management.component.html',
   styleUrls: ['./country-management.component.css'],
@@ -199,46 +200,46 @@ export class CountryManagementComponent implements OnInit {
   //   })
   // }
 
-toggleStatus(user: any) {
-  const prevStatus = user.status;
-  const action = user.status == 1 ? 'block' : 'unblock'; // assuming 1=active, 2=blocked
+  toggleStatus(user: any) {
+    const prevStatus = user.status;
+    const action = user.status == 1 ? 'block' : 'unblock'; // assuming 1=active, 2=blocked
 
-  user.status = user.status == 1 ? 2 : 1;
+    user.status = user.status == 1 ? 2 : 1;
 
-  this.dialog.open(MessageDialogComponent, {
-    width: '600px',
-    data: { action, name: "Country", data: user }
-  }).afterClosed().subscribe(result => {
-    if (result) {
-      this.statusUpdating = true;
+    this.dialog.open(MessageDialogComponent, {
+      width: '600px',
+      data: { action, name: "Country", data: user }
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.statusUpdating = true;
 
-      const payload = {
-        _id: user._id,
-        updatedData: {
-          status: user.status // already toggled above
-        }
-      };
-
-      this.api.updateCountry(payload)
-        .pipe(finalize(() => this.statusUpdating = false))
-        .subscribe({
-          next: (res: any) => {
-            this.toastr.success("Status updated successfully");
-            this.getAllCountries();
-            // UI already updated optimistically
-          },
-          error: (err) => {
-            this.toastr.error("Failed to update status");
-            // Revert UI on API error
-            user.status = prevStatus;
+        const payload = {
+          _id: user._id,
+          updatedData: {
+            status: user.status // already toggled above
           }
-        });
-    } else {
-      // User cancelled — revert UI toggle back
-      user.status = prevStatus;
-    }
-  });
-}
+        };
+
+        this.api.updateCountry(payload)
+          .pipe(finalize(() => this.statusUpdating = false))
+          .subscribe({
+            next: (res: any) => {
+              this.toastr.success("Status updated successfully");
+              this.getAllCountries();
+              // UI already updated optimistically
+            },
+            error: (err) => {
+              this.toastr.error("Failed to update status");
+              // Revert UI on API error
+              user.status = prevStatus;
+            }
+          });
+      } else {
+        // User cancelled — revert UI toggle back
+        user.status = prevStatus;
+      }
+    });
+  }
 
 
   openUpdateCompany(data: any) {

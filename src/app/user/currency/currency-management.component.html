@@ -84,7 +84,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element?.name}} </td>
+        <td mat-cell *matCellDef="let element"> {{element?.name | titlecase}} </td>
     </ng-container>
 
     <ng-container matColumnDef="currencyId">
@@ -107,7 +107,7 @@
     <!-- Country Column -->
     <ng-container matColumnDef="country">
         <th mat-header-cell *matHeaderCellDef> Country </th>
-        <td mat-cell *matCellDef="let element"> {{element?.country?.countryName}} </td>
+        <td mat-cell *matCellDef="let element"> {{element?.country?.countryName | titlecase}} </td>
     </ng-container>
 
 

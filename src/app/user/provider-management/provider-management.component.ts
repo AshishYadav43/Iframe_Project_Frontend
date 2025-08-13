@@ -1,4 +1,4 @@
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule, NgIf, TitleCasePipe } from '@angular/common';
 import { Component, inject, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,14 +25,15 @@ import { ViewProviderBaseTypeComponent } from './view-provider-base-type/view-pr
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    NgIf
+    NgIf,
+    TitleCasePipe
   ],
   templateUrl: './provider-management.component.html',
   styleUrl: './provider-management.component.css'
 })
 export class ProviderManagementComponent {
 
-  displayedColumns: string[] = ['srNo', 'id', 'name','view', 'actions'];
+  displayedColumns: string[] = ['srNo', 'id', 'name', 'view', 'actions'];
   dataSource = new MatTableDataSource<any>();
   showButton: boolean = true;
   public api = inject(AuthService);

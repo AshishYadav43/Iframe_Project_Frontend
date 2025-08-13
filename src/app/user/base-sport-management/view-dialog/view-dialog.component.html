@@ -1,5 +1,5 @@
 <div class="header_container">
-  <h2 mat-dialog-title>{{ data.sportTypeName }} details</h2>
+  <h2 mat-dialog-title>{{ data.sportTypeName | titlecase }} Details</h2>
   <button class="close_btn" mat-icon-button color="warn" (click)="onCancel()">
     <mat-icon>close</mat-icon>
   </button>
@@ -9,7 +9,7 @@
     <mat-card-content>
       <div *ngIf="data.sportSubTypes.length > 0; else noData">
         <div *ngFor="let sub of data.sportSubTypes" class="sub-type-item">
-          <div class="sub-type-name">Name: {{ sub.name }}</div>
+          <div class="sub-type-name">Name: {{ sub.name | titlecase}}</div>
           <div class="sub-type-id">ID: {{ sub.id }}</div>
         </div>
       </div>

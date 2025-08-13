@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -41,6 +41,7 @@ import { ViewImageComponent } from './view-image/view-image.component';
     MatInputModule,
     MatSelectModule,
     MatOption,
+    TitleCasePipe
   ],
   templateUrl: './casino-game-management.component.html',
   styleUrl: './casino-game-management.component.css'

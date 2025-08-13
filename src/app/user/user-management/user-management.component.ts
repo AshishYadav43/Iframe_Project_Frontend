@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule, NgIf, TitleCasePipe } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -25,7 +25,8 @@ import { AddEditUserPageComponent } from './add-edit-user-page/add-edit-user-pag
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    NgIf
+    NgIf,
+    TitleCasePipe
   ],
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.css']

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, inject, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,6 +22,7 @@ import { AuthService } from '../../core/services/auth.service';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
+    TitleCasePipe
   ],
   templateUrl: './role-management.component.html',
   styleUrl: './role-management.component.css'
@@ -78,8 +79,8 @@ export class RoleManagementComponent {
   }
 
   openLoginPermisson(data: any) {
-     this.router.navigate(['/loginPermission'], {
-    state: { roleData: data }
-  });
+    this.router.navigate(['/loginPermission'], {
+      state: { roleData: data }
+    });
   }
 }

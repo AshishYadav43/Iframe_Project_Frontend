@@ -45,12 +45,12 @@
 
     <ng-container matColumnDef="eventname">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Event Name</th>
-        <td mat-cell *matCellDef="let row">{{ row?.eventName }}</td>
+        <td mat-cell *matCellDef="let row">{{ row?.eventName | titlecase }}</td>
     </ng-container>
 
     <ng-container matColumnDef="compid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>CompId/Name</th>
-        <td mat-cell *matCellDef="let row">{{ row.competitionName }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.competitionName | titlecase }}</td>
     </ng-container>
 
     <ng-container matColumnDef="date">
@@ -60,7 +60,7 @@
 
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Sport Name</th>
-        <td mat-cell *matCellDef="let row">{{ row?.sportType }}</td>
+        <td mat-cell *matCellDef="let row">{{ row?.sportType | titlecase }}</td>
     </ng-container>
 
     <ng-container matColumnDef="marketcount">

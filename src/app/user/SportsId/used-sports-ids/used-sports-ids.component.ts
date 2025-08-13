@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { AuthService } from '../../../core/services/auth.service';
+import { CamelCaseToWordsPipe } from '../../../core/pipe/camel-case-to-words.pipe';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-used-sports-ids',
@@ -20,7 +22,10 @@ import { AuthService } from '../../../core/services/auth.service';
     MatIconModule,
     MatFormFieldModule,
     MatTabsModule,
-    MatInputModule,],
+    MatInputModule,
+    CamelCaseToWordsPipe,
+    TitleCasePipe
+  ],
   templateUrl: './used-sports-ids.component.html',
   styleUrl: './used-sports-ids.component.css'
 })

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -24,14 +24,15 @@ import { ViewDialogComponent } from './view-dialog/view-dialog.component';
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    TitleCasePipe
   ],
   templateUrl: './base-sport-management.component.html',
   styleUrl: './base-sport-management.component.css'
 })
 export class BaseSportManagementComponent {
 
-  displayedColumns: string[] = ['srNo', 'name', 'sportId','view', 'action'];
+  displayedColumns: string[] = ['srNo', 'name', 'sportId', 'view', 'action'];
   dataSource = new MatTableDataSource<any>();
 
   public api = inject(AuthService);
@@ -79,15 +80,15 @@ export class BaseSportManagementComponent {
     });
   }
 
-openViewDialog(row: any) {
-  this.dialog.open(ViewDialogComponent, {
-    width: '450px',
-    data: {
-      sportTypeName: row.sport_type_name,
-      sportSubTypes: row.sport_sub_type || []
-    }
-  });
-}
+  openViewDialog(row: any) {
+    this.dialog.open(ViewDialogComponent, {
+      width: '450px',
+      data: {
+        sportTypeName: row.sport_type_name,
+        sportSubTypes: row.sport_sub_type || []
+      }
+    });
+  }
 
 
 
