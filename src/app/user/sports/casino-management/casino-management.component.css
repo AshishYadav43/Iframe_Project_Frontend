@@ -2,12 +2,12 @@
   display: flex;
   align-items: center;
   padding: 8px 16px;
-  background: #2de211;
+  background: #3f51b5;
   color: white;
 }
 
 .table-header button {
-    color: #2de211 !important;
+    color: #3f51b5 !important;
 }
 
 .spacer {
