@@ -29,22 +29,21 @@
     display: flex;
     align-items: center;
 
-      .username {
-   font-weight: 700; /* medium-bold */
-    color: #cda349;
-    margin-left: 38px;
-    font-size: 14px
-  }
+    .username {
+      font-weight: 700;
+      color: #cda349;
+      font-size: 14px
+    }
 
-  .role {
-    /* background-color: #7b5fa0; */
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 4px;
-    color: white;
-    margin-top:5px
-    /* margin-left: 6px; */
-  }
+    .role {
+      /* background-color: #7b5fa0; */
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: white;
+      margin-top: 5px
+        /* margin-left: 6px; */
+    }
 
     .logo {
       height: 42px;
@@ -90,12 +89,12 @@
     }
 
     .logout-btn {
-        background-color: #f2c94c;
-        color: white;
-        font-weight: 500;
-        font-size: 12px;
-        border-radius: 5px;
-        padding: 0;
+      background-color: #f2c94c;
+      color: white;
+      font-weight: 500;
+      font-size: 12px;
+      border-radius: 5px;
+      padding: 0;
     }
   }
 }
