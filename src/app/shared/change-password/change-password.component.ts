@@ -38,6 +38,9 @@ export class ChangePasswordComponent {
   hideNewPassword: boolean = true;
   hideConfirmPassword: boolean = true;
   hideGooglePassword: boolean = true;
+  isOtpLengthValid = false; // OTP length check
+  isOtpVerified = false;
+  otpVerifiedLoading = false;
 
   private fb = inject(FormBuilder);
   private api = inject(AuthService);
@@ -58,7 +61,7 @@ export class ChangePasswordComponent {
         Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[^<>]{6,}$/)
       ]],
       confirmPassword: ['', [Validators.required]],
-      googleAuthOtp: ['']
+      googleAuthOtp: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6), Validators.pattern(/^\d+$/)]]
     });
 
     this.form.valueChanges.subscribe(() => {
@@ -72,6 +75,9 @@ export class ChangePasswordComponent {
           this.form.get('confirmPassword')?.setErrors(null);
         }
       }
+      const otp = this.form.get('googleAuthOtp')?.value;
+      this.isOtpLengthValid = otp && otp.length === 6 && /^[0-9]+$/.test(otp);
+        this.isOtpVerified = false;
     });
   }
 
@@ -100,12 +106,16 @@ export class ChangePasswordComponent {
       this.toaster.error('Please enter OTP first');
       return;
     }
-
-    // Call API to verify OTP
-    // this.api.verifyGoogleAuthOTP({ otp }).subscribe({
-    //   next: () => this.toaster.success('OTP verified successfully'),
-    //   error: () => this.toaster.error('Invalid OTP')
-    // });
+    this.api.verifyGoogleAuthOTP({ otp }).subscribe({
+      next: (res: any) => {
+        this.toaster.success('OTP verified successfully');
+        this.isOtpVerified = res.data.verified
+        // this.isOtpVerified = true;         
+      },
+      error: () => {
+        this.isOtpVerified = true;
+      }
+    });
   }
 
   onSubmit(): void {
@@ -113,8 +123,6 @@ export class ChangePasswordComponent {
       this.form.markAllAsTouched(); return;
     }
     this.loading = true;
-
-
     const payload = {
       oldPassword: this.form.value.oldPassword,
       newPassword: this.form.value.newPassword,
@@ -126,8 +134,8 @@ export class ChangePasswordComponent {
           this.toaster.success('Password changed successfully');
           this.dialogRef.close(true);
           this.api.logout().subscribe({
-            next:(res:any)=>{
-            this.router.navigateByUrl('/login');
+            next: (res: any) => {
+              this.router.navigateByUrl('/login');
             }
           })
         },
@@ -136,9 +144,6 @@ export class ChangePasswordComponent {
         }
       });
   }
-
-
-
 
   onCancel(): void {
     this.dialogRef.close(false);

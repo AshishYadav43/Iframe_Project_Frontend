@@ -14,6 +14,7 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
   private baseUrl = environment.apiUrl;
   private baseUserUrl = environment.userApiUrl;
+  private authUrl = environment.authUrl
   private toaster = inject(ToastrService);
   private fingerprint!: string;
   private deviceId!: string;
@@ -233,6 +234,10 @@ export class AuthService {
 
   goBack(): void {
     this.location.back();
+  }
+
+  verifyGoogleAuthOTP(data: any): Observable<any> {
+    return this.http.post(`${this.authUrl}/verify/otp`, data);
   }
 
 }
