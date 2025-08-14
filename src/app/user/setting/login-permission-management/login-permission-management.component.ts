@@ -57,15 +57,16 @@ export class LoginPermissionManagementComponent {
     this.dataSource.data = [
       { name: 'Email Varification', name_value: 'emailVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
       { name: 'Mobile Varification', name_value: 'mobileVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
-      { name: 'ON Screen Otp Varification', name_value: 'onScreenOTPVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
-      { name: 'Telegram Varification', name_value: 'telegramVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
-      // { name: 'Ip Address Verification', name_value: 'ipAddressVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
-      { name: 'IPv4 Verification', name_value: 'IPv4Verification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
-      { name: 'IPv6 Verification', name_value: 'IPv6Verification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
-      { name: 'DeviceId Verification', name_value: 'deviceIdVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
-      { name: 'Geo Location Verification', name_value: 'useGeoLocationVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
-      { name: 'Fingerprint Verification', name_value: 'fingerprintVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      { name: 'Google Authenticator Varification', name_value: 'googleAuthenticatorVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      // { name: 'ON Screen Otp Varification', name_value: 'onScreenOTPVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      // { name: 'Telegram Varification', name_value: 'telegramVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      // { name: 'IPv4 Verification', name_value: 'IPv4Verification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      // { name: 'IPv6 Verification', name_value: 'IPv6Verification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      // { name: 'DeviceId Verification', name_value: 'deviceIdVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      // { name: 'Geo Location Verification', name_value: 'useGeoLocationVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      // { name: 'Fingerprint Verification', name_value: 'fingerprintVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
       { name: 'Multi Login', name_value: 'multiLoginVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      { name: 'Change Password', name_value: 'changePasswordVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
     ];
   }
 
