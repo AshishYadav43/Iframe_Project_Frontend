@@ -227,8 +227,12 @@ export class AuthService {
 
   }
 
+  changePassword(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/auth/change-password`, data);
+  }
+
   goBack(): void {
-    this.location.back(); 
+    this.location.back();
   }
 
 }

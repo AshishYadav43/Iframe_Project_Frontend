@@ -17,6 +17,8 @@
 <mat-toolbar class="awc-header">
   <div class="left-section">
     <img src="../../../assets/images/logo-awc.png" class="logo" alt="AWC Logo" />
+      <span class="username">{{ roleData?.userId | titlecase}} | </span>
+    <span class="role">{{ roleData?.roleName}}</span>
   </div>
 
   <div class="spacer"></div>
@@ -24,8 +26,10 @@
   <div class="right-section">
     <mat-icon class="icon">language</mat-icon>
     <span class="lang">English</span>
-    <span class="username">{{ roleData?.userId}}</span>
-    <span class="role">{{ roleData?.roleName}}</span>
+     <div *ngIf="roleData?.canChangePassword" (click)="openChangePassword()" >
+    <mat-icon style="cursor: pointer;">lock_reset</mat-icon>
+  </div>
+  
     <div (click)="logOut()">
         <mat-icon>logout</mat-icon>
     </div>

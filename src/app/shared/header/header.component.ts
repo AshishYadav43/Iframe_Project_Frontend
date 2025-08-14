@@ -2,19 +2,21 @@ import { Component, inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf, TitleCasePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../core/services/auth.service';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatToolbarModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatToolbarModule, MatIconModule, MatButtonModule,TitleCasePipe,NgIf],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-
+  private dialog = inject(MatDialog);
   private router = inject(Router);
   private api = inject(AuthService)
   roleData!: any;
@@ -26,13 +28,31 @@ export class HeaderComponent {
       }
     })
   }
-
+  
   constructor() {
     this.api.getPermission().subscribe({
       next: (res: any) => {
         this.roleData = res.data;
+        console.log(this.roleData);
+        
       }
     })
   }
+
+
+openChangePassword() {
+  this.dialog.open(ChangePasswordComponent, {
+    width: '600px',
+    maxHeight: '90vh',
+    autoFocus: false,
+    data: null
+  }).afterClosed().subscribe(result => {
+    if (result) {
+      // Yaha par aap result handle kar sakte ho
+      console.log('Password changed:', result);
+    }
+  });
+}
+
 
 }
