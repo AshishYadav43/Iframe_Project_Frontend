@@ -9,13 +9,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import { ToastrService } from 'ngx-toastr';
+
+import { map, Observable, startWith } from 'rxjs';
 
 import { VALIDATION_PATTERNS } from '../../../../core/constant/constant';
 import { AuthService } from '../../../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../../../core/directives/directives/pattern-restrict.directive';
-
 interface SelectOption {
   id: string;
   name: string;
@@ -33,7 +35,8 @@ interface SelectOption {
     MatCardModule,
     MatProgressSpinnerModule,
     MatIcon,
-    PatternRestrictDirective
+    PatternRestrictDirective,
+    MatAutocompleteModule
   ],
   templateUrl: './add-update-country.component.html',
   styleUrl: './add-update-country.component.css'
@@ -43,7 +46,7 @@ export class AddUpdateCountryComponent {
   pattern = VALIDATION_PATTERNS;
   form!: FormGroup;
   loading = false;
-
+  filteredCountryList!: Observable<any[]>;
   countryName: any[] = [];
 
   private fb = inject(FormBuilder);
@@ -66,7 +69,21 @@ export class AddUpdateCountryComponent {
           : this.countryData?.countryName?.countryName || ''
       ],
     });
+
+    this.filteredCountryList = this.form.get('countryName')!.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterCountries(value || ''))
+    );
   }
+
+private _filterCountries(value: string): any[] {
+  const filterValue = (value || '').toLowerCase();
+  return filterValue
+    ? this.countryName.filter(option =>
+        option.countryName.toLowerCase().includes(filterValue)
+      )
+    : this.countryName;
+}
 
   onSubmit(): void {
     if (this.form.invalid) {

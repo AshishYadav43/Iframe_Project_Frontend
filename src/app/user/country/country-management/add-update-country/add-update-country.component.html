@@ -8,13 +8,16 @@
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="example-full-width">
             <mat-label>Country List</mat-label>
-            <mat-select formControlName="countryName">
-                <mat-option *ngFor="let name of countryName" [value]="name.countryName">
-                    {{ name?.countryName }}
+            <input type="text" matInput placeholder="Search country" formControlName="countryName"
+                [matAutocomplete]="auto" (click)="form.get('countryName')!.updateValueAndValidity()"
+                (focus)="form.get('countryName')!.updateValueAndValidity()" />
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let name of filteredCountryList | async" [value]="name.countryName">
+                    {{ name.countryName }}
                 </mat-option>
-            </mat-select>
+            </mat-autocomplete>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -26,9 +29,9 @@
                 ID must be at least {{ form.get('id')?.errors?.['minlength']?.requiredLength }} characters
             </mat-error>
         </mat-form-field>
-        
+
         <div class="button_container">
-             <button class="submit_btn submit_clr" mat-raised-button color="primary" type="submit" [disabled]="loading">
+            <button class="submit_btn submit_clr" mat-raised-button color="primary" type="submit" [disabled]="loading">
                 <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
                 {{ loading ? 'Saving...' : (countryData ? 'Update Country' : 'Add Country') }}
             </button>

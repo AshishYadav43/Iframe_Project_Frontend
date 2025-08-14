@@ -46,7 +46,7 @@ import { AddUpdateCountryComponent } from './add-update-country/add-update-count
     CompanyManagementComponent,
     MatSlideToggle,
     ProviderManagementComponent,
-    TitleCasePipe
+    TitleCasePipe,
   ],
   templateUrl: './country-management.component.html',
   styleUrls: ['./country-management.component.css'],
