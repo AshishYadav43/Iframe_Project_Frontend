@@ -57,7 +57,7 @@ export class LoginPermissionManagementComponent {
     this.dataSource.data = [
       { name: 'Email Varification', name_value: 'emailVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
       { name: 'Mobile Varification', name_value: 'mobileVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
-      { name: 'Google Authenticator Varification', name_value: 'googleAuthenticatorVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+      { name: 'Google Authenticator Varification', name_value: 'google2FAVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
       // { name: 'ON Screen Otp Varification', name_value: 'onScreenOTPVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
       // { name: 'Telegram Varification', name_value: 'telegramVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
       // { name: 'IPv4 Verification', name_value: 'IPv4Verification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
