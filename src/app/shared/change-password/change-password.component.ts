@@ -135,7 +135,9 @@ export class ChangePasswordComponent {
           this.dialogRef.close(true);
           this.api.logout().subscribe({
             next: (res: any) => {
-              this.router.navigateByUrl('/login');
+              setTimeout(() => {
+                this.router.navigateByUrl('/login');
+              }, 3000);
             }
           })
         },
