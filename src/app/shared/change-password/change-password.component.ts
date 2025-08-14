@@ -125,10 +125,11 @@ export class ChangePasswordComponent {
         next: () => {
           this.toaster.success('Password changed successfully');
           this.dialogRef.close(true);
-
-          setTimeout(() => {
+          this.api.logout().subscribe({
+            next:(res:any)=>{
             this.router.navigateByUrl('/login');
-          }, 0);
+            }
+          })
         },
         error: () => {
           this.loading = false;
