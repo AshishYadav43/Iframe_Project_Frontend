@@ -1,0 +1,68 @@
+.login-container {
+  /* max-width:600px; */
+  width: 500px;
+  padding: 32px 40px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  align-items: center;
+  border-radius: 10px;
+  background-color: #0b0b0b40;
+  border:1px solid #eed27b;
+}
+h2 {
+  margin-bottom: 24px;
+  font-weight: 600;
+  color: #1976d2;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  background: linear-gradient(to right, #e7be43 0%, #f3dfa1) 100%;
+    min-height: 50px;
+  color: #000000d9 !important;
+}
+
+
+
+.header-bar-logo img{
+      width: 250px;
+    margin: 0 auto;
+    /* text-align: center; */
+    display: flex;
+    align-items: center;
+}
+
+.login-background{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-bar-logo {
+  margin-bottom: 20px;
+}
+
+::ng-deep .custominput .mat-mdc-input-element::placeholder {
+  color: white !important;
+  /* opacity: 0; */
+}
+
+::ng-deep .custominput  input,
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 50px rgba(255, 255, 255, 0) inset !important;
+  background-color: transparent !important;
+  background-clip: text;
+  -webkit-text-fill-color: white !important;
+}

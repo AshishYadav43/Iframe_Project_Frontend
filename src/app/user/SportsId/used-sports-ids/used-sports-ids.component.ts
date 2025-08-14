@@ -8,10 +8,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
-
-import { AuthService } from '../../../core/services/auth.service';
-import { CamelCaseToWordsPipe } from '../../../core/pipe/camel-case-to-words.pipe';
 import { TitleCasePipe } from '@angular/common';
+
+import { CamelCaseToWordsPipe } from '../../../core/pipe/camel-case-to-words.pipe';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-used-sports-ids',
@@ -23,7 +23,6 @@ import { TitleCasePipe } from '@angular/common';
     MatFormFieldModule,
     MatTabsModule,
     MatInputModule,
-    CamelCaseToWordsPipe,
     TitleCasePipe
   ],
   templateUrl: './used-sports-ids.component.html',

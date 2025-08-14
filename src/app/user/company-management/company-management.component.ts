@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatOption, MatSelect, MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { Router } from '@angular/router';
 
 import { finalize } from 'rxjs';
 
@@ -49,6 +50,7 @@ export class CompanyManagementComponent {
   public api = inject(AuthService);
   private dialog = inject(MatDialog);
   private toastr = inject(ToastrService);
+  private router = inject(Router);
   filterValues = { name: '', companyType: '', sort: '' };
   statusUpdating: boolean = false;
 
@@ -196,5 +198,12 @@ export class CompanyManagementComponent {
     }).afterClosed().subscribe((result: any) => {
       if (result) this.getCompany();
     });
+  }
+
+  openViewDetails(data: any) {
+    this.router.navigate(['/user-details'], {
+      state: { userData: data }
+    });
+    
   }
 }

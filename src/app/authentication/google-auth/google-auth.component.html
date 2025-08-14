@@ -1,0 +1,42 @@
+<div class="login-background" [ngStyle]="{
+    'background-image': 'url(assets/images/bg_login-d1601548.jpg)',
+    'background-repeat': 'no-repeat',
+    'background-position': 'center',
+    'background-size': 'cover',
+    width: '100%',
+    'height': '100vh'
+  }">
+
+    <div class="login-container">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+            <div class="header-bar-logo">
+                <img src="../../../assets/images/logo-awc.png">
+            </div>
+
+            <h2 class="text-center" style="color: white; margin-bottom: 20px;">
+                Google Auth Verification
+            </h2>
+
+            <p class="text-center" style="color: white; margin-bottom: 30px;">
+                Enter the 6-digit OTP
+            </p>
+
+            <div class="custominput">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Google OTP</mat-label>
+                    <input maxlength="6" [appPatternRestrict]="pattern.alphabetsNumbersOnly" matInput
+                        formControlName="identifier" type="text" placeholder="Enter your userId">
+                    <mat-error *ngIf="loginForm.get('identifier')?.hasError('required')">Otp is required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <button mat-raised-button class="login-btn" type="submit">
+                Verify OTP
+            </button>
+            <div class="text-center" style="margin-top: 20px;">
+                <a (click)="setupAuth()" style="cursor: pointer; color: lightblue;">Setup Auth</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -6,14 +6,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
-import { ToastrService } from 'ngx-toastr';
-import { VALIDATION_PATTERNS, STATIC_SPORTS } from '../../core/constant/constant';
-import { PatternRestrictDirective } from '../../core/directives/directives/pattern-restrict.directive';
-import { AuthService } from '../../core/services/auth.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
+
+import { ToastrService } from 'ngx-toastr';
+
+import { VALIDATION_PATTERNS } from '../../core/constant/constant';
+import { AuthService } from '../../core/services/auth.service';
+import { PatternRestrictDirective } from '../../core/directives/directives/pattern-restrict.directive';
 
 @Component({
   selector: 'app-change-password',
@@ -86,7 +87,7 @@ export class ChangePasswordComponent {
     const newPassword = formGroup.get('newPassword')?.value;
     const confirmPassword = formGroup.get('confirmPassword')?.value;
     if (!confirmPassword) return null;
-    return newPassword === confirmPassword ? null : { passwordMismatch: true };
+    return newPassword == confirmPassword ? null : { passwordMismatch: true };
   }
 
   get confirmPasswordMismatch() {

@@ -61,7 +61,7 @@ export class LoginPage {
   constructor() {
     this.checkLogin();
   }
-  
+
   ngOnInit(): void {
     // 👇 Generate fingerprint and load CAPTCHA
     Fingerprint2.get((components: any) => {
@@ -98,8 +98,19 @@ export class LoginPage {
     delete this.loginForm.value.validCode;
     this.api.login(this.loginForm.value).pipe(finalize(() => this.loading = false)).subscribe({
       next: (res: any) => {
-        this.toaster.success("Login successfully");
-        this.router.navigateByUrl('/users');
+        if (res.data.steps.emailVerification) {
+          this.api.sendEmail().subscribe({
+            next: (res: any) => {
+              this.router.navigate(['/email-verification']);
+            }
+          })
+        }else if (res.data.steps.google2FAVerification) {
+          this.router.navigate(['/google-auth']);
+        }
+        else {
+          this.toaster.success("Login successfully");
+          this.router.navigateByUrl('/users');
+        }
       },
       error: (err: any) => {
         this.loadCaptcha();

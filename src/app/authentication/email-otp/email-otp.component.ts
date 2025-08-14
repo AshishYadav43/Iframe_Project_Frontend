@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,9 +34,13 @@ export class EmailOtpComponent {
   loading = false;
   pattern = VALIDATION_PATTERNS;
   otpForm!: FormGroup;
+  userData: any;
+  @ViewChildren('otpInput') inputs!: QueryList<ElementRef>;
 
-  constructor() { }
-  
+  constructor() {
+  }
+
+
   get otpControls() {
     return [0, 1, 2, 3];
   }
@@ -51,19 +55,42 @@ export class EmailOtpComponent {
   }
 
   autoFocusNext(event: any, index: number) {
-    const input = event.target;
-    if (input.value && index < 3) {
-      const nextInput = input.parentElement.parentElement
-        .querySelectorAll('input')[index + 1];
-      nextInput.focus();
+    const value = event.target.value;
+    const inputsArray = this.inputs.toArray();
+    if (value && index < inputsArray.length - 1) {
+      inputsArray[index + 1]?.nativeElement?.focus();
     }
   }
-  
+
   resendOtp() {
     this.otpForm.reset();
+    this.api.sendEmail().subscribe();
   }
-  
+
   onSubmit() {
+    const { digit0, digit1, digit2, digit3 } = this.otpForm.value;
+    const otpValue = digit0 + digit1 + digit2 + digit3;
+    console.log("value", otpValue);
+    console.log("userinfo", this.userData);
+    this.api.verifyEmail({ otp: otpValue }).subscribe({
+      next: (res: any) => {
+        this.checkLogin()
+      }
+    })
+  }
+
+  checkLogin() {
+    this.api.checkLogin().subscribe({
+      next: (res: any) => {
+        if (res.data.nextRedirect == 'google2FAVerification') {
+          this.router.navigateByUrl('/google-auth');
+        } else if (res.data.nextRedirect == 'mobileVerification') {
+          this.router.navigateByUrl('/mobile-verification');
+        } else {
+          this.router.navigateByUrl('');
+        }
+      }
+    })
   }
 }
 

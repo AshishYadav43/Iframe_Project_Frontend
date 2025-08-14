@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
 
 import { EmailOtpComponent } from './authentication/email-otp/email-otp.component';
+import { GoogleAuthComponent } from './authentication/google-auth/google-auth.component';
 import { MobileOtpComponent } from './authentication/mobile-otp/mobile-otp.component';
+import { QrDisplayComponent } from './authentication/qr-display/qr-display.component';
 import { LayoutComponent } from './layout/layout/layout.component'; // make sure this is created
 import { UserManagementComponent } from './user/user-management/user-management.component';
 import { BaseSportManagementComponent } from './user/base-sport-management/base-sport-management.component';
@@ -11,6 +13,7 @@ import { CurrencyManagementComponent } from './user/currency/currency-management
 import { ModuleManagementComponent } from './user/module-management/module-management.component';
 import { RoleManagementComponent } from './user/role-management/role-management.component';
 import { UsedSportsIdsComponent } from './user/SportsId/used-sports-ids/used-sports-ids.component';
+import { CompanyUserListComponent } from './user/company-management/company-user-list/company-user-list.component';
 import { ComptitionComponent } from './user/comptition/comptition/comptition.component';
 import { JsonDetailsComponent } from './user/comptition/json-details/json-details.component';
 import { MarketComponent } from './user/comptition/market/market.component';
@@ -36,6 +39,14 @@ export const routes: Routes = [
     component: MobileOtpComponent
   },
   {
+    path: 'google-auth',
+    component: GoogleAuthComponent
+  },
+  {
+    path: 'qr-display',
+    component: QrDisplayComponent
+  },
+  {
     path: '',
     component: LayoutComponent,
     children: [
@@ -58,11 +69,11 @@ export const routes: Routes = [
         redirectTo: '/country-management?tab=1',
       },
 
-          {
+      {
         path: 'provider',
         redirectTo: '/country-management?tab=0'
       },
-      
+
       {
         path: 'currencies',
         redirectTo: '/country-management?tab=2',
@@ -124,13 +135,17 @@ export const routes: Routes = [
         component: EventComponent
       },
       {
-        path:'market',
-        component:MarketComponent
+        path: 'market',
+        component: MarketComponent
       },
       {
-        path:'details',
-        component:JsonDetailsComponent
-      }
+        path: 'details',
+        component: JsonDetailsComponent
+      },
+      {
+        path: 'user-details',
+        component: CompanyUserListComponent
+      },
     ]
   },
   {

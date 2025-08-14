@@ -240,4 +240,19 @@ export class AuthService {
     return this.http.post(`${this.authUrl}/verify/otp`, data);
   }
 
+  sendEmail(data: any= {}): Observable<any> {
+    return this.http.post(`${this.baseUrl}/auth/otp/mail`,data);
+  }
+
+  verifyEmail(data: any= {}): Observable<any> {
+    return this.http.post(`${this.baseUrl}/auth/otp/mail/match`,data);
+  }
+
+  genQR(data: any= {}): Observable<any> {
+    return this.http.post(`${this.baseUrl}/2fa/genQr`,data);
+  }
+
+  verifyGoogleAuth(data: any= {}): Observable<any> {
+    return this.http.post(`${this.baseUrl}/2fa/verify/otp`,data);
+  }
 }
