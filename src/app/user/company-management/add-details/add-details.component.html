@@ -1,6 +1,6 @@
 <mat-card class="user-card">
     <div class="dialog-header">
-        <h2>{{  'Add Details' }}</h2>
+        <h2>{{ 'Add Details' }}</h2>
         <button class="close_btn" mat-icon-button color="warn" (click)="onCancel()">
             <mat-icon>close</mat-icon>
         </button>
@@ -13,32 +13,66 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label>Url</mat-label>
-                    <input matInput formControlName="url" placeholder="Enter url">
+                    <input maxlength="50" [appPatternRestrict]="pattern.password" matInput formControlName="url"
+                        placeholder="Enter url">
+                    <mat-error *ngIf="group.get('url')?.hasError('required') && group.get('url')?.touched">
+                        URL is required
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Id</mat-label>
-                    <input matInput formControlName="id" placeholder="Enter id">
+                    <mat-label>User Id</mat-label>
+                    <input maxlength="20" [appPatternRestrict]="pattern.alphabetsNumbersOnly" matInput
+                        formControlName="userId" placeholder="Enter userId">
+                    <mat-error *ngIf="group.get('userId')?.hasError('required') && group.get('userId')?.touched">
+                        User Id is required
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
                     <mat-label>Password</mat-label>
-                    <input matInput formControlName="password" placeholder="Enter password">
+                    <input maxlength="20" [appPatternRestrict]="pattern.password" matInput formControlName="password"
+                        placeholder="Enter password">
+                    <mat-error *ngIf="group.get('password')?.hasError('required') && group.get('password')?.touched">
+                        Password is required
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" placeholder="Enter email">
+                    <input maxlength="30" [appPatternRestrict]="pattern.email" matInput formControlName="email"
+                        placeholder="Enter email">
+                    <mat-error *ngIf="group.get('email')?.hasError('required') && group.get('email')?.touched">
+                        Email is required
+                    </mat-error>
+                    <mat-error *ngIf="group.get('email')?.hasError('email') && group.get('email')?.touched">
+                        Enter a valid email
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
                     <mat-label>Mobile</mat-label>
-                    <input matInput formControlName="mobile" placeholder="Enter mobile">
+                    <input maxlength="15" [appPatternRestrict]="pattern.mobile" matInput formControlName="mobileNumber"
+                        placeholder="Enter mobile">
+                    <mat-error
+                        *ngIf="group.get('mobileNumber')?.hasError('required') && group.get('mobileNumber')?.touched">
+                        Mobile is required
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
                     <mat-label>Google Authentication</mat-label>
-                    <input matInput formControlName="googleAuthentication" placeholder="Enter Google Authentication">
+                    <input maxlength="6" [appPatternRestrict]="pattern.mobile" matInput
+                        formControlName="googleAuthenticatorKey" placeholder="Enter Google Authentication">
+                    <mat-error
+                        *ngIf="group.get('googleAuthenticatorKey')?.hasError('required') && group.get('googleAuthenticatorKey')?.touched">
+                        Google Authentication is required
+                    </mat-error>
+                    <mat-error
+                        *ngIf="group.get('googleAuthenticatorKey')?.hasError('minlength') && group.get('googleAuthenticatorKey')?.touched">
+                        Google Authentication must be at least {{
+                        group.get('googleAuthenticatorKey')?.errors?.['minlength']?.requiredLength }} digits
+                    </mat-error>
                 </mat-form-field>
 
                 <!-- Add / Remove Buttons -->
@@ -60,7 +94,7 @@
         <div class="button_container">
             <button class="submit_btn submit_clr" mat-raised-button color="primary" type="submit" [disabled]="loading">
                 <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
-                {{ loading ? 'Saving...' : (companyData ? 'Update Company' : 'Add Company') }}
+                {{ loading ? 'Saving...' : 'Add Details' }}
             </button>
             <button class="submit_btn cancel_btn" mat-raised-button color="primary" type="button" (click)="onCancel()">
                 Cancel

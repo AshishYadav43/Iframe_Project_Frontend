@@ -12,6 +12,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { ToastrService } from 'ngx-toastr';
 
+import { finalize } from 'rxjs';
+
 import { AddUpdateCompanyComponent } from '../add-update-company/add-update-company.component';
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
@@ -37,7 +39,7 @@ import { PatternRestrictDirective } from '../../../core/directives/directives/pa
 })
 export class AddDetailsComponent {
 
-  attern = VALIDATION_PATTERNS;
+  pattern = VALIDATION_PATTERNS;
   form!: FormGroup;
   loading = false;
   private fb = inject(FormBuilder);
@@ -47,7 +49,9 @@ export class AddDetailsComponent {
   constructor(
     private dialogRef: MatDialogRef<AddDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public companyData: any,
-  ) { }
+  ) {
+    if (!companyData) this.dialogRef.close(false);
+  }
 
   get formArray(): FormArray {
     return this.form.get('items') as FormArray;
@@ -62,11 +66,11 @@ export class AddDetailsComponent {
   createItem(): FormGroup {
     return this.fb.group({
       url: ['', Validators.required],
-      id: ['', Validators.required],
+      userId: ['', Validators.required],
       password: ['', Validators.required],
-      email: ['', Validators.required],
-      mobile: ['', Validators.required],
-      googleAuthentication: ['', Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      mobileNumber: ['', Validators.required],
+      googleAuthenticatorKey: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -81,7 +85,24 @@ export class AddDetailsComponent {
   onCancel() {
     this.dialogRef.close(false);
   }
-  onSubmit() { }
+  onSubmit() {
+    if (this.form.invalid || this.loading) return;
+    this.loading = true;
+
+    const payload = {
+      company: this.companyData._id,
+      details: this.form.value.items
+    }
+
+    this.api.addCompanyUsers(payload).pipe(finalize(() => this.loading = false)).subscribe({
+      next: (res: any) => {
+        this.dialogRef.close(true);
+        this.toaster.success(res.message);
+      }
+    })
+  }
+
+
 }
 
 

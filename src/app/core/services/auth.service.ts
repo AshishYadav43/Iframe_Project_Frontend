@@ -123,6 +123,10 @@ export class AuthService {
     return this.http.post(`${this.baseUserUrl}/company/lists`, data);
   }
 
+  addCompanyUsers(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/company/user/create`, data);
+  }
+
   addCompany(data: any = {}): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/company/add`, data);
   }
