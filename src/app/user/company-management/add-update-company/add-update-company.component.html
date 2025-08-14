@@ -46,7 +46,7 @@
         required</mat-error>
     </mat-form-field>
 
-        <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline">
       <mat-label>Provider</mat-label>
       <mat-select formControlName="providers">
         <mat-option *ngFor="let option of providerOption" [value]="option.id">
@@ -129,36 +129,39 @@
     </div> -->
 
     <!-- No longer using FormArray here -->
-   <div *ngFor="let group of sportTypeAndSubTypeModel; let i = index" class="sport-pair-row">
-  <!-- Sport Type -->
-  <mat-form-field style="width: 42% !important;" appearance="outline">
-    <mat-label>Sport Category Type</mat-label>
-    <mat-select [(ngModel)]="group.typeId"   [ngModelOptions]="{ standalone: true }" name="typeId-{{i}}" (selectionChange)="onSportTypeChange(group)">
-      <mat-option *ngFor="let type of sportTypes" [value]="type.id">{{ type.name }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+    <div *ngFor="let group of sportTypeAndSubTypeModel; let i = index" class="sport-pair-row">
+      <!-- Sport Type -->
+      <mat-form-field style="width: 42% !important;" appearance="outline">
+        <mat-label>Sport Category Type</mat-label>
+        <mat-select [(ngModel)]="group.typeId" [ngModelOptions]="{ standalone: true }" name="typeId-{{i}}"
+          (selectionChange)="onSportTypeChange(group)">
+          <mat-option *ngFor="let type of sportTypes" [value]="type.id">{{ type.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-  <!-- Sub Type -->
-  <mat-form-field style="width: 43% !important;" appearance="outline">
-    <mat-label>Sub Type</mat-label>
-    <mat-select [(ngModel)]="group.subTypeId"  [ngModelOptions]="{ standalone: true }" name="subTypeId-{{i}}" multiple>
-      <mat-option *ngFor="let sub of getSubTypesFor(group.typeId)" [value]="sub._id">
-        {{ sub.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+      <!-- Sub Type -->
+      <mat-form-field style="width: 43% !important;" appearance="outline">
+        <mat-label>Sub Type</mat-label>
+        <mat-select [(ngModel)]="group.subTypeId" [ngModelOptions]="{ standalone: true }" name="subTypeId-{{i}}"
+          multiple>
+          <mat-option *ngFor="let sub of getSubTypesFor(group.typeId)" [value]="sub._id">
+            {{ sub.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-  <!-- Add/Remove -->
-  <div class="sport-buttons">
-    <button type="button" *ngIf="sportTypeAndSubTypeModel.length > 1" mat-icon-button color="warn" (click)="removeSportTypeGroup(i)">
-      <mat-icon>delete</mat-icon>
-    </button>
-    <button type="button" *ngIf="i == sportTypeAndSubTypeModel.length - 1" mat-icon-button color="primary"
-      (click)="addSportTypeGroup()">
-      <mat-icon>add</mat-icon>
-    </button>
-  </div>
-</div>
+      <!-- Add/Remove -->
+      <div class="sport-buttons">
+        <button type="button" *ngIf="sportTypeAndSubTypeModel.length > 1" mat-icon-button color="warn"
+          (click)="removeSportTypeGroup(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button type="button" *ngIf="i == sportTypeAndSubTypeModel.length - 1" mat-icon-button color="primary"
+          (click)="addSportTypeGroup()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
 
 
 
@@ -171,7 +174,7 @@
       <button class="submit_btn cancel_btn" mat-raised-button color="primary" type="button" (click)="onCancel()">
         Cancel
       </button>
-      
+
     </div>
   </form>
 </mat-card>

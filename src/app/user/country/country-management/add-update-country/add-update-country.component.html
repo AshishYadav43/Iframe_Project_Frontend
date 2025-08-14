@@ -8,51 +8,6 @@
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
 
-        <!-- <mat-form-field appearance="outline">
-            <mat-label>Country Name</mat-label>
-            <input [appPatternRestrict]="pattern.alphabets" matInput maxlength="20" formControlName="countryName"
-                placeholder="Enter Country Name">
-            <mat-error *ngIf="form.get('countryName')?.hasError('required')">Country Name is required</mat-error>
-            <mat-error *ngIf="form.get('countryName')?.hasError('minlength')">
-                Country Name must be at least 3 characters
-            </mat-error>
-        </mat-form-field> -->
-
-        <!-- <mat-form-field appearance="outline">
-            <mat-label>Short Name</mat-label>
-            <input [appPatternRestrict]="pattern.alphabetsOnly" maxlength="3" matInput formControlName="shortName"
-                placeholder="Enter Short Name">
-            <mat-error *ngIf="form.get('shortName')?.hasError('required')">
-                Short Name is required
-            </mat-error>
-        </mat-form-field> -->
-        <!-- ID -->
-        <!-- <mat-form-field appearance="outline">
-            <mat-label>Country Id</mat-label>
-            <input [appPatternRestrict]="pattern.mobile" maxlength="20" matInput formControlName="countryId"
-                placeholder="Enter Country Id">
-            <mat-error *ngIf="form.get('countryId')?.hasError('required')">Country Id is required</mat-error>
-            <mat-error *ngIf="form.get('countryId')?.hasError('minlength')">
-                Country Id must be at least 3 characters
-            </mat-error>
-        </mat-form-field> -->
-
-        <!-- <mat-form-field appearance="outline">
-            <mat-label>Country Code</mat-label>
-            <input [appPatternRestrict]="pattern.alphabetsOnly" maxlength="3" matInput formControlName="countryCode"
-                placeholder="Enter Country Code">
-            <mat-error *ngIf="form.get('countryCode')?.hasError('required')">Country Code is required</mat-error>
-        </mat-form-field> -->
-
-        <!-- <mat-form-field appearance="outline">
-            <mat-label>Number Code</mat-label>
-            <input [appPatternRestrict]="pattern.mobile" maxlength="6" matInput formControlName="numberCode"
-                placeholder="Enter Number Code">
-            <mat-error *ngIf="form.get('numberCode')?.hasError('required')">Number Code is required</mat-error>
-        </mat-form-field> -->
-
-
-
         <mat-form-field appearance="outline">
             <mat-label>Country List</mat-label>
             <mat-select formControlName="countryName">
@@ -71,14 +26,7 @@
                 ID must be at least {{ form.get('id')?.errors?.['minlength']?.requiredLength }} characters
             </mat-error>
         </mat-form-field>
-
-        <!-- <mat-form-field appearance="outline">
-            <mat-label>Country Region</mat-label>
-            <input [appPatternRestrict]="pattern.region" maxlength="20" matInput formControlName="countryRegion"
-                placeholder="Enter Country Region">
-        </mat-form-field> -->
-
-        <!-- Submit Button -->
+        
         <div class="button_container">
              <button class="submit_btn submit_clr" mat-raised-button color="primary" type="submit" [disabled]="loading">
                 <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>

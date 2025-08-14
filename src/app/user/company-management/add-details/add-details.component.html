@@ -1,0 +1,71 @@
+<mat-card class="user-card">
+    <div class="dialog-header">
+        <h2>{{  'Add Details' }}</h2>
+        <button class="close_btn" mat-icon-button color="warn" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
+
+        <div formArrayName="items">
+            <div *ngFor="let group of formArray.controls; let i = index" [formGroupName]="i" class="array-row">
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Url</mat-label>
+                    <input matInput formControlName="url" placeholder="Enter url">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Id</mat-label>
+                    <input matInput formControlName="id" placeholder="Enter id">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" placeholder="Enter password">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" placeholder="Enter email">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Mobile</mat-label>
+                    <input matInput formControlName="mobile" placeholder="Enter mobile">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Google Authentication</mat-label>
+                    <input matInput formControlName="googleAuthentication" placeholder="Enter Google Authentication">
+                </mat-form-field>
+
+                <!-- Add / Remove Buttons -->
+                <div class="array-buttons">
+                    <button type="button" mat-icon-button color="warn" (click)="removeItem(i)"
+                        *ngIf="formArray.length > 1">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button type="button" mat-icon-button color="primary" (click)="addItem()"
+                        *ngIf="i === formArray.length - 1">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="button_container">
+            <button class="submit_btn submit_clr" mat-raised-button color="primary" type="submit" [disabled]="loading">
+                <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+                {{ loading ? 'Saving...' : (companyData ? 'Update Company' : 'Add Company') }}
+            </button>
+            <button class="submit_btn cancel_btn" mat-raised-button color="primary" type="button" (click)="onCancel()">
+                Cancel
+            </button>
+
+        </div>
+    </form>
+</mat-card>

@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 
+import { EmailOtpComponent } from './authentication/email-otp/email-otp.component';
+import { MobileOtpComponent } from './authentication/mobile-otp/mobile-otp.component';
 import { LayoutComponent } from './layout/layout/layout.component'; // make sure this is created
 import { UserManagementComponent } from './user/user-management/user-management.component';
 import { BaseSportManagementComponent } from './user/base-sport-management/base-sport-management.component';
@@ -24,6 +26,14 @@ export const routes: Routes = [
     path: 'login',
     loadComponent: () =>
       import('./authentication/login.page').then(m => m.LoginPage)
+  },
+  {
+    path: 'email-verification',
+    component: EmailOtpComponent
+  },
+  {
+    path: 'mobile-verification',
+    component: MobileOtpComponent
   },
   {
     path: '',

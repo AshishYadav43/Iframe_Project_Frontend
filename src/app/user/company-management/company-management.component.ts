@@ -20,6 +20,7 @@ import { MessageDialogComponent } from '../message-dialog/message-dialog.compone
 import { AddUpdateProviderComponent } from '../provider-management/add-update-provider/add-update-provider.component';
 import { AuthService } from '../../core/services/auth.service';
 
+import { AddDetailsComponent } from './add-details/add-details.component';
 import { AddUpdateCompanyComponent } from './add-update-company/add-update-company.component';
 
 @Component({
@@ -186,7 +187,14 @@ export class CompanyManagementComponent {
     });
   }
 
-
-
-
+  openAddDetails(data: any) {
+    this.dialog.open(AddDetailsComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: data
+    }).afterClosed().subscribe((result: any) => {
+      if (result) this.getCompany();
+    });
+  }
 }

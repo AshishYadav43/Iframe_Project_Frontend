@@ -79,3 +79,16 @@
   border-radius: 5px;
   font-size: 15px;
 }
+
+
+.add_user {
+  background-color: darkred;
+  height: 40px;
+  /* width: 150px; */
+  border-radius: 5px;
+  font-size: 15px;
+  color: white;
+  font-weight: 500 !important;
+  padding-left: 10px;
+  padding-right: 10px;
+}

@@ -19,10 +19,6 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { startWith } from 'rxjs/operators';
-
-import { log } from 'console';
-
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { COMPANY_SELECTION_V1 } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
