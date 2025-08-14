@@ -55,7 +55,7 @@ export class ChangePasswordComponent {
       oldPassword: ['', [Validators.required, Validators.pattern(this.pattern.password)]],
       newPassword: ['', [
         Validators.required,
-        Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^<>])[A-Za-z\d\S]{6,}$/)
+        Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[^<>]{6,}$/)
       ]],
       confirmPassword: ['', [Validators.required]],
       googleAuthOtp: ['']
