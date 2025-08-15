@@ -51,6 +51,9 @@ export class GoogleAuthComponent {
         this.api.checkLogin().subscribe({
           next: (res: any) => {
             console.log("res",res);
+            if (!res.data.nextRedirect) {
+              this.router.navigateByUrl('/users');
+            }
             
           }
         })

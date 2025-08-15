@@ -45,4 +45,7 @@ export class CompanyUserListComponent {
 
   displayedColumns: string[] = ['srNo', 'name', 'companyId'];
   dataSource = new MatTableDataSource<any>();
+
+
+  
 }

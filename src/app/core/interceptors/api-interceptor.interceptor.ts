@@ -73,9 +73,9 @@ export const apiInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
         catchError((error: HttpErrorResponse) => {
           const toastRef = toaster.error(error.error?.message);
           setTimeout(() => toaster.clear(toastRef.toastId), 3000);
-          // if (error.status == 401) {
-          //   router.navigate(['/login']);
-          // }
+          if (error.status == 401) {
+            router.navigate(['/login']);
+          }
           return throwError(() => error);
         })
       );
