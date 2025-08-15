@@ -202,7 +202,7 @@ export class CompanyManagementComponent {
 
   openViewDetails(data: any) {
     this.router.navigate(['/user-details'], {
-      state: { userData: data }
+      state: { companyData: data }
     });
     
   }

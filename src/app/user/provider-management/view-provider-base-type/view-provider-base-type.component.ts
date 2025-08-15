@@ -16,9 +16,7 @@ export class ViewProviderBaseTypeComponent {
   constructor(
     public dialogRef: MatDialogRef<ViewProviderBaseTypeComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-    console.log(data);
-    
+  ) {    
   }
 
 

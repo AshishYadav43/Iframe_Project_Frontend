@@ -20,12 +20,9 @@ export class QrDisplayComponent {
   ngOnInit(): void {
     this.api.genQR().subscribe({
       next: (res: any) => {
-        console.log("RESPONSE", res);
         this.email = res.data.email;
         this.issuer = res.data.issuer;
-        this.qrCode = res.data.qrCode;
-        console.log("EMAIL",this.email);
-        
+        this.qrCode = res.data.qrCode;        
       }
     })
   }

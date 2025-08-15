@@ -4,10 +4,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule, NgIf, TitleCasePipe } from '@angular/common';
 import { Router } from '@angular/router';
-
-import { AuthService } from '../../core/services/auth.service';
-import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { MatDialog } from '@angular/material/dialog';
+
+import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { AuthService } from '../../core/services/auth.service';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -32,9 +32,7 @@ export class HeaderComponent {
   constructor() {
     this.api.getPermission().subscribe({
       next: (res: any) => {
-        this.roleData = res.data;
-        console.log(this.roleData);
-        
+        this.roleData = res.data;        
       }
     })
   }
@@ -49,7 +47,6 @@ openChangePassword() {
   }).afterClosed().subscribe(result => {
     if (result) {
       // Yaha par aap result handle kar sakte ho
-      console.log('Password changed:', result);
     }
   });
 }

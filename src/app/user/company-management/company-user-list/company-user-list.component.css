@@ -64,7 +64,7 @@
 
 .search_btn {
   background-color: rgb(67, 67, 224);
-  color: white;
+  color: white !important;
   height: 50px;
   width: 150px;
   border-radius: 5px;

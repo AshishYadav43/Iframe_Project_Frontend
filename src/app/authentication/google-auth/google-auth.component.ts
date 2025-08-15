@@ -44,13 +44,11 @@ export class GoogleAuthComponent {
     }
     this.api.verifyGoogleAuth(payload).subscribe({
       next: (res: any) => {
-        console.log("Response",res.data.verified);
         if (!res.data.verified) {
           this.toaster.error("OTP incorrect");
         }
         this.api.checkLogin().subscribe({
           next: (res: any) => {
-            console.log("res",res);
             if (!res.data.nextRedirect) {
               this.router.navigateByUrl('/users');
             }

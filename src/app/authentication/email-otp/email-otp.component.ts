@@ -70,8 +70,6 @@ export class EmailOtpComponent {
   onSubmit() {
     const { digit0, digit1, digit2, digit3 } = this.otpForm.value;
     const otpValue = digit0 + digit1 + digit2 + digit3;
-    console.log("value", otpValue);
-    console.log("userinfo", this.userData);
     this.api.verifyEmail({ otp: otpValue }).subscribe({
       next: (res: any) => {
         this.checkLogin()
