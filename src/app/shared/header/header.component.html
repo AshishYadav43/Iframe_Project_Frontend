@@ -17,7 +17,7 @@
 <mat-toolbar class="awc-header">
   <div class="left-section">
     <img src="../../../assets/images/9xgaming-logo.webp" class="logo" alt="AWC Logo" />
-      <span class="username">{{ roleData?.userId | titlecase}} | </span>
+    <span class="username">{{ roleData?.userId | titlecase}} | </span>
     <span class="role">{{ roleData?.roleName}}</span>
   </div>
 
@@ -26,12 +26,40 @@
   <div class="right-section">
     <mat-icon class="icon">language</mat-icon>
     <span class="lang">English</span>
-     <div *ngIf="roleData?.canChangePassword" (click)="openChangePassword()" >
+    <!-- <div *ngIf="roleData?.canChangePassword" (click)="openChangePassword()" >
     <mat-icon style="cursor: pointer;">lock_reset</mat-icon>
-  </div>
-  
-    <div (click)="logOut()">
-        <mat-icon>logout</mat-icon>
+
+  </div> -->
+
+    <div>
+      <!-- <mat-icon>logout</mat-icon> -->
+      <div (click)="menuTrigger.openMenu()" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="logoutMenu"
+        style="cursor: pointer;">
+        <img src="../../../assets/images/image.png" style="height: 20px;" width="20px" class="logout" />
+      </div>
+
+      <mat-menu #logoutMenu="matMenu" class="logout-menu">
+        <button mat-menu-item>
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+        <!-- <button mat-menu-item>
+    <mat-icon>settings</mat-icon>
+    <span>Settings</span>
+  </button> -->
+        <button mat-menu-item (click)="openChangePassword()">
+          <mat-icon>lock_reset</mat-icon>
+          <span>Change Password</span>
+        </button>
+
+        <button mat-menu-item (click)="logOut()">
+          <img src="../../../assets/images/image.png" style="height: 20px; width: 20px; margin-right: 8px;"
+            alt="Logout Icon" />
+          <span>Logout</span>
+        </button>
+
+      </mat-menu>
+
     </div>
   </div>
 </mat-toolbar>

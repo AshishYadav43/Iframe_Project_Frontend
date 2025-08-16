@@ -30,7 +30,10 @@
       <input maxlength="50" matInput [appPatternRestrict]="pattern.email" formControlName="email"
         placeholder="Enter your Email">
       <mat-error *ngIf="form.get('email')?.hasError('required')">Email is required</mat-error>
-      <mat-error *ngIf="form.get('email')?.hasError('email')">Enter a valid email</mat-error>
+      <!-- <mat-error *ngIf="form.get('email')?.hasError('email')">Enter a valid email</mat-error> -->
+        <mat-error *ngIf="form.get('email')?.hasError('pattern')">
+    Only Gmail addresses are allowed
+  </mat-error>
     </mat-form-field>
 
     <!-- Password & Confirm Password (Only for Add) -->

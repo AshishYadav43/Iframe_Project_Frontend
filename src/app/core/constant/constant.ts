@@ -12,7 +12,9 @@ export const VALIDATION_PATTERNS = {
   password: '^[^<>]*$',
   region: '^[a-zA-Z-]*$',
   floatNumber: '^[0-9.]*$',
-  alphabetsNumbersWithUnderscore: '^[A-Za-z0-9_]*$'
+  alphabetsNumbersWithUnderscore: '^[A-Za-z0-9_]*$',
+  emailGmailOnly: '^[a-zA-Z0-9._%+-]+@gmail\\.com$'
+
 };
 export const STATIC_SPORTS = {
   SOCCER: { id: 1, name: "soccer" },

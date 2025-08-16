@@ -9,8 +9,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
-
+import { MatIconModule } from '@angular/material/icon';
 import { ToastrService } from 'ngx-toastr';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { VALIDATION_PATTERNS } from '../../core/constant/constant';
 import { AuthService } from '../../core/services/auth.service';
@@ -18,6 +19,7 @@ import { PatternRestrictDirective } from '../../core/directives/directives/patte
 
 @Component({
   selector: 'app-change-password',
+    standalone: true,  
   imports: [CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -26,7 +28,12 @@ import { PatternRestrictDirective } from '../../core/directives/directives/patte
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    PatternRestrictDirective],
+    PatternRestrictDirective,
+    MatButtonModule,
+      MatMenuModule,     // ✅ required for mat-menu
+    MatIconModule,     // ✅ required for <mat-icon>
+    MatButtonModule 
+  ],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.css'
 })

@@ -8,10 +8,11 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { AuthService } from '../../core/services/auth.service';
+import { MatMenuModule } from '@angular/material/menu';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatToolbarModule, MatIconModule, MatButtonModule,TitleCasePipe,NgIf],
+  imports: [CommonModule, MatToolbarModule, MatIconModule, MatButtonModule,TitleCasePipe, MatMenuModule, ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

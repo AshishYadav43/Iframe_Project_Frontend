@@ -39,6 +39,8 @@ export class LoginPermissionManagementComponent {
   roleData!: any;
   displayedColumns: string[] = ['srNo', 'name', 'role', 'user', 'status', 'actions'];
   dataSource = new MatTableDataSource<any>();
+  otherDataSource = new MatTableDataSource<any>();
+
   private router = inject(Router);
   public api = inject(AuthService);
   private toaster = inject(ToastrService);
@@ -65,6 +67,10 @@ export class LoginPermissionManagementComponent {
       // { name: 'DeviceId Verification', name_value: 'deviceIdVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
       // { name: 'Geo Location Verification', name_value: 'useGeoLocationVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
       // { name: 'Fingerprint Verification', name_value: 'fingerprintVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+    ]
+
+
+    this.otherDataSource.data = [
       { name: 'Multi Login', name_value: 'multiLoginVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
       { name: 'Change Password', name_value: 'changePasswordVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
     ];
@@ -134,9 +140,9 @@ export class LoginPermissionManagementComponent {
   }
 
   onActionClick(row: any) {
-    if (!row.role) { 
+    if (!row.role) {
       this.toaster.error("Please Select the Roles");
-      return; 
+      return;
     }
     if (!row.multiRoles.length) {
       this.toaster.error("Please Select the Users");
@@ -150,9 +156,9 @@ export class LoginPermissionManagementComponent {
     }
     this.api.addLoginPermission(payload).subscribe({
       next: (res: any) => {
-        this.toaster.success("Login Permission have been change successfully");   
+        this.toaster.success("Login Permission have been change successfully");
         row.multiRoles = [];
-        row.enabled = ''; 
+        row.enabled = '';
       }
     })
   }

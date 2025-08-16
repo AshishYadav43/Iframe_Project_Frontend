@@ -96,5 +96,26 @@
       border-radius: 5px;
       padding: 0;
     }
+
+    .logout{
+      margin-top: 8px;
+    }
+  }
+}
+
+
+
+::ng-deep .logout-menu {
+  .mat-menu-item {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+
+    mat-icon {
+      font-size: 18px;
+      color: #333;
+    }
   }
 }
