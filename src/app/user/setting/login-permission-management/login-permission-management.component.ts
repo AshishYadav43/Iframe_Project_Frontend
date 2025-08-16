@@ -73,6 +73,8 @@ export class LoginPermissionManagementComponent {
     this.otherDataSource.data = [
       { name: 'Multi Login', name_value: 'multiLoginVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
       { name: 'Change Password', name_value: 'changePasswordVerification', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+        { name: 'Multi Login Active Session Limit', name_value: 'maxActiveSessions', enabled: '', role: this.roleData?.id || '', multiRoles: [] },
+
     ];
   }
 

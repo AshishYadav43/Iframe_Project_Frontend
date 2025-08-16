@@ -21,24 +21,24 @@
   </a>
 
 
-    <a class="side-bar-link" [class.parent-active]="isParentActive(sportChildRoutes)"
-    [routerLinkActive]="['active']" [routerLink]="['/country-management']" mat-list-item (click)="toggleDefaults()" >
-    <mat-icon>settings</mat-icon> Add Defaults 
+  <a class="side-bar-link" [class.parent-active]="isParentActive(sportChildRoutes)" [routerLinkActive]="['active']"
+    [routerLink]="['/country-management']" mat-list-item (click)="toggleDefaults()">
+    <mat-icon>settings</mat-icon> Add Defaults
   </a>
 
-    <div *ngIf="showAddDefault" class="nested-links">
+  <div *ngIf="showAddDefault" class="nested-links">
     <a *ngFor="let item of addDefaultsjaved" class="side-bar-link" mat-list-item [routerLinkActive]="['active']"
       [routerLink]="item.route">
       <mat-icon>{{ item.icon }}</mat-icon> {{ item.name }}
     </a>
   </div>
 
-  <a class="side-bar-link" [class.parent-active]="isParentActive(addDefaultsChildRoutes)" [routerLinkActive]="['active']"
-    [routerLink]="['/sports-management']" mat-list-item (click)=" toggleAddDefaults()">
+  <a class="side-bar-link" [class.parent-active]="isParentActive(addDefaultsChildRoutes)"
+    [routerLinkActive]="['active']" [routerLink]="['/sports-management']" mat-list-item (click)=" toggleAddDefaults()">
     <mat-icon>sports</mat-icon> Add Defaults Sports
   </a>
 
-    <div *ngIf="showAddDefaults" class="nested-links">
+  <div *ngIf="showAddDefaults" class="nested-links">
     <!-- <ng-container *ngFor="let item of addDefaultsChildren">
       <a *ngIf="!item.children" class="side-bar-link" mat-list-item [routerLinkActive]="['active']"
         [routerLink]="item.route">
@@ -100,11 +100,12 @@
     <mat-icon>sports</mat-icon> UsedSportsIds
   </a>
 
-  
+
 
 
 
   <a class="side-bar-link" mat-list-item (click)="logout()">
-    <mat-icon>logout</mat-icon> Logout
+    <mat-icon>power_settings_new</mat-icon>
+    Logout
   </a>
 </mat-nav-list>

@@ -35,7 +35,7 @@
       <!-- <mat-icon>logout</mat-icon> -->
       <div (click)="menuTrigger.openMenu()" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="logoutMenu"
         style="cursor: pointer;">
-        <img src="../../../assets/images/image.png" style="height: 20px;" width="20px" class="logout" />
+        <mat-icon>power_settings_new</mat-icon>
       </div>
 
       <mat-menu #logoutMenu="matMenu" class="logout-menu">
@@ -47,14 +47,14 @@
     <mat-icon>settings</mat-icon>
     <span>Settings</span>
   </button> -->
-        <button mat-menu-item (click)="openChangePassword()">
+        <button *ngIf="roleData?.canChangePassword" mat-menu-item (click)="openChangePassword()">
           <mat-icon>lock_reset</mat-icon>
           <span>Change Password</span>
         </button>
 
         <button mat-menu-item (click)="logOut()">
-          <img src="../../../assets/images/image.png" style="height: 20px; width: 20px; margin-right: 8px;"
-            alt="Logout Icon" />
+          <mat-icon>power_settings_new</mat-icon>
+
           <span>Logout</span>
         </button>
 
