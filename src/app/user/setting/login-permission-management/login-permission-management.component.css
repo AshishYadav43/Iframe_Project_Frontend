@@ -86,16 +86,17 @@
   border-radius: 5px !important;
   background-color:green !important;
   color: white !important;
+  height: 36px !important;
 }
 
 :host ::ng-deep .mat-mdc-form-field .mat-mdc-text-field-wrapper {
-  height: 40px !important;
-  min-height: 40px !important;
+  height: 36px !important;
+  min-height: 36px !important;
 }
 
 :host ::ng-deep .mat-mdc-select {
-  height: 40px !important;
-  line-height: 40px !important;
+  height: 36px !important;
+  line-height: 36px !important;
 }
 
 
@@ -104,3 +105,12 @@
     padding-top: 0px!important;
     padding-bottom: 0px!important;
 }
+
+
+:host ::ng-deep .mat-mdc-form-field-subscript-wrapper, .mat-mdc-form-field-bottom-align::before{
+  display: none!important;
+}
+
+:host ::ng-deep .mat-mdc-row {
+    height: 53px !important;
+  }
