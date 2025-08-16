@@ -81,7 +81,7 @@ export class AddEditCasinoPageComponent {
       company: [this.userData?.company.id || '', Validators.required],
       base_sport: [{ value: this.userData?.base_sport || '', disabled: true }, Validators.required],
       sub_sports: [this.userData?.sub_sports || [], Validators.required],
-      casino_id: [this.userData?.casinoId || '', Validators.required],
+      casino_id: [{value: this.userData?.casinoId || '', disabled: true}, Validators.required],
       // country: ['', [Validators.required]],
       // currency: ['', [Validators.required]],
     });
@@ -114,7 +114,7 @@ export class AddEditCasinoPageComponent {
     }
 
     this.loading = true;
-    this.form.value.casino_id = Number(this.form.value.casino_id)
+    // this.form.value.casino_id = Number(this.form.value.casino_id)
     // this.form.value.sub_sports = this.form.value.sport_sub_type
     let payload = this.form.value;
 
