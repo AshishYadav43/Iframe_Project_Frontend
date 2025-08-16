@@ -68,10 +68,10 @@ export class CurrencyManagementComponent {
   statusUpdating: boolean = false;
   displayedColumns: string[] = [
     'sno',
+    'country',
     'name',
     'currencyId',
     'symbol',
-    'country',
     'conversionRate',
     'status',
     'action'
