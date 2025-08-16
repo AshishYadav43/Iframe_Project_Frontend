@@ -11,6 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { AuthService } from '../../core/services/auth.service';
 
+import { AddEditAdminUserPageComponent } from './add-edit-admin-user-page/add-edit-admin-user-page.component';
+import { AddEditBigAdminUserPageComponent } from './add-edit-big-admin-user-page/add-edit-big-admin-user-page.component';
 import { AddEditUserPageComponent } from './add-edit-user-page/add-edit-user-page.component';
 
 @Component({
@@ -25,7 +27,6 @@ import { AddEditUserPageComponent } from './add-edit-user-page/add-edit-user-pag
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    NgIf,
     TitleCasePipe
   ],
   templateUrl: './user-management.component.html',
@@ -38,6 +39,7 @@ export class UserManagementComponent implements OnInit {
   showButton: boolean = false;
   public api = inject(AuthService);
   private dialog = inject(MatDialog);
+  roleId: any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -52,6 +54,7 @@ export class UserManagementComponent implements OnInit {
   getPermission() {
     this.api.getPermission().subscribe({
       next: (res: any) => {
+        this.roleId = res.data.roleId;
         if (res.data.roleId == 1) {
           this.showButton = true;
         } else {
@@ -75,6 +78,12 @@ export class UserManagementComponent implements OnInit {
   }
 
   openAddUser() {
+    if (this.roleId == 1) this.openBigAdmin();
+    else if (this.roleId == 2) this.openAdmin();
+    else this.openSuperAgent();
+  }
+
+  openBigAdmin() {
     this.dialog.open(AddEditUserPageComponent, {
       width: '600px',
       maxHeight: '90vh',
@@ -85,8 +94,30 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
+  openAdmin() {
+    this.dialog.open(AddEditBigAdminUserPageComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: null
+    }).afterClosed().subscribe(result => {
+      if (result) this.loadUsers();
+    });
+  }
+
+  openSuperAgent() {
+    this.dialog.open(AddEditAdminUserPageComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: null
+    }).afterClosed().subscribe(result => {
+      if (result) this.loadUsers();
+    });
+  }
+
   openEditUser(user: any) {
-    this.dialog.open(AddEditUserPageComponent, {
+    this.dialog.open(AddEditAdminUserPageComponent, {
       width: '600px',
       maxHeight: '90vh',
       autoFocus: false,
@@ -100,6 +131,9 @@ export class UserManagementComponent implements OnInit {
     // if (confirm(`Delete user ${user.name}?`)) {
     //   this.userService.deleteUser(user.id).subscribe(() => this.loadUsers());
     // }
+  }
+
+  openChildUsers(data: any) {
   }
 
 }
