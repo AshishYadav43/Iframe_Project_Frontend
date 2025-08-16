@@ -36,8 +36,13 @@ export class EmailOtpComponent {
   otpForm!: FormGroup;
   userData: any;
   @ViewChildren('otpInput') inputs!: QueryList<ElementRef>;
+  steps: any;
 
   constructor() {
+    const nav = this.router.getCurrentNavigation();
+    this.steps = nav?.extras.state?.['steps'];
+    if (!this.steps) this.router.navigate(['/login']);
+    else this.sendOtp();
   }
 
 
@@ -72,7 +77,14 @@ export class EmailOtpComponent {
     const otpValue = digit0 + digit1 + digit2 + digit3;
     this.api.verifyEmail({ otp: otpValue }).subscribe({
       next: (res: any) => {
-        this.checkLogin()
+        if (this.steps.google2FAVerification) {
+          this.router.navigateByUrl('/google-auth', { state: { steps: this.steps } }).then(() => history.replaceState({}, '', 'google-auth'));
+        } else if (this.steps.mobileVerification) {
+          this.router.navigateByUrl('/mobile-verification', { state: { steps: this.steps } }).then(() => history.replaceState({}, '', 'mobile-verification'));
+        } else {
+          this.router.navigateByUrl('');
+        }
+        // this.checkLogin()
       }
     })
   }
@@ -87,6 +99,14 @@ export class EmailOtpComponent {
         } else {
           this.router.navigateByUrl('');
         }
+      }
+    })
+  }
+
+  sendOtp() {
+    this.api.sendEmail().subscribe({
+      next: (res: any) => {
+        this.toaster.success('Otp has been sent');
       }
     })
   }

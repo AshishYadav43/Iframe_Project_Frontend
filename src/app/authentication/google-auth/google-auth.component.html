@@ -26,7 +26,7 @@
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Google OTP</mat-label>
                     <input maxlength="6" [appPatternRestrict]="pattern.alphabetsNumbersOnly" matInput
-                        formControlName="identifier" type="text" placeholder="Enter your userId">
+                        formControlName="identifier" type="text" placeholder="Enter your google otp">
                     <mat-error *ngIf="loginForm.get('identifier')?.hasError('required')">Otp is required</mat-error>
                 </mat-form-field>
             </div>

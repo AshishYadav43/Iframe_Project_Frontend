@@ -99,13 +99,9 @@ export class LoginPage {
     this.api.login(this.loginForm.value).pipe(finalize(() => this.loading = false)).subscribe({
       next: (res: any) => {
         if (res.data.steps.emailVerification) {
-          this.api.sendEmail().subscribe({
-            next: (res: any) => {
-              this.router.navigate(['/email-verification']);
-            }
-          })
-        }else if (res.data.steps.google2FAVerification) {
-          this.router.navigate(['/google-auth']);
+          this.router.navigateByUrl('/email-verification', { state: { steps: res.data.steps } }).then(() => history.replaceState({}, '', 'email-verification'));
+        } else if (res.data.steps.google2FAVerification) {
+          this.router.navigateByUrl('/google-auth', { state: { steps: res.data.steps } }).then(() => history.replaceState({}, '', 'google-auth'));
         }
         else {
           this.toaster.success("Login successfully");

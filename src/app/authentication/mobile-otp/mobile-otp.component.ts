@@ -34,8 +34,13 @@ export class MobileOtpComponent {
   loading = false;
   pattern = VALIDATION_PATTERNS;
   otpForm!: FormGroup;
+  steps: any;
 
-  constructor() { }
+  constructor() {
+    const nav = this.router.getCurrentNavigation();
+    this.steps = nav?.extras.state?.['steps'];
+    if (!this.steps) this.router.navigateByUrl('/login');
+  }
 
   get otpControls() {
     return [0, 1, 2, 3];

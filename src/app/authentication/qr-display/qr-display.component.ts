@@ -22,7 +22,7 @@ export class QrDisplayComponent {
       next: (res: any) => {
         this.email = res.data.email;
         this.issuer = res.data.issuer;
-        this.qrCode = res.data.qrCode;        
+        this.qrCode = res.data.qrCode;
       }
     })
   }
