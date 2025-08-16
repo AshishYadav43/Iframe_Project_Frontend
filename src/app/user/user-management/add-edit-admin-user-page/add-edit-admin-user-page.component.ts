@@ -18,7 +18,7 @@ import { passwordMatchValidator } from '../../../core/validation/custom-validati
 import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
 
 @Component({
-  selector: 'app-add-edit-user-page',
+  selector: 'app-add-edit-admin-user-page',
   standalone: true,
   imports: [
     CommonModule,
@@ -32,10 +32,10 @@ import { PatternRestrictDirective } from '../../../core/directives/directives/pa
     MatIcon,
     PatternRestrictDirective,
   ],
-  templateUrl: './add-edit-user-page.component.html',
-  styleUrls: ['./add-edit-user-page.component.css']
+  templateUrl: './add-edit-admin-user-page.component.html',
+  styleUrls: ['./add-edit-admin-user-page.component.css']
 })
-export class AddEditUserPageComponent implements OnInit {
+export class AddEditAdminUserPageComponent implements OnInit {
   pattern = VALIDATION_PATTERNS;
   form!: FormGroup;
   loading = false;
@@ -48,16 +48,15 @@ export class AddEditUserPageComponent implements OnInit {
   private toaster = inject(ToastrService);
 
   constructor(
-    private dialogRef: MatDialogRef<AddEditUserPageComponent>,
+    private dialogRef: MatDialogRef<AddEditAdminUserPageComponent>,
     @Inject(MAT_DIALOG_DATA) public userData: any
   ) { }
 
   ngOnInit(): void {
+    // ✅ Initialize form with userData if available
     this.form = this.fb.group({
       name: [this.userData?.name || '', Validators.required],
       email: [this.userData?.email || '', [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@gmail\.com$/)]],
-      ipv4: [this.userData?.ipv4 || ''],
-      ipv6: [this.userData?.ipv6 || ''],
       mobileNumber: [this.userData?.mobileNumber || '', Validators.required],
       userId: [this.userData?.userId || '', Validators.required],
     });
@@ -82,7 +81,7 @@ export class AddEditUserPageComponent implements OnInit {
 
     const request = this.userData
       ? this.userService.updateUser(payload)
-      : this.userService.addBigAdmin(payload);
+      : this.userService.addSuperAgent(payload);
 
     request.subscribe({
       next: () => {

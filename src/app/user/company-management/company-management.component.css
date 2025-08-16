@@ -94,7 +94,7 @@
 }
 
 .view_user {
-  background-color: darkgreen;
+  background-color: darkblue;
   height: 40px;
   /* width: 150px; */
   border-radius: 5px;
@@ -104,4 +104,8 @@
   padding-left: 10px;
   padding-right: 10px;
   margin-left: 10px;
+}
+
+.edit_button{
+  background-color: darkgreen;
 }

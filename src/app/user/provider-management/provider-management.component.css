@@ -57,3 +57,7 @@
 ::ng-deep .mat-mdc-paginator{
   box-shadow: #000 0 2px 6px;
 }
+
+.edit_button{
+  background-color: darkgreen !important;
+}

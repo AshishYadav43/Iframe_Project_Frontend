@@ -51,9 +51,18 @@ export class AuthService {
     return this.http.post(`${this.baseUserUrl}/users/get`, data);
   }
 
-  addUser(data: any = {}): Observable<any> {
-    return this.http.post(`${this.baseUserUrl}/users/add-user`, data);
+  addBigAdmin(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/users/add-bigadmin`, data);
   }
+
+  addAdmin(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/users/add-admin`, data);
+  }
+  
+  addSuperAgent(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/users/add-superagent`, data);
+  }
+  
   addCurrency(data: any): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/currency/add`, data);
   }

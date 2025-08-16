@@ -51,7 +51,7 @@
 .edit_button {
   height: 40px;
   color: white !important;
-  background-color: rgb(32, 182, 18) !important;
+  background-color: darkgreen !important;
   border-radius: 5px !important;
   margin-right: 15px;
   min-width: 70px;
