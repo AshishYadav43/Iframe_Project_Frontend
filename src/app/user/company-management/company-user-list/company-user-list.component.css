@@ -49,12 +49,11 @@
 .filter-section {
   display: flex;
   flex-wrap: nowrap;
-  /* align-items: center; */
+  background-color: white;
   gap: 20px;
   padding: 15px;
-  margin: 5px;
-  border: white solid;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 10px 0;
+  box-shadow: #000 0 0px 6px;
 }
 
 
@@ -105,4 +104,10 @@
   padding-left: 10px;
   padding-right: 10px;
   margin-left: 10px;
+}
+::ng-deep .mat-mdc-form-field-subscript-wrapper{
+  display: none !important;
+}
+::ng-deep .mat-mdc-paginator{
+
 }
