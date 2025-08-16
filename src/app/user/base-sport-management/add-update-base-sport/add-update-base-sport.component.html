@@ -11,15 +11,15 @@
 
         <mat-form-field appearance="outline">
             <mat-label>Type Name</mat-label>
-            <input maxlength="20" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput formControlName="sport_type_name"
-                placeholder="Enter Type Name">
+            <input maxlength="20" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput
+                formControlName="sport_type_name" placeholder="Enter Type Name">
             <mat-error *ngIf="form.get('sport_type_name')?.hasError('required')">Type name is required</mat-error>
             <mat-error *ngIf="form.get('sport_type_name')?.hasError('minlength')">
                 type name must be at least 3 characters
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" >
             <mat-label>Sport Type Id</mat-label>
             <input maxlength="20" [appPatternRestrict]="pattern.mobile" matInput formControlName="sport_type_id"
                 placeholder="Enter Type Id">
@@ -58,8 +58,8 @@
                 <!-- Name -->
                 <mat-form-field appearance="outline" class="flex-1">
                     <mat-label>Sub Type Name</mat-label>
-                    <input maxlength="20" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput formControlName="name"
-                        placeholder="Enter Name">
+                    <input maxlength="20" [appPatternRestrict]="pattern.alphaNumericWithSpace" matInput
+                        formControlName="name" placeholder="Enter Name">
                     <mat-error *ngIf="group.get('name')?.hasError('required') && group.get('name')?.touched">
                         Name is required
                     </mat-error>
@@ -76,16 +76,17 @@
                 </mat-form-field>
 
                 <!-- Delete Button -->
-                <button *ngIf="!userData" mat-icon-button color="warn" (click)="removeApiPath(i)" [disabled]="apiPaths.length == 1">
+                <button *ngIf="!userData" mat-icon-button color="warn" (click)="removeApiPath(i)"
+                    [disabled]="apiPaths.length == 1">
                     <mat-icon>delete</mat-icon>
                 </button>
                 <button mat-icon-button color="primary" (click)="addApiPath()">
-          <mat-icon>add</mat-icon>
-        </button>
+                    <mat-icon>add</mat-icon>
+                </button>
             </div>
 
             <!-- Add Button -->
-            
+
         </div>
 
 

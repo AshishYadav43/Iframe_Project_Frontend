@@ -72,8 +72,22 @@ mat-form-field {
   color: white;
 }
 
+::ng-deep .sport-type-field .mat-input-element:disabled {
+  background-color: #e0e0e030;
+  color: #000;
+  border-radius: 4px;
+}
+
+
 ::ng-deep .mat-mdc-form-field {
   --mdc-outlined-text-field-outline-color: #3f51b5;
   --mdc-outlined-text-field-hover-outline-color: #3f51b5;
   --mdc-outlined-text-field-focus-outline-color: #3f51b5;
 }
+
+/* sirf Sport Type Id field ke liye */
+::ng-deep.mat-mdc-form-field.mat-form-field-disabled .mat-mdc-text-field-wrapper {
+  background-color: #e0e0e0 !important;  /* grey background */
+  border-radius: 4px;                     /* thoda rounded */
+}
+
