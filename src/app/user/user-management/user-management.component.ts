@@ -65,8 +65,8 @@ export class UserManagementComponent implements OnInit {
   }
 
   loadUsers() {
-    this.api.getUsers().subscribe(users => {
-      this.dataSource.data = users.data;
+    this.api.gethierarchyUsers().subscribe(users => {
+      this.dataSource.data = users.data.users;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -134,6 +134,13 @@ export class UserManagementComponent implements OnInit {
   }
 
   openChildUsers(data: any) {
+    this.api.getChildUsers({ uuid: data.uuid }).subscribe({
+      next: (res: any) => {
+        this.dataSource.data = res.data.users;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    })
   }
 
 }

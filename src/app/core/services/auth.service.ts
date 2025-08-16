@@ -47,6 +47,14 @@ export class AuthService {
     return this.http.post(`${this.baseUserUrl}/users/get`, data);
   }
 
+  gethierarchyUsers(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/users/list-user`, data);
+  }
+
+  getChildUsers(data: any = {}): Observable<any> {
+    return this.http.post(`${this.baseUserUrl}/users/child-user`, data);
+  }
+
   updateUser(data: any): Observable<any> {
     return this.http.post(`${this.baseUserUrl}/users/get`, data);
   }
