@@ -75,42 +75,6 @@
       <mat-error *ngIf="form.get('mobileNumber')?.hasError('required')">Mobile number is required</mat-error>
     </mat-form-field>
 
-    <!-- Device ID -->
-    <!-- <mat-form-field appearance="outline">
-      <mat-label>Device ID</mat-label>
-      <input maxlength="20" [appPatternRestrict]="pattern.alphabetsNumbersOnly" matInput formControlName="deviceId" placeholder="Enter your DeviceId">
-    </mat-form-field> -->
-
-    <!-- IPv4 -->
-    <mat-form-field appearance="outline">
-      <mat-label>IPv4</mat-label>
-      <input maxlength="20" [appPatternRestrict]="pattern.ipv4" matInput formControlName="ipv4"
-        placeholder="Enter your IPV4">
-    </mat-form-field>
-
-    <!-- IPv6 -->
-    <mat-form-field appearance="outline">
-      <mat-label>IPv6</mat-label>
-      <input maxlength="50" matInput formControlName="ipv6" placeholder="Enter your IPV6">
-    </mat-form-field>
-
-    <!-- Wallet Type -->
-    <!-- <mat-form-field appearance="outline">
-      <mat-label>Wallet Type</mat-label>
-      <mat-select formControlName="wallet_type">
-        <mat-option *ngFor="let type of walletTypes" [value]="type">{{ type }}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="form.get('wallet_type')?.hasError('required')">Wallet type is required</mat-error>
-    </mat-form-field> -->
-
-    <!-- Share -->
-    <!-- <mat-form-field appearance="outline">
-      <mat-label>Share</mat-label>
-      <input maxlength="2" [appPatternRestrict]="pattern.mobile" matInput formControlName="share">
-    </mat-form-field> -->
-
-
-
     <!-- Submit Button -->
     <div class="button_container">
       <button class="submit_btn submit_clr"  mat-raised-button color="primary" type="submit" [disabled]="loading">

@@ -17,6 +17,7 @@ import { finalize } from 'rxjs';
 import { AddUpdateCompanyComponent } from '../add-update-company/add-update-company.component';
 import { VALIDATION_PATTERNS } from '../../../core/constant/constant';
 import { AuthService } from '../../../core/services/auth.service';
+import { passwordMatchValidator } from '../../../core/validation/custom-validation';
 import { PatternRestrictDirective } from '../../../core/directives/directives/pattern-restrict.directive';
 
 @Component({
@@ -45,6 +46,8 @@ export class AddDetailsComponent {
   private fb = inject(FormBuilder);
   private api = inject(AuthService);
   private toaster = inject(ToastrService);
+  hidePassword: boolean = true;
+  hideConfirmPassword: boolean = true;
 
   constructor(
     private dialogRef: MatDialogRef<AddDetailsComponent>,
@@ -67,11 +70,12 @@ export class AddDetailsComponent {
     return this.fb.group({
       url: ['', Validators.required],
       userId: ['', Validators.required],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^<>])[A-Za-z\d\S]{6,}$/)]],
+      confirmPassword: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       mobileNumber: ['', Validators.required],
       googleAuthenticatorKey: ['', [Validators.required, Validators.minLength(6)]]
-    });
+    }, { validators: passwordMatchValidator('password', 'confirmPassword') });
   }
 
   addItem(): void {
@@ -91,7 +95,11 @@ export class AddDetailsComponent {
 
     const payload = {
       company: this.companyData._id,
-      details: this.form.value.items
+      details: this.form.value.items.map((ele: any) => {
+        const data = {...ele};
+        delete data.confirmPassword;
+        return data;
+      })
     }
 
     this.api.addCompanyUsers(payload).pipe(finalize(() => this.loading = false)).subscribe({
