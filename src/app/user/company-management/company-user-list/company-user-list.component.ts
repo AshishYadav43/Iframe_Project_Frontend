@@ -74,8 +74,8 @@ export class CompanyUserListComponent {
     }
     this.api.getCompanyUsers(payload).subscribe({
       next: (res: any) => {
-        this.dataSource.data = res.data;
-        this.totalRecords = 2;
+        this.dataSource.data = res.data.data;
+        this.totalRecords = res.data.meta.totalItems;
       }
     })
   }
