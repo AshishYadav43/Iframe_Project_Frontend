@@ -17,6 +17,8 @@ import { ToastrService } from 'ngx-toastr';
 
 import { AuthService } from '../../../core/services/auth.service';
 
+import { EditCompanyUserComponent } from './edit-company-user/edit-company-user.component';
+
 @Component({
   selector: 'app-company-user-list',
   imports: [
@@ -50,7 +52,7 @@ export class CompanyUserListComponent {
   statusUpdating: boolean = false;
   companyData: any;
 
-  displayedColumns: string[] = ['srNo', 'name', 'companyId', 'email', 'userId', 'mobileNumber'];
+  displayedColumns: string[] = ['srNo', 'name', 'companyId', 'email', 'userId', 'mobileNumber', 'action'];
   dataSource = new MatTableDataSource<any>();
   totalRecords: number = 0;
   pageIndex: number = 0;
@@ -92,4 +94,20 @@ export class CompanyUserListComponent {
     this.pageSize = event.pageSize;
     this.getUserList();
   }
+
+  openEditCompanyUser(data: any) {
+    this.dialog.open(EditCompanyUserComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: data
+    }).afterClosed().subscribe((result: any) => {
+      if (result) this.getUserList();
+    });
+  }
+
+  openDeleteUser(data: any) {
+
+  }
+
 }

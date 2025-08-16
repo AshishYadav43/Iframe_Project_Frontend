@@ -1,0 +1,57 @@
+<!-- Updated Template: add-edit-sport-page.component.html -->
+<mat-card class="user-card">
+    <div class="dialog-header">
+        <h2>{{ 'Edit Company User'}}</h2>
+        <button class="close_btn" mat-icon-button color="warn" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
+
+        <mat-form-field appearance="outline">
+            <mat-label>Url</mat-label>
+            <input maxlength="50" [appPatternRestrict]="pattern.password" matInput formControlName="url"
+                placeholder="Enter url">
+            <mat-error *ngIf="form.get('url')?.hasError('required')">Url is required</mat-error>
+            <mat-error *ngIf="form.get('url')?.hasError('minlength')">
+                Url must be at least 3 characters
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>User Id</mat-label>
+            <input maxlength="20" [appPatternRestrict]="pattern.alphabetsNumbersOnly" matInput formControlName="userId"
+                placeholder="Enter userId">
+            <mat-error *ngIf="form.get('userId')?.hasError('required') && form.get('userId')?.touched">
+                User Id is required
+            </mat-error>
+            <mat-error *ngIf="form.get('userId')?.hasError('minlength')">
+                User Id must be at least 3 characters
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Mobile</mat-label>
+            <input maxlength="15" [appPatternRestrict]="pattern.mobile" matInput formControlName="mobileNumber"
+                placeholder="Enter mobile">
+            <mat-error *ngIf="form.get('mobileNumber')?.hasError('required') && form.get('mobileNumber')?.touched">
+                Mobile is required
+            </mat-error>
+            <mat-error *ngIf="form.get('mobileNumber')?.hasError('minlength')">
+                Mobile must be at least 10 characters
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Submit Button -->
+        <div class="button_container">
+            <button class="submit_btn" mat-raised-button color="primary" type="button" (click)="onCancel()">
+                Cancel
+            </button>
+            <button class="submit_btn submit_clr" mat-raised-button color="primary" type="submit" [disabled]="loading">
+                <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+                {{ loading ? 'Saving...' : 'Submit'}}
+            </button>
+        </div>
+    </form>
+</mat-card>
