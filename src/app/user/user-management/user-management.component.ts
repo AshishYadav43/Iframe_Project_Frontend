@@ -102,4 +102,7 @@ export class UserManagementComponent implements OnInit {
     // }
   }
 
+  openChildUsers(data: any) {
+  }
+
 }
