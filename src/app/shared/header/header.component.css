@@ -32,7 +32,8 @@
     .username {
       font-weight: 700;
       color: #cda349;
-      font-size: 14px
+      font-size: 14px;
+      margin-left: 15px;
     }
 
     .role {
