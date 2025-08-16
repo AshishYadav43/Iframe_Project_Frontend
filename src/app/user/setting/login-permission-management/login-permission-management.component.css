@@ -84,6 +84,23 @@
 .action-btn {
   margin-left: 10px !important;
   border-radius: 5px !important;
-  background-color: rgb(9, 190, 9) !important;
+  background-color:green !important;
   color: white !important;
+}
+
+:host ::ng-deep .mat-mdc-form-field .mat-mdc-text-field-wrapper {
+  height: 40px !important;
+  min-height: 40px !important;
+}
+
+:host ::ng-deep .mat-mdc-select {
+  height: 40px !important;
+  line-height: 40px !important;
+}
+
+
+:host ::ng-deep .mdc-text-field--outlined .mat-mdc-form-field-infix,
+:host ::ng-deep .mdc-text-field--no-label .mat-mdc-form-field-infix {
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
 }
