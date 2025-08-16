@@ -1,12 +1,143 @@
-.qr-container {
-  text-align: center;
-  padding: 20px;
+/* Container */
+.auth-setup-container {
+  max-width: 640px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
 }
 
-.qr-image {
+/* Title */
+.auth-setup-container h2 {
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0px;
+  color: #222;
+}
+
+/* Steps list */
+.auth-steps {
+  list-style: decimal;
+  margin-bottom: 24px;
+}
+
+.auth-steps li {
+  margin-bottom: 5px;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.auth-steps strong {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #111;
+}
+
+/* Links */
+.auth-steps a {
+  color: #0077cc;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.auth-steps a:hover {
+  color: #005fa3;
+  text-decoration: underline;
+}
+
+/* QR Code image */
+.qr-code {
   width: 200px;
   height: 200px;
-  margin-top: 15px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
+  display: block;
+  margin: 16px 0;
+  padding: 10px;
+  background: #f9f9f9;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+}
+
+/* Manual key */
+code {
+  background: #f1f1f1;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  display: inline-block;
+  margin-top: 6px;
+  word-break: break-all;
+}
+
+/* Code input area */
+.code-input {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.code-input input {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.code-input input:focus {
+  border-color: #0077cc;
+}
+
+/* Button */
+.code-input button {
+  background-color: #28a745;
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.code-input button:hover {
+  background-color: #218838;
+}
+
+/* Tip box */
+.auth-tip {
+  background: #e6f3ff;
+  border-left: 5px solid #2196f3;
+  padding: 16px;
+  border-radius: 6px;
+  font-size: 15px;
+  color: #114466;
+  margin-top: 30px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .auth-setup-container {
+    padding: 20px;
+  }
+
+  .code-input {
+    flex-direction: column;
+  }
+
+  .code-input button {
+    width: 100%;
+  }
+
+  .qr-code {
+    width: 100%;
+    height: auto;
+  }
 }
