@@ -151,7 +151,7 @@ export class LoginPermissionManagementComponent {
       return;
     }
     const payload: any = {
-      [row.name_value]: true,
+      [row.name_value]: Boolean(row.enabled),
       userIds: row.multiRoles,
       roleId: row.role,
       status: Number(row.enabled)
