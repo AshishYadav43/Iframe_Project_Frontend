@@ -2,7 +2,7 @@
 <div [ngClass]="showButton ? 'table-header' : 'table-header-button'">
   <span>User Management</span>
   <span class="spacer"></span>
-  <button mat-raised-button color="accent" (click)="openAddUser()">
+  <button *ngIf="showButton" mat-raised-button color="accent" (click)="openAddUser()">
     <mat-icon>add</mat-icon> Add User
   </button>
   <button style="margin-left: 10px;" mat-raised-button color="accent" (click)="loadUsers()">

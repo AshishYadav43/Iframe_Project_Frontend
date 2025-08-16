@@ -27,7 +27,8 @@ import { AddEditUserPageComponent } from './add-edit-user-page/add-edit-user-pag
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    TitleCasePipe
+    TitleCasePipe,
+    NgIf
   ],
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.css']
@@ -36,7 +37,7 @@ export class UserManagementComponent implements OnInit {
 
   displayedColumns: string[] = ['srNo', 'name', 'userId', 'email', 'mobileNumber'];
   dataSource = new MatTableDataSource<any>();
-  showButton: boolean = false;
+  showButton: boolean = true;
   public api = inject(AuthService);
   private dialog = inject(MatDialog);
   roleId: any;
@@ -55,11 +56,7 @@ export class UserManagementComponent implements OnInit {
     this.api.getPermission().subscribe({
       next: (res: any) => {
         this.roleId = res.data.roleId;
-        if (res.data.roleId == 1) {
-          this.showButton = true;
-        } else {
-          this.showButton = false;
-        }
+        if (res.data.roleId > 3) this.showButton = false;
       }
     })
   }
