@@ -5,9 +5,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 import { ToastrService } from 'ngx-toastr';
 
+import { QrDisplayComponent } from '../qr-display/qr-display.component';
 import { VALIDATION_PATTERNS } from '../../core/constant/constant';
 import { AuthService } from '../../core/services/auth.service';
 import { PatternRestrictDirective } from '../../core/directives/directives/pattern-restrict.directive';
@@ -30,6 +32,7 @@ export class GoogleAuthComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private api = inject(AuthService);
+  private dialog = inject(MatDialog);
 
   private toaster = inject(ToastrService);
   pattern = VALIDATION_PATTERNS;
@@ -54,7 +57,7 @@ export class GoogleAuthComponent {
           this.toaster.error("OTP incorrect");
         } else {
           if (this.steps.mobileVerification) {
-            this.router.navigateByUrl('/mobile-verification', { state: { steps: this.steps } }).then(() => history.replaceState({},'', 'mobile-verification'));
+            this.router.navigateByUrl('/mobile-verification', { state: { steps: this.steps } }).then(() => history.replaceState({}, '', 'mobile-verification'));
           } else {
             this.router.navigateByUrl('/users');
           }
@@ -73,7 +76,14 @@ export class GoogleAuthComponent {
   }
 
   setupAuth() {
-    this.router.navigateByUrl('/qr-display');
+    // this.router.navigateByUrl('/qr-display');
+    this.dialog.open(QrDisplayComponent, {
+      width: '600px',
+      maxHeight: '90vh',
+      autoFocus: false,
+      data: null
+    }).afterClosed().subscribe(result => {
+    });
 
   }
 }
