@@ -10,8 +10,6 @@ import { AuthService } from '../../core/services/auth.service';
   selector: 'app-qr-display',
   imports: [
     CommonModule,
-    MatCard,
-    MatIcon
   ],
   templateUrl: './qr-display.component.html',
   styleUrl: './qr-display.component.css'
